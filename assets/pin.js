@@ -7,8 +7,8 @@
   "use strict";
   var ANSWER_PIN = "1234";
   var GRADE_PINS = {
-    "mau-giao": "7315",   // Mẫu giáo
-    "lop-1":    "4826",   // Lớp 1
+    "mau-giao": "2022",   // Mẫu giáo
+    "lop-1":    "2022",   // Lớp 1 (dùng chung mã với Mẫu giáo)
     "lop-4":    "9041"    // Lớp 4
   };
   var GRADE_NAMES = { "mau-giao": "Mẫu giáo", "lop-1": "Lớp 1", "lop-4": "Lớp 4" };
@@ -27,6 +27,12 @@
   }
   var get = function () { return sGet(KEY); };
   function set(v) { sSet(KEY, v); notify(); }
+  /* Mã đúng của khối nào thì mở luôn mọi khối dùng chung mã đó */
+  function pinOpens(v, remember, target) {
+    if (v !== GRADE_PINS[target]) return false;
+    for (var id in GRADE_PINS) if (GRADE_PINS[id] === v) sSet(GKEY + id, true, remember);
+    return true;
+  }
   function gradeOk(id) { return !GRADE_PINS[id] || sGet(GKEY + id); }
   function notify() { var v = get(); subs.forEach(function (f) { try { f(v); } catch (e) {} }); checkGate(); }
   window.addEventListener("storage", function (e) { if (e.key === null || String(e.key).indexOf("lophoc-") === 0) notify(); });
@@ -102,7 +108,7 @@
   function unlockGrade(id, cb) {
     if (gradeOk(id)) { if (cb) cb(); return; }
     modal({ title: "🔒 " + (GRADE_NAMES[id] || id), desc: "Nhập mã PIN của lớp để vào học.", remember: true,
-      check: function (v, remember) { if (v === GRADE_PINS[id]) { sSet(GKEY + id, true, remember); return true; } return false; }, onOk: cb });
+      check: function (v, remember) { return pinOpens(v, remember, id); }, onOk: cb });
   }
   function lockAll() { sSet(KEY, false); for (var id in GRADE_PINS) sSet(GKEY + id, false); notify(); }
 
@@ -117,7 +123,7 @@
     gate = document.createElement("div"); gate.className = "pin-gate"; document.body.appendChild(gate);
     var home = (document.querySelector('a[href$="index.html"]') || {}).getAttribute ? document.querySelector('a[href$="index.html"]').getAttribute("href") : "../index.html";
     pinForm({ gate: true, homeHref: home, title: "Bài của " + (GRADE_NAMES[g] || g), desc: "Nhập mã PIN của lớp để vào học.", remember: true,
-      check: function (v, remember) { if (v === GRADE_PINS[g]) { sSet(GKEY + g, true, remember); return true; } return false; },
+      check: function (v, remember) { return pinOpens(v, remember, g); },
       onOk: function () { notify(); } }, gate);
   }
   if (document.documentElement.getAttribute("data-grade")) {
