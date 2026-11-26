@@ -582,6 +582,178 @@ $('#plantChoices').addEventListener('click',e=>{
 });
 renderPlant();
 
+/* ---------- School things, Shapes, Things at home, Review, Rooms, Bathroom & bedroom ---------- */
+const NUM=['zero','one','two','three','four','five','six','seven','eight','nine','ten'];
+const COL=[['red','#E53935'],['blue','#1E88E5'],['yellow','#FDD835'],['green','#43A047'],['orange','#FB8C00'],['purple','#8E24AA'],['pink','#F06292'],['brown','#8D5A3B'],['black','#222222'],['white','#FFFFFF']];
+const OUT='#6b6b6b';
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const pick=(a,n)=>shuffle(a).slice(0,n);
+const svgI=inner=>`<svg class="mg-svg" viewBox="0 0 100 100" aria-hidden="true">${inner}</svg>`;
+const paint=c=>`fill="${c}" stroke="${OUT}" stroke-width="3" stroke-linejoin="round"`;
+const SHAPE={
+ circle:c=>`<circle cx="50" cy="50" r="40" ${paint(c)}/>`,
+ square:c=>`<rect x="13" y="13" width="74" height="74" rx="3" ${paint(c)}/>`,
+ triangle:c=>`<polygon points="50,9 93,88 7,88" ${paint(c)}/>`,
+ rectangle:c=>`<rect x="5" y="25" width="90" height="50" rx="3" ${paint(c)}/>`,
+ oval:c=>`<ellipse cx="50" cy="50" rx="45" ry="29" ${paint(c)}/>`,
+ star:c=>`<polygon points="50,5 61,37 95,37 68,58 78,92 50,72 22,92 32,58 5,37 39,37" ${paint(c)}/>`,
+ heart:c=>`<path d="M50 88 C12 62 4 36 20 21 C33 10 46 16 50 29 C54 16 67 10 80 21 C96 36 88 62 50 88Z" ${paint(c)}/>`,
+ diamond:c=>`<polygon points="50,5 85,50 50,95 15,50" ${paint(c)}/>`};
+const THING={
+ book:c=>`<rect x="18" y="12" width="60" height="76" rx="4" ${paint(c)}/><rect x="72" y="16" width="10" height="68" fill="#fff" stroke="${OUT}" stroke-width="2"/><rect x="28" y="26" width="38" height="10" rx="2" fill="#fff" opacity=".85"/>`,
+ pencil:c=>`<g transform="rotate(-35 50 50)"><rect x="10" y="40" width="62" height="20" ${paint(c)}/><polygon points="72,40 93,50 72,60" fill="#F3D9A4" stroke="${OUT}" stroke-width="3" stroke-linejoin="round"/><polygon points="87,47 93,50 87,53" fill="#333"/><rect x="3" y="40" width="9" height="20" fill="#F48FB1" stroke="${OUT}" stroke-width="3"/></g>`,
+ ruler:c=>`<g transform="rotate(-20 50 50)"><rect x="5" y="37" width="90" height="26" rx="3" ${paint(c)}/>${[15,25,35,45,55,65,75,85].map((x,i)=>`<line x1="${x}" y1="37" x2="${x}" y2="${i%2?45:50}" stroke="${OUT}" stroke-width="2"/>`).join('')}</g>`,
+ bag:c=>`<path d="M36 26 Q36 10 50 10 Q64 10 64 26" fill="none" stroke="${OUT}" stroke-width="4"/><rect x="20" y="22" width="60" height="70" rx="14" ${paint(c)}/><rect x="31" y="58" width="38" height="24" rx="6" ${paint(c)}/><path d="M20 44 Q50 55 80 44" fill="none" stroke="${OUT}" stroke-width="3"/>`,
+ eraser:c=>`<g transform="rotate(-15 50 50)"><rect x="12" y="32" width="76" height="36" rx="6" ${paint(c)}/><rect x="48" y="32" width="40" height="36" fill="#fff" fill-opacity=".55" stroke="${OUT}" stroke-width="3"/></g>`};
+const TABLE=svgI(`<rect x="6" y="32" width="88" height="12" rx="3" fill="#A8744A"/><rect x="14" y="44" width="9" height="46" rx="2" fill="#A8744A"/><rect x="77" y="44" width="9" height="46" rx="2" fill="#A8744A"/>`);
+
+const SCHOOL=[['✏️','pencil','bút chì'],['🖊️','pen','bút bi'],['📏','ruler','thước kẻ'],['🧽','eraser','cục tẩy'],['📕','book','quyển sách'],['📓','notebook','quyển vở'],['🎒','school bag','cặp sách'],['🖍️','crayon','bút sáp màu'],['✂️','scissors','cái kéo'],['🧴','glue','hồ dán'],['👝','pencil case','hộp bút'],['📄','paper','tờ giấy'],['🖌️','paintbrush','cọ vẽ']];
+const SHAPES=[['circle','#E53935','hình tròn'],['square','#1E88E5','hình vuông'],['triangle','#43A047','hình tam giác'],['rectangle','#FB8C00','hình chữ nhật'],['oval','#8E24AA','hình bầu dục'],['star','#FDD835','ngôi sao'],['heart','#F06292','trái tim'],['diamond','#26A69A','hình thoi']].map(([n,c,vi])=>[svgI(SHAPE[n](c)),n,vi]);
+const HOME=[['🛋️','sofa','ghế sofa'],['💺','armchair','ghế bành'],['🪑','chair','cái ghế'],[TABLE,'table','cái bàn'],['🛏️','bed','cái giường'],['💡','lamp','cái đèn'],['📺','TV','ti vi'],['🕰️','clock','đồng hồ'],['🗄️','cupboard','cái tủ'],['📚','bookcase','tủ sách'],['👗','wardrobe','tủ quần áo'],['🖼️','picture','bức tranh'],['🚪','door','cửa ra vào'],['🔲','window','cửa sổ'],['🧊','fridge','tủ lạnh']];
+const ROOMS=[['🏠','house','ngôi nhà'],['🛋️','living room','phòng khách'],['🛏️','bedroom','phòng ngủ'],['🛁','bathroom','phòng tắm'],['🍳','kitchen','nhà bếp'],['🍽️','dining room','phòng ăn'],['🌳','garden','khu vườn'],['🚗','garage','nhà để xe']];
+const ROUTINE=[['⏰','wake up','thức dậy','Wake up!'],['🙆','stretch','vươn vai','Stretch!'],['🧼','wash face','rửa mặt','Wash your face!'],['👐','wash hands','rửa tay','Wash your hands!'],['🦷','brush teeth','đánh răng','Brush your teeth!'],['💇','comb hair','chải đầu','Comb your hair!'],['🚿','take a shower','tắm vòi sen','Take a shower!'],['🛁','take a bath','tắm bồn','Take a bath!'],['💨','dry hair','sấy tóc','Dry your hair!'],['👚','put on pajamas','mặc đồ ngủ','Put on your pajamas!'],['🛏️','make the bed','dọn giường','Make the bed!'],['💡','turn off the light','tắt đèn','Turn off the light!'],['😴','go to sleep','đi ngủ','Go to sleep!']];
+const an=w=>(/^[aeiou]/.test(w)?'an ':'a ')+w;
+const SHAPE_Q=[['🕐','circle'],['🍪','circle'],['🍕','triangle'],['🧀','triangle'],['🚪','rectangle'],['📺','rectangle'],['🥚','oval'],['🏉','oval'],['🪁','diamond'],['🎁','square'],['⭐','star'],['💝','heart']]
+  .map(([p,a])=>[p,'What shape is it?',a,`It's ${an(a)}.`]);
+const ROOM_Q=[['🧊','Where is the fridge?','kitchen',"It's in the kitchen."],['🛏️','Where is the bed?','bedroom',"It's in the bedroom."],['🛋️','Where is the sofa?','living room',"It's in the living room."],
+ ['🚿','Where is the shower?','bathroom',"It's in the bathroom."],['📺','Where is the TV?','living room',"It's in the living room."],['🧸','Where is the teddy bear?','bedroom',"It's in the bedroom."],
+ ['🍲','Where do you cook?','kitchen','I cook in the kitchen.'],['😴','Where do you sleep?','bedroom','I sleep in the bedroom.'],['🦷','Where do you brush your teeth?','bathroom','I brush my teeth in the bathroom.'],
+ ['🍽️','Where do you eat dinner?','dining room','I eat dinner in the dining room.'],['🌻','Where are the flowers?','garden',"They're in the garden."],['🚙','Where is the car?','garage',"It's in the garage."],['🛁','Where do you take a bath?','bathroom','I take a bath in the bathroom.']];
+
+/* Game modes. A round: {prompt, say, opts:[{html,label,ok}], txt, sky, praise, reveal, wait} */
+const others=(words,w,n)=>pick(words.filter(x=>x!==w&&x[0]!==w[0]),n);
+const M={
+ listen:words=>({label:'🎧 Nghe, chọn hình',rounds:()=>pick(words,8).map(w=>({
+   prompt:`<button class="btn primary mg-big" type="button" data-say="${esc(w[1])}">🔊 Nghe</button><span class="muted">Nghe rồi bấm vào hình đúng</span>`,say:w[1],
+   opts:shuffle([w,...others(words,w,3)]).map(x=>({html:`<span aria-hidden="true">${x[0]}</span>`,label:x[2],ok:x===w})),praise:'Yes! '+w[1]}))}),
+ plane:words=>({label:'✈️ Máy bay chữ',rounds:()=>pick(words,8).map(w=>({
+   prompt:`<span class="mg-word">${esc(w[1])}</span>${sayBtn(w[1])}<span class="muted mg-hint">Bấm vào máy bay chở hình đúng</span>`,say:w[1],sky:true,
+   opts:shuffle([w,...others(words,w,2)]).map(x=>({html:`<span class="mg-cargo" aria-hidden="true">${x[0]}</span><span aria-hidden="true">✈️</span>`,label:x[2],ok:x===w})),praise:'Yes! '+w[1]}))}),
+ timed:words=>({label:'⏱️ Thi 60 giây',timed:true,gen:prev=>{let w=rnd(words);if(prev&&prev.w===w)w=rnd(words.filter(x=>x!==w));
+   return{w,prompt:`<span class="mg-pic" aria-hidden="true">${w[0]}</span>`,txt:true,opts:shuffle([w,...others(words,w,3)]).map(x=>({html:esc(x[1]),label:x[1],ok:x===w})),praise:w[1]};}}),
+ count:items=>({label:'🔢 Đếm đồ vật',rounds:()=>pick([1,2,3,4,5,6,7,8,9,10],8).map(n=>{
+   const it=rnd(items),q=`How many ${it[2]}?`;
+   const near=[1,2,3,4,5,6,7,8,9,10].filter(x=>x!==n).sort((a,b)=>Math.abs(a-n)-Math.abs(b-n)).slice(0,5);
+   return{prompt:`<div class="mg-count" aria-hidden="true">${Array(n).fill(`<span>${it[0]}</span>`).join('')}</div><div class="mg-q">${esc(q)} ${sayBtn(q)}</div>`,say:q,txt:true,
+     opts:shuffle([n,...pick(near,3)]).map(x=>({html:`<b>${x}</b> ${NUM[x]}`,label:NUM[x],ok:x===n})),praise:`${NUM[n][0].toUpperCase()+NUM[n].slice(1)} ${n===1?it[1]:it[2]}!`};})}),
+ colour:items=>({label:'🎨 Màu gì?',rounds:()=>Array.from({length:8},()=>{
+   const it=rnd(items),c=rnd(COL),q=`What colour is the ${it[0]}?`;
+   return{prompt:`<span class="mg-colour" aria-hidden="true">${svgI(it[1](c[1]))}</span><div class="mg-q">${esc(q)} ${sayBtn(q)}</div>`,say:q,txt:true,
+     opts:shuffle([c,...pick(COL.filter(x=>x!==c),3)]).map(x=>({html:`<span class="mg-sw" style="background:${x[1]}"></span>${x[0]}`,label:x[0],ok:x===c})),praise:`It's ${c[0]}!`};})}),
+ quiz:(label,list,choices)=>({label,rounds:()=>pick(list,8).map(([p,q,a,s])=>({
+   prompt:`<span class="mg-pic" aria-hidden="true">${p}</span><div class="mg-q">${esc(q)} ${sayBtn(q)}</div>`,say:q,txt:true,
+   opts:shuffle([a,...pick(choices.filter(x=>x!==a),3)]).map(x=>({html:esc(x),label:x,ok:x===a})),praise:s,reveal:'✔ '+esc(s)}))}),
+ simon:words=>({label:'🙋 Simon says',rounds:()=>pick(words,8).map(w=>{
+   const simon=Math.random()<0.6,t=simon?'Simon says, '+w[3][0].toLowerCase()+w[3].slice(1):w[3];
+   return{prompt:`<span class="mg-pic" aria-hidden="true">${w[0]}</span><button class="btn primary mg-big" type="button" data-say="${esc(t)}">🔊 Nghe lệnh</button><span class="muted mg-hint">Chỉ làm theo khi nghe "Simon says"</span>`,say:t,txt:true,
+     opts:[{html:'🙆 Làm theo',label:'Làm theo',ok:simon},{html:'🧍 Đứng yên',label:'Đứng yên',ok:!simon}],
+     praise:simon?'Good job!':'Good! Simon did not say!',wait:2600,
+     reveal:`<span class="en">${esc(t)}</span> → ${simon?'Có "Simon says" nên làm theo.':'Không có "Simon says" nên đứng yên.'}`};})})};
+
+function miniGame(el,modes){
+  el.innerHTML=`<div class="mg-tabs" role="group" aria-label="Chọn trò chơi">${modes.map((m,i)=>`<button class="mg-chip" type="button" data-m="${i}" aria-pressed="${i===0}">${m.label}</button>`).join('')}</div><div class="mg-box" aria-live="polite"></div>`;
+  const box=$('.mg-box',el);let g=null;
+  const left=()=>Math.max(0,Math.ceil((g.end-Date.now())/1000));
+  function stop(){if(g&&g.tick){clearInterval(g.tick);g.tick=null;}}
+  function cur(){if(g.timed&&!g.list[g.i])g.list[g.i]=modes[g.m].gen(g.list[g.i-1]);return g.list[g.i];}
+  function start(i){
+    stop();el.querySelectorAll('.mg-chip').forEach(c=>c.setAttribute('aria-pressed',+c.dataset.m===i));
+    const m=modes[i];g={m:i,i:0,ok:0,miss:false,timed:!!m.timed,list:m.timed?[]:m.rounds()};
+    if(g.timed){g.end=Date.now()+60000;g.tick=setInterval(tick,250);}
+    show();
+  }
+  function tick(){const s=left(),t=$('.mg-time',box);if(t)t.textContent=`⏱️ ${s}s`;if(s<=0){stop();done();}}
+  function done(){
+    let h;
+    if(g.timed){const key='lop1-best-'+el.dataset.mg;let best=0;try{best=+localStorage.getItem(key)||0;if(g.ok>best)localStorage.setItem(key,g.ok);}catch(e){}
+      h=`<div class="mg-stars">⏱️</div><p>Hết giờ! Trong 60 giây em làm đúng <b>${g.ok}</b> câu.</p>${g.ok>best&&best?'<p>🎉 Kỷ lục mới!</p>':best?`<p class="muted">Kỷ lục của em: ${best} câu</p>`:''}`;}
+    else{const n=g.list.length;h=`<div class="mg-stars">${g.ok===n?'⭐⭐⭐':g.ok>=n*0.6?'⭐⭐':'⭐'}</div><p>Đúng ngay lần đầu: <b>${g.ok}/${n}</b></p>`;}
+    box.innerHTML=`<div class="mg-done">${h}<button class="btn primary" type="button" data-again>↺ Chơi lại</button></div>`;
+  }
+  function show(){
+    if(!g.timed&&g.i>=g.list.length)return done();
+    const r=cur();g.miss=false;
+    const opts=r.opts.map((o,j)=>`<button class="mg-opt${r.sky?' mg-plane':''}" type="button" data-j="${j}" aria-label="${esc(o.label)}"${r.sky?` style="top:${8+j*86}px;--d:${(8+Math.random()*3).toFixed(1)}s;--dl:-${(Math.random()*7).toFixed(1)}s;--x:${5+j*30}%"`:''}>${o.html}</button>`).join('');
+    box.innerHTML=`<div class="mg-top"><span>${g.timed?`<span class="mg-time">⏱️ ${left()}s</span>`:`Câu ${g.i+1}/${g.list.length}`}</span><span>⭐ ${g.ok}</span></div>`+
+      `<div class="mg-prompt">${r.prompt}</div>`+(r.sky?`<div class="mg-sky">${opts}</div>`:`<div class="mg-opts${r.txt?' txt':''}">${opts}</div>`)+`<p class="mg-after" hidden></p>`;
+    if(r.say&&!g.timed){const mine=g;setTimeout(()=>{if(g===mine&&cur()===r)speak(r.say);},250);}
+  }
+  el.addEventListener('click',e=>{
+    const c=e.target.closest('.mg-chip');if(c){start(+c.dataset.m);return;}
+    if(e.target.closest('[data-again]')){start(g.m);return;}
+    const o=e.target.closest('.mg-opt');if(!o||o.disabled||!g||(g.timed&&!g.tick))return;
+    const r=cur(),mine=g;
+    if(r.opts[+o.dataset.j].ok){
+      o.classList.add('right');if(!g.miss)g.ok++;
+      box.querySelectorAll('.mg-opt').forEach(b=>b.disabled=true);
+      const sky=$('.mg-sky',box);if(sky)sky.classList.add('stop');
+      if(r.reveal){const a=$('.mg-after',box);a.innerHTML=r.reveal;a.hidden=false;}
+      if(r.praise)speak(r.praise);
+      setTimeout(()=>{if(g===mine&&!(g.timed&&!g.tick)){g.i++;show();}},g.timed?500:(r.wait||1400));
+    }else{o.classList.add('wrong');o.disabled=true;g.miss=true;}
+  });
+  start(0);
+}
+
+function topic(id,o){
+  const el=$(`[data-topic="${id}"]`);let h='';
+  if(o.words)h+=`<div class="card"><div class="mg-head"><h3>Từ vựng</h3><button class="btn" type="button" data-all>▶ Nghe tất cả</button></div><div class="mg-words">${o.words.map((w,k)=>`<button class="mg-w" type="button" data-k="${k}"><span class="ic" aria-hidden="true">${w[0]}</span><b>${esc(w[1])}</b><small>${esc(w[2])}</small></button>`).join('')}</div></div>`;
+  if(o.patterns)h+=`<div class="card"><div class="mg-head"><h3>Mẫu câu</h3></div><div class="mg-pats">${o.patterns.map(p=>`<div class="mg-pat">${sayBtn(p[0])}<div><span class="mg-en">${esc(p[0])}</span><small>${esc(p[1])}</small></div></div>`).join('')}</div></div>`;
+  h+=`<div class="card"><div class="mg-head"><h3>Trò chơi</h3></div><div class="mg" data-mg="${id}"></div></div>`;
+  el.innerHTML=h;
+  if(o.words){
+    const cards=[...el.querySelectorAll('.mg-w')];
+    const say=(k,queue)=>speak(o.words[k][1],{queue,onstart:()=>{cards.forEach(c=>c.classList.remove('speaking'));cards[k].classList.add('speaking');},onend:()=>cards[k].classList.remove('speaking')});
+    el.addEventListener('click',e=>{const w=e.target.closest('.mg-w');if(w){say(+w.dataset.k,false);return;}
+      if(e.target.closest('[data-all]')){if(hasSpeech)speechSynthesis.cancel();o.words.forEach((_,k)=>say(k,true));}});
+  }
+  miniGame($('.mg',el),o.modes);
+}
+
+topic('school',{words:SCHOOL,patterns:[
+  ["What is this? – It's a ruler.",'Đây là cái gì? – Đó là cái thước.'],['I have a book.','Mình có một quyển sách.'],
+  ['Do you have a pencil? – Yes, I do.','Bạn có bút chì không? – Có.'],['How many books do you have? – I have two books.','Bạn có mấy quyển sách? – Mình có hai quyển.'],
+  ["What colour is it? – It's blue.",'Nó màu gì? – Màu xanh dương.'],['I have two green books.','Mình có hai quyển sách màu xanh lá.'],
+  ['Open your notebook, please.','Con mở vở ra nào.'],['Draw a circle with your crayon.','Lấy bút sáp vẽ một hình tròn nào.'],
+  ['Time to clean up! Put your things in the bag.','Đến giờ dọn dẹp rồi! Cất đồ dùng vào cặp nhé.']],
+ modes:[M.listen(SCHOOL),M.plane(SCHOOL),
+  M.count([['✏️','pencil','pencils'],['🖊️','pen','pens'],['📏','ruler','rulers'],['🧽','eraser','erasers'],['📕','book','books'],['🖍️','crayon','crayons'],['🎒','bag','bags'],['📓','notebook','notebooks']]),
+  M.colour([['book',THING.book],['pencil',THING.pencil],['ruler',THING.ruler],['bag',THING.bag],['eraser',THING.eraser]])]});
+
+topic('shapes',{words:SHAPES,patterns:[
+  ["What shape is it? – It's a circle.",'Đây là hình gì? – Hình tròn.'],["It's a red circle.",'Đó là một hình tròn màu đỏ.'],
+  ['I can see a star.','Mình nhìn thấy một ngôi sao.'],['How many triangles? – Three triangles.','Có mấy hình tam giác? – Ba hình tam giác.'],
+  ['Draw a square!','Vẽ một hình vuông nào!'],["The clock is a circle. The door is a rectangle.",'Đồng hồ hình tròn. Cửa ra vào hình chữ nhật.']],
+ modes:[M.listen(SHAPES),M.plane(SHAPES),M.quiz('🔍 Hình gì?',SHAPE_Q,SHAPES.map(s=>s[1]))]});
+
+topic('home',{words:HOME,patterns:[
+  ["What's this? – It's a sofa.",'Đây là gì? – Đó là ghế sofa.'],['There is a lamp in my room.','Trong phòng mình có một cái đèn.'],
+  ['How many chairs are there? – There are four chairs.','Có bao nhiêu cái ghế? – Có bốn cái ghế.'],["Is there a TV? – Yes, there is.",'Có ti vi không? – Có.'],
+  ['What colour is the door? – It is white.','Cửa ra vào màu gì? – Màu trắng.'],['Go to the door!','Đi ra cửa nào!'],
+  ['Open the window!','Mở cửa sổ ra!'],['Point to the clock!','Chỉ vào đồng hồ đi!']],
+ modes:[M.listen(HOME),M.timed(HOME),
+  M.count([['🪑','chair','chairs'],['💡','lamp','lamps'],['🕰️','clock','clocks'],['🖼️','picture','pictures'],['🛏️','bed','beds'],['📺','TV','TVs'],['🛋️','sofa','sofas'],['🚪','door','doors']])]});
+
+const REVIEW=[...SCHOOL,...SHAPES,...HOME].filter((w,i,a)=>a.findIndex(x=>x[0]===w[0])===i);
+topic('review',{patterns:[
+  ["What is this? – It's a pencil case.",'Đây là cái gì? – Đó là hộp bút.'],["What colour is it? – It's yellow.",'Nó màu gì? – Màu vàng.'],
+  ["What shape is it? – It's a triangle.",'Nó hình gì? – Hình tam giác.'],['How many crayons do you have? – I have six crayons.','Bạn có mấy bút sáp? – Mình có sáu cây.'],
+  ['Where is the ball? – It is under the table.','Quả bóng ở đâu? – Nó ở dưới cái bàn.'],['Is there a clock? – Yes, there is.','Có đồng hồ không? – Có.']],
+ modes:[M.listen(REVIEW),M.plane(REVIEW),M.timed(REVIEW)]});
+
+topic('rooms',{words:ROOMS,patterns:[
+  ['This is my house.','Đây là nhà của mình.'],['There is a bed in my bedroom.','Trong phòng ngủ của mình có một cái giường.'],
+  ["Where is the fridge? – It's in the kitchen.",'Tủ lạnh ở đâu? – Ở trong bếp.'],["Where are you now? – I'm in the kitchen. I'm eating.",'Bây giờ bạn đang ở đâu? – Mình ở trong bếp. Mình đang ăn.'],
+  ["Where is Mom? – She's in the living room.",'Mẹ ở đâu? – Mẹ ở phòng khách.'],['I sleep in the bedroom.','Mình ngủ ở phòng ngủ.']],
+ modes:[M.listen(ROOMS),M.quiz('🏠 Ở phòng nào?',ROOM_Q,ROOMS.slice(1).map(r=>r[1])),M.timed(ROOMS)]});
+
+topic('routines',{words:ROUTINE,patterns:[
+  ["Wake up! Let's stretch!",'Dậy thôi! Mình vươn vai nào!'],["Let's make the bed.",'Mình cùng dọn giường nào.'],
+  ['Show me your toothbrush.','Cho mẹ xem bàn chải đánh răng của con.'],['One, two, three, four, five! All clean!','Một, hai, ba, bốn, năm! Sạch rồi!'],
+  ['Give me some soap! Wash your hands.','Lấy xà phòng nào! Rửa tay đi con.'],["Are you dirty? – No, I'm clean!",'Con có bẩn không? – Không, con sạch rồi!'],
+  ["What are you doing? – I'm brushing my teeth.",'Con đang làm gì? – Con đang đánh răng.'],['Put on your pajamas.','Mặc đồ ngủ vào nào.'],['Lights off! Sleep tight!','Tắt đèn nhé! Ngủ ngon!']],
+ modes:[M.listen(ROUTINE),M.simon(ROUTINE),M.timed(ROUTINE)]});
+
 /* ---------- Answer key (PIN) ---------- */
 if(window.LopHocPIN){
   LopHocPIN.guard($('#answerBox'),box=>{

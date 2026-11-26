@@ -11,7 +11,7 @@ lop-hoc/
 │   ├── course.js           ← Phần chạy chung cho các trang ôn theo Unit (Super Minds)
 │   └── course.css
 ├── lop-1/
-│   ├── tieng-anh-lop-1.html ← Tiếng Anh lớp 1 (About Me, cơ thể, vị trí, bộ phận của cây)
+│   ├── tieng-anh-lop-1.html ← Tiếng Anh lớp 1 (About Me, cơ thể, vị trí, bộ phận của cây, đồ dùng học tập, hình khối, đồ vật trong nhà, ôn tập, các phòng, hoạt động phòng tắm – phòng ngủ)
 │   └── super-minds-2.html  ← Ôn theo 10 bài của Super Minds 2 (dữ liệu nằm trong file, phần chạy ở assets/course.js)
 ├── lop-4/
 │   ├── su-viet-ioe.html    ← Bài Sử Việt IOE lớp 4
