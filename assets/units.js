@@ -73,6 +73,7 @@
   function tabs(u) {
     if (u.review) return [{ k: "check", label: "✅ I can…" }, { k: "games", label: "🎮 Games" }];
     var t = u.lessons.map(function (l, i) { return { k: "l" + i, label: l.tag + (l.short ? " · " + l.short : "") }; });
+    if (u.chat) t.push({ k: "chat", label: "💬 Talk time" });
     if (u.phonics || u.chant) t.push({ k: "pc", label: "🔤 Phonics & Chant" });
     t.push({ k: "games", label: "🎮 Games" });
     return t;
@@ -175,6 +176,20 @@
     if (u.chant) h += patsBlock(u.chant.lines.map(function (x) { return [x]; }), "🎵 Let's chant: " + u.chant.title, ".p-chant");
     return h;
   }
+  /* Talk time: câu ba mẹ hay hỏi con ở nhà. Câu trả lời chỉ là ví dụ, con trả lời theo ý mình. */
+  function chatPanel(u) {
+    var h = '<div class="l-head"><span class="l-tag">Talk time</span><h3>Talk with Mom and Dad</h3></div>';
+    h += '<div class="block"><div class="b-head"><h3>💬 Questions for you</h3><span class="muted">Listen. Say your answer. Then tap to see an example.</span></div><div class="chats">';
+    h += u.chat.map(function (c, k) {
+      var p = chr(k % 2 ? "dad" : "mom");
+      var row = function (q, a) {
+        return '<div class="c-row"><span class="c-av" aria-hidden="true">' + p.av + '</span><div class="t-q">' + sayBtn(q, p.pitch) + "<span>" + esc(q) + "</span></div></div>" +
+          '<div class="c-ans"><button class="btn t-show" type="button" data-a="' + esc(a) + '">💬 Answer</button><div class="t-a" hidden>🧒 ' + esc(a) + "</div></div>";
+      };
+      return '<div class="chat"><span class="t-ic" aria-hidden="true">' + icon(c.ic) + '</span><div class="c-body">' + row(c.q, c.a) + (c.why ? row(c.why[0], c.why[1]) : "") + "</div></div>";
+    }).join("");
+    return h + "</div></div>";
+  }
   function checkPanel(u) {
     var h = '<div class="block"><div class="b-head"><h3>I can…</h3><span class="muted">Tap ✓ if you can.</span></div>';
     h += srcUnits(u).map(function (s) {
@@ -198,6 +213,7 @@
     if (tab === "games") h = gamesPanel(cur);
     else if (tab === "check") h = checkPanel(cur);
     else if (tab === "pc") h = pcPanel(cur);
+    else if (tab === "chat") h = chatPanel(cur);
     else h = lessonPanel(cur.lessons[+tab.slice(1)]);
     p.innerHTML = h + nextTabBtn();
     if (tab === "games") startGame("listen");
@@ -225,6 +241,12 @@
         }
         if (l.patterns) s += '<table class="g-t">' + l.patterns.map(function (p) { return "<tr><td>" + esc(p[0]) + "</td><td>" + esc(p[1] || "") + "</td></tr>"; }).join("") + "</table>";
       });
+      if (u.chat) s += '<h4>💬 Talk time · Ba mẹ hỏi con ở nhà</h4><p class="tip">💡 Hỏi con bằng tiếng Anh lúc ăn cơm, lúc chơi, trên đường đi học. Câu trả lời dưới đây chỉ là ví dụ, con trả lời theo ý mình. Con trả lời xong thì hỏi thêm "Why?" để con nói dài hơn bằng "Because…".</p><table class="g-t">' +
+        u.chat.map(function (c) {
+          var r = "<tr><td><b>" + esc(c.q) + "</b><br>" + esc(c.a) + "</td><td>" + esc((c.vi || [])[0] || "") + "<br>" + esc((c.vi || [])[1] || "") + "</td></tr>";
+          if (c.why) r += "<tr><td><b>" + esc(c.why[0]) + "</b><br>" + esc(c.why[1]) + "</td><td>" + esc(c.why[2] || "") + "<br>" + esc(c.why[3] || "") + "</td></tr>";
+          return r;
+        }).join("") + "</table>";
       if (u.phonics) s += "<h4>Âm &amp; Chant</h4><p>" + u.phonics.groups.map(function (g) { return "<b>" + esc(g.label) + "</b> (" + g.words.map(function (w) { return esc(w[1]); }).join(", ") + ")"; }).join(" · ") + (u.chant ? ". Chant: <i>" + esc(u.chant.title) + "</i>." : "") + "</p>";
       return s + "</details>";
     }).join("");
