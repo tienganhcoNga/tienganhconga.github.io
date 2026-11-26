@@ -47,7 +47,12 @@
   /* ---------- biểu tượng (giống trang Units lớp 1) ---------- */
   var SH = { circle: '<circle cx="50" cy="50" r="40"/>', square: '<rect x="13" y="13" width="74" height="74" rx="4"/>', triangle: '<polygon points="50,9 93,88 7,88"/>',
     rectangle: '<rect x="5" y="25" width="90" height="50" rx="4"/>', star: '<polygon points="50,5 61,38 96,38 68,58 79,92 50,71 21,92 32,58 4,38 39,38"/>',
-    heart: '<path d="M50 88C12 61 5 33 24 21c14-8 26 3 26 9 0-6 12-17 26-9 19 12 12 40-26 67z"/>' };
+    heart: '<path d="M50 88C12 61 5 33 24 21c14-8 26 3 26 9 0-6 12-17 26-9 19 12 12 40-26 67z"/>',
+    cube: '<rect x="14" y="34" width="52" height="52"/><polygon points="14,34 34,14 86,14 66,34"/><polygon points="66,34 86,14 86,66 66,86"/><polygon points="14,34 34,14 86,14 66,34" fill="#fff" fill-opacity=".4"/><polygon points="66,34 86,14 86,66 66,86" fill="#000" fill-opacity=".2"/>',
+    cuboid: '<rect x="6" y="40" width="66" height="40"/><polygon points="6,40 28,18 94,18 72,40"/><polygon points="72,40 94,18 94,58 72,80"/><polygon points="6,40 28,18 94,18 72,40" fill="#fff" fill-opacity=".4"/><polygon points="72,40 94,18 94,58 72,80" fill="#000" fill-opacity=".2"/>',
+    sphere: '<circle cx="50" cy="50" r="40"/><ellipse cx="36" cy="34" rx="12" ry="8" fill="#fff" fill-opacity=".45" stroke="none"/>',
+    cylinder: '<path d="M22 20v60a28 9 0 0 0 56 0V20"/><ellipse cx="50" cy="20" rx="28" ry="9"/><ellipse cx="50" cy="20" rx="28" ry="9" fill="#fff" fill-opacity=".4"/>',
+    cone: '<path d="M50 8L80 78a30 10 0 0 1-60 0z"/><ellipse cx="50" cy="78" rx="30" ry="10" fill="#000" fill-opacity=".15"/>' };
   function icon(s) {
     s = String(s || "");
     if (s.indexOf("c:") === 0) return '<span class="sk-sw" style="background:' + esc(s.slice(2)) + '"></span>';
