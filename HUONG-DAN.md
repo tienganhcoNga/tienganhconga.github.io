@@ -7,17 +7,21 @@ lop-hoc/
 ├── index.html              ← Trang chủ: cột trái Khối lớp → Chủ đề, bên phải là bài học + tab Đáp án
 ├── .nojekyll               ← File rỗng, giữ nguyên (để GitHub không xử lý lại file)
 ├── assets/
-│   └── pin.js              ← Khóa phần Đáp án bằng mã PIN (đổi mã PIN ở đây)
+│   ├── pin.js              ← Khóa phần Đáp án bằng mã PIN (đổi mã PIN ở đây)
+│   ├── course.js           ← Phần chạy chung cho các trang ôn theo Unit (Super Minds)
+│   └── course.css
 ├── lop-1/
-│   └── tieng-anh-lop-1.html ← Tiếng Anh lớp 1 (About Me, cơ thể, vị trí, bộ phận của cây)
+│   ├── tieng-anh-lop-1.html ← Tiếng Anh lớp 1 (About Me, cơ thể, vị trí, bộ phận của cây)
+│   └── super-minds-2.html  ← Ôn theo 10 bài của Super Minds 2 (dữ liệu nằm trong file, phần chạy ở assets/course.js)
 ├── lop-4/
 │   ├── su-viet-ioe.html    ← Bài Sử Việt IOE lớp 4
 │   └── tieng-anh-ioe.html  ← Tiếng Anh IOE lớp 4 (từ vựng, ngữ pháp, hội thoại, luyện đề, tập chép)
 └── mau-giao/
-    └── english-speeches.html ← Luyện nói tiếng Anh (8 chủ đề, mở thẳng một chủ đề bằng #farm, #sea...)
+    ├── english-speeches.html ← Luyện nói tiếng Anh (8 chủ đề, mở thẳng một chủ đề bằng #farm, #sea...)
+    └── super-minds-1.html  ← Ôn theo 10 bài của Super Minds 1
 ```
 
-Xem thử trên máy: bấm đúp vào `index.html`.
+Xem thử trên máy: mở thẳng từng file bài học bằng trình duyệt. Riêng trang chủ (`index.html`) cần chạy trên web mới hoạt động đầy đủ, nên muốn xem trang chủ thì đưa lên GitHub rồi mở link.
 
 ## Lần đầu: tạo trang (khoảng 10 phút)
 

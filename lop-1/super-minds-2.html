@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ôn Super Minds 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/course.css">
+<style>:root{--accent:var(--sky);--accent-soft:var(--sky-soft)}</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Lớp 1 · Tiếng Anh</div>
+    <h1 id="cTitle"></h1>
+    <p class="lead" id="cSub"></p>
+    <p class="note" id="cNote"></p>
+  </header>
+</div>
+<nav class="nav" aria-label="Các bài"><div class="wrap" id="units"><a class="home" href="../index.html">← Trang chủ</a></div></nav>
+<main class="wrap" id="unit"></main>
+<div class="wrap"><footer><a href="../index.html">← Về trang chủ</a></footer></div>
+
+<script>
+window.COURSE={
+ title:'Ôn bài <span>Super Minds 2</span>',
+ sub:'Mỗi bài có từ vựng kèm hình và giọng đọc, mẫu câu, âm của bài và 3 trò chơi: nghe và chọn hình, đọc chữ chọn hình, nhìn hình chọn chữ.',
+ note:'Bài ôn do cô soạn theo các chủ đề của giáo trình Super Minds 2 (Cambridge University Press), gồm cả Student’s Book và Workbook, dùng kèm sách giấy. Trang này không chứa nội dung sách gốc.',
+ reading:true,
+ units:[
+ {id:'u0',n:'Starter',en:'Back to school',vi:'Trở lại trường · đồ vật trong lớp',ic:'🏫',
+  words:[['🧑‍🏫','board','cái bảng'],['🗄️','cupboard','cái tủ'],['🚪','door','cửa ra vào'],['🔲','window','cửa sổ'],['💻','computer','máy tính'],['🖼️','poster','tranh dán tường'],['🗑️','bin','thùng rác'],['📚','shelf','cái kệ'],['🪑','chair','cái ghế'],['📕','book','quyển sách'],['⚽','ball','quả bóng']],
+  patterns:[["There's a computer.",'Có một cái máy tính.'],['There are some balls.','Có mấy quả bóng.'],['Stand up!','Đứng lên!'],["Don't stand up!",'Đừng đứng lên!'],['Sit down, please.','Mời ngồi xuống.']],
+  phonics:null},
+ {id:'u1',n:'Unit 1',en:'My day',vi:'Một ngày của em · hoạt động hằng ngày, giờ',ic:'⏰',
+  words:[['⏰','get up','thức dậy'],['🥣','have breakfast','ăn sáng'],['🏫','go to school','đi học'],['🍱','have lunch','ăn trưa'],['🏠','go home','về nhà'],['📝','do homework','làm bài tập'],['🍽️','have dinner','ăn tối'],['🛏️','go to bed','đi ngủ'],['📺','watch TV','xem ti vi'],['🕘',"nine o'clock",'chín giờ']],
+  patterns:[["What's the time? – It's nine o'clock.",'Mấy giờ rồi? – Chín giờ.'],["When do you have lunch? – At one o'clock.",'Bạn ăn trưa lúc mấy giờ? – Lúc một giờ.'],["Lan gets up at seven o'clock.",'Lan thức dậy lúc bảy giờ.'],["I go to bed at nine o'clock.",'Mình đi ngủ lúc chín giờ.']],
+  phonics:{label:'ee · ea',say:'ee, ea',mark:'ee ea',words:[['🌳','tree'],['🐑','sheep'],['🍽️','eat'],['📖','read']]}},
+ {id:'u2',n:'Unit 2',en:'The zoo',vi:'Sở thú · con vật',ic:'🦁',
+  words:[['🐘','elephant','con voi'],['🦒','giraffe','hươu cao cổ'],['🐒','monkey','con khỉ'],['🦁','lion','sư tử'],['🐯','tiger','con hổ'],['🦓','zebra','ngựa vằn'],['🐊','crocodile','cá sấu'],['🐍','snake','con rắn'],['🦛','hippo','hà mã'],['🐻','bear','con gấu'],['🦘','kangaroo','chuột túi'],['🦜','parrot','con vẹt']],
+  patterns:[['The monkey likes bananas.','Con khỉ thích chuối.'],["The lion doesn't like carrots.",'Sư tử không thích cà rốt.'],['Does Mark like bananas? – Yes, he does.','Mark có thích chuối không? – Có.'],["Does Emma like spiders? – No, she doesn't.",'Emma có thích nhện không? – Không.']],
+  phonics:{label:'ie · y',say:'ie, y',mark:'ie y',words:[['🥧','pie'],['👔','tie'],['🌌','sky'],['😢','cry']]}},
+ {id:'u3',n:'Unit 3',en:'Where we live',vi:'Nơi em sống · địa điểm trong thị trấn',ic:'🏙️',
+  words:[['🎬','cinema','rạp chiếu phim'],['🌳','park','công viên'],['🏊','swimming pool','bể bơi'],['🛒','supermarket','siêu thị'],['🧸','toy shop','cửa hàng đồ chơi'],['☕','café','quán cà phê'],['🏥','hospital','bệnh viện'],['📚','library','thư viện'],['🏫','school','trường học'],['🛣️','street','con đường'],['🚏','bus stop','trạm xe buýt']],
+  patterns:[['Has your town got a swimming pool? – Yes, it has.','Thị trấn của bạn có bể bơi không? – Có.'],["Has your town got a cinema? – No, it hasn't.",'Thị trấn của bạn có rạp chiếu phim không? – Không có.'],['The cinema is between the toy shop and the café.','Rạp chiếu phim ở giữa cửa hàng đồ chơi và quán cà phê.'],['The park is next to the school.','Công viên ở cạnh trường học.']],
+  phonics:{label:'tr · gr · dr',say:'tr, gr, dr',mark:'tr gr dr',words:[['🚂','train'],['🌳','tree'],['🍇','grapes'],['🟢','green'],['👗','dress'],['🥁','drum']]}},
+ {id:'u4',n:'Unit 4',en:'The market',vi:'Ở chợ · đồ ăn',ic:'🧺',
+  words:[['🍅','tomato','cà chua'],['🥔','potato','khoai tây'],['🥕','carrot','cà rốt'],['🧅','onion','củ hành'],['🍐','pear','quả lê'],['🍎','apple','quả táo'],['🍌','banana','quả chuối'],['🍇','grapes','quả nho'],['🍞','bread','bánh mì'],['🧀','cheese','phô mai'],['🥚','egg','quả trứng'],['🍍','pineapple','quả dứa']],
+  patterns:[['Would you like a tomato? – Yes, please.','Bạn có muốn một quả cà chua không? – Có, cảm ơn.'],['Would you like some bread? – No, thank you.','Bạn có muốn ăn bánh mì không? – Không, cảm ơn.'],['Are there any pears? – Yes, there are.','Có quả lê nào không? – Có.'],["Is there any bread? – No, there isn't any.",'Có bánh mì không? – Không còn chút nào.']],
+  phonics:{label:'w · wh',say:'w, wh',mark:'wh w',words:[['💧','water'],['⌚','watch'],['🐋','whale'],['⚪','white']]}},
+ {id:'u5',n:'Unit 5',en:'My bedroom',vi:'Phòng ngủ · đồ đạc',ic:'🛏️',
+  words:[['🛏️','bed','cái giường'],['💡','lamp','đèn ngủ'],['🪑','chair','cái ghế'],['📚','bookcase','tủ sách'],['🗄️','cupboard','cái tủ'],['🧸','toy box','hộp đồ chơi'],['⏰','clock','đồng hồ'],['💻','computer','máy tính'],['🧦','socks','đôi tất'],['🧢','cap','mũ lưỡi trai'],['🖼️','picture','bức tranh']],
+  patterns:[['I like this book.','Mình thích quyển sách này.'],['I like that lamp.','Mình thích cái đèn kia.'],['I like these books. I like those socks.','Mình thích mấy quyển sách này. Mình thích đôi tất kia.'],["Whose socks are these? – They're Fred's.",'Đôi tất này của ai? – Của Fred.'],["Whose cap is this? – It's May's.",'Cái mũ này của ai? – Của May.']],
+  phonics:{label:'oo',say:'oo',mark:'oo',words:[['📖','book'],['🌙','moon'],['🍲','food'],['👀','look']]}},
+ {id:'u6',n:'Unit 6',en:'People',vi:'Mọi người · khuôn mặt, cảm xúc',ic:'😀',
+  words:[['😀','happy','vui'],['😢','sad','buồn'],['😠','angry','tức giận'],['😴','tired','mệt'],['🤤','hungry','đói'],['🥤','thirsty','khát'],['😱','scared','sợ hãi'],['🥱','bored','chán'],['👀','eyes','đôi mắt'],['👃','nose','cái mũi'],['👄','mouth','cái miệng'],['💇','hair','mái tóc']],
+  patterns:[["Are you angry? – No, I'm tired.",'Bạn đang giận à? – Không, mình mệt.'],["Are you hungry? – Yes, I'm hungry.",'Bạn đói không? – Có, mình đói.'],['Our birthdays are in May.','Sinh nhật của chúng mình vào tháng Năm.'],['Their birthdays are in June.','Sinh nhật của các bạn ấy vào tháng Sáu.']],
+  phonics:{label:'a-e · ai · ay',say:'a, ai, ay',mark:'ai ay ake',words:[['🍰','cake'],['🌧️','rain'],['🐌','snail'],['🧸','play']]}},
+ {id:'u7',n:'Unit 7',en:'Off we go!',vi:'Lên đường · phương tiện',ic:'✈️',
+  words:[['🚌','bus','xe buýt'],['🚗','car','ô tô'],['✈️','plane','máy bay'],['🚂','train','tàu hỏa'],['⛵','boat','thuyền'],['🚲','bike','xe đạp'],['🏍️','motorbike','xe máy'],['🚁','helicopter','trực thăng'],['🚚','lorry','xe tải'],['🚕','taxi','taxi'],['🚢','ship','tàu thủy'],['🚀','rocket','tên lửa']],
+  patterns:[["I'd like to go to Africa by plane.",'Mình muốn đi châu Phi bằng máy bay.'],["I'd like to go to Da Nang by train.",'Mình muốn đi Đà Nẵng bằng tàu hỏa.'],["What are you doing? – I'm flying a plane.",'Bạn đang làm gì thế? – Mình đang lái máy bay.'],["What are you doing? – I'm riding a bike.",'Bạn đang làm gì thế? – Mình đang đạp xe.']],
+  phonics:{label:'u-e · ew · ue',say:'u, ew, ue',mark:'ue ew ube',words:[['🧊','cube'],['🔵','blue'],['🆕','new'],['🧴','glue']]}},
+ {id:'u8',n:'Unit 8',en:'Sports club',vi:'Câu lạc bộ thể thao',ic:'⚽',
+  words:[['⚽','football','bóng đá'],['🏀','basketball','bóng rổ'],['🎾','tennis','quần vợt'],['🏸','badminton','cầu lông'],['🏓','table tennis','bóng bàn'],['🏐','volleyball','bóng chuyền'],['🏊','swimming','bơi lội'],['🏃','running','chạy bộ'],['⛸️','skating','trượt băng'],['🪁','flying a kite','thả diều'],['🚴','riding a bike','đạp xe'],['🤸','skipping','nhảy dây']],
+  patterns:[["Flying a kite's difficult.",'Thả diều khó lắm.'],["Swimming's easy.",'Bơi dễ thôi.'],['What sport do you like doing? – I like swimming.','Bạn thích chơi môn thể thao nào? – Mình thích bơi.'],["I like tennis. – So do I. / I don't.",'Mình thích quần vợt. – Mình cũng vậy. / Mình thì không.']],
+  phonics:{label:'o · oa · o-e',say:'o, oa',mark:'oa ose',words:[['⛵','boat'],['🐐','goat'],['👃','nose'],['🌹','rose']]}},
+ {id:'u9',n:'Unit 9',en:'Holiday plans',vi:'Kế hoạch kỳ nghỉ',ic:'🏕️',
+  words:[['🏇','go horse riding','đi cưỡi ngựa'],['🏕️','go camping','đi cắm trại'],['🎣','go fishing','đi câu cá'],['🏊','go swimming','đi bơi'],['⛵','go sailing','đi thuyền buồm'],['🏖️','play on the beach','chơi trên bãi biển'],['📷','take photos','chụp ảnh'],['⛰️','climb a mountain','leo núi'],['👵','visit grandma','thăm bà'],['🦁','go to the zoo','đi sở thú']],
+  patterns:[['Can we go horse riding tomorrow morning? – Yes, you can.','Sáng mai chúng con đi cưỡi ngựa được không ạ? – Được con.'],["Can I go fishing tomorrow afternoon? – No, you can't. Sorry.",'Chiều mai con đi câu cá được không ạ? – Không được con ạ.'],["Let's go camping!",'Cùng đi cắm trại nào!'],["I'm going to visit my grandma.",'Mình sẽ đi thăm bà.']],
+  phonics:{label:'z · s',say:'z, s',mark:'z s',words:[['🦓','zebra'],['0️⃣','zero'],['🐍','snake'],['☀️','sun']]}}
+ ]};
+</script>
+<script src="../assets/pin.js"></script>
+<script src="../assets/course.js"></script>
+</body>
+</html>
