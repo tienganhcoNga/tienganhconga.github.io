@@ -6,6 +6,8 @@
 lop-hoc/
 ├── index.html              ← Trang chủ (Mẫu giáo + Lớp 4)
 ├── .nojekyll               ← File rỗng, giữ nguyên (để GitHub không xử lý lại file)
+├── lop-1/
+│   └── tieng-anh-lop-1.html ← Tiếng Anh lớp 1 (About Me, cơ thể, vị trí, bộ phận của cây)
 ├── lop-4/
 │   ├── su-viet-ioe.html    ← Bài Sử Việt IOE lớp 4
 │   └── tieng-anh-ioe.html  ← Tiếng Anh IOE lớp 4 (từ vựng, ngữ pháp, hội thoại, luyện đề, tập chép)

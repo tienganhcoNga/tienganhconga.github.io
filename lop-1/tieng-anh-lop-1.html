@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tiếng Anh lớp 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<style>
+:root{
+  --bg:#F1F5F2; --surface:#FFFFFF; --ink:#1C2A36; --muted:#56676A; --line:#D3DFD8;
+  --jade:#2A7A67; --jade-soft:#DBECE5; --lacquer:#B3332A; --lacquer-soft:#F6E1DD;
+  --gold:#B98110; --gold-soft:#FAEFD3; --sky:#2F6F98; --sky-soft:#DCEAF3;
+  --ok:#23824F; --ok-soft:#DDF2E5; --bad:#B9352B; --bad-soft:#F8E0DC;
+  --skin:#F5C9A0; --wall:#FBF3E4; --wood:#A8744A;
+  --f-display:"Baloo 2","Be Vietnam Pro",system-ui,sans-serif;
+  --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0F171B; --surface:#17222A; --ink:#E6EEEA; --muted:#9DB0AD; --line:#2A3B41;
+  --jade:#5DC1A5; --jade-soft:#15312A; --lacquer:#EE7A6C; --lacquer-soft:#3A1F1C;
+  --gold:#E8B84A; --gold-soft:#332811; --sky:#7DB7DA; --sky-soft:#142D3B;
+  --ok:#62CF92; --ok-soft:#14301F; --bad:#F2806F; --bad-soft:#3A1D19;
+  --skin:#E2B48A; --wall:#26303A; --wood:#B98A60; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0F171B; --surface:#17222A; --ink:#E6EEEA; --muted:#9DB0AD; --line:#2A3B41;
+  --jade:#5DC1A5; --jade-soft:#15312A; --lacquer:#EE7A6C; --lacquer-soft:#3A1F1C;
+  --gold:#E8B84A; --gold-soft:#332811; --sky:#7DB7DA; --sky-soft:#142D3B;
+  --ok:#62CF92; --ok-soft:#14301F; --bad:#F2806F; --bad-soft:#3A1D19;
+  --skin:#E2B48A; --wall:#26303A; --wood:#B98A60; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800}
+p{margin:0}
+button,input,select{font:inherit;color:inherit}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+.en{font-style:italic;color:var(--sky)}
+.muted{color:var(--muted)}
+
+.hero{padding-block:40px 20px}
+.eyebrow{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--sky)}
+.hero h1{font-size:clamp(2.4rem,7vw,4rem);font-weight:800;margin-top:6px}
+.hero h1 span{color:var(--lacquer)}
+.hero .lead{font-size:1.1rem;margin-top:10px;max-width:36em}
+.nav{position:sticky;top:0;z-index:9;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.nav a{flex:none;text-decoration:none;color:var(--ink);font-weight:600;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.95rem}
+.nav a:hover{border-color:var(--sky);color:var(--sky)}
+.nav a.home{background:var(--sky);border-color:var(--sky);color:var(--surface)}
+section{padding-block:44px 8px;scroll-margin-top:64px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:20px}
+.sec-head .en{font-size:1.1rem}
+.sec-head p.muted{flex-basis:100%;max-width:60em}
+h3.sub{margin:28px 0 12px;font-size:1.35rem;color:var(--sky)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px;font-weight:700;cursor:pointer}
+.btn:hover{border-color:var(--sky);color:var(--sky)}
+.btn.primary{background:var(--sky);border-color:var(--sky);color:var(--surface)}
+.btn.primary:hover{color:var(--surface);filter:brightness(1.08)}
+.row-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.say{border:1px solid var(--line);background:var(--surface);border-radius:999px;width:30px;height:30px;display:inline-grid;place-items:center;cursor:pointer;flex:none;padding:0;color:var(--sky);vertical-align:middle}
+.say svg{width:15px;height:15px}
+.no-speech .say{display:none}
+@media (prefers-reduced-motion: no-preference){ .shake{animation:shake .35s} .pop{animation:pop .4s} }
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@keyframes pop{0%{transform:scale(.9)}60%{transform:scale(1.06)}100%{transform:none}}
+
+/* Speech */
+.speech-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:18px;align-items:start}
+.form{display:grid;gap:12px}
+.form label{display:grid;gap:4px;font-weight:700;font-size:.95rem}
+.form input[type=text],.form select{border:2px solid var(--line);border-radius:10px;padding:6px 10px;background:var(--surface);font-weight:600}
+.form input[type=text]:focus,.form select:focus{border-color:var(--sky);outline:none}
+.fam{display:flex;flex-wrap:wrap;gap:6px}
+.fam label{display:flex;align-items:center;gap:6px;border:2px solid var(--line);border-radius:999px;padding:2px 12px;font-weight:600;cursor:pointer}
+.fam label:has(input:checked){border-color:var(--sky);background:var(--sky-soft)}
+.note{font-size:.85rem;color:var(--muted);background:var(--gold-soft);border-radius:10px;padding:8px 12px}
+.script{display:flex;flex-direction:column;gap:2px}
+.sline{padding:6px 10px;border-radius:10px;cursor:pointer;font-size:1.08rem}
+.sline:hover{background:var(--sky-soft)}
+.sline.speaking{background:var(--gold-soft)}
+.sline b{color:var(--lacquer)}
+.sline .fill{color:var(--sky);font-weight:800;border-bottom:2px dashed var(--sky)}
+.big-mode .sline{font-size:1.5rem;line-height:1.45}
+
+/* Body picture */
+.body-wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start;margin-top:18px}
+.body-svg{width:100%;height:auto;display:block;background:var(--sky-soft);border-radius:16px}
+.lbl rect{fill:var(--surface);stroke:var(--sky);stroke-width:2}
+.lbl text{fill:var(--ink);font:700 15px var(--f-body)}
+.lbl{cursor:pointer}
+.lbl:hover rect,.lbl:focus rect{fill:var(--sky-soft)}
+.lbl.right rect{fill:var(--ok-soft);stroke:var(--ok)}
+.lbl.wrong rect{fill:var(--bad-soft);stroke:var(--bad)}
+.lbl.hide text{opacity:0}
+.lead-ln{stroke:var(--sky);stroke-width:1.6;fill:none}
+.game{display:flex;flex-direction:column;gap:12px}
+.game .ask{font-family:var(--f-display);font-size:1.6rem;font-weight:800}
+.game .ask span{color:var(--lacquer)}
+.score{font-weight:800;color:var(--sky)}
+
+/* Scenes */
+.scenes{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.scene{background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.scene.done{border-color:var(--ok)}
+.scene svg{width:100%;height:auto;display:block;background:var(--sky-soft);border-radius:12px}
+.scene .num{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--gold);color:#1C2A36;font-weight:800;font-family:var(--f-display)}
+.scene .q{display:flex;align-items:center;gap:8px;font-weight:700}
+.choices{display:flex;flex-wrap:wrap;gap:6px}
+.ch{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:2px 12px;font-weight:700;cursor:pointer;font-size:.95rem}
+.ch:hover{border-color:var(--sky)}
+.ch.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.ch.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.answer{background:var(--ok-soft);border-radius:10px;padding:6px 10px;font-weight:600}
+.bubble{display:flex;gap:8px;align-items:center}
+.bubble .who{font-size:1.4rem}
+.emoji{font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif}
+
+.room-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px;align-items:start}
+.room svg{width:100%;height:auto;display:block;border-radius:16px;border:2px solid var(--line)}
+.fillrows{display:flex;flex-direction:column;gap:10px}
+.frow{border-radius:12px;padding:10px 12px;background:var(--c);display:flex;flex-direction:column;gap:8px}
+.frow .s{font-weight:700;font-size:1.05rem;color:#1C2A36}
+.frow .s .gap{display:inline-block;min-width:5.5em;border-bottom:2px solid #1C2A36;text-align:center;color:var(--ok)}
+.frow .choices .ch{background:#fff;color:#1C2A36}
+.frow .choices .ch.right{background:var(--ok-soft);color:#23824F;border-color:#23824F}
+.frow .choices .ch.wrong{background:#F8E0DC;color:#B9352B;border-color:#B9352B}
+
+.plant-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+.plant svg{width:100%;height:auto;display:block;background:var(--sky-soft);border-radius:16px}
+.pnum{cursor:pointer}
+.pnum circle{fill:var(--gold);stroke:var(--surface);stroke-width:3}
+.pnum.done circle{fill:var(--ok)}
+.pnum.cur circle{stroke:var(--lacquer);stroke-width:4}
+.pnum text{fill:#fff;font:800 20px var(--f-display)}
+.dialog{display:flex;flex-direction:column;gap:8px}
+.talk{display:flex;gap:10px;align-items:flex-start}
+.talk .who{font-size:1.6rem;line-height:1}
+.talk .b{background:var(--sky-soft);border-radius:14px;padding:8px 12px;font-weight:600}
+.talk.g .b{background:var(--gold-soft)}
+.parts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.part-card{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding:6px 12px;background:var(--surface);cursor:pointer}
+.part-card b{font-family:var(--f-display);font-size:1.1rem}
+footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
+
+@media (max-width:760px){
+  .speech-grid,.body-wrap,.room-grid,.plant-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Lớp 1 · Tiếng Anh</div>
+    <h1>Tiếng Anh <span>lớp 1</span></h1>
+    <p class="lead">Bài nói "About Me &amp; My Body", hỏi đáp vị trí đồ vật và các bộ phận của cây. Bấm vào chữ hay hình để nghe đọc.</p>
+  </header>
+</div>
+<nav class="nav" aria-label="Các phần">
+  <div class="wrap">
+    <a class="home" href="../index.html">← Trang chủ</a>
+    <a href="#about">About Me</a>
+    <a href="#body">My Body</a>
+    <a href="#positions">Positions</a>
+    <a href="#room">Find the objects</a>
+    <a href="#plants">Plants</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="about">
+    <div class="sec-head"><h2>Bài nói: About Me &amp; My Body</h2><span class="en">My speech</span>
+      <p class="muted">Em điền tên, tuổi, gia đình và nơi ở, bài nói sẽ tự đổi theo. Bấm "Nghe cả bài" để nghe mẫu, bấm từng câu để luyện câu đó.</p></div>
+    <div class="speech-grid">
+      <div class="card form" id="speechForm">
+        <label>Tên của em (My name is …)<input type="text" id="fName" autocomplete="off" placeholder="Gõ tên của em"></label>
+        <label>Em mấy tuổi? (I'm … years old)
+          <select id="fAge"><option>four</option><option>five</option><option selected>six</option><option>seven</option></select></label>
+        <div><b style="font-size:.95rem">Em sống cùng ai? (I live with my …)</b>
+          <div class="fam" id="fFam">
+            <label><input type="checkbox" value="mom" checked> mom</label>
+            <label><input type="checkbox" value="dad" checked> dad</label>
+            <label><input type="checkbox" value="grandma" checked> grandma</label>
+            <label><input type="checkbox" value="grandpa"> grandpa</label>
+          </div></div>
+        <label>Anh chị em
+          <select id="fSib"><option value="">(không có)</option><option value="little sister" selected>little sister (em gái)</option><option value="little brother">little brother (em trai)</option><option value="big sister">big sister (chị gái)</option><option value="big brother">big brother (anh trai)</option></select></label>
+        <label id="sibNameL">Tên anh / chị / em<input type="text" id="fSibName" autocomplete="off" placeholder="Gõ tên"></label>
+        <label>Em sống ở đâu? (I live in …)<input type="text" id="fCity" autocomplete="off" placeholder="Gõ tên tỉnh / thành phố"></label>
+        <p class="note">Tên em gõ vào chỉ lưu trên máy này, không gửi đi đâu cả.</p>
+      </div>
+      <div class="card">
+        <div class="row-tools" style="margin-bottom:10px">
+          <button class="btn primary" type="button" id="playSpeech">▶ Nghe cả bài</button>
+          <button class="btn" type="button" id="stopSpeech">■ Dừng</button>
+          <button class="btn" type="button" id="bigMode" aria-pressed="false">🔍 Chữ to</button>
+        </div>
+        <div class="script" id="script"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="body">
+    <div class="sec-head"><h2>Các bộ phận cơ thể</h2><span class="en">My body parts</span>
+      <p class="muted">Bấm vào nhãn để nghe đọc. Chơi "Point to your …": máy đọc tên bộ phận, em bấm đúng nhãn trên hình.</p></div>
+    <div class="body-wrap">
+      <svg class="body-svg" id="bodySvg" viewBox="0 0 440 470" role="img" aria-label="Hình bạn nhỏ với các nhãn bộ phận cơ thể"></svg>
+      <div class="card game" id="bodyGame">
+        <div class="row-tools"><button class="btn primary" type="button" id="gStart">▶ Bắt đầu chơi</button><label class="muted"><input type="checkbox" id="gHide"> Ẩn chữ trên nhãn (khó hơn)</label></div>
+        <div class="ask" id="gAsk" aria-live="polite">Point to your …</div>
+        <div><span class="score" id="gScore">Đúng 0/0</span></div>
+        <div class="parts" id="partList"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="positions">
+    <div class="sec-head"><h2>Hỏi và trả lời về vị trí</h2><span class="en">Ask and answer about the positions</span>
+      <p class="muted">Nhìn mũi tên, chọn từ chỉ vị trí đúng. Đúng rồi thì bấm 🔊 để nghe cả câu hỏi và câu trả lời, rồi hai bạn hỏi – đáp với nhau.</p></div>
+    <div class="scenes" id="scenes"></div>
+  </section>
+
+  <section id="room">
+    <div class="sec-head"><h2>Tìm đồ vật trong tranh</h2><span class="en">Find the objects. Point and say.</span>
+      <p class="muted">Nhìn tranh phòng khách, chọn từ đúng điền vào chỗ trống. Mẫu: <span class="en">The clock is between the pictures.</span></p></div>
+    <div class="room-grid">
+      <div class="room"><svg id="roomSvg" viewBox="0 0 400 300" role="img" aria-label="Phòng khách có ghế sofa, đèn, bàn, cây xương rồng, con thỏ, búp bê và quả bóng"></svg></div>
+      <div class="fillrows" id="roomRows"></div>
+    </div>
+  </section>
+
+  <section id="plants">
+    <div class="sec-head"><h2>Các bộ phận của cây</h2><span class="en">Exploring plants</span>
+      <p class="muted">Bấm vào số trên hình, rồi chọn tên bộ phận. Sau đó hai bạn luyện hỏi – đáp theo mẫu bên dưới.</p></div>
+    <div class="plant-grid">
+      <div class="plant"><svg id="plantSvg" viewBox="0 0 400 420" role="img" aria-label="Cây cam trong chậu, đánh số 1 đến 5"></svg></div>
+      <div class="card">
+        <div class="dialog" id="plantDialog"></div>
+        <div class="parts" id="plantChoices"></div>
+        <p class="score" id="pScore" style="margin-top:10px"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>Bài học Tiếng Anh lớp 1. <a href="../index.html">← Về trang chủ</a></footer>
+</main>
+
+<script>
+(function(){
+"use strict";
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const SPK='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z"/></svg>';
+const NS='http://www.w3.org/2000/svg';
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function shakeIt(n){n.classList.remove('shake');void n.getBoundingClientRect();n.classList.add('shake');}
+
+/* Speech */
+const hasSpeech='speechSynthesis' in window; let voices=[];
+if(!hasSpeech)document.documentElement.classList.add('no-speech');
+function loadVoices(){voices=hasSpeech?speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang)):[]}
+if(hasSpeech){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;}
+function speak(text,o){o=o||{};if(!hasSpeech)return;if(!o.queue)speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=o.rate||0.8;const w=o.voice||0;
+  if(voices.length)u.voice=voices[w%voices.length];u.pitch=voices.length>1?1:(w%2?0.85:1.2);
+  if(o.onstart)u.onstart=o.onstart;if(o.onend){u.onend=o.onend;u.onerror=o.onend;}speechSynthesis.speak(u);}
+const sayBtn=t=>`<button class="say" type="button" data-say="${esc(t)}" aria-label="Nghe: ${esc(t)}">${SPK}</button>`;
+document.addEventListener('click',e=>{const b=e.target.closest('[data-say]');if(b){e.stopPropagation();speak(b.dataset.say);}});
+
+/* ---------- About me ---------- */
+const store={get(k){try{return localStorage.getItem('lop1-'+k)}catch(e){return null}},set(k,v){try{localStorage.setItem('lop1-'+k,v)}catch(e){}}};
+const F={name:$('#fName'),age:$('#fAge'),sib:$('#fSib'),sibName:$('#fSibName'),city:$('#fCity')};
+for(const k in F){const v=store.get(k);if(v!==null)F[k].value=v;}
+const famSaved=store.get('fam');if(famSaved!==null){const s=famSaved.split(',');document.querySelectorAll('#fFam input').forEach(c=>c.checked=s.includes(c.value));}
+const blank=v=>v&&v.trim()?esc(v.trim()):'_____';
+function listAnd(a){return a.length<2?a.join(''):a.slice(0,-1).join(', ')+(a.length>2?',':'')+' and '+a[a.length-1];}
+function speechLines(){
+  const fam=[...document.querySelectorAll('#fFam input:checked')].map(c=>c.value);
+  const sib=F.sib.value;
+  const famHTML=fam.map(x=>`<b>${x}</b>`);
+  if(sib)famHTML.push(`my <b>${sib}</b> <span class="fill">${blank(F.sibName.value)}</span>`);
+  const famText=fam.slice();if(sib)famText.push(`my ${sib} ${F.sibName.value.trim()}`);
+  $('#sibNameL').hidden=!sib;
+  return [
+   ['Hi teacher and everyone!','Hi teacher and everyone!'],
+   [`My name is <span class="fill">${blank(F.name.value)}</span>.`,`My name is ${F.name.value.trim()||''}.`],
+   [`I'm <b>${F.age.value} years old</b>.`,`I'm ${F.age.value} years old.`],
+   [`I live with my ${listAnd(famHTML)||'family'} in a house. I live in <span class="fill">${blank(F.city.value)}</span>.`,`I live with my ${listAnd(famText)||'family'} in a house. I live in ${F.city.value.trim()}.`],
+   ['Now, I will introduce my body parts!'],
+   ['This is my <b>head</b>, and I have black <b>hair</b>. This is my <b>face</b>.'],
+   ['I have two <b>eyes</b> to see, one <b>nose</b> to smell, and one <b>mouth</b> to smile and eat candy.'],
+   ['Inside my mouth, I have white <b>teeth</b> to chew food.'],
+   ['I have two <b>ears</b> to listen to my teacher.'],
+   ['Look! These are my two <b>shoulders</b> and two <b>arms</b>.'],
+   ['I have two <b>hands</b> and ten <b>fingers</b> to wave hello and draw pictures.'],
+   ['And these are my two <b>legs</b>, two <b>feet</b>, and ten <b>toes</b> to walk, run, and jump around with my friends.'],
+   ['Thank you for listening!']].map(l=>({html:l[0],text:l[1]||l[0].replace(/<[^>]+>/g,'')}));
+}
+let lines=[];
+function renderSpeech(){lines=speechLines();$('#script').innerHTML=lines.map((l,i)=>`<div class="sline" data-i="${i}" role="button" tabindex="0">${l.html}</div>`).join('');}
+function saveForm(){for(const k in F)store.set(k,F[k].value);store.set('fam',[...document.querySelectorAll('#fFam input:checked')].map(c=>c.value).join(','));}
+$('#speechForm').addEventListener('input',()=>{saveForm();renderSpeech();});
+$('#speechForm').addEventListener('change',()=>{saveForm();renderSpeech();});
+function playLine(i,queue){const row=$('#script').children[i];speak(lines[i].text,{queue,onstart:()=>{document.querySelectorAll('.sline.speaking').forEach(x=>x.classList.remove('speaking'));row.classList.add('speaking');},onend:()=>row.classList.remove('speaking')});}
+$('#script').addEventListener('click',e=>{const r=e.target.closest('.sline');if(r)playLine(+r.dataset.i,false);});
+$('#script').addEventListener('keydown',e=>{const r=e.target.closest('.sline');if(r&&(e.key==='Enter'||e.key===' ')){e.preventDefault();r.click();}});
+$('#playSpeech').addEventListener('click',()=>{if(hasSpeech)speechSynthesis.cancel();lines.forEach((_,i)=>playLine(i,true));});
+$('#stopSpeech').addEventListener('click',()=>{if(hasSpeech)speechSynthesis.cancel();document.querySelectorAll('.sline.speaking').forEach(x=>x.classList.remove('speaking'));});
+$('#bigMode').addEventListener('click',e=>{const on=$('#script').classList.toggle('big-mode');e.currentTarget.setAttribute('aria-pressed',on);});
+renderSpeech();
+
+/* ---------- Body picture ---------- */
+const BODY_PARTS=[
+ // word, vi, label x (left edge), label y (center), point x, point y
+ ['hair','tóc',14,40,192,46],['eyes','đôi mắt',14,92,200,100],['ears','đôi tai',14,140,163,108],['shoulders','đôi vai',14,190,170,178],['hands','bàn tay',14,300,120,300],['legs','đôi chân',14,375,196,375],['toes','ngón chân',14,440,180,436],
+ ['head','cái đầu',330,40,262,70],['face','khuôn mặt',330,92,252,120],['nose','cái mũi',330,135,222,112],['mouth','cái miệng',330,175,230,133],['teeth','răng',330,215,222,136],['arms','cánh tay',330,262,300,240],['fingers','ngón tay',330,320,326,312],['feet','bàn chân',330,410,262,430]];
+function drawBody(){
+  const s=$('#bodySvg');
+  let g=`
+  <g>
+   <line x1="190" y1="168" x2="128" y2="290" stroke="var(--skin)" stroke-width="24" stroke-linecap="round"/>
+   <line x1="250" y1="168" x2="312" y2="290" stroke="var(--skin)" stroke-width="24" stroke-linecap="round"/>
+   <circle cx="124" cy="302" r="17" fill="var(--skin)" stroke="#5a4636" stroke-width="1.5"/>
+   <circle cx="316" cy="302" r="17" fill="var(--skin)" stroke="#5a4636" stroke-width="1.5"/>
+   <path d="M110 310 l-6 10 M117 316 l-3 11 M126 318 l0 11 M134 315 l4 10 M316 318 l0 11 M308 316 l-3 11 M324 316 l3 11 M331 310 l6 10 M300 310 l-6 9" stroke="#5a4636" stroke-width="5" stroke-linecap="round"/>
+   <rect x="170" y="150" width="100" height="135" rx="26" fill="var(--sky)"/>
+   <text x="220" y="230" text-anchor="middle" font-size="34" class="emoji">⭐</text>
+   <rect x="208" y="140" width="24" height="18" fill="var(--skin)"/>
+   <rect x="172" y="278" width="96" height="48" rx="10" fill="var(--jade)"/>
+   <line x1="196" y1="320" x2="194" y2="415" stroke="var(--skin)" stroke-width="26" stroke-linecap="round"/>
+   <line x1="244" y1="320" x2="246" y2="415" stroke="var(--skin)" stroke-width="26" stroke-linecap="round"/>
+   <ellipse cx="184" cy="428" rx="26" ry="12" fill="var(--skin)" stroke="#5a4636" stroke-width="1.5"/>
+   <ellipse cx="256" cy="428" rx="26" ry="12" fill="var(--skin)" stroke="#5a4636" stroke-width="1.5"/>
+   <g fill="var(--skin)" stroke="#5a4636" stroke-width="1.2">${[162,170,178,186,193].map(x=>`<circle cx="${x}" cy="436" r="4"/>`).join('')}${[247,254,262,270,278].map(x=>`<circle cx="${x}" cy="436" r="4"/>`).join('')}</g>
+   <circle cx="163" cy="105" r="13" fill="var(--skin)" stroke="#5a4636" stroke-width="1.5"/>
+   <circle cx="277" cy="105" r="13" fill="var(--skin)" stroke="#5a4636" stroke-width="1.5"/>
+   <circle cx="220" cy="100" r="56" fill="var(--skin)" stroke="#5a4636" stroke-width="1.5"/>
+   <path d="M164 96 Q168 36 220 38 Q274 36 277 96 Q262 66 236 62 Q214 74 186 66 Q170 76 164 96Z" fill="#2B2320"/>
+   <circle cx="200" cy="100" r="7" fill="#2B2320"/><circle cx="240" cy="100" r="7" fill="#2B2320"/>
+   <circle cx="202" cy="98" r="2" fill="#fff"/><circle cx="242" cy="98" r="2" fill="#fff"/>
+   <path d="M220 104 q-6 12 2 14" fill="none" stroke="#5a4636" stroke-width="2" stroke-linecap="round"/>
+   <path d="M204 128 Q220 150 236 128 Z" fill="#B3332A" stroke="#5a4636" stroke-width="1.5"/>
+   <rect x="208" y="128" width="24" height="6" fill="#fff"/>
+   <circle cx="190" cy="120" r="7" fill="#F29C9C" opacity=".6"/><circle cx="250" cy="120" r="7" fill="#F29C9C" opacity=".6"/>
+  </g>`;
+  BODY_PARTS.forEach(([w,vi,lx,ly,px,py],i)=>{
+    const right=lx>200; const wdt=96;
+    const ax=right?lx:lx+wdt;
+    g+=`<path class="lead-ln" d="M${ax} ${ly} L${px} ${py}"/><circle cx="${px}" cy="${py}" r="3.5" fill="var(--sky)"/>`;
+    g+=`<g class="lbl" data-part="${w}" tabindex="0" role="button" aria-label="${w}"><rect x="${lx}" y="${ly-15}" width="${wdt}" height="30" rx="15"/><text x="${lx+wdt/2}" y="${ly+5}" text-anchor="middle">${w}</text></g>`;
+  });
+  s.innerHTML=g;
+  $('#partList').innerHTML=BODY_PARTS.map(([w,vi])=>`<span class="part-card" data-say="${w}"><b>${w}</b><span class="muted">${vi}</span></span>`).join('');
+}
+drawBody();
+let gTarget=null,gScore={ok:0,n:0},gMissed=false;
+function nextAsk(){const p=BODY_PARTS[Math.floor(Math.random()*BODY_PARTS.length)][0];if(p===gTarget)return nextAsk();gTarget=p;gMissed=false;
+  $('#gAsk').innerHTML=`Point to your <span>${p}</span>!`;speak(`Point to your ${p}!`);}
+$('#gStart').addEventListener('click',()=>{gScore={ok:0,n:0};$('#gScore').textContent='Đúng 0/0';nextAsk();$('#gStart').textContent='↺ Chơi lại';});
+$('#gHide').addEventListener('change',e=>document.querySelectorAll('.lbl').forEach(l=>l.classList.toggle('hide',e.target.checked)));
+function pickPart(lbl){
+  const w=lbl.dataset.part;
+  if(!gTarget){speak(w);return;}
+  if(w===gTarget){lbl.classList.add('right');gScore.n++;if(!gMissed)gScore.ok++;$('#gScore').textContent=`Đúng ${gScore.ok}/${gScore.n}`;speak(`Yes! This is my ${w}.`.replace('This is my','These are my').replace(/These are my (head|face|nose|mouth)\./,'This is my $1.'));
+    setTimeout(()=>{document.querySelectorAll('.lbl').forEach(l=>l.classList.remove('right','wrong'));nextAsk();},1600);}
+  else{lbl.classList.add('wrong');gMissed=true;setTimeout(()=>lbl.classList.remove('wrong'),700);}
+}
+$('#bodySvg').addEventListener('click',e=>{const l=e.target.closest('.lbl');if(l)pickPart(l);});
+$('#bodySvg').addEventListener('keydown',e=>{const l=e.target.closest('.lbl');if(l&&(e.key==='Enter'||e.key===' ')){e.preventDefault();pickPart(l);}});
+
+/* ---------- Positions (Task 1) ---------- */
+const POS=['in','on','under','next to','between','in front of','behind'];
+const em=(x,y,s,ch,extra)=>`<text class="emoji" x="${x}" y="${y}" font-size="${s}" text-anchor="middle" ${extra||''}>${ch}</text>`;
+const arrow=(x,y)=>`<path d="M${x} ${y-26} v16 h-7 l9 12 l9 -12 h-7 v-16 z" fill="#2B2B2B" transform="translate(-2 0)"/>`;
+const ground='<rect x="0" y="118" width="220" height="22" fill="var(--jade)" opacity=".25"/>';
+const box=`<rect x="70" y="86" width="80" height="34" rx="3" fill="#F2D649" stroke="#8a7a1a" stroke-width="2"/>`;
+const table=`<rect x="44" y="58" width="132" height="10" rx="3" fill="var(--wood)"/><rect x="52" y="68" width="8" height="52" fill="var(--wood)"/><rect x="160" y="68" width="8" height="52" fill="var(--wood)"/>${em(70,56,16,'📚')}${em(150,56,16,'⏰')}`;
+const SCENES=[
+ {ex:true,q:'Where is the dog?',ans:'in front of',obj:'the tree',svg:ground+em(110,108,90,'🌳')+em(118,128,44,'🐕')+arrow(156,104)},
+ {q:'Where is the carrot?',ans:'next to',obj:'the rabbit',svg:ground+em(80,118,60,'🐇')+em(140,118,40,'🥕')+arrow(140,80)},
+ {q:'Where is the dog?',ans:'on',obj:'the box',svg:ground+box+em(110,86,50,'🐕')+arrow(78,40)},
+ {q:'Where is the monkey?',ans:'between',obj:'the trees',svg:ground+em(46,118,70,'🌳')+em(174,118,70,'🌳')+em(110,116,46,'🐒')+arrow(110,72)},
+ {q:'Where is the rabbit?',ans:'next to',obj:'the house',svg:ground+em(92,118,80,'🏠')+em(168,118,40,'🐇')+arrow(168,78)},
+ {q:'Where is the tree?',ans:'in front of',obj:'the house',svg:ground+em(110,108,86,'🏠')+em(110,132,58,'🌲')+arrow(60,124)},
+ {q:'Where is the dog?',ans:'under',obj:'the table',svg:ground+table+em(110,118,40,'🐕')+arrow(150,110)}];
+$('#scenes').innerHTML=SCENES.map((s,i)=>{
+  const full=`It is ${s.ans} ${s.obj}.`;
+  return `<div class="scene ${s.ex?'done':''}" data-i="${i}">
+   <div class="q"><span class="num">${s.ex?'VD':i}</span><span>${esc(s.q)}</span></div>
+   <svg viewBox="0 0 220 140" aria-hidden="true">${s.svg}</svg>
+   ${s.ex?'':`<div class="choices">${POS.map(p=>`<button class="ch" type="button" data-p="${p}">${p}</button>`).join('')}</div>`}
+   <div class="answer" ${s.ex?'':'hidden'}><div class="bubble"><span class="who">👧</span>${esc(s.q)}</div><div class="bubble"><span class="who">👦</span>${esc(full)} ${sayBtn(s.q+' '+full)}</div></div>
+  </div>`;}).join('');
+$('#scenes').addEventListener('click',e=>{
+  const b=e.target.closest('.ch');if(!b)return;const card=b.closest('.scene');if(card.classList.contains('done'))return;
+  const s=SCENES[+card.dataset.i];
+  if(b.dataset.p===s.ans){b.classList.add('right');card.classList.add('done');const a=$('.answer',card);a.hidden=false;a.classList.add('pop');
+    speak(s.q,{voice:0});speak(`It is ${s.ans} ${s.obj}.`,{queue:true,voice:1});}
+  else{b.classList.add('wrong');shakeIt(b);}
+});
+
+/* ---------- Room (Task 2) ---------- */
+$('#roomSvg').innerHTML=`
+ <rect width="400" height="300" fill="var(--wall)"/><rect y="236" width="400" height="64" fill="#E8D9BF"/>
+ <rect x="104" y="30" width="56" height="56" fill="#fff" stroke="#9c8b70" stroke-width="5"/>${em(132,70,32,'🍉')}
+ <rect x="236" y="30" width="56" height="56" fill="#fff" stroke="#9c8b70" stroke-width="5"/>${em(264,70,32,'🌈')}
+ ${em(198,80,40,'🕰️')}
+ <path d="M44 120 L76 120 L70 92 L50 92 Z" fill="#F3E3C3" stroke="#9c8b70" stroke-width="2"/><line x1="60" y1="120" x2="60" y2="236" stroke="#9c6a3c" stroke-width="3"/><path d="M60 180 L42 240 M60 180 L78 240" stroke="#9c6a3c" stroke-width="3"/>
+ <rect x="96" y="140" width="190" height="56" rx="18" fill="#8FA08A"/><rect x="88" y="168" width="206" height="54" rx="14" fill="#7C8E77"/><rect x="88" y="150" width="22" height="66" rx="10" fill="#6E7F69"/><rect x="272" y="150" width="22" height="66" rx="10" fill="#6E7F69"/>
+ <rect x="112" y="150" width="34" height="28" rx="6" fill="#fff" stroke="#bbb"/><rect x="236" y="150" width="34" height="28" rx="6" fill="#fff" stroke="#bbb"/>
+ ${em(192,174,40,'🐰')}
+ ${em(352,226,70,'🌵')}
+ <ellipse cx="335" cy="214" rx="50" ry="8" fill="#66C2D6"/><rect x="306" y="218" width="5" height="44" fill="#444"/><rect x="358" y="218" width="5" height="44" fill="#444"/>
+ ${em(336,262,26,'🥕')}
+ <rect x="110" y="236" width="170" height="50" rx="4" fill="#F6E1A6" stroke="#E7A1B0" stroke-width="5"/>
+ ${em(172,266,40,'🧸')}${em(196,284,30,'⚽')}`;
+const ROOM=[
+ ['The carrot is','the table.',['under'],'var(--ok-soft)'],
+ ['The table is','the plant.',['in front of','next to'],'#FFD27A'],
+ ['The rabbit is','the sofa.',['on'],'#D9EC8C'],
+ ['The sofa is','the lamp.',['next to'],'#F7A3A0'],
+ ['The teddy bear is','the ball.',['behind','next to'],'#FFF07A']];
+$('#roomRows').innerHTML=`<div class="frow" style="--c:var(--sky-soft)"><span class="s">The clock is <span class="gap">between</span> the pictures. ${sayBtn('The clock is between the pictures.')}</span></div>`+
+ ROOM.map(([a,b,ans,c],i)=>`<div class="frow" data-i="${i}" style="--c:${c}"><span class="s">${esc(a)} <span class="gap">…</span> ${esc(b)}</span><div class="choices">${POS.map(p=>`<button class="ch" type="button" data-p="${p}">${p}</button>`).join('')}</div></div>`).join('');
+$('#roomRows').addEventListener('click',e=>{
+  const b=e.target.closest('.ch');if(!b)return;const row=b.closest('.frow');if(row.dataset.done)return;const r=ROOM[+row.dataset.i];
+  if(r[2].includes(b.dataset.p)){row.dataset.done=1;b.classList.add('right');$('.gap',row).textContent=b.dataset.p;const sen=`${r[0]} ${b.dataset.p} ${r[1]}`;speak(sen);
+    $('.choices',row).outerHTML=`<span class="s" style="font-weight:600">✔ ${r[2].length>1?'Đúng! Cũng có thể nói: '+esc(r[2].filter(x=>x!==b.dataset.p).join(' / ')):'Đúng rồi!'} ${sayBtn(sen)}</span>`;}
+  else{b.classList.add('wrong');shakeIt(b);}
+});
+
+/* ---------- Plants ---------- */
+const PARTS=[['root','rễ cây','🟫'],['stem','thân cây','<span style="display:inline-block;width:6px;height:16px;background:#7A4A22;border-radius:3px;vertical-align:-2px;margin:0 4px"></span>'],['leaf','lá cây','🍃'],['flower','bông hoa','🌸'],['fruit','quả','🍊']];
+const NUMS=[ // number, part index, label x,y, target x,y
+ [1,0,40,330,200,330],[2,1,40,255,204,255],[3,2,40,120,150,130],[4,3,360,110,290,112],[5,4,360,175,282,170]];
+function drawPlant(){
+  const leaf=(x,y,r)=>`<ellipse cx="${x}" cy="${y}" rx="17" ry="9" fill="#3E8E3E" stroke="#2B5E2B" stroke-width="1.2" transform="rotate(${r} ${x} ${y})"/>`;
+  const flower=(x,y)=>`<g>${[0,72,144,216,288].map(a=>`<ellipse cx="${x}" cy="${y-8}" rx="5" ry="9" fill="#FFF3F6" stroke="#E4A6B6" transform="rotate(${a} ${x} ${y})"/>`).join('')}<circle cx="${x}" cy="${y}" r="4" fill="#F2B233"/></g>`;
+  const fruit=(x,y)=>`<circle cx="${x}" cy="${y}" r="13" fill="#F39A1E" stroke="#C46F0A" stroke-width="1.5"/>`;
+  let s=`
+   <path d="M110 290 L290 290 L270 400 L130 400 Z" fill="#B5652A" stroke="#7A3F14" stroke-width="3"/>
+   <rect x="100" y="282" width="200" height="18" rx="6" fill="#C97A3C" stroke="#7A3F14" stroke-width="3"/>
+   <path d="M118 300 L282 300 L276 330 L124 330 Z" fill="#6B4423" opacity=".6"/>
+   <path d="M200 290 C198 320 200 340 200 380 M200 320 C185 340 170 350 150 370 M200 330 C215 345 235 355 250 372 M200 345 C190 360 185 375 175 390 M200 350 C210 365 220 380 228 392" stroke="#E9D7B5" stroke-width="3" fill="none" stroke-linecap="round"/>
+   <path d="M200 292 C202 240 198 210 205 170" stroke="#7A4A22" stroke-width="12" fill="none" stroke-linecap="round"/>
+   <path d="M203 200 C180 180 160 160 140 140 M205 185 C230 165 250 150 270 130 M205 170 C200 140 205 110 210 80" stroke="#7A4A22" stroke-width="6" fill="none" stroke-linecap="round"/>`;
+  const L=[[140,130,-20],[120,150,10],[160,110,-40],[175,80,20],[205,60,0],[235,75,-30],[260,95,20],[280,125,-10],[300,150,30],[150,170,25],[250,165,-20],[220,110,15],[185,140,-15],[275,190,10],[130,110,40],[240,130,40],[195,95,-60],[310,120,-30]];
+  s+=L.map(([x,y,r])=>leaf(x,y,r)).join('');
+  s+=[[290,112],[160,92],[245,60],[120,175]].map(([x,y])=>flower(x,y)).join('');
+  s+=[[282,170],[215,130],[150,150],[260,100],[190,70],[230,180],[300,90]].map(([x,y])=>fruit(x,y)).join('');
+  NUMS.forEach(([n,p,lx,ly,tx,ty])=>{
+    const dir=tx>lx?1:-1;const sx=lx+dir*18;
+    s+=`<line x1="${sx}" y1="${ly}" x2="${tx-dir*6}" y2="${ty}" stroke="#1E88C8" stroke-width="3"/><path d="M${tx} ${ty} l${-dir*12} -6 l0 12 z" fill="#1E88C8"/>`;
+    s+=`<g class="pnum" data-n="${n}" tabindex="0" role="button" aria-label="Số ${n}"><circle cx="${lx}" cy="${ly}" r="18"/><text x="${lx}" y="${ly+7}" text-anchor="middle">${n}</text></g>`;
+  });
+  $('#plantSvg').innerHTML=s;
+}
+drawPlant();
+let curN=1;const solved={};
+function renderPlant(){
+  const p=PARTS[NUMS[curN-1][1]];
+  document.querySelectorAll('.pnum').forEach(g=>{g.classList.toggle('cur',+g.dataset.n===curN);g.classList.toggle('done',!!solved[g.dataset.n]);});
+  const q=`Look at number ${curN}, what part is it?`;
+  const a=solved[curN]?`It is a ${p[0]}.`:'It is …';
+  const boy=curN%2;
+  $('#plantDialog').innerHTML=`<div class="talk ${boy?'':'g'}"><span class="who">${boy?'👦':'👧'}</span><span class="b">${esc(q)} ${sayBtn(q)}</span></div>
+    <div class="talk ${boy?'g':''}"><span class="who">${boy?'👧':'👦'}</span><span class="b">${esc(a)} ${solved[curN]?sayBtn(a):''}</span></div>`;
+  $('#plantChoices').innerHTML=solved[curN]?`<button class="btn primary" type="button" id="pNext">Số tiếp theo →</button>`:PARTS.map(([w,vi,ic])=>`<button class="ch" type="button" data-w="${w}"><span class="emoji">${ic}</span> ${w} <small class="muted">(${vi})</small></button>`).join('');
+  const n=Object.keys(solved).length;$('#pScore').textContent=n===5?'🎉 Giỏi quá! Em đã gọi tên đủ 5 bộ phận: root, stem, leaf, flower, fruit.':`Đã xong ${n}/5`;
+}
+$('#plantSvg').addEventListener('click',e=>{const g=e.target.closest('.pnum');if(!g)return;curN=+g.dataset.n;renderPlant();speak(`Look at number ${curN}, what part is it?`);});
+$('#plantSvg').addEventListener('keydown',e=>{const g=e.target.closest('.pnum');if(g&&(e.key==='Enter'||e.key===' ')){e.preventDefault();g.dispatchEvent(new MouseEvent('click',{bubbles:true}));}});
+$('#plantChoices').addEventListener('click',e=>{
+  if(e.target.closest('#pNext')){const next=[1,2,3,4,5].find(n=>!solved[n]);if(next){curN=next;renderPlant();speak(`Look at number ${curN}, what part is it?`);}return;}
+  const b=e.target.closest('.ch');if(!b)return;const p=PARTS[NUMS[curN-1][1]];
+  if(b.dataset.w===p[0]){solved[curN]=1;renderPlant();speak(`It is a ${p[0]}.`,{voice:1});}
+  else{b.classList.add('wrong');shakeIt(b);}
+});
+renderPlant();
+})();
+</script>
+</body>
+</html>
