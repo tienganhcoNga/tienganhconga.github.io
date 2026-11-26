@@ -7,7 +7,8 @@ lop-hoc/
 ├── index.html              ← Trang chủ (Mẫu giáo + Lớp 4)
 ├── .nojekyll               ← File rỗng, giữ nguyên (để GitHub không xử lý lại file)
 ├── lop-4/
-│   └── su-viet-ioe.html    ← Bài Sử Việt IOE lớp 4
+│   ├── su-viet-ioe.html    ← Bài Sử Việt IOE lớp 4
+│   └── tieng-anh-ioe.html  ← Tiếng Anh IOE lớp 4 (từ vựng, ngữ pháp, hội thoại, luyện đề, tập chép)
 └── mau-giao/
     └── english-speeches.html ← Luyện nói tiếng Anh (8 chủ đề, mở thẳng một chủ đề bằng #farm, #sea...)
 ```
