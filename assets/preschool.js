@@ -90,6 +90,7 @@
     var i = P.units.indexOf(u), prev = P.units[i - 1], next = P.units[i + 1];
     var h = '<div class="v-head"><span class="v-ic" aria-hidden="true">' + u.ic + '</span><div><span class="v-n">' + esc(u.n) + "</span><h2>" + esc(u.en) + '</h2><span class="v-vi">' + esc(u.vi) + "</span></div></div>";
     if (u.review) h += '<p class="review">🔁 Ôn lại: ' + esc(u.review) + "</p>";
+    if (u.speech) h += '<button class="sp-jump" type="button" data-sp="jump">🎤 Bài nói của bé: <b>' + esc(u.speech.t) + "</b> ↓</button>";
     h += '<div class="block"><div class="b-head"><h3>1. Chạm là đọc</h3><span class="muted">Tap &amp; Listen</span><button class="btn" type="button" data-act="all-words">▶ Nghe tất cả</button></div>';
     var lastG = null;
     h += u.words.map(function (w, k) {
@@ -102,9 +103,11 @@
         var who = P.chars[t[2] || 0];
         return '<div class="bub ' + ((t[2] || 0) === 2 ? "r" : "") + '" data-t="' + k + '"><span class="who" aria-hidden="true">' + who + '</span><button class="bb" type="button" data-t="' + k + '"><span class="en">' + esc(t[0]) + "</span><small>" + esc(t[1]) + "</small></button></div>";
       }).join("") + "</div></div>";
-    h += '<div class="block"><div class="b-head"><h3>3. Trò chơi</h3></div>' +
-      (u.games.length > 1 ? '<div class="gtabs">' + u.games.map(function (g, k) { return '<button class="chip" type="button" data-g="' + k + '" aria-pressed="' + (k === 0) + '">' + esc(g.name) + "</button>"; }).join("") + "</div>" : "") +
-      '<div class="game" id="game" aria-live="polite"></div></div>';
+    var gs = gamesOf(u);
+    h += '<div class="block"><div class="b-head"><h3>3. Trò chơi</h3><span class="muted">Games</span></div>' +
+      '<div class="gtabs">' + gs.map(function (g, k) { return '<button class="chip" type="button" data-g="' + k + '" aria-pressed="' + (k === 0) + '">' + esc(g.name) + "</button>"; }).join("") + "</div>" +
+      '<div class="gq"><div class="game" id="game" aria-live="polite"></div><aside class="gside" id="gside" hidden></aside></div></div>';
+    h += speechBlock(u);
     h += '<div class="u-nav">' + (prev ? '<a class="btn" href="#' + prev.id + '">← ' + esc(prev.n) + "</a>" : '<a class="btn" href="#lo-trinh">← Lộ trình</a>') +
       (next ? '<a class="btn primary" href="#' + next.id + '">' + esc(next.n) + ": " + esc(next.en) + " →</a>" : (P.next ? '<a class="btn primary" target="_top" href="' + P.next.href + '">' + esc(P.next.label) + " →</a>" : "")) + "</div>";
     return h;
@@ -116,11 +119,16 @@
 
   /* ---------- games ---------- */
   var G = null, cur = null;
+  /* Mỗi bài có thêm trò "Lật thẻ đoán từ" (giống thẻ "Đoán nhân vật" ở trang Sử Việt). */
+  function gamesOf(u) { return u.games.concat([{ type: "flip", name: "🃏 Lật thẻ đoán từ" }]); }
+  var ROUND = { pick: 1, count: 1, scene: 1, basket: 1, phrase: 1 };
   function startGame(k) {
     $$(".gtabs .chip").forEach(function (c) { c.setAttribute("aria-pressed", +c.getAttribute("data-g") === k); });
-    var cfg = cur.games[k];
-    G = { cfg: cfg, i: 0, ok: 0, miss: false };
+    var cfg = gamesOf(cur)[k];
+    G = { cfg: cfg, k: k, i: 0, ok: 0, miss: false, res: [] };
     var box = $("#game");
+    side();
+    if (cfg.type === "flip") return flip(box);
     if (cfg.type === "simon") return simon(box, cfg);
     if (cfg.type === "match") return match(box, cfg);
     if (cfg.type === "scene") { G.order = shuffle(idx(cfg)); return scene(box); }
@@ -131,11 +139,51 @@
   }
   function idx(cfg) { return cfg.only || cur.words.map(function (_, j) { return j; }); }
   function fill(t, o) { return t.replace("{w}", o.en).replace("{s}", o.x && o.x.sound || "").replace("{a}", /^[aeiou]/i.test(o.en) ? "an" : "a"); }
-  function top() { return '<div class="g-top"><span>Câu ' + (G.i + 1) + "/" + G.order.length + '</span><span class="stars">' + "⭐".repeat(G.ok) + "</span></div>"; }
-  function done(box) {
-    box.innerHTML = '<div class="done"><div class="big">🎉</div><p>Giỏi quá! Bé được <b>' + G.ok + "</b> ngôi sao</p><div class=\"stars\">" + "⭐".repeat(G.ok) + '</div><button class="btn primary" type="button" data-act="replay">↺ Chơi lại</button></div>';
-    chime(true); speak("Well done! Great job!");
+  function top() { setTimeout(side, 0); return '<div class="g-top"><span>Câu ' + (G.i + 1) + "/" + G.order.length + '</span><span class="stars">' + "⭐".repeat(G.ok) + "</span></div>"; }
+  /* Khung điểm bên phải: mỗi câu một ô, xanh = đúng ngay lần đầu, đỏ = có chọn sai. */
+  function wrongs() { return G.order.filter(function (_, i) { return G.res[i] === false; }); }
+  function side() {
+    var box = $("#gside"); if (!box) return;
+    var on = !!(G && ROUND[G.cfg.type] && G.order);
+    box.hidden = !on; $(".gq").classList.toggle("has-side", on); if (!on) return;
+    box.innerHTML = '<div class="gs-score"><b>' + G.ok + '</b><span>/ ' + G.order.length + " câu đúng ngay</span></div>" +
+      '<div class="gs-dots">' + G.order.map(function (_, i) { var r = G.res[i]; return '<span class="gs-dot' + (i === G.i ? " cur" : "") + (r === true ? " r" : r === false ? " w" : "") + '">' + (i + 1) + "</span>"; }).join("") + "</div>" +
+      '<button class="btn" type="button" data-act="replay">🔀 Trộn câu, chơi lại</button>' +
+      '<button class="btn" type="button" data-act="g-wrong"' + (wrongs().length ? "" : " disabled") + ">🔁 Chỉ làm lại câu sai</button>";
   }
+  function mark(ok) { if (G.res[G.i] === undefined) G.res[G.i] = ok; side(); }
+  function fb(ok, text) {
+    var box = $("#game"); $$(".feedback", box).forEach(function (f) { f.remove(); });
+    box.insertAdjacentHTML("beforeend", ok ? '<div class="feedback good"><b>✅ Đúng rồi!</b> <span class="en">' + esc(text || "") + "</span></div>"
+      : '<div class="feedback bad"><b>Chưa đúng.</b> Bé nghe lại rồi thử lần nữa nhé!</div>');
+  }
+  function renderRound() { var box = $("#game"), t = G.cfg.type; ({ pick: pick, count: count, scene: scene, basket: basket, phrase: phrase })[t](box); }
+  function retryWrong() {
+    var w = wrongs(); if (!w.length) return;
+    G = { cfg: G.cfg, k: G.k, i: 0, ok: 0, miss: false, res: [], order: shuffle(w) };
+    if (G.cfg.type === "basket") G.left = idx(G.cfg).slice();
+    renderRound();
+  }
+  function done(box) {
+    var w = wrongs().length;
+    box.innerHTML = '<div class="done"><div class="big">🎉</div><p>Giỏi quá! Bé đúng ngay <b>' + G.ok + "/" + G.order.length + "</b> câu</p><div class=\"stars\">" + "⭐".repeat(G.ok) + "</div>" +
+      '<div class="row-tools center">' + (w ? '<button class="btn primary" type="button" data-act="g-wrong">🔁 Làm lại ' + w + " câu sai</button>" : "") +
+      '<button class="btn' + (w ? "" : " primary") + '" type="button" data-act="replay">↺ Chơi lại</button></div></div>';
+    side(); chime(true); speak("Well done! Great job!");
+  }
+  /* flip: lật thẻ đoán từ */
+  function flip(box) {
+    var ws = shuffle(cur.words.map(function (_, j) { return j; }));
+    box.innerHTML = '<p class="muted">Cô đọc nghĩa tiếng Việt, cả lớp nói to từ tiếng Anh. Bấm vào thẻ để lật xem hình và nghe đáp án.</p>' +
+      '<div class="row-tools"><button class="btn" type="button" data-act="flip-all">Lật tất cả</button><button class="btn" type="button" data-act="flip-none">Úp tất cả</button></div>' +
+      '<div class="flips">' + ws.map(function (j) {
+        var o = W(cur.words[j]);
+        return '<button class="fcard" type="button" data-f="' + j + '" aria-pressed="false"><span class="fc-front"><span class="q" aria-hidden="true">❓</span><span class="fvi">' + esc(o.vi) + "</span>" +
+          (o.x && o.x.sound ? '<span class="fs">“' + esc(o.x.sound) + "”</span>" : "") + '<span class="hint">Bấm để lật</span></span>' +
+          '<span class="fc-back">' + vis(o) + '<span class="en">' + esc(o.en) + '</span><span class="fvi">' + esc(o.vi) + "</span></span></button>";
+      }).join("") + "</div>";
+  }
+  function flipCard(c, on) { c.classList.toggle("open", on); c.setAttribute("aria-pressed", on ? "true" : "false"); }
   /* pick: nghe rồi chọn 1 trong 3 hình */
   function pick(box) {
     if (G.i >= G.order.length) return done(box);
@@ -150,10 +198,10 @@
   function answerPick(btn) {
     var j = +btn.getAttribute("data-j"), o = W(cur.words[G.ans]);
     if (j === G.ans) {
-      if (!G.miss) G.ok++; btn.classList.add("right"); burst(btn); $$(".opt").forEach(function (b) { b.disabled = true; });
-      praise(G.cfg.after ? fill(G.cfg.after, o) : o.en + "!");
-      setTimeout(function () { G.i++; pick($("#game")); }, 1700);
-    } else { G.miss = true; oops(btn); }
+      if (!G.miss) G.ok++; mark(true); btn.classList.add("right"); burst(btn); $$(".opt").forEach(function (b) { b.disabled = true; });
+      var said = G.cfg.after ? fill(G.cfg.after, o) : o.en + "!"; praise(said); fb(true, said);
+      setTimeout(function () { G.i++; pick($("#game")); }, 1900);
+    } else { G.miss = true; mark(false); fb(false); oops(btn); }
   }
   /* count: đếm hình, chọn số */
   var NUM = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
@@ -221,7 +269,9 @@
     if (a) {
       var act = a.getAttribute("data-act");
       if (act === "hear") speak(G.say);
-      if (act === "replay") startGame(+(($(".gtabs .chip[aria-pressed=true]") || { getAttribute: function () { return 0; } }).getAttribute("data-g")));
+      if (act === "replay") startGame(G ? G.k : 0);
+      if (act === "g-wrong") retryWrong();
+      if (act === "flip-all" || act === "flip-none") $$(".fcard").forEach(function (c) { flipCard(c, act === "flip-all"); });
       if (act === "cmd") nextCmd(false);
       if (act === "cmd-again" && G.i >= 0) nextCmd(true);
       if (act === "all-words") { if (hasSpeech) speechSynthesis.cancel(); var cards = $$(".card"); cur.words.forEach(function (w, k) { speak(w[1].replace(/ \/ /g, ", "), { queue: true, onstart: function () { cards.forEach(function (c) { c.classList.remove("on"); }); cards[k].classList.add("on"); }, onend: function () { cards[k].classList.remove("on"); } }); }); }
@@ -232,35 +282,38 @@
     var card = t.closest(".card");
     if (card) { var w = cur.words[+card.getAttribute("data-w")]; card.classList.add("on", "zoom"); speak(w[1].replace(/ \/ /g, ", "), { onend: function () { card.classList.remove("on"); } }); setTimeout(function () { card.classList.remove("zoom"); }, 450); return; }
     var bb = t.closest(".bb"); if (bb) { var x = cur.talk[+bb.getAttribute("data-t")]; speak(x[0], { voice: x[2] || 0 }); return; }
+    var fc = t.closest(".fcard");
+    if (fc) { var open = !fc.classList.contains("open"); flipCard(fc, open); if (open) { speak(cur.words[+fc.getAttribute("data-f")][1].replace(/ \/ /g, ", ")); burst(fc); } return; }
     if (!G) return;
     var type = G.cfg.type;
     var opt = t.closest(".opt");
     if (opt && !opt.disabled && type === "pick") return answerPick(opt);
     if (opt && type === "count") {
-      if (+opt.getAttribute("data-n") === G.ans) { if (!G.miss) G.ok++; opt.classList.add("right"); burst(opt); $$(".opt").forEach(function (b) { b.disabled = true; }); praise(NUM[G.ans] + "!"); setTimeout(function () { G.i++; count($("#game")); }, 1700); }
-      else { G.miss = true; oops(opt); }
+      if (+opt.getAttribute("data-n") === G.ans) { if (!G.miss) G.ok++; mark(true); opt.classList.add("right"); burst(opt); $$(".opt").forEach(function (b) { b.disabled = true; }); praise(NUM[G.ans] + "!"); fb(true, G.ans + " – " + NUM[G.ans] + "!"); setTimeout(function () { G.i++; count($("#game")); }, 1900); }
+      else { G.miss = true; mark(false); fb(false); oops(opt); }
       return;
     }
     if (opt && type === "basket" && !opt.disabled) {
       if (+opt.getAttribute("data-j") === G.ans) {
-        if (!G.miss) G.ok++; opt.disabled = true; opt.classList.add("fly"); burst(opt);
+        if (!G.miss) G.ok++; mark(true); opt.disabled = true; opt.classList.add("fly"); burst(opt);
         G.left = G.left.filter(function (j) { return j !== G.ans; });
-        praise(G.cfg.after ? fill(G.cfg.after, W(cur.words[G.ans])) : "");
-        setTimeout(function () { G.i++; basket($("#game")); }, 1500);
-      } else { G.miss = true; oops(opt); }
+        var bs = G.cfg.after ? fill(G.cfg.after, W(cur.words[G.ans])) : W(cur.words[G.ans]).en + "!";
+        praise(G.cfg.after ? bs : ""); fb(true, bs);
+        setTimeout(function () { G.i++; basket($("#game")); }, 1700);
+      } else { G.miss = true; mark(false); fb(false); oops(opt); }
       return;
     }
     if (opt && type === "phrase" && !opt.disabled) {
       var it = G.cfg.items[G.order[G.i]], p = +opt.getAttribute("data-p");
       speak(it.o[p][1]);
-      if (p === G.ans) { if (!G.miss) G.ok++; opt.classList.add("right"); burst(opt); $$(".opt").forEach(function (b) { b.disabled = true; }); setTimeout(function () { chime(true); }, 600); setTimeout(function () { G.i++; phrase($("#game")); }, 2200); }
-      else { G.miss = true; setTimeout(function () { oops(opt); }, 900); }
+      if (p === G.ans) { if (!G.miss) G.ok++; mark(true); opt.classList.add("right"); burst(opt); $$(".opt").forEach(function (b) { b.disabled = true; }); fb(true, it.o[p][1]); setTimeout(function () { chime(true); }, 600); setTimeout(function () { G.i++; phrase($("#game")); }, 2400); }
+      else { G.miss = true; mark(false); setTimeout(function () { fb(false); oops(opt); }, 900); }
       return;
     }
     var sp = t.closest(".spot");
     if (sp && type === "scene" && !sp.disabled) {
-      if (+sp.getAttribute("data-j") === G.ans) { if (!G.miss) G.ok++; sp.classList.add("found"); burst(sp); $$(".spot").forEach(function (b) { b.disabled = true; }); praise(G.cfg.after ? fill(G.cfg.after, W(cur.words[G.ans])) : W(cur.words[G.ans]).en + "!"); setTimeout(function () { G.i++; scene($("#game")); }, 1700); }
-      else { G.miss = true; oops(sp); }
+      if (+sp.getAttribute("data-j") === G.ans) { if (!G.miss) G.ok++; mark(true); sp.classList.add("found"); burst(sp); $$(".spot").forEach(function (b) { b.disabled = true; }); var ss = G.cfg.after ? fill(G.cfg.after, W(cur.words[G.ans])) : W(cur.words[G.ans]).en + "!"; praise(ss); fb(true, ss); setTimeout(function () { G.i++; scene($("#game")); }, 1900); }
+      else { G.miss = true; mark(false); fb(false); oops(sp); }
       return;
     }
     var mi = t.closest(".mi");

@@ -200,19 +200,19 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
   .speech-grid,.body-wrap,.room-grid,.plant-grid{grid-template-columns:1fr}
 }
 </style>
-<script>(function(){try{var g=document.documentElement.getAttribute("data-grade"),k="lophoc-grade-"+g;if(!(sessionStorage.getItem(k)==="1"||localStorage.getItem(k)==="1"))document.documentElement.classList.add("grade-locked")}catch(e){}})()</script><style>html.grade-locked body>*:not(.pin-gate){visibility:hidden}</style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
     <div class="eyebrow">Lớp 1 · Tiếng Anh</div>
     <h1>Tiếng Anh <span>lớp 1</span></h1>
-    <p class="lead">Bài nói "About Me &amp; My Body", vị trí đồ vật, bộ phận của cây, đồ dùng học tập, hình khối, đồ vật và các phòng trong nhà, hoạt động trong phòng tắm và phòng ngủ. Bấm vào chữ hay hình để nghe đọc.</p>
+    <p class="lead">Câu lệnh trong lớp (classroom language), bài nói "About Me &amp; My Body", vị trí đồ vật, bộ phận của cây, đồ dùng học tập, hình khối, đồ vật và các phòng trong nhà, hoạt động trong phòng tắm và phòng ngủ. Bấm vào chữ hay hình để nghe đọc.</p>
   </header>
 </div>
 <nav class="nav" aria-label="Các phần">
   <div class="wrap">
     <a class="home" href="../index.html">← Trang chủ</a>
+    <a href="#classroom">Classroom language</a>
     <a href="#about">About Me</a>
     <a href="#body">My Body</a>
     <a href="#positions">Positions</a>
@@ -229,6 +229,18 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
 </nav>
 
 <main class="wrap">
+  <section id="classroom">
+    <div class="sec-head"><h2>Câu lệnh trong lớp</h2><span class="en">Classroom language</span>
+      <p class="muted">Xem video, bấm vào hình để nghe đọc rồi làm động tác thật to. Cô nói lệnh, cả lớp làm theo: <span class="en">Stand up! Sit down! Hands up! Hands down! Be quiet! Make a line!</span></p></div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="mg-head"><h3>Video: Tuần 1 – Classroom Language</h3><a class="btn" href="https://www.youtube.com/watch?v=oRe7yNxPQHQ" target="_blank" rel="noopener">Mở trên YouTube ↗</a></div>
+      <div style="position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000">
+        <iframe src="https://www.youtube-nocookie.com/embed/oRe7yNxPQHQ?rel=0" title="Tuần 1 – Classroom Language" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+      </div>
+    </div>
+    <div class="topic" data-topic="classroom"></div>
+  </section>
+
   <section id="about">
     <div class="sec-head"><h2>Bài nói: About Me &amp; My Body</h2><span class="en">My speech</span>
       <p class="muted">Em điền tên, tuổi, gia đình và nơi ở, bài nói sẽ tự đổi theo. Bấm "Nghe cả bài" để nghe mẫu, bấm từng câu để luyện câu đó.</p></div>
@@ -348,7 +360,7 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
   <footer>Bài học Tiếng Anh lớp 1. <a href="../index.html">← Về trang chủ</a></footer>
 </main>
 
-<script src="../assets/pin.js?v=20261127b"></script>
+<script src="../assets/pin.js?v=20261127e"></script>
 <script>
 (function(){
 "use strict";
@@ -623,6 +635,7 @@ const SHAPES=[['circle','#E53935','hình tròn'],['square','#1E88E5','hình vuô
 const HOME=[['🛋️','sofa','ghế sofa'],['💺','armchair','ghế bành'],['🪑','chair','cái ghế'],[TABLE,'table','cái bàn'],['🛏️','bed','cái giường'],['💡','lamp','cái đèn'],['📺','TV','ti vi'],['🕰️','clock','đồng hồ'],['🗄️','cupboard','cái tủ'],['📚','bookcase','tủ sách'],['👗','wardrobe','tủ quần áo'],['🖼️','picture','bức tranh'],['🚪','door','cửa ra vào'],['🔲','window','cửa sổ'],['🧊','fridge','tủ lạnh']];
 const ROOMS=[['🏠','house','ngôi nhà'],['🛋️','living room','phòng khách'],['🛏️','bedroom','phòng ngủ'],['🛁','bathroom','phòng tắm'],['🍳','kitchen','nhà bếp'],['🍽️','dining room','phòng ăn'],['🌳','garden','khu vườn'],['🚗','garage','nhà để xe']];
 const ROUTINE=[['⏰','wake up','thức dậy','Wake up!'],['🙆','stretch','vươn vai','Stretch!'],['🧼','wash face','rửa mặt','Wash your face!'],['👐','wash hands','rửa tay','Wash your hands!'],['🦷','brush teeth','đánh răng','Brush your teeth!'],['💇','comb hair','chải đầu','Comb your hair!'],['🚿','take a shower','tắm vòi sen','Take a shower!'],['🛁','take a bath','tắm bồn','Take a bath!'],['💨','dry hair','sấy tóc','Dry your hair!'],['👚','put on pajamas','mặc đồ ngủ','Put on your pajamas!'],['🛏️','make the bed','dọn giường','Make the bed!'],['💡','turn off the light','tắt đèn','Turn off the light!'],['😴','go to sleep','đi ngủ','Go to sleep!']];
+const CLASSROOM=[['🧍','stand up','đứng lên','Stand up!'],['🪑','sit down','ngồi xuống','Sit down!'],['🙋','hands up','giơ tay lên','Hands up!'],['👇','hands down','bỏ tay xuống','Hands down!'],['🤫','be quiet','trật tự','Be quiet!'],['🚶','make a line','xếp hàng','Make a line!']];
 const an=w=>(/^[aeiou]/.test(w)?'an ':'a ')+w;
 const SHAPE_Q=[['🕐','circle'],['🍪','circle'],['🍕','triangle'],['🧀','triangle'],['🚪','rectangle'],['📺','rectangle'],['🥚','oval'],['🏉','oval'],['🪁','diamond'],['🎁','square'],['⭐','star'],['💝','heart']]
   .map(([p,a])=>[p,'What shape is it?',a,`It's ${an(a)}.`]);
@@ -719,6 +732,13 @@ function topic(id,o){
   }
   miniGame($('.mg',el),o.modes);
 }
+
+topic('classroom',{words:CLASSROOM,patterns:[
+  ['Stand up, please.','Các con đứng lên nào.'],['Sit down, please.','Các con ngồi xuống nào.'],
+  ['Hands up!','Giơ tay lên!'],['Hands down!','Bỏ tay xuống!'],
+  ['Be quiet, please.','Các con trật tự nào.'],['Make a line, please.','Các con xếp hàng nào.'],
+  ['Stand up, stand up, sit down!','Đứng lên, đứng lên, ngồi xuống!'],['Hands up, hands up, hands down!','Giơ tay, giơ tay, bỏ tay xuống!']],
+ modes:[M.listen(CLASSROOM),M.simon(CLASSROOM),M.timed(CLASSROOM)]});
 
 topic('school',{words:SCHOOL,patterns:[
   ["What is this? – It's a ruler.",'Đây là cái gì? – Đó là cái thước.'],['I have a book.','Mình có một quyển sách.'],

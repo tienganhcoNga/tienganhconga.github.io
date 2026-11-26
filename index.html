@@ -108,8 +108,8 @@ button{font:inherit;color:inherit}
   <aside class="side" id="side" aria-label="Khối lớp và chủ đề">
     <h2>📚 Khối lớp</h2>
     <div id="menu"></div>
-    <p class="side-note">Bấm khối lớp hoặc tên bài để mở ngay bài đầu tiên. Mỗi khối có mã PIN riêng.</p>
-    <button class="relock" type="button" id="lockAll" hidden style="margin:12px 6px 0">🔐 Khóa tất cả</button>
+    <p class="side-note">Bấm khối lớp hoặc tên bài để mở ngay bài đầu tiên. Phần Đáp án cần mã PIN.</p>
+    <button class="relock" type="button" id="lockAll" hidden style="margin:12px 6px 0">🔐 Khóa đáp án</button>
   </aside>
   <div class="backdrop" id="backdrop"></div>
 
@@ -133,7 +133,7 @@ button{font:inherit;color:inherit}
   </main>
 </div>
 
-<script src="assets/pin.js?v=20261127b"></script>
+<script src="assets/pin.js?v=20261127e"></script>
 <script>
 (function(){
 "use strict";
@@ -156,7 +156,7 @@ const GRADES=[
    ['can','Things I Can Do'],['actions','What Animals Can Do'],['colors','Animal Colors'],['bodies','Animal Bodies']]}]},
  {id:'lop-1',name:'Lớp 1',c:'sky',note:'Tiếng Anh',lessons:[
   {id:'tieng-anh',ic:'🧒',name:'Tiếng Anh lớp 1',file:'lop-1/tieng-anh-lop-1.html',answers:true,topics:[
-   ['about','About Me (bài nói)'],['body','My Body'],['positions','Where is …?'],['room','Find the objects'],['plants','Parts of a plant'],
+   ['classroom','Classroom language'],['about','About Me (bài nói)'],['body','My Body'],['positions','Where is …?'],['room','Find the objects'],['plants','Parts of a plant'],
    ['school','School things'],['shapes','Shapes'],['home','Things at home'],['review','Ôn tập'],['rooms','Rooms in the house'],['routines','Bathroom & bedroom']]},
   {id:'chu-de',ic:'📘',name:'Ôn 10 chủ đề',file:'lop-1/chu-de-lop-1.html',answers:false,topics:[
    ['u0','Starter: Back to school'],['u1','Unit 1: My day'],['u2','Unit 2: The zoo'],['u3','Unit 3: Where we live'],['u4','Unit 4: The market'],

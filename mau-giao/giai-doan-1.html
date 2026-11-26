@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="../assets/course.css?v=20261127d">
 <link rel="stylesheet" href="../assets/preschool.css?v=20261127d">
 <style>:root{--accent:var(--gold);--accent-soft:var(--gold-soft)}</style>
-<script>(function(){try{var g=document.documentElement.getAttribute("data-grade"),k="lophoc-grade-"+g;if(!(sessionStorage.getItem(k)==="1"||localStorage.getItem(k)==="1"))document.documentElement.classList.add("grade-locked")}catch(e){}})()</script><style>html.grade-locked body>*:not(.pin-gate){visibility:hidden}</style>
 </head>
 <body>
 <div class="wrap">
@@ -57,6 +56,7 @@ window.PRESCHOOL={
  {id:'u1',n:'Unit 1',en:'Hello! Me & Feelings',vi:'Chào hỏi, tên, tuổi và cảm xúc',ic:'😊',
   words:[['👋','hello','xin chào'],['🙋','bye','tạm biệt'],['😊','happy','vui'],['👍','good','khỏe, tốt'],['😴','sleepy','buồn ngủ'],['😋','hungry','đói'],['😢','sad','buồn']],
   talk:[["Hello! I'm Super Hero!",'Xin chào! Tớ là Siêu Anh Hùng!',0],["What's your name?",'Bạn tên là gì?',0],["I'm Bin.",'Tớ là Bin.',2],['How old are you?','Bạn mấy tuổi?',0],["I'm five.",'Tớ năm tuổi.',2],['How are you?','Bạn có khỏe không?',0],["I'm happy!",'Tớ vui lắm!',2],['Bye bye!','Tạm biệt!',0]],
+  speech:{t:"All About Me",intro:["Today, I will tell you about me!","Hôm nay tớ sẽ kể về tớ!"],lines:[["🖐️","I'm <b>five</b>.","Tớ năm tuổi."],["😊","I'm <b>happy</b>!","Tớ đang vui!"],["👍","I'm <b>good</b>, thank you!","Tớ khỏe, cảm ơn!"],["😋","I'm <b>hungry</b>! Yummy!","Tớ đói rồi! Măm măm!"]],end:["<b>Bye bye!</b>","Tạm biệt!"]},
   games:[{type:'pick',name:'😊 Chọn mặt cảm xúc',prompt:"I'm {w}!",only:[2,3,4,5,6],options:3,after:"I'm {w}!"}],
   guide:{answers:["<i>I'm happy</i> → 😊","<i>I'm good</i> → 👍","<i>I'm sleepy</i> → 😴","<i>I'm hungry</i> → 😋","<i>I'm sad</i> → 😢"],
    home:["Mỗi sáng hỏi bé: <i>How are you?</i> Bé chỉ vào mặt mình và trả lời <i>I'm happy / sleepy / hungry!</i>","Đóng vai hai siêu anh hùng gặp nhau: <i>Hello! I'm …</i> rồi đập tay.","Trước giờ ngủ: <i>Are you sleepy? – Yes! Bye bye!</i>"],
@@ -64,6 +64,7 @@ window.PRESCHOOL={
  {id:'u2',n:'Unit 2',en:'Rainbow Colors',vi:'Màu sắc',ic:'🌈',review:'Hello! How are you?',
   words:[['🔴','red','màu đỏ',{color:'#E53935'}],['🔵','blue','màu xanh dương',{color:'#1E88E5'}],['🟡','yellow','màu vàng',{color:'#FDD835'}],['🟢','green','màu xanh lá',{color:'#43A047'}],['🟠','orange','màu cam',{color:'#FB8C00'}],['🌸','pink','màu hồng',{color:'#F06FA6'}]],
   talk:[['What color is it?','Nó màu gì?',0],["It's red!",'Màu đỏ!',2],['I like blue!','Tớ thích màu xanh!',1],['Superheroes like red and blue!','Siêu anh hùng thích màu đỏ và màu xanh!',2]],
+  speech:{t:"Rainbow Colors",intro:["Today, I will tell you about colors!","Hôm nay tớ sẽ kể về màu sắc!"],lines:[["🍎","An apple is <b>red</b>.","Quả táo màu đỏ."],["🍌","A banana is <b>yellow</b>.","Quả chuối màu vàng."],["🐸","A frog is <b>green</b>.","Con ếch màu xanh lá."],["🌊","The sea is <b>blue</b>.","Biển màu xanh dương."],["🍊","An orange is <b>orange</b>!","Quả cam màu cam!"],["🌸","I like <b>pink</b>!","Tớ thích màu hồng!"]],end:["I love rainbow colors!","Tớ yêu màu cầu vồng!"]},
   games:[{type:'pick',name:'🎈 Bắt bóng màu',prompt:'Touch {w}!',options:3,after:"It's {w}!"}],
   guide:{answers:['<i>Touch red</i> → bóng đỏ','<i>Touch blue</i> → bóng xanh dương','<i>Touch yellow</i> → bóng vàng','<i>Touch green</i> → bóng xanh lá','<i>Touch orange</i> → bóng cam','<i>Touch pink</i> → bóng hồng'],
    home:["Mẹ chỉ vào 3 món đồ màu đỏ hoặc xanh trong phòng và hỏi bé: <i>What color is it?</i>","Trò tìm đồ: <i>Find something red!</i> Bé chạy đi tìm rồi mang về.","Lúc tô màu, hỏi: <i>What color do you like? – I like …!</i>"],
@@ -72,6 +73,7 @@ window.PRESCHOOL={
   words:[['1️⃣','one','một','','Nhịp 1: từ 1 đến 5'],['2️⃣','two','hai','','Nhịp 1: từ 1 đến 5'],['3️⃣','three','ba','','Nhịp 1: từ 1 đến 5'],['4️⃣','four','bốn','','Nhịp 1: từ 1 đến 5'],['5️⃣','five','năm','','Nhịp 1: từ 1 đến 5'],
    ['6️⃣','six','sáu','','Nhịp 2: từ 6 đến 10'],['7️⃣','seven','bảy','','Nhịp 2: từ 6 đến 10'],['8️⃣','eight','tám','','Nhịp 2: từ 6 đến 10'],['9️⃣','nine','chín','','Nhịp 2: từ 6 đến 10'],['🔟','ten','mười','','Nhịp 2: từ 6 đến 10']],
   talk:[['How many candies?','Có bao nhiêu cái kẹo?',0],['Three!','Ba cái!',2],['Two red apples.','Hai quả táo đỏ.',1],['One, two, three, four, five… ten! Super!','Một, hai, ba, bốn, năm… mười! Siêu quá!',2]],
+  speech:{t:"I Can Count!",intro:["Today, I will count for you!","Hôm nay tớ sẽ đếm cho mọi người nghe!"],lines:[["🍎","<b>One</b> red apple.","Một quả táo đỏ."],["🦆🦆","<b>Two</b> yellow ducks.","Hai chú vịt vàng."],["🍬🍬🍬","<b>Three</b> candies. Yummy!","Ba cái kẹo. Ngon quá!"],["🎈🎈🎈🎈🎈","<b>Five</b> balloons.","Năm quả bóng bay."],["🙌","I have <b>ten</b> fingers!","Tớ có mười ngón tay!"]],end:["One, two, three, four, five, six, seven, eight, nine, ten! I can count!","Một, hai, ba… mười! Tớ đếm được rồi!"]},
   games:[{type:'count',name:'🍬 Đếm kẹo, đếm nhện',max:10,rounds:6,items:['🍬','🕷️','⭐','🍭','🍎','🎈']},{type:'pick',name:'🎧 Nghe và chọn số',prompt:'{w}',options:3,after:'{w}!'}],
   guide:{answers:['Đếm hình: số hình trên màn hình chính là đáp án, bé chọn số bằng số kẹo hoặc số nhện.','Nghe và chọn số: nghe <i>seven</i> → 7, nghe <i>three</i> → 3.'],
    home:["Đếm kẹo trước khi ăn: <i>How many candies? – Three!</i> Đếm đúng mới được ăn 1 cái 😉","Đếm bậc cầu thang khi đi lên: <i>one, two, three…</i>","Giơ ngón tay đố nhau: <i>How many?</i>"],
@@ -80,6 +82,7 @@ window.PRESCHOOL={
   words:[['🧑','head','cái đầu','','Cơ thể'],['👀','eyes','đôi mắt','','Cơ thể'],['👂','ears','đôi tai','','Cơ thể'],['👃','nose','cái mũi','','Cơ thể'],['👄','mouth','cái miệng','','Cơ thể'],['🙌','hands','đôi tay','','Cơ thể'],['🦶','feet','đôi bàn chân','','Cơ thể'],
    ['👏','clap hands','vỗ tay','','Hành động'],['🥾','stomp feet','dậm chân','','Hành động'],['☝️','touch nose','chạm mũi','','Hành động'],['👋','wave hands','vẫy tay','','Hành động'],['😮','open mouth','há miệng','','Hành động']],
   talk:[['This is my nose.','Đây là cái mũi của tớ.',2],['Clap your hands!','Vỗ tay nào!',0],['Touch your head!','Chạm vào đầu nào!',0],['Stomp your feet!','Dậm chân nào!',0],["I'm a superhero! I'm strong!",'Tớ là siêu anh hùng! Tớ khỏe lắm!',2]],
+  speech:{t:"My Body",intro:["Today, I will tell you about my body!","Hôm nay tớ sẽ giới thiệu cơ thể của tớ!"],lines:[["🧑","This is my <b>head</b>.","Đây là cái đầu của tớ."],["👀","I have two <b>eyes</b> to see.","Tớ có hai mắt để nhìn."],["👂","I have two <b>ears</b> to listen.","Tớ có hai tai để nghe."],["👃👄","I have one <b>nose</b> and one <b>mouth</b>.","Tớ có một cái mũi và một cái miệng."],["👏","I can <b>clap</b> my <b>hands</b>!","Tớ vỗ tay được!"],["🥾","I can <b>stomp</b> my <b>feet</b>!","Tớ dậm chân được!"]],end:["I'm a superhero! I'm strong!","Tớ là siêu anh hùng! Tớ khỏe lắm!"]},
   games:[{type:'simon',name:'🦸 Superhero says!',says:'Superhero says',cmds:[['👏','Clap your hands!','Vỗ tay'],['🥾','Stomp your feet!','Dậm chân'],['☝️','Touch your nose!','Chạm vào mũi'],['🙆','Touch your head!','Chạm vào đầu'],['👋','Wave your hands!','Vẫy tay'],['😮','Open your mouth!','Há miệng'],['👂','Touch your ears!','Chạm vào tai'],['🙈','Close your eyes!','Nhắm mắt'],['👏','Clap three times!','Vỗ tay 3 cái'],['🦸','Superhero pose!','Tạo dáng siêu anh hùng']]},
    {type:'pick',name:'🎧 Chạm vào bộ phận',prompt:'Touch your {w}!',only:[0,1,2,3,4,5,6],options:3,after:'This is my {w}.'}],
   guide:{answers:['Superhero says: không có đáp án. Cô quan sát bé làm đúng động tác chưa. Khi bật ô "Superhero says", bé chỉ làm khi máy nói câu đó.','Chạm vào bộ phận: <i>Touch your nose</i> → 👃, <i>head</i> → 🧑, <i>eyes</i> → 👀, <i>ears</i> → 👂, <i>mouth</i> → 👄, <i>hands</i> → 🙌, <i>feet</i> → 🦶.'],
@@ -88,6 +91,7 @@ window.PRESCHOOL={
  {id:'u5',n:'Unit 5',en:'On the Farm',vi:'Con vật ở nông trại',ic:'🐄',review:'màu và số: Three yellow ducks.',
   words:[['🐄','cow','con bò',{sound:'Moo moo'}],['🐖','pig','con lợn',{sound:'Oink oink'}],['🦆','duck','con vịt',{sound:'Quack quack'}],['🐔','chicken','con gà',{sound:'Cluck cluck'}],['🐶','dog','con chó',{sound:'Woof woof'}],['🐱','cat','con mèo',{sound:'Meow'}],['🐑','sheep','con cừu',{sound:'Baa baa'}]],
   talk:[['What animal is it?','Đây là con gì?',0],["It's a cow.",'Đó là con bò.',2],['The cow says moo!','Con bò kêu ủm bò!',1],['The duck says quack quack!','Con vịt kêu quạc quạc!',2]],
+  speech:{t:"Animals on the Farm",intro:["Today, I will tell you about animals on the farm!","Hôm nay tớ sẽ kể về các con vật ở nông trại!"],lines:[["🐄","This is a <b>cow</b>. It says moo!","Đây là con bò. Nó kêu ủm bò!"],["🐖","This is a <b>pig</b>. It says oink oink!","Đây là con lợn. Nó kêu ụt ịt!"],["🦆","This is a <b>duck</b>. It says quack quack!","Đây là con vịt. Nó kêu quạc quạc!"],["🐔","This is a <b>chicken</b>. It says cluck cluck!","Đây là con gà. Nó kêu cục tác!"],["🐑","This is a <b>sheep</b>. It says baa baa!","Đây là con cừu. Nó kêu be be!"],["🐶","I love my <b>dog</b>. Woof woof!","Tớ yêu chú chó của tớ. Gâu gâu!"]],end:["I love farm animals!","Tớ yêu các con vật ở nông trại!"]},
   games:[{type:'pick',name:'🔊 Nghe tiếng kêu',prompt:'Listen! {s}! Who says {s}?',options:3,after:'The {w} says {s}!'},{type:'pick',name:'🎧 Nghe tên con vật',prompt:"It's {a} {w}.",options:3,after:"It's {a} {w}!"}],
   guide:{answers:['Moo moo → bò 🐄','Oink oink → lợn 🐖','Quack quack → vịt 🦆','Cluck cluck → gà 🐔','Woof woof → chó 🐶','Meow → mèo 🐱','Baa baa → cừu 🐑'],
    home:["Ba mẹ kêu tiếng con vật, bé đoán: <i>Woof woof! – It's a dog!</i>","Xem tranh hoặc đồ chơi con vật: <i>What animal is it?</i>","Đổi vai: bé kêu, ba mẹ đoán."],
@@ -95,6 +99,7 @@ window.PRESCHOOL={
  {id:'u6',n:'Unit 6',en:'Under the Sea',vi:'Con vật dưới biển',ic:'🐳',review:'số và màu: Three blue fish.',
   words:[['🐟','fish','con cá'],['🦈','shark','cá mập'],['🐳','whale','cá voi'],['🐙','octopus','bạch tuộc'],['🦀','crab','con cua'],['🐢','turtle','con rùa'],['⭐','starfish','sao biển']],
   talk:[["Look! It's a big whale.",'Nhìn kìa! Một con cá voi to.',0],['Three blue fish.','Ba con cá xanh.',2],["I'm a super diver!",'Tớ là thợ lặn siêu đẳng!',2],['Find the octopus!','Tìm con bạch tuộc nào!',0]],
+  speech:{t:"Animals in the Sea",intro:["Today, I will tell you about animals in the sea!","Hôm nay tớ sẽ kể về các con vật dưới biển!"],lines:[["🐟","This is a <b>fish</b>. It's blue.","Đây là con cá. Nó màu xanh."],["🐳","This is a <b>whale</b>. It's very big!","Đây là cá voi. Nó to lắm!"],["🦈","This is a <b>shark</b>. Oh no! Swim, swim!","Đây là cá mập. Ối! Bơi mau lên!"],["🐙","This is an <b>octopus</b>. It has eight legs.","Đây là con bạch tuộc. Nó có tám cái chân."],["🦀","This is a <b>crab</b>. It's red.","Đây là con cua. Nó màu đỏ."],["⭐","This is a <b>starfish</b>. It's yellow.","Đây là sao biển. Nó màu vàng."]],end:["I love the sea!","Tớ yêu biển!"]},
   games:[{type:'scene',name:'🤿 Thợ lặn tìm cá',prompt:'Find the {w}!',after:"It's {a} {w}!",deco:[['💧',20,10],['💧',72,30],['🌿',4,92],['🌿',96,90],['🌿',50,96]]},{type:'pick',name:'🎧 Nghe và chọn',prompt:'{w}',options:3,after:'{w}!'}],
   guide:{answers:['Tìm trong tranh: máy đọc tên con vật nào thì bé bấm con đó. Thứ tự đổi mỗi lần chơi.','Nghe và chọn: fish 🐟, shark 🦈, whale 🐳, octopus 🐙, crab 🦀, turtle 🐢, starfish ⭐.'],
    home:["Khi tắm, thả đồ chơi vào chậu: <i>Find the fish! Find the turtle!</i>","Đếm con vật trong tranh: <i>How many fish? – Three!</i>","Chơi đi bộ như cua (đi ngang): <i>I'm a crab!</i>"],
@@ -102,6 +107,7 @@ window.PRESCHOOL={
  {id:'u7',n:'Unit 7',en:'Move Like Me!',vi:'Hành động của người và con vật',ic:'🤸',review:'con vật nông trại và dưới biển.',
   words:[['🤸','jump','nhảy'],['🏃','run','chạy'],['🏊','swim','bơi'],['🦸','fly','bay'],['🧗','climb','leo trèo'],['😴','sleep','ngủ'],['😋','eat','ăn'],['💃','dance','nhảy múa']],
   talk:[['I can jump!','Tớ nhảy được!',2],['A fish can swim.','Con cá biết bơi.',0],['A bird can fly.','Con chim biết bay.',0],['A spider can climb!','Con nhện biết leo!',2],['A superhero can fly!','Siêu anh hùng biết bay!',2]],
+  speech:{t:"Things I Can Do",intro:["Today, I will tell you what I can do!","Hôm nay tớ sẽ kể những việc tớ làm được!"],lines:[["🤸","I can <b>jump</b>!","Tớ nhảy được!"],["🏃","I can <b>run</b>!","Tớ chạy được!"],["💃","I can <b>dance</b>!","Tớ nhảy múa được!"],["🐟","A fish can <b>swim</b>.","Con cá biết bơi."],["🐦","A bird can <b>fly</b>.","Con chim biết bay."],["🕷️","A spider can <b>climb</b>.","Con nhện biết leo."]],end:["And a superhero can fly, too!","Còn siêu anh hùng cũng bay được nữa!"]},
   games:[{type:'match',name:'🔗 Ai làm được gì?',pairs:[['🐟','fish','🌊','swim','A fish can swim!'],['🐦','bird','☁️','fly','A bird can fly!'],['🕷️','spider','🧗','climb','A spider can climb!'],['🦘','kangaroo','⬆️','jump','A kangaroo can jump!'],['🐶','dog','🏃','run','A dog can run!'],['🐱','cat','😴','sleep','A cat can sleep all day!']]},
    {type:'pick',name:'🎧 Nghe và chọn',prompt:'I can {w}!',options:3,after:'I can {w}!'}],
   guide:{answers:['Nối đôi: cá → swim, chim → fly, nhện → climb, chuột túi → jump, chó → run, mèo → sleep.','Nghe và chọn: <i>I can jump</i> → 🤸, <i>run</i> → 🏃, <i>swim</i> → 🏊, <i>fly</i> → 🦸, <i>climb</i> → 🧗, <i>sleep</i> → 😴, <i>eat</i> → 😋, <i>dance</i> → 💃.'],
@@ -111,13 +117,14 @@ window.PRESCHOOL={
   words:[['⚽','ball','quả bóng','','Đồ chơi'],['🚗','car','ô tô','','Đồ chơi'],['🎎','doll','búp bê','','Đồ chơi'],['🧸','teddy bear','gấu bông','','Đồ chơi'],['🦸','superhero','siêu anh hùng (đồ chơi)','','Đồ chơi'],
    ['📖','book','quyển sách','','Đồ vật'],['🪑','chair','cái ghế','','Đồ vật'],['🛏️','bed','cái giường','','Đồ vật']],
   talk:[['This is my ball.','Đây là quả bóng của tớ.',2],["It's a red car.",'Đó là chiếc ô tô màu đỏ.',1],['Give me the teddy bear, please.','Đưa cô con gấu bông nhé.',0],['Here you are!','Của cô đây ạ!',2],['Thank you!','Cảm ơn con!',0]],
+  speech:{t:"My Toys",intro:["Today, I will show you my toys!","Hôm nay tớ sẽ khoe đồ chơi của tớ!"],lines:[["⚽","This is my <b>ball</b>.","Đây là quả bóng của tớ."],["🚗","This is my <b>car</b>. It's red.","Đây là ô tô của tớ. Nó màu đỏ."],["🎎","This is my <b>doll</b>.","Đây là búp bê của tớ."],["🦸","This is my <b>superhero</b>. He's strong!","Đây là siêu anh hùng của tớ. Chú ấy khỏe lắm!"],["🧸","This is my <b>teddy bear</b>. It's on my <b>bed</b>.","Đây là gấu bông của tớ. Nó ở trên giường."]],end:["I love my toys!","Tớ yêu đồ chơi của tớ!"]},
   games:[{type:'basket',name:'🧺 Dọn phòng giúp mẹ',prompt:'Give me the {w}, please!',bin:'🧺',only:[0,1,2,3,4],after:'Thank you!'},{type:'pick',name:'🎧 Nghe và chọn',prompt:'This is my {w}.',options:3,after:'My {w}!'}],
   guide:{answers:['Dọn phòng: máy đọc đồ nào thì bé bấm đồ đó để bỏ vào giỏ.','Nghe và chọn: ball ⚽, car 🚗, doll 🎎, teddy bear 🧸, superhero 🦸, book 📖, chair 🪑, bed 🛏️.'],
    home:["Giờ dọn đồ chơi: <i>Give me the car, please! – Here you are! – Thank you!</i>","Bé giới thiệu đồ chơi yêu thích: <i>This is my superhero!</i>","Hỏi màu đồ chơi: <i>What color is your car? – It's red!</i>"],
    tips:["<i>Ball</i>: âm /ɔː/ tròn môi, cuối có âm /l/ nhẹ.","<i>Bear</i>: đọc gần \"be-ơ\", không đọc \"bia\".","<i>Thank you</i>: lè lưỡi ở âm /θ/, không đọc \"tanh kiu\"."]}}
  ]};
 </script>
-<script src="../assets/pin.js?v=20261127d"></script>
+<script src="../assets/pin.js?v=20261127e"></script>
 <script src="../assets/preschool.js?v=20261127d"></script>
 </body>
 </html>

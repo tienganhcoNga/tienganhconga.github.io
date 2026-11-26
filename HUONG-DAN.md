@@ -74,10 +74,10 @@ Xem thử trên máy: mở thẳng từng file bài học bằng trình duyệt.
 
 Tất cả mã PIN nằm trong `assets/pin.js`. Đổi mã: sửa số trong ngoặc kép, rồi đổi số phiên bản `?v=...` sau chữ `pin.js` trong các file `.html` (tìm `pin.js?v=`, thay bằng số mới, ví dụ ngày sửa) để trình duyệt của các em lấy ngay mã mới thay vì giữ bản cũ tới 10 phút. Sau đó đưa lên lại.
 
-**Mã PIN từng khối lớp** (`GRADE_PINS`)
+**Mã PIN từng khối lớp** (`GRADE_PINS`): **đang tạm tắt**, các em vào học thẳng không cần nhập mã. Muốn bật lại: trong `assets/pin.js` bỏ dấu `//` ở các dòng trong `GRADE_PINS`. Khi bật:
 - Mỗi khối có một mã riêng. Chưa nhập đúng mã thì không xem được bài của khối đó, kể cả khi mở thẳng link bài.
 - Nhập đúng thì khối đó mở cho đến khi đóng tab trình duyệt. Nếu tick **Nhớ trên máy này** thì máy đó lần sau không phải nhập lại.
-- Nút **🔐 Khóa tất cả** ở cột trái trang chủ sẽ khóa lại mọi khối và phần Đáp án (dùng khi máy dùng chung).
+- Nút **🔐 Khóa đáp án** ở cột trái trang chủ sẽ khóa lại phần Đáp án (và mọi khối nếu đang bật mã khối) (dùng khi máy dùng chung).
 - Muốn thêm khối mới có mã riêng: thêm một dòng vào `GRADE_PINS` và `GRADE_NAMES`, và ghi `data-grade="<mã khối>"` vào thẻ `<html>` của các trang bài thuộc khối đó.
 
 **Mã PIN Đáp án** (`ANSWER_PIN`)

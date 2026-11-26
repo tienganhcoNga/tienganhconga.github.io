@@ -1,15 +1,17 @@
 /* Mã PIN của trang.
    - ANSWER_PIN: mở tab Đáp án (cho giáo viên, phụ huynh).
-   - GRADE_PINS: mỗi khối lớp một mã, nhập đúng mới xem được bài của khối đó.
+   - GRADE_PINS: mỗi khối lớp một mã (đang tạm tắt, để trống thì vào học thẳng).
    Đổi mã: sửa các dòng bên dưới. Đây là khóa để các em không vào nhầm khối hay xem đáp án,
    không phải bảo mật thật (người rành máy tính vẫn đọc được file này). */
 (function () {
   "use strict";
   var ANSWER_PIN = "1234";
+  /* Tạm tắt mã PIN của từng khối: các em vào học thẳng, không cần nhập mã.
+     Muốn bật lại: bỏ dấu // ở các dòng bên dưới. */
   var GRADE_PINS = {
-    "mau-giao": "2022",   // Mẫu giáo
-    "lop-1":    "2022",   // Lớp 1 (dùng chung mã với Mẫu giáo)
-    "lop-4":    "9041"    // Lớp 4
+  //  "mau-giao": "2022",   // Mẫu giáo
+  //  "lop-1":    "2022",   // Lớp 1 (dùng chung mã với Mẫu giáo)
+  //  "lop-4":    "9041"    // Lớp 4
   };
   var GRADE_NAMES = { "mau-giao": "Mẫu giáo", "lop-1": "Lớp 1", "lop-4": "Lớp 4" };
 

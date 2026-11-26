@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="../assets/course.css?v=20261127d">
 <link rel="stylesheet" href="../assets/preschool.css?v=20261127d">
 <style>:root{--accent:var(--lacquer);--accent-soft:var(--lacquer-soft)}</style>
-<script>(function(){try{var g=document.documentElement.getAttribute("data-grade"),k="lophoc-grade-"+g;if(!(sessionStorage.getItem(k)==="1"||localStorage.getItem(k)==="1"))document.documentElement.classList.add("grade-locked")}catch(e){}})()</script><style>html.grade-locked body>*:not(.pin-gate){visibility:hidden}</style>
 </head>
 <body>
 <div class="wrap">
@@ -57,6 +56,7 @@ window.PRESCHOOL={
  {id:'u1',n:'Unit 1',en:'My Family',vi:'Gia đình của em',ic:'👪',review:'Hello! How are you? I\'m happy.',
   words:[['👩','mom','mẹ'],['👨','dad','bố'],['👦','brother','anh, em trai'],['👧','sister','chị, em gái'],['👶','baby','em bé'],['👵','grandma','bà'],['👴','grandpa','ông'],['👪','family','gia đình'],['❤️','love','yêu thương'],['🏠','home','nhà']],
   talk:[['Who is she?','Cô ấy là ai?',0],["She's my mom.",'Đó là mẹ tớ.',2],['Who is he?','Chú ấy là ai?',0],["He's my dad. He's strong like a superhero!",'Đó là bố tớ. Bố khỏe như siêu anh hùng!',2],['I love my family.','Tớ yêu gia đình tớ.',2]],
+  speech:{t:"My Family",intro:["Today, I will tell you about my family!","Hôm nay tớ sẽ kể về gia đình tớ!"],lines:[["👨","This is my <b>dad</b>. He's strong like a superhero!","Đây là bố tớ. Bố khỏe như siêu anh hùng!"],["👩","This is my <b>mom</b>. She loves me.","Đây là mẹ tớ. Mẹ yêu tớ lắm."],["👦","This is my <b>brother</b>. He's funny.","Đây là anh (em) trai tớ. Bạn ấy vui tính."],["👧","This is my <b>sister</b>. We play together.","Đây là chị (em) gái tớ. Chúng tớ chơi cùng nhau."],["👵👴","I love my <b>grandma</b> and <b>grandpa</b>.","Tớ yêu bà và ông."],["🏠","We are happy at <b>home</b>.","Cả nhà vui vẻ ở nhà."]],end:["I love my family!","Tớ yêu gia đình tớ!"]},
   games:[{type:'pick',name:'🎧 Tìm người thân',prompt:'Find my {w}!',only:[0,1,2,3,4,5,6],options:3,after:"It's my {w}!"},
    {type:'phrase',name:'💬 Bé nói gì?',items:[
     {pic:'👵🍪',vi:'Bà cho bé một cái bánh.',o:[['😊','Thank you, Grandma!'],['😴',"I'm sleepy."],['👋','Bye bye!']],a:0},
@@ -70,6 +70,7 @@ window.PRESCHOOL={
   words:[['🍬','candy','kẹo','','Đồ ngọt'],['🍭','lollipop','kẹo mút','','Đồ ngọt'],['🍫','chocolate','sô-cô-la','','Đồ ngọt'],['🍰','cake','bánh ngọt','','Đồ ngọt'],['🍦','ice cream','kem','','Đồ ngọt'],
    ['🍎','apple','quả táo','','Đồ ăn, đồ uống'],['🍌','banana','quả chuối','','Đồ ăn, đồ uống'],['🍚','rice','cơm','','Đồ ăn, đồ uống'],['🍞','bread','bánh mì','','Đồ ăn, đồ uống'],['🥛','milk','sữa','','Đồ ăn, đồ uống'],['💧','water','nước','','Đồ ăn, đồ uống'],['🧃','juice','nước ép','','Đồ ăn, đồ uống']],
   talk:[["I'm hungry.",'Con đói.',2],['What do you want?','Con muốn ăn gì?',0],['I want candy, please!','Con muốn ăn kẹo ạ!',2],['Just one candy. Too much candy is bad for your teeth.','Một cái thôi nhé. Ăn nhiều kẹo hại răng.',0],['Okay! And some milk, please.','Vâng ạ! Cho con thêm sữa nữa.',2],['Here you are.','Của con đây.',0],['Thank you!','Con cảm ơn!',2]],
+  speech:{t:"My Favorite Food",intro:["Today, I will tell you about my favorite food!","Hôm nay tớ sẽ kể về món ăn tớ thích!"],lines:[["🍎🍌","I like <b>apples</b> and <b>bananas</b>.","Tớ thích táo và chuối."],["🍚","I eat <b>rice</b> every day.","Ngày nào tớ cũng ăn cơm."],["🥛","I drink <b>milk</b>. It makes me strong!","Tớ uống sữa. Sữa làm tớ khỏe!"],["🍦","My favorite sweet is <b>ice cream</b>!","Món ngọt tớ thích nhất là kem!"],["🍬","I like <b>candy</b>, but just one!","Tớ thích kẹo, nhưng chỉ một cái thôi!"]],end:["Yummy, yummy!","Ngon ơi là ngon!"]},
   games:[{type:'basket',name:'🍱 Xếp hộp cơm',prompt:'Put the {w} in the lunchbox!',bin:'🍱',only:[5,6,7,8,9,0],after:'Yummy!'},
    {type:'pick',name:'🎧 Con muốn ăn gì?',prompt:'I want {w}, please!',options:3,after:'{w}! Yummy!'},
    {type:'phrase',name:'💬 Bé nói gì?',items:[
@@ -84,6 +85,7 @@ window.PRESCHOOL={
   words:[['👒','hat','cái mũ','','Quần áo'],['👟','shoes','đôi giày','','Quần áo'],['🧦','socks','đôi tất','','Quần áo'],['👕','T-shirt','áo phông','','Quần áo'],['👗','dress','váy','','Quần áo'],['🧥','jacket','áo khoác','','Quần áo'],['☂️','umbrella','cái ô','','Quần áo'],
    ['☀️','sunny','trời nắng','','Thời tiết'],['🌧️','rainy','trời mưa','','Thời tiết'],['💨','windy','có gió','','Thời tiết'],['🥵','hot','nóng','','Thời tiết'],['🥶','cold','lạnh','','Thời tiết']],
   talk:[["How's the weather?",'Thời tiết thế nào?',0],["It's rainy!",'Trời mưa!',2],['Put on your jacket. Take your umbrella!','Mặc áo khoác vào. Cầm theo ô nhé!',0],["It's sunny and hot. Put on your hat!",'Trời nắng nóng. Đội mũ vào nhé!',0],['Look! My superhero T-shirt!','Nhìn này! Áo phông siêu anh hùng của tớ!',2]],
+  speech:{t:"Clothes and Weather",intro:["Today, I will tell you about clothes and the weather!","Hôm nay tớ sẽ kể về quần áo và thời tiết!"],lines:[["☀️👒","When it's <b>sunny</b>, I put on my <b>hat</b>.","Khi trời nắng, tớ đội mũ."],["🌧️☂️","When it's <b>rainy</b>, I take my <b>umbrella</b>.","Khi trời mưa, tớ cầm ô."],["🥶🧥","When it's <b>cold</b>, I put on my <b>jacket</b>.","Khi trời lạnh, tớ mặc áo khoác."],["🧦👟","I put on my <b>socks</b> and <b>shoes</b>.","Tớ đi tất và giày."],["👕","This is my superhero <b>T-shirt</b>. It's red and blue!","Đây là áo phông siêu anh hùng của tớ. Nó màu đỏ và xanh!"]],end:["I like sunny days!","Tớ thích những ngày nắng!"]},
   games:[{type:'pick',name:'🎧 Mặc đồ nào?',prompt:'Put on your {w}!',only:[0,1,2,3,4,5],options:3,after:'My {w}!'},
    {type:'pick',name:'🌦️ Thời tiết',prompt:"It's {w}!",only:[7,8,9,10,11],options:3,after:"It's {w}!"},
    {type:'phrase',name:'💬 Mặc gì đây?',items:[
@@ -97,6 +99,7 @@ window.PRESCHOOL={
   words:[['🧒','friend','bạn','','Người và nơi chốn'],['👩‍🏫','teacher','cô giáo','','Người và nơi chốn'],['🏫','school','trường học','','Người và nơi chốn'],['📖','book','quyển sách','','Đồ dùng'],['🖍️','crayon','bút sáp màu','','Đồ dùng'],['🎒','bag','cái cặp','','Đồ dùng'],['🪑','chair','cái ghế','','Đồ dùng'],
    ['🤹','play','chơi','','Hoạt động'],['🤝','share','chia sẻ, dùng chung','','Hoạt động'],['🎤','sing','hát','','Hoạt động'],['🎨','draw','vẽ','','Hoạt động'],['😂','funny','vui tính','','Hoạt động']],
   talk:[['Who is your friend?','Bạn của con là ai?',0],['This is my friend, Tom.','Đây là bạn tớ, Tom.',2],['He is funny!','Bạn ấy vui tính lắm!',2],['What do you do at school?','Ở trường con làm gì?',0],['We play together. We sing and draw.','Chúng tớ chơi cùng nhau. Chúng tớ hát và vẽ.',2],['We share crayons.','Chúng tớ dùng chung bút sáp.',1],['I love my school!','Tớ yêu trường tớ!',2]],
+  speech:{t:"My School and My Friends",intro:["Today, I will tell you about my school!","Hôm nay tớ sẽ kể về trường của tớ!"],lines:[["🏫","This is my <b>school</b>.","Đây là trường của tớ."],["👩‍🏫","This is my <b>teacher</b>. She is very nice.","Đây là cô giáo tớ. Cô hiền lắm."],["🧒","This is my <b>friend</b>, Tom. He is <b>funny</b>!","Đây là bạn tớ, Tom. Bạn ấy vui tính lắm!"],["🎤🎨","We <b>sing</b> and <b>draw</b> together.","Chúng tớ cùng hát và vẽ."],["🖍️","We <b>share</b> our crayons.","Chúng tớ dùng chung bút sáp."],["🎒📖","I have a <b>bag</b> and a <b>book</b>.","Tớ có một cái cặp và một quyển sách."]],end:["I love my school!","Tớ yêu trường của tớ!"]},
   games:[{type:'simon',name:'👩‍🏫 Teacher says!',says:'Teacher says',cmds:[['🧍','Stand up!','Đứng lên'],['🪑','Sit down!','Ngồi xuống'],['📖','Open your book!','Mở sách'],['📕','Close your book!','Gấp sách'],['✋','Raise your hand!','Giơ tay'],['🤫','Be quiet!','Giữ trật tự'],['👂','Listen!','Lắng nghe'],['👀','Look at the board!','Nhìn lên bảng'],['🤝','Say hello to your friend!','Chào bạn bên cạnh'],['🖍️','Draw a circle!','Vẽ một hình tròn']]},
    {type:'pick',name:'🎧 Đồ dùng ở trường',prompt:'Show me your {w}!',only:[3,4,5,6],options:3,after:'My {w}!'},
    {type:'phrase',name:'💬 Kể về bạn',items:[
@@ -111,6 +114,7 @@ window.PRESCHOOL={
   words:[['⭕','circle','hình tròn','','Hình'],['🟥','square','hình vuông','','Hình'],['🔺','triangle','hình tam giác','','Hình'],['⭐','star','ngôi sao','','Hình'],['❤️','heart','trái tim','','Hình'],['🔷','diamond','hình thoi','','Hình'],
    ['🐘','big','to','','To, nhỏ, dài'],['🐭','small','nhỏ','','To, nhỏ, dài'],['🐍','long','dài','','To, nhỏ, dài']],
   talk:[['What shape is it?','Đây là hình gì?',0],["It's a circle.",'Hình tròn.',2],['A big red heart!','Một trái tim to màu đỏ!',1],['My superhero has a star.','Siêu anh hùng của tớ có hình ngôi sao.',2],['The elephant is big. The mouse is small.','Con voi to. Con chuột nhỏ.',0]],
+  speech:{t:"Shapes Around Me",intro:["Today, I will tell you about shapes!","Hôm nay tớ sẽ kể về các hình!"],lines:[["☀️","The sun is a <b>circle</b>.","Mặt trời là hình tròn."],["🍕","Pizza is a <b>triangle</b>.","Miếng pizza là hình tam giác."],["🖼️","My picture is a <b>square</b>.","Bức tranh của tớ là hình vuông."],["⭐","I see a <b>star</b> in the sky.","Tớ thấy một ngôi sao trên trời."],["❤️","I draw a big red <b>heart</b> for my mom.","Tớ vẽ một trái tim to màu đỏ tặng mẹ."],["🐘🐭","An elephant is <b>big</b>. A mouse is <b>small</b>.","Con voi to. Con chuột nhỏ."]],end:["I love shapes!","Tớ thích các hình!"]},
   games:[{type:'pick',name:'🎧 Tìm hình',prompt:'Find the {w}!',only:[0,1,2,3,4,5],options:3,after:"It's {a} {w}!"},{type:'pick',name:'🐘 To hay nhỏ?',prompt:"It's {w}!",only:[6,7,8],options:3,after:"It's {w}!"}],
   guide:{answers:['Tìm hình: circle ⭕, square 🟥, triangle 🔺, star ⭐, heart ❤️, diamond 🔷.','To hay nhỏ: big → voi 🐘, small → chuột 🐭, long → rắn 🐍.'],
    home:["Tìm hình trong nhà: <i>Find a circle! – The clock is a circle!</i>","Cắt hình bằng giấy màu: <i>A big red heart! A small yellow star!</i>","So sánh đồ chơi: <i>This car is big. This car is small.</i>"],
@@ -120,6 +124,7 @@ window.PRESCHOOL={
    ['💪','strong','khỏe','','Siêu anh hùng thế nào?'],['⚡','fast','nhanh','','Siêu anh hùng thế nào?'],['🦁','brave','dũng cảm','','Siêu anh hùng thế nào?'],
    ['✈️','fly','bay','','Siêu anh hùng làm gì?'],['🧗','climb','leo','','Siêu anh hùng làm gì?'],['🤸','jump','nhảy','','Siêu anh hùng làm gì?'],['🤝','help','giúp đỡ','','Siêu anh hùng làm gì?']],
   talk:[['Who are you?','Bạn là ai?',1],["I'm a superhero!",'Tớ là siêu anh hùng!',2],['What can you do?','Bạn làm được gì?',1],['I can fly! I can climb like a spider!','Tớ bay được! Tớ leo như con nhện!',2],['Are you strong?','Bạn có khỏe không?',1],["Yes! I'm strong and brave. I help my friends!",'Có! Tớ khỏe và dũng cảm. Tớ giúp đỡ bạn bè!',2]],
+  speech:{t:"I Am a Superhero!",intro:["Today, I will tell you about me. I am a superhero!","Hôm nay tớ sẽ kể về tớ. Tớ là siêu anh hùng!"],lines:[["🎭","I have a red <b>mask</b>.","Tớ có một cái mặt nạ màu đỏ."],["✈️","I can <b>fly</b>. I'm very <b>fast</b>!","Tớ bay được. Tớ nhanh lắm!"],["🕷️","I can <b>climb</b> like a <b>spider</b>.","Tớ leo được như con nhện."],["💪","I'm <b>strong</b> and <b>brave</b>.","Tớ khỏe và dũng cảm."],["🤝","I <b>help</b> my friends!","Tớ giúp đỡ bạn bè!"]],end:["I'm a super kid!","Tớ là em bé siêu đẳng!"]},
   games:[{type:'scene',name:'🏙️ Tìm trong thành phố',prompt:'Find the {w}!',only:[0,1,2,3],bg:'city',after:"It's {a} {w}!",deco:[['🏢',12,60],['🏢',88,58],['🏬',50,70],['☁️',30,12],['☁️',75,10]]},
    {type:'pick',name:'💪 Siêu anh hùng thế nào?',prompt:"I'm {w}!",only:[4,5,6],options:3,after:"I'm {w}!"},
    {type:'phrase',name:'💬 Siêu anh hùng nói gì?',items:[
@@ -132,6 +137,7 @@ window.PRESCHOOL={
  {id:'u7',n:'Unit 7',en:'My Day',vi:'Một ngày của em',ic:'⏰',review:'đồ ăn: I eat breakfast. I drink milk.',
   words:[['⏰','wake up','thức dậy'],['🦷','brush my teeth','đánh răng'],['🧼','wash my face','rửa mặt'],['🥣','eat breakfast','ăn sáng'],['🏫','go to school','đi học'],['🤹','play','chơi'],['🛁','take a bath','tắm'],['📖','read a book','đọc sách'],['🛌','go to bed','đi ngủ'],['🌅','morning','buổi sáng'],['🌙','night','buổi tối']],
   talk:[['What do you do in the morning?','Buổi sáng con làm gì?',0],['I wake up. I brush my teeth.','Con thức dậy. Con đánh răng.',2],['I eat breakfast and go to school.','Con ăn sáng rồi đi học.',2],['What do you do at night?','Buổi tối con làm gì?',0],['I take a bath. I read a book. I go to bed.','Con tắm, đọc sách rồi đi ngủ.',2],['Good night!','Chúc con ngủ ngon!',0]],
+  speech:{t:"My Day",intro:["Today, I will tell you about my day!","Hôm nay tớ sẽ kể về một ngày của tớ!"],lines:[["⏰","In the <b>morning</b>, I <b>wake up</b>.","Buổi sáng, tớ thức dậy."],["🦷","I <b>brush my teeth</b> and <b>wash my face</b>.","Tớ đánh răng và rửa mặt."],["🥣","I <b>eat breakfast</b>.","Tớ ăn sáng."],["🏫","I <b>go to school</b> and <b>play</b> with my friends.","Tớ đi học và chơi với bạn."],["🛁","At <b>night</b>, I <b>take a bath</b>.","Buổi tối, tớ đi tắm."],["📖","I <b>read a book</b>. Then I <b>go to bed</b>.","Tớ đọc sách. Rồi tớ đi ngủ."]],end:["Good night!","Chúc mọi người ngủ ngon!"]},
   games:[{type:'pick',name:'🎧 Bé làm gì?',prompt:'I {w}.',only:[0,1,2,3,4,5,6,7,8],options:3,after:'I {w}!'},
    {type:'phrase',name:'💬 Sáng hay tối?',items:[
     {pic:'🌅⏰',vi:'Buổi sáng, bé vừa ngủ dậy.',o:[['☀️','Good morning!'],['🌙','Good night!'],['👋','Bye bye!']],a:0},
@@ -143,6 +149,7 @@ window.PRESCHOOL={
  {id:'u8',n:'Unit 8',en:"Let's Play Together",vi:'Cùng chơi với bạn: xin, mời, cảm ơn, xin lỗi',ic:'🤝',review:'bạn bè và trường lớp.',
   words:[['🙋','can I play?','tớ chơi cùng được không?'],['🤹',"let's play!",'cùng chơi nào!'],['👆','my turn','lượt của tớ'],['👉','your turn','lượt của bạn'],['🙏','please','làm ơn'],['💐','thank you','cảm ơn'],['😔','sorry','xin lỗi'],["👌","that's okay",'không sao đâu'],['🎁','here you are','của bạn đây'],['🩹','are you okay?','bạn có sao không?'],['👍','good job!','giỏi lắm!']],
   talk:[['Can I play?','Tớ chơi cùng được không?',2],["Sure! Let's play!",'Được chứ! Cùng chơi nào!',1],['My turn!','Đến lượt tớ!',2],['Your turn!','Đến lượt bạn!',1],['Oops! Sorry!','Ối! Xin lỗi nhé!',2],["That's okay!",'Không sao đâu!',1],['Good job, friend!','Giỏi lắm bạn ơi!',2]],
+  speech:{t:"Let's Play Together",intro:["Today, I will tell you how I play with my friends!","Hôm nay tớ sẽ kể tớ chơi với bạn thế nào!"],lines:[["🙋","I ask: <b>Can I play?</b>","Tớ hỏi: Tớ chơi cùng được không?"],["🤹","My friend says: <b>Sure! Let's play!</b>","Bạn tớ nói: Được chứ! Cùng chơi nào!"],["👆👉","We take turns: <b>my turn</b>, <b>your turn</b>.","Chúng tớ chơi lần lượt: lượt tớ, lượt bạn."],["😔","Oops! I say <b>sorry</b>.","Ối! Tớ nói xin lỗi."],["👌","My friend says: <b>That's okay!</b>","Bạn tớ nói: Không sao đâu!"],["🙏","I always say <b>please</b> and <b>thank you</b>.","Tớ luôn nói làm ơn và cảm ơn."]],end:["Playing together is fun!","Chơi cùng nhau vui lắm!"]},
   games:[{type:'phrase',name:'💬 Bé nói gì?',items:[
     {pic:'🧒⚽',vi:'Các bạn đang đá bóng. Bé muốn chơi cùng.',o:[['🙋','Can I play?'],['😴',"I'm sleepy."],['🛌','Good night!']],a:0},
     {pic:'💥😔',vi:'Bé lỡ làm đổ tháp của bạn.',o:[['😔','Oops! Sorry!'],['🎉','Good job!'],['🍬','I want candy!']],a:0},
@@ -156,7 +163,7 @@ window.PRESCHOOL={
    tips:["<i>Thank you</i>: lè lưỡi ở âm /θ/.","<i>Sorry</i>: âm /r/ cong lưỡi, không rung.","<i>Turn</i>: âm /ɜː/ kéo dài, không đọc \"tơn\" ngắn."]}}
  ]};
 </script>
-<script src="../assets/pin.js?v=20261127d"></script>
+<script src="../assets/pin.js?v=20261127e"></script>
 <script src="../assets/preschool.js?v=20261127d"></script>
 </body>
 </html>
