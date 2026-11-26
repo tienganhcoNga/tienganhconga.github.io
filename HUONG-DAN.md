@@ -69,7 +69,7 @@ Xem thử trên máy: mở thẳng từng file bài học bằng trình duyệt.
 
 ## Mã PIN
 
-Tất cả mã PIN nằm trong `assets/pin.js`. Đổi mã: sửa số trong ngoặc kép rồi đưa file lên lại.
+Tất cả mã PIN nằm trong `assets/pin.js`. Đổi mã: sửa số trong ngoặc kép, rồi đổi số phiên bản `?v=...` sau chữ `pin.js` trong các file `.html` (tìm `pin.js?v=`, thay bằng số mới, ví dụ ngày sửa) để trình duyệt của các em lấy ngay mã mới thay vì giữ bản cũ tới 10 phút. Sau đó đưa lên lại.
 
 **Mã PIN từng khối lớp** (`GRADE_PINS`)
 - Mỗi khối có một mã riêng. Chưa nhập đúng mã thì không xem được bài của khối đó, kể cả khi mở thẳng link bài.
