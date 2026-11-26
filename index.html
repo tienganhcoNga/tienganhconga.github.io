@@ -52,7 +52,7 @@ button{font:inherit;color:inherit}
 .parent[aria-expanded="true"] .chev{transform:rotate(90deg)}
 .children{list-style:none;margin:4px 0 6px;padding:0 0 0 14px;border-left:3px solid var(--c-soft);margin-left:16px}
 .lesson-h{display:flex;align-items:center;gap:6px;font-weight:800;font-size:.9rem;color:var(--c);margin:10px 0 2px 6px}
-.child{width:100%;text-align:left;border:0;background:transparent;border-radius:8px;padding:6px 10px;cursor:pointer;font-weight:500}
+.child{display:block;width:100%;text-align:left;border:0;background:transparent;border-radius:8px;padding:6px 10px;cursor:pointer;font-weight:500;color:inherit;text-decoration:none;font-size:inherit}
 .child:hover{background:var(--c-soft)}
 .child[aria-current="true"]{background:var(--c);color:var(--surface);font-weight:700}
 .side-note{margin:18px 6px 0;font-size:.82rem;color:var(--muted)}
@@ -185,7 +185,7 @@ function renderMenu(){
       <button class="parent" type="button" data-g="${g.id}" aria-expanded="${open}" aria-controls="ch-${g.id}"><span class="dot"></span>${esc(g.name)}<span class="cnt">${locked(g.id)?'🔒 cần mã PIN':n+' chủ đề'}</span><span class="chev" aria-hidden="true">▶</span></button>
       <ul class="children" id="ch-${g.id}" ${open?'':'hidden'}>${g.lessons.map(l=>`<li><div class="lesson-h"><span aria-hidden="true">${l.ic}</span>${esc(l.name)}</div>
         <ul style="list-style:none;margin:0;padding:0">${l.topics.map(([tid,tn])=>{const on=cur&&cur.g===g&&cur.l===l&&cur.t===tid&&tab==='lesson';
-          return `<li><button class="child" type="button" data-g="${g.id}" data-l="${l.id}" data-t="${tid}" aria-current="${on}">${esc(tn)}</button></li>`}).join('')}</ul></li>`).join('')}</ul></div>`;
+          return `<li><a class="child" href="#${g.id}/${l.id}/${tid}" data-g="${g.id}" data-l="${l.id}" data-t="${tid}" aria-current="${on}">${esc(tn)}</a></li>`}).join('')}</ul></li>`).join('')}</ul></div>`;
   }).join('');
 }
 function renderGrades(){
@@ -237,9 +237,11 @@ function showAnswers(){
 function goHome(){cur=null;tab='lesson';frame.removeAttribute('src');history.replaceState(null,'',location.pathname);renderMenu();updateChrome();}
 
 /* Events */
+/* Ctrl/Cmd/Shift + click (or middle click) on a link: let the browser open it in a new tab */
+const newTabClick=e=>e.ctrlKey||e.metaKey||e.shiftKey||e.button===1;
 $('#menu').addEventListener('click',e=>{
   const c=e.target.closest('.child');
-  if(c){select(c.dataset.g,c.dataset.l,c.dataset.t);return;}
+  if(c){if(newTabClick(e))return;e.preventDefault();select(c.dataset.g,c.dataset.l,c.dataset.t);return;}
   const p=e.target.closest('.parent');
   if(p&&locked(p.dataset.g)){const id=p.dataset.g;PIN.unlockGrade(id,()=>{openGrade=id;renderMenu();renderGrades();const f=document.querySelector(`#ch-${id} .child`);if(f)f.focus();});return;}
   if(p){openGrade=openGrade===p.dataset.g?null:p.dataset.g;renderMenu();
@@ -249,8 +251,14 @@ $('#grades').addEventListener('click',e=>{const g=e.target.closest('.gcard');if(
   if(locked(g.dataset.g)){const id=g.dataset.g;PIN.unlockGrade(id,()=>{openGrade=id;renderMenu();renderGrades();openDrawer();const f=document.querySelector(`#ch-${id} .child`);if(f)f.focus();});return;}
   openGrade=g.dataset.g;renderMenu();openDrawer();
   const first=document.querySelector(`#ch-${g.dataset.g} .child`);if(first)first.focus();});
-$('#tabLesson').addEventListener('click',()=>{if(!cur)return;tab='lesson';goFrame(cur.l.file,cur.t);renderMenu();updateChrome();});
-$('#tabAnswer').addEventListener('click',showAnswers);
+$('#tabLesson').addEventListener('click',e=>{if(!cur)return;
+  if(newTabClick(e)){window.open(`#${cur.g.id}/${cur.l.id}/${cur.t}`,'_blank');return;}
+  tab='lesson';goFrame(cur.l.file,cur.t);renderMenu();updateChrome();});
+$('#tabAnswer').addEventListener('click',e=>{
+  if(cur&&cur.l.answers&&newTabClick(e)){window.open(cur.l.file+'#answers','_blank');return;}
+  showAnswers();});
+/* Middle click on the toolbar tabs behaves like Ctrl + click */
+['#tabLesson','#tabAnswer'].forEach(s=>$(s).addEventListener('auxclick',e=>{if(e.button===1&&!e.currentTarget.disabled){e.preventDefault();e.currentTarget.dispatchEvent(new MouseEvent('click',{button:1,bubbles:true}));}}));
 $('#relock').addEventListener('click',()=>{if(PIN)PIN.lock();if(cur&&tab==='answers'){tab='lesson';goFrame(cur.l.file,cur.t);}renderMenu();updateChrome();
   try{frame.contentWindow.LopHocPIN&&frame.contentWindow.LopHocPIN.refresh();}catch(e){}});
 $('#homeLink').addEventListener('click',e=>{e.preventDefault();goHome();});
