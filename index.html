@@ -144,17 +144,20 @@ button{font:inherit;color:inherit}
    - answers: true nếu bài có phần Đáp án (mục #answers trong bài) */
 const GRADES=[
  {id:'mau-giao',name:'Mẫu giáo',c:'gold',note:'Học mà chơi, chơi mà học',lessons:[
+  {id:'gd1',ic:'🌱',name:'Giai đoạn 1: 3 tháng đầu',file:'mau-giao/giai-doan-1.html',answers:true,topics:[
+   ['lo-trinh','🗺️ Lộ trình 24 buổi'],['u1','Unit 1: Hello! Me & Feelings'],['u2','Unit 2: Rainbow Colors'],['u3',"Unit 3: Let's Count 1–10"],['u4','Unit 4: My Body & Actions'],
+   ['u5','Unit 5: On the Farm'],['u6','Unit 6: Under the Sea'],['u7','Unit 7: Move Like Me!'],['u8','Unit 8: Around My House']]},
+  {id:'gd2',ic:'🌳',name:'Giai đoạn 2: nói nhiều hơn',file:'mau-giao/giai-doan-2.html',answers:true,topics:[
+   ['lo-trinh','🗺️ Lộ trình 24 buổi'],['u1','Unit 1: My Family'],['u2','Unit 2: Yummy Food & Sweets'],['u3','Unit 3: Clothes & Weather'],['u4','Unit 4: School & My Friends'],
+   ['u5','Unit 5: Shapes & Sizes'],['u6','Unit 6: Superheroes!'],['u7','Unit 7: My Day'],['u8',"Unit 8: Let's Play Together"]]},
   {id:'speeches',ic:'🐮',name:'My English Speeches',file:'mau-giao/english-speeches.html',answers:false,topics:[
    ['body','About Me & My Body'],['favorites','My Favorite Things'],['sea','Animals in the Sea'],['farm','Animals on the Farm'],
-   ['can','Things I Can Do'],['actions','What Animals Can Do'],['colors','Animal Colors'],['bodies','Animal Bodies']]},
-  {id:'sm1',ic:'📗',name:'Ôn Super Minds 1',file:'mau-giao/super-minds-1.html',answers:false,topics:[
-   ['u0','Starter: Friends'],['u1','Unit 1: At school'],['u2',"Unit 2: Let's play!"],['u3','Unit 3: Pet show'],['u4','Unit 4: Lunchtime'],
-   ['u5','Unit 5: Free time'],['u6','Unit 6: The old house'],['u7','Unit 7: Get dressed'],['u8','Unit 8: The robot'],['u9','Unit 9: At the beach']]}]},
+   ['can','Things I Can Do'],['actions','What Animals Can Do'],['colors','Animal Colors'],['bodies','Animal Bodies']]}]},
  {id:'lop-1',name:'Lớp 1',c:'sky',note:'Tiếng Anh',lessons:[
   {id:'tieng-anh',ic:'🧒',name:'Tiếng Anh lớp 1',file:'lop-1/tieng-anh-lop-1.html',answers:true,topics:[
    ['about','About Me (bài nói)'],['body','My Body'],['positions','Where is …?'],['room','Find the objects'],['plants','Parts of a plant'],
-   ['school','School things'],['shapes','Shapes'],['home','Things at home'],['review','Ôn tập (Everybody Up)'],['rooms','Rooms in the house'],['routines','Bathroom & bedroom']]},
-  {id:'sm2',ic:'📘',name:'Ôn Super Minds 2',file:'lop-1/super-minds-2.html',answers:false,topics:[
+   ['school','School things'],['shapes','Shapes'],['home','Things at home'],['review','Ôn tập'],['rooms','Rooms in the house'],['routines','Bathroom & bedroom']]},
+  {id:'chu-de',ic:'📘',name:'Ôn 10 chủ đề',file:'lop-1/chu-de-lop-1.html',answers:false,topics:[
    ['u0','Starter: Back to school'],['u1','Unit 1: My day'],['u2','Unit 2: The zoo'],['u3','Unit 3: Where we live'],['u4','Unit 4: The market'],
    ['u5','Unit 5: My bedroom'],['u6','Unit 6: People'],['u7','Unit 7: Off we go!'],['u8','Unit 8: Sports club'],['u9','Unit 9: Holiday plans']]}]},
  {id:'lop-4',name:'Lớp 4',c:'jade',note:'Ôn thi IOE',lessons:[

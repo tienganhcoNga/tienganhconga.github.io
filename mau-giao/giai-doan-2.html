@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="vi" data-grade="mau-giao">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tiếng Anh mẫu giáo: giai đoạn 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/course.css?v=20261127d">
+<link rel="stylesheet" href="../assets/preschool.css?v=20261127d">
+<style>:root{--accent:var(--lacquer);--accent-soft:var(--lacquer-soft)}</style>
+<script>(function(){try{var g=document.documentElement.getAttribute("data-grade"),k="lophoc-grade-"+g;if(!(sessionStorage.getItem(k)==="1"||localStorage.getItem(k)==="1"))document.documentElement.classList.add("grade-locked")}catch(e){}})()</script><style>html.grade-locked body>*:not(.pin-gate){visibility:hidden}</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Mẫu giáo · Giai đoạn 2 · Nói nhiều hơn</div>
+    <h1 id="pTitle"></h1>
+    <p class="lead" id="pLead"></p>
+    <div class="stats" id="pStats"></div>
+  </header>
+</div>
+<nav class="nav" aria-label="Các phần"><div class="wrap" id="units"><a class="home" href="../index.html">← Trang chủ</a></div></nav>
+<main class="wrap" id="view"></main>
+<div class="wrap"><footer><a href="../index.html">← Về trang chủ</a></footer></div>
+
+<script>
+window.PRESCHOOL={
+ title:'Tiếng Anh cho bé <span>giai đoạn 2</span>',
+ lead:'Sau 3 tháng đầu. Mỗi bài 10–12 từ, hội thoại dài hơn và trò chơi tình huống "Bé nói gì?". Mục tiêu: bé tự nói 3–4 câu về mình, gia đình và bạn bè.',
+ phase:'Giai đoạn 2', span:'tháng 4 đến tháng 6', monthStart:4,
+ stats:[['8','bài'],['24','buổi'],['3','tháng'],['~90','từ mới']],
+ chars:['🦸','👧','🧒'],
+ goals:[
+  'Giới thiệu gia đình và bạn bè: This is my friend, Tom. He is funny.',
+  'Xin, mời, cảm ơn, xin lỗi đúng lúc: Can I have…, please? Thank you! Sorry!',
+  'Nói thời tiết và chọn quần áo: It\'s rainy. Put on your jacket!',
+  'Làm theo 10 câu lệnh trong lớp (Stand up! Open your book!).',
+  'Tự nói liền 3–4 câu về mình trước lớp (show & tell).',
+  'Thêm khoảng 90 từ mới, cả hai giai đoạn khoảng 145 từ.'],
+ lessonPlan:[
+  [4,'Chào và chuyện đầu giờ','How are you? What did you do today? Bé kể 1 câu về bạn ở trường.'],
+  [5,'Hát và vận động','Bài hát có động tác, hoặc "Teacher says".',true],
+  [4,'Ôn bài cũ','Hỏi nhanh từ và câu của bài trước, bé trả lời cả câu.'],
+  [8,'Từ mới','10–12 từ chia 2 nhóm, chạm thẻ hình, làm động tác.'],
+  [6,'Hội thoại đóng vai','Nghe đoạn hội thoại, chia vai nói lại, rồi đổi tên và đồ vật để bé tự nói câu mới.'],
+  [6,'Trò chơi trên web','Trò chơi tình huống "Bé nói gì?" và trò của bài.'],
+  [10,'Show & tell','Mỗi bé nói 3–4 câu về chủ đề, ví dụ giới thiệu một người bạn hoặc đồ chơi.',true],
+  [2,'Tạm biệt','See you next time! Bé nhận sao thưởng ⭐.']],
+ sessionParts:[
+  ['Từ mới','10–12 từ chia 2 nhóm, thẻ hình và vận động.'],
+  ['Hội thoại và đóng vai','Nghe hội thoại, chia vai nói lại, đổi tên và đồ vật để bé tự nói câu mới.'],
+  ['Giao tiếp và ôn','Trò chơi tình huống, hỏi đáp theo cặp, mỗi bé kể 3–4 câu (show & tell).']],
+ next:null,
+ units:[
+ {id:'u1',n:'Unit 1',en:'My Family',vi:'Gia đình của em',ic:'👪',review:'Hello! How are you? I\'m happy.',
+  words:[['👩','mom','mẹ'],['👨','dad','bố'],['👦','brother','anh, em trai'],['👧','sister','chị, em gái'],['👶','baby','em bé'],['👵','grandma','bà'],['👴','grandpa','ông'],['👪','family','gia đình'],['❤️','love','yêu thương'],['🏠','home','nhà']],
+  talk:[['Who is she?','Cô ấy là ai?',0],["She's my mom.",'Đó là mẹ tớ.',2],['Who is he?','Chú ấy là ai?',0],["He's my dad. He's strong like a superhero!",'Đó là bố tớ. Bố khỏe như siêu anh hùng!',2],['I love my family.','Tớ yêu gia đình tớ.',2]],
+  games:[{type:'pick',name:'🎧 Tìm người thân',prompt:'Find my {w}!',only:[0,1,2,3,4,5,6],options:3,after:"It's my {w}!"},
+   {type:'phrase',name:'💬 Bé nói gì?',items:[
+    {pic:'👵🍪',vi:'Bà cho bé một cái bánh.',o:[['😊','Thank you, Grandma!'],['😴',"I'm sleepy."],['👋','Bye bye!']],a:0},
+    {pic:'👨🏠',vi:'Bố đi làm về.',o:[['👋','Hello, Dad!'],['🙏','Sorry!'],['🍬','I want candy!']],a:0},
+    {pic:'👶😢',vi:'Em bé đang khóc.',o:[['🤗',"Don't cry, baby!"],['😋',"I'm hungry."],['🎉','Good job!']],a:0},
+    {pic:'👩❤️',vi:'Trước khi ngủ, bé muốn nói với mẹ.',o:[['❤️','I love you, Mom!'],['🔴',"It's red."],['🏃','I can run!']],a:0}]}],
+  guide:{answers:['Tìm người thân: <i>mom</i> 👩, <i>dad</i> 👨, <i>brother</i> 👦, <i>sister</i> 👧, <i>baby</i> 👶, <i>grandma</i> 👵, <i>grandpa</i> 👴.','Bé nói gì: bà cho bánh → <i>Thank you, Grandma!</i>; bố về → <i>Hello, Dad!</i>; em khóc → <i>Don\'t cry, baby!</i>; trước khi ngủ → <i>I love you, Mom!</i>'],
+   home:["Xem ảnh gia đình: <i>Who is he? – He's my grandpa!</i>","Bé giới thiệu cả nhà bằng 3 câu: <i>This is my mom. This is my dad. I love my family.</i>","Mỗi tối nói <i>I love you!</i> với một người trong nhà."],
+   tips:["<i>Brother, mother</i>: âm /ð/ (lưỡi giữa hai răng, có rung), không đọc \"bờ-ra-dơ\".","<i>She's / He's</i>: nhớ âm /z/ ở cuối.","<i>Grandpa</i>: chữ d gần như không đọc: \"GRAN-pa\"."]}},
+ {id:'u2',n:'Unit 2',en:'Yummy Food & Sweets',vi:'Đồ ăn, đồ uống và kẹo',ic:'🍭',review:'số đếm: Three candies!',
+  words:[['🍬','candy','kẹo','','Đồ ngọt'],['🍭','lollipop','kẹo mút','','Đồ ngọt'],['🍫','chocolate','sô-cô-la','','Đồ ngọt'],['🍰','cake','bánh ngọt','','Đồ ngọt'],['🍦','ice cream','kem','','Đồ ngọt'],
+   ['🍎','apple','quả táo','','Đồ ăn, đồ uống'],['🍌','banana','quả chuối','','Đồ ăn, đồ uống'],['🍚','rice','cơm','','Đồ ăn, đồ uống'],['🍞','bread','bánh mì','','Đồ ăn, đồ uống'],['🥛','milk','sữa','','Đồ ăn, đồ uống'],['💧','water','nước','','Đồ ăn, đồ uống'],['🧃','juice','nước ép','','Đồ ăn, đồ uống']],
+  talk:[["I'm hungry.",'Con đói.',2],['What do you want?','Con muốn ăn gì?',0],['I want candy, please!','Con muốn ăn kẹo ạ!',2],['Just one candy. Too much candy is bad for your teeth.','Một cái thôi nhé. Ăn nhiều kẹo hại răng.',0],['Okay! And some milk, please.','Vâng ạ! Cho con thêm sữa nữa.',2],['Here you are.','Của con đây.',0],['Thank you!','Con cảm ơn!',2]],
+  games:[{type:'basket',name:'🍱 Xếp hộp cơm',prompt:'Put the {w} in the lunchbox!',bin:'🍱',only:[5,6,7,8,9,0],after:'Yummy!'},
+   {type:'pick',name:'🎧 Con muốn ăn gì?',prompt:'I want {w}, please!',options:3,after:'{w}! Yummy!'},
+   {type:'phrase',name:'💬 Bé nói gì?',items:[
+    {pic:'🍬❓',vi:'Bạn mời bé một cái kẹo.',say:'Do you want a candy?',o:[['😊','Yes, please!'],['👋','Goodbye!'],['😴',"I'm sleepy."]],a:0},
+    {pic:'😋🍚',vi:'Bé đói bụng, bé nói với mẹ.',o:[['😋',"I'm hungry!"],['🎉','Good job!'],['🔵',"It's blue."]],a:0},
+    {pic:'🥛🎁',vi:'Mẹ đưa cho bé cốc sữa.',o:[['💐','Thank you, Mom!'],['🙏','Sorry!'],['🏃','I can run!']],a:0},
+    {pic:'🍦🍦',vi:'Bé muốn thêm kem.',o:[['🙋','More ice cream, please!'],['👋','Hello!'],['😢',"I'm sad."]],a:0}]}],
+  guide:{answers:['Xếp hộp cơm: máy đọc món nào thì bé bấm món đó (táo, chuối, cơm, bánh mì, sữa, kẹo).','Con muốn ăn gì: nghe tên món → bấm hình món đó.','Bé nói gì: mời kẹo → <i>Yes, please!</i>; đói → <i>I\'m hungry!</i>; đưa sữa → <i>Thank you, Mom!</i>; muốn thêm kem → <i>More ice cream, please!</i>'],
+   home:["Giờ ăn: <i>What do you want? – I want rice, please!</i>","Kẹo là phần thưởng: bé xin đúng câu <i>Can I have a candy, please?</i> mới được 1 viên 😉","Đi siêu thị chỉ món và hỏi: <i>What's this? – It's chocolate!</i>"],
+   tips:["<i>Please</i>: âm /pl/ đọc liền, cuối là /z/ chứ không phải /s/.","<i>Chocolate</i>: chỉ 2 âm tiết \"CHOC-lit\".","<i>Milk</i>: có âm /l/ nhẹ trước /k/, không đọc \"mích\"."]}},
+ {id:'u3',n:'Unit 3',en:'Clothes & Weather',vi:'Quần áo và thời tiết',ic:'☔',review:'màu sắc: My red hat.',
+  words:[['👒','hat','cái mũ','','Quần áo'],['👟','shoes','đôi giày','','Quần áo'],['🧦','socks','đôi tất','','Quần áo'],['👕','T-shirt','áo phông','','Quần áo'],['👗','dress','váy','','Quần áo'],['🧥','jacket','áo khoác','','Quần áo'],['☂️','umbrella','cái ô','','Quần áo'],
+   ['☀️','sunny','trời nắng','','Thời tiết'],['🌧️','rainy','trời mưa','','Thời tiết'],['💨','windy','có gió','','Thời tiết'],['🥵','hot','nóng','','Thời tiết'],['🥶','cold','lạnh','','Thời tiết']],
+  talk:[["How's the weather?",'Thời tiết thế nào?',0],["It's rainy!",'Trời mưa!',2],['Put on your jacket. Take your umbrella!','Mặc áo khoác vào. Cầm theo ô nhé!',0],["It's sunny and hot. Put on your hat!",'Trời nắng nóng. Đội mũ vào nhé!',0],['Look! My superhero T-shirt!','Nhìn này! Áo phông siêu anh hùng của tớ!',2]],
+  games:[{type:'pick',name:'🎧 Mặc đồ nào?',prompt:'Put on your {w}!',only:[0,1,2,3,4,5],options:3,after:'My {w}!'},
+   {type:'pick',name:'🌦️ Thời tiết',prompt:"It's {w}!",only:[7,8,9,10,11],options:3,after:"It's {w}!"},
+   {type:'phrase',name:'💬 Mặc gì đây?',items:[
+    {pic:'🌧️',vi:'Trời mưa rồi! Bé mặc gì?',say:"It's rainy!",o:[['🧥','My jacket and umbrella!'],['👒','My sun hat!'],['🩳','My shorts!']],a:0},
+    {pic:'☀️🥵',vi:'Trời nắng nóng. Bé đội gì?',say:"It's sunny and hot!",o:[['👒','My hat!'],['🧤','My gloves!'],['🧣','My scarf!']],a:0},
+    {pic:'🥶❄️',vi:'Trời lạnh quá! Bé mặc gì?',say:"It's cold!",o:[['🧥','My jacket!'],['👕','My T-shirt!'],['🩱','My swimsuit!']],a:0}]}],
+  guide:{answers:['Mặc đồ nào: hat 👒, shoes 👟, socks 🧦, T-shirt 👕, dress 👗, jacket 🧥.','Thời tiết: sunny ☀️, rainy 🌧️, windy 💨, hot 🥵, cold 🥶.','Mặc gì đây: mưa → jacket và umbrella; nắng nóng → hat; lạnh → jacket.'],
+   home:["Mỗi sáng nhìn trời: <i>How's the weather? – It's sunny!</i>","Lúc thay đồ, bé tự nói: <i>Put on my socks! Put on my shoes!</i>","Bé giới thiệu bộ đồ yêu thích: <i>This is my superhero T-shirt. It's red and blue.</i>"],
+   tips:["<i>Shoes, socks</i>: phân biệt /ʃ/ (suỵt) với /s/.","<i>Weather</i>: âm /ð/ ở giữa, không đọc \"guê-dơ\".","<i>Jacket</i>: âm /dʒ/ ở đầu, cuối có /t/ nhẹ."]}},
+ {id:'u4',n:'Unit 4',en:'School & My Friends',vi:'Trường lớp và bạn bè',ic:'🏫',review:'gia đình: This is my mom.',
+  words:[['🧒','friend','bạn','','Người và nơi chốn'],['👩‍🏫','teacher','cô giáo','','Người và nơi chốn'],['🏫','school','trường học','','Người và nơi chốn'],['📖','book','quyển sách','','Đồ dùng'],['🖍️','crayon','bút sáp màu','','Đồ dùng'],['🎒','bag','cái cặp','','Đồ dùng'],['🪑','chair','cái ghế','','Đồ dùng'],
+   ['🤹','play','chơi','','Hoạt động'],['🤝','share','chia sẻ, dùng chung','','Hoạt động'],['🎤','sing','hát','','Hoạt động'],['🎨','draw','vẽ','','Hoạt động'],['😂','funny','vui tính','','Hoạt động']],
+  talk:[['Who is your friend?','Bạn của con là ai?',0],['This is my friend, Tom.','Đây là bạn tớ, Tom.',2],['He is funny!','Bạn ấy vui tính lắm!',2],['What do you do at school?','Ở trường con làm gì?',0],['We play together. We sing and draw.','Chúng tớ chơi cùng nhau. Chúng tớ hát và vẽ.',2],['We share crayons.','Chúng tớ dùng chung bút sáp.',1],['I love my school!','Tớ yêu trường tớ!',2]],
+  games:[{type:'simon',name:'👩‍🏫 Teacher says!',says:'Teacher says',cmds:[['🧍','Stand up!','Đứng lên'],['🪑','Sit down!','Ngồi xuống'],['📖','Open your book!','Mở sách'],['📕','Close your book!','Gấp sách'],['✋','Raise your hand!','Giơ tay'],['🤫','Be quiet!','Giữ trật tự'],['👂','Listen!','Lắng nghe'],['👀','Look at the board!','Nhìn lên bảng'],['🤝','Say hello to your friend!','Chào bạn bên cạnh'],['🖍️','Draw a circle!','Vẽ một hình tròn']]},
+   {type:'pick',name:'🎧 Đồ dùng ở trường',prompt:'Show me your {w}!',only:[3,4,5,6],options:3,after:'My {w}!'},
+   {type:'phrase',name:'💬 Kể về bạn',items:[
+    {pic:'🧒❓',vi:'Cô hỏi tên bạn của bé.',say:"What's your friend's name?",o:[['🧒','My friend is Tom.'],['🔢',"I'm five."],['🔴',"It's red."]],a:0},
+    {pic:'🖍️🤝',vi:'Bạn chưa có bút sáp, bé cho bạn mượn.',o:[['🎁','Here you are!'],['😢',"I'm sad."],['👋','Bye bye!']],a:0},
+    {pic:'🤹❓',vi:'Bé muốn chơi cùng các bạn.',o:[['🙋','Can I play?'],['😴',"I'm sleepy."],['🍌',"It's a banana."]],a:0},
+    {pic:'🏫❓',vi:'Cô hỏi: Ở trường con làm gì?',say:'What do you do at school?',o:[['🎤','I sing and draw.'],['🛏️','I go to bed.'],['🐄','The cow says moo.']],a:0}]}],
+  guide:{answers:['Teacher says: không có đáp án. Cô quan sát bé làm đúng lệnh chưa.','Đồ dùng: book 📖, crayon 🖍️, bag 🎒, chair 🪑.','Kể về bạn: tên bạn → <i>My friend is Tom.</i>; cho mượn → <i>Here you are!</i>; muốn chơi cùng → <i>Can I play?</i>; ở trường làm gì → <i>I sing and draw.</i>'],
+   home:["Bé hay kể về bạn: mỗi chiều hỏi <i>Who did you play with today? – I played with …</i> (bé nói tên bạn là được).","Hỏi thêm: <i>Is he funny? What does he like? – He likes candy!</i>","Chơi đóng vai cô giáo: bé ra lệnh <i>Stand up! Sit down!</i> cho ba mẹ làm."],
+   tips:["<i>Friend</i>: âm /fr/ đọc liền, cuối có /nd/ nhẹ.","<i>Teacher</i>: âm /tʃ/ ở giữa, không đọc \"ti-chơ\" rời.","<i>School</i>: âm /sk/ đọc liền, không chèn \"sờ-cun\"."]}},
+ {id:'u5',n:'Unit 5',en:'Shapes & Sizes',vi:'Hình khối, to và nhỏ',ic:'🔺',review:'màu sắc và số đếm.',
+  words:[['⭕','circle','hình tròn','','Hình'],['🟥','square','hình vuông','','Hình'],['🔺','triangle','hình tam giác','','Hình'],['⭐','star','ngôi sao','','Hình'],['❤️','heart','trái tim','','Hình'],['🔷','diamond','hình thoi','','Hình'],
+   ['🐘','big','to','','To, nhỏ, dài'],['🐭','small','nhỏ','','To, nhỏ, dài'],['🐍','long','dài','','To, nhỏ, dài']],
+  talk:[['What shape is it?','Đây là hình gì?',0],["It's a circle.",'Hình tròn.',2],['A big red heart!','Một trái tim to màu đỏ!',1],['My superhero has a star.','Siêu anh hùng của tớ có hình ngôi sao.',2],['The elephant is big. The mouse is small.','Con voi to. Con chuột nhỏ.',0]],
+  games:[{type:'pick',name:'🎧 Tìm hình',prompt:'Find the {w}!',only:[0,1,2,3,4,5],options:3,after:"It's {a} {w}!"},{type:'pick',name:'🐘 To hay nhỏ?',prompt:"It's {w}!",only:[6,7,8],options:3,after:"It's {w}!"}],
+  guide:{answers:['Tìm hình: circle ⭕, square 🟥, triangle 🔺, star ⭐, heart ❤️, diamond 🔷.','To hay nhỏ: big → voi 🐘, small → chuột 🐭, long → rắn 🐍.'],
+   home:["Tìm hình trong nhà: <i>Find a circle! – The clock is a circle!</i>","Cắt hình bằng giấy màu: <i>A big red heart! A small yellow star!</i>","So sánh đồ chơi: <i>This car is big. This car is small.</i>"],
+   tips:["<i>Square</i>: âm /skw/ đọc liền.","<i>Triangle</i>: 3 âm tiết TRY-an-gle.","<i>Small</i>: âm /sm/ đọc liền, cuối có /l/."]}},
+ {id:'u6',n:'Unit 6',en:'Superheroes!',vi:'Siêu anh hùng',ic:'🦸',review:'hành động: I can jump! A spider can climb.',
+  words:[['🦸','superhero','siêu anh hùng','','Siêu anh hùng'],['🎭','mask','mặt nạ','','Siêu anh hùng'],['🕷️','spider','con nhện','','Siêu anh hùng'],['🕸️','web','mạng nhện','','Siêu anh hùng'],
+   ['💪','strong','khỏe','','Siêu anh hùng thế nào?'],['⚡','fast','nhanh','','Siêu anh hùng thế nào?'],['🦁','brave','dũng cảm','','Siêu anh hùng thế nào?'],
+   ['✈️','fly','bay','','Siêu anh hùng làm gì?'],['🧗','climb','leo','','Siêu anh hùng làm gì?'],['🤸','jump','nhảy','','Siêu anh hùng làm gì?'],['🤝','help','giúp đỡ','','Siêu anh hùng làm gì?']],
+  talk:[['Who are you?','Bạn là ai?',1],["I'm a superhero!",'Tớ là siêu anh hùng!',2],['What can you do?','Bạn làm được gì?',1],['I can fly! I can climb like a spider!','Tớ bay được! Tớ leo như con nhện!',2],['Are you strong?','Bạn có khỏe không?',1],["Yes! I'm strong and brave. I help my friends!",'Có! Tớ khỏe và dũng cảm. Tớ giúp đỡ bạn bè!',2]],
+  games:[{type:'scene',name:'🏙️ Tìm trong thành phố',prompt:'Find the {w}!',only:[0,1,2,3],bg:'city',after:"It's {a} {w}!",deco:[['🏢',12,60],['🏢',88,58],['🏬',50,70],['☁️',30,12],['☁️',75,10]]},
+   {type:'pick',name:'💪 Siêu anh hùng thế nào?',prompt:"I'm {w}!",only:[4,5,6],options:3,after:"I'm {w}!"},
+   {type:'phrase',name:'💬 Siêu anh hùng nói gì?',items:[
+    {pic:'🧒🤕',vi:'Bạn bị ngã. Siêu anh hùng nói gì?',o:[['🩹','Are you okay? I can help!'],['😂','Ha ha!'],['🍬','I want candy!']],a:0},
+    {pic:'🦸❓',vi:'Bạn hỏi: Bạn làm được gì?',say:'What can you do?',o:[['✈️','I can fly!'],['😴',"I'm sleepy."],['🟥',"It's a square."]],a:0},
+    {pic:'🎁🦸',vi:'Bạn cho bé mượn mặt nạ siêu anh hùng.',o:[['💐','Thank you, my friend!'],['👋','Bye bye!'],['😢',"I'm sad."]],a:0}]}],
+  guide:{answers:['Tìm trong thành phố: superhero 🦸, mask 🎭, spider 🕷️, web 🕸️.','Siêu anh hùng thế nào: strong 💪, fast ⚡, brave 🦁.','Siêu anh hùng nói gì: bạn ngã → <i>Are you okay? I can help!</i>; hỏi làm được gì → <i>I can fly!</i>; được cho mượn → <i>Thank you, my friend!</i>'],
+   home:["Bé đóng vai siêu anh hùng và tự giới thiệu 3 câu: <i>I'm a superhero. I'm strong. I can fly!</i>","Ba mẹ hỏi: <i>What can you do? – I can climb like a spider!</i>","Nhắc bé siêu anh hùng thật là người giúp đỡ: <i>I help my friends!</i>"],
+   tips:["<i>Strong</i>: âm /str/ đọc liền, cuối là /ŋ/ (giống \"ng\").","<i>Spider</i>: âm /sp/ đọc liền, không chèn \"sờ-pai-đơ\".","<i>Brave</i>: âm /br/ đọc liền, cuối /v/ chạm môi dưới vào răng trên."]}},
+ {id:'u7',n:'Unit 7',en:'My Day',vi:'Một ngày của em',ic:'⏰',review:'đồ ăn: I eat breakfast. I drink milk.',
+  words:[['⏰','wake up','thức dậy'],['🦷','brush my teeth','đánh răng'],['🧼','wash my face','rửa mặt'],['🥣','eat breakfast','ăn sáng'],['🏫','go to school','đi học'],['🤹','play','chơi'],['🛁','take a bath','tắm'],['📖','read a book','đọc sách'],['🛌','go to bed','đi ngủ'],['🌅','morning','buổi sáng'],['🌙','night','buổi tối']],
+  talk:[['What do you do in the morning?','Buổi sáng con làm gì?',0],['I wake up. I brush my teeth.','Con thức dậy. Con đánh răng.',2],['I eat breakfast and go to school.','Con ăn sáng rồi đi học.',2],['What do you do at night?','Buổi tối con làm gì?',0],['I take a bath. I read a book. I go to bed.','Con tắm, đọc sách rồi đi ngủ.',2],['Good night!','Chúc con ngủ ngon!',0]],
+  games:[{type:'pick',name:'🎧 Bé làm gì?',prompt:'I {w}.',only:[0,1,2,3,4,5,6,7,8],options:3,after:'I {w}!'},
+   {type:'phrase',name:'💬 Sáng hay tối?',items:[
+    {pic:'🌅⏰',vi:'Buổi sáng, bé vừa ngủ dậy.',o:[['☀️','Good morning!'],['🌙','Good night!'],['👋','Bye bye!']],a:0},
+    {pic:'🌙🛌',vi:'Buổi tối, bé đi ngủ.',o:[['🌙','Good night!'],['☀️','Good morning!'],['🍬','I want candy!']],a:0},
+    {pic:'🏫🎒',vi:'Mẹ hỏi: Sau bữa sáng con đi đâu?',say:'Where do you go after breakfast?',o:[['🏫','I go to school.'],['🛁','I take a bath.'],['🛌','I go to bed.']],a:0}]}],
+  guide:{answers:['Bé làm gì: nghe câu → bấm hình (wake up ⏰, brush my teeth 🦷, wash my face 🧼, eat breakfast 🥣, go to school 🏫, play 🤹, take a bath 🛁, read a book 📖, go to bed 🛌).','Sáng hay tối: sáng dậy → <i>Good morning!</i>; đi ngủ → <i>Good night!</i>; sau bữa sáng → <i>I go to school.</i>'],
+   home:["Mỗi việc trong ngày nói 1 câu: <i>I brush my teeth!</i> lúc đánh răng, <i>I take a bath!</i> lúc tắm.","Buổi tối bé kể 3 việc đã làm (nói thì hiện tại cũng được): <i>I go to school. I play with Tom. I eat candy!</i>","Chào nhau mỗi ngày: <i>Good morning!</i> và <i>Good night!</i>"],
+   tips:["<i>Teeth</i>: kết thúc bằng /θ/ (lè lưỡi), không đọc \"tít\".","<i>Bath</i>: cũng kết thúc bằng /θ/.","<i>Breakfast</i>: 2 âm tiết BREK-fəst."]}},
+ {id:'u8',n:'Unit 8',en:"Let's Play Together",vi:'Cùng chơi với bạn: xin, mời, cảm ơn, xin lỗi',ic:'🤝',review:'bạn bè và trường lớp.',
+  words:[['🙋','can I play?','tớ chơi cùng được không?'],['🤹',"let's play!",'cùng chơi nào!'],['👆','my turn','lượt của tớ'],['👉','your turn','lượt của bạn'],['🙏','please','làm ơn'],['💐','thank you','cảm ơn'],['😔','sorry','xin lỗi'],["👌","that's okay",'không sao đâu'],['🎁','here you are','của bạn đây'],['🩹','are you okay?','bạn có sao không?'],['👍','good job!','giỏi lắm!']],
+  talk:[['Can I play?','Tớ chơi cùng được không?',2],["Sure! Let's play!",'Được chứ! Cùng chơi nào!',1],['My turn!','Đến lượt tớ!',2],['Your turn!','Đến lượt bạn!',1],['Oops! Sorry!','Ối! Xin lỗi nhé!',2],["That's okay!",'Không sao đâu!',1],['Good job, friend!','Giỏi lắm bạn ơi!',2]],
+  games:[{type:'phrase',name:'💬 Bé nói gì?',items:[
+    {pic:'🧒⚽',vi:'Các bạn đang đá bóng. Bé muốn chơi cùng.',o:[['🙋','Can I play?'],['😴',"I'm sleepy."],['🛌','Good night!']],a:0},
+    {pic:'💥😔',vi:'Bé lỡ làm đổ tháp của bạn.',o:[['😔','Oops! Sorry!'],['🎉','Good job!'],['🍬','I want candy!']],a:0},
+    {pic:'🧒🖍️',vi:'Bạn cần bút sáp. Bé đưa cho bạn.',o:[['🎁','Here you are!'],['👋','Bye bye!'],['😢',"I'm sad."]],a:0},
+    {pic:'🎁😊',vi:'Bạn tặng bé một cái kẹo.',o:[['💐','Thank you!'],['🙏','Sorry!'],['👉','Your turn!']],a:0},
+    {pic:'🧒🤕',vi:'Bạn bị ngã.',o:[['🩹','Are you okay?'],['😂','Ha ha!'],['🤹',"Let's play!"]],a:0},
+    {pic:'🎲👉',vi:'Bé chơi xong lượt, đến lượt bạn.',o:[['👉','Your turn!'],['👆','My turn!'],['🙋','Can I play?']],a:0}]},
+   {type:'pick',name:'🎧 Nghe và chọn',prompt:'{w}',options:3,after:'{w}'}],
+  guide:{answers:['Bé nói gì: muốn chơi cùng → <i>Can I play?</i>; làm đổ đồ của bạn → <i>Oops! Sorry!</i>; đưa đồ → <i>Here you are!</i>; được tặng → <i>Thank you!</i>; bạn ngã → <i>Are you okay?</i>; hết lượt → <i>Your turn!</i>','Nghe và chọn: nghe câu → bấm hình của câu đó.'],
+   home:["Chơi trò chơi lượt (xếp hình, đổ xúc xắc): mỗi lượt bé phải nói <i>My turn! / Your turn!</i>","Ba mẹ cố tình làm rơi đồ của bé: <i>Oops! Sorry! – That's okay!</i>","Khen bé bằng tiếng Anh mỗi ngày: <i>Good job!</i> và chờ bé đáp <i>Thank you!</i>"],
+   tips:["<i>Thank you</i>: lè lưỡi ở âm /θ/.","<i>Sorry</i>: âm /r/ cong lưỡi, không rung.","<i>Turn</i>: âm /ɜː/ kéo dài, không đọc \"tơn\" ngắn."]}}
+ ]};
+</script>
+<script src="../assets/pin.js?v=20261127d"></script>
+<script src="../assets/preschool.js?v=20261127d"></script>
+</body>
+</html>

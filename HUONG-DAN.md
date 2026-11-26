@@ -8,17 +8,20 @@ lop-hoc/
 ├── .nojekyll               ← File rỗng, giữ nguyên (để GitHub không xử lý lại file)
 ├── assets/
 │   ├── pin.js              ← Khóa phần Đáp án bằng mã PIN (đổi mã PIN ở đây)
-│   ├── course.js           ← Phần chạy chung cho các trang ôn theo Unit (Super Minds)
-│   └── course.css
+│   ├── course.js / course.css       ← Phần chạy chung cho trang "Ôn 10 chủ đề" lớp 1
+│   └── preschool.js / preschool.css ← Phần chạy chung cho lộ trình mẫu giáo (thẻ hình, hội thoại, trò chơi, cẩm nang)
 ├── lop-1/
 │   ├── tieng-anh-lop-1.html ← Tiếng Anh lớp 1 (About Me, cơ thể, vị trí, bộ phận của cây, đồ dùng học tập, hình khối, đồ vật trong nhà, ôn tập, các phòng, hoạt động phòng tắm – phòng ngủ)
-│   └── super-minds-2.html  ← Ôn theo 10 bài của Super Minds 2 (dữ liệu nằm trong file, phần chạy ở assets/course.js)
+│   └── chu-de-lop-1.html   ← Ôn 10 chủ đề (dữ liệu nằm trong file, phần chạy ở assets/course.js)
 ├── lop-4/
 │   ├── su-viet-ioe.html    ← Bài Sử Việt IOE lớp 4
 │   └── tieng-anh-ioe.html  ← Tiếng Anh IOE lớp 4 (từ vựng, ngữ pháp, hội thoại, luyện đề, tập chép)
 └── mau-giao/
-    ├── english-speeches.html ← Luyện nói tiếng Anh (8 chủ đề, mở thẳng một chủ đề bằng #farm, #sea...)
-    └── super-minds-1.html  ← Ôn theo 10 bài của Super Minds 1
+    ├── giai-doan-1.html    ← Lộ trình 3 tháng đầu cho bé mới bắt đầu: 8 Unit, 24 buổi (#lo-trinh, #u1…#u8, #answers = cẩm nang)
+    ├── giai-doan-2.html    ← Giai đoạn 2 (tháng 4–6): 8 Unit khó hơn, nhiều hội thoại
+    └── english-speeches.html ← Luyện nói tiếng Anh (8 chủ đề, mở thẳng một chủ đề bằng #farm, #sea...)
+
+Không ghi tên sách giáo khoa hay nhà xuất bản lên trang (vì bản quyền). Bài do cô tự soạn theo chủ đề.
 ```
 
 Xem thử trên máy: mở thẳng từng file bài học bằng trình duyệt. Riêng trang chủ (`index.html`) cần chạy trên web mới hoạt động đầy đủ, nên muốn xem trang chủ thì đưa lên GitHub rồi mở link.
