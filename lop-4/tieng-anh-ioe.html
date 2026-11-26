@@ -1245,7 +1245,7 @@ function renderExam(){
       <span class="muted">Đã làm ${answered}/${E.qs.length}</span><button class="btn check" type="button" data-ex="submit" style="margin-left:auto">Nộp bài</button></div>
     <div class="edots">${E.qs.map((qq,j)=>{const a=ex.ans[j];const d=a!=null&&a!==''&&!(Array.isArray(a)&&!a.length);return `<button class="edot ${d?'done':''} ${j===k?'cur':''}" type="button" data-go="${j}" aria-label="Câu ${j+1}">${j+1}</button>`}).join('')}</div>`;
   const f=$('#exFill');if(f){f.value=v||'';}
-  if(q.t==='listen'&&!ex.played?.[k]){ex.played=ex.played||{};ex.played[k]=1;setTimeout(()=>speak(q.say,{rate:0.8}),250);}
+  /* Không tự phát câu nghe: chỉ đọc khi bấm nút nghe. */
 }
 function submitExam(auto){
   const E=EXAMS[ex.i];const left=ex.ans.filter(a=>a==null||a===''||(Array.isArray(a)&&!a.length)).length;

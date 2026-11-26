@@ -300,9 +300,9 @@ function showQ(){
   var q=G.qs[G.i], top='<div class="g-top"><span>'+(G.i+1)+' / '+G.qs.length+'</span><span>⭐ '+G.score+'</span></div>';
   G.tries=0;
   if(G.type==="listen"){
-    box.innerHTML=top+'<div class="g-prompt"><button class="say big-say" type="button" data-g="hear" aria-label="Nghe lại">'+SPK+'</button><span class="muted">Nghe và chọn từ đúng</span></div>'+
+    box.innerHTML=top+'<div class="g-prompt"><button class="say big-say" type="button" data-g="hear" aria-label="Nghe">'+SPK+'</button><span class="muted">Bấm 🔊 để nghe, rồi chọn từ đúng</span></div>'+
       '<div class="g-opts txt">'+opts(q).map(function(w){return '<button class="g-opt" type="button" data-pick="'+esc(w[1])+'">'+esc(w[1])+'</button>'}).join("")+'</div>';
-    setTimeout(function(){speak(q[1])},250);
+    /* Không tự đọc: chỉ đọc khi bấm nút 🔊. */
   } else if(G.type==="mean"){
     box.innerHTML=top+'<div class="g-prompt"><span class="pic-q" aria-hidden="true">'+icon(q[0])+'</span><span class="g-vi">'+esc(q[2])+'</span></div>'+
       '<div class="g-opts txt">'+opts(q).map(function(w){return '<button class="g-opt" type="button" data-pick="'+esc(w[1])+'">'+esc(w[1])+'</button>'}).join("")+'</div>';
