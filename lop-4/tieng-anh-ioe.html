@@ -44,15 +44,18 @@ button,input{font:inherit;color:inherit}
 .muted{color:var(--muted)}
 
 /* Hero */
-.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center;padding-block:40px 24px}
-.eyebrow{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--sky)}
-.hero h1{font-size:clamp(2.6rem,7vw,4.4rem);font-weight:800;margin-top:6px}
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding-block:14px 12px}
+.hero-text{flex:1 1 340px;min-width:0}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800}
 .hero h1 .red{color:var(--lacquer)}
-.hero .lead{font-size:1.12rem;margin-top:14px;max-width:34em}
-.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:600}
-.stat b{font-family:var(--f-display);font-size:1.2rem;color:var(--lacquer);margin-right:4px}
-.art{width:100%;max-width:320px;justify-self:center}
+.hero .hvi{font-size:.55em;font-weight:700;color:var(--muted);margin-left:6px;white-space:nowrap}
+.hero .lead{font-size:.95rem;margin-top:2px}
+.hero .lead .hvi{font-size:inherit;font-weight:400;margin-left:0;white-space:normal}
+.stats{display:flex;flex-wrap:wrap;gap:6px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 11px;font-weight:600;font-size:.88rem}
+.stat b{font-family:var(--f-display);font-size:1.05rem;color:var(--lacquer);margin-right:4px}
+.stat small{color:var(--muted);font-weight:500;font-size:.85em}
+.art{width:68px;flex:none}
 .art svg{width:100%;height:auto;display:block}
 @media (prefers-reduced-motion: no-preference){ .art .kite{transform-origin:200px 60px;animation:sway 4s ease-in-out infinite alternate} }
 @keyframes sway{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
@@ -63,6 +66,8 @@ button,input{font:inherit;color:inherit}
 .nav a{flex:none;text-decoration:none;color:var(--ink);font-weight:600;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.95rem}
 .nav a:hover{border-color:var(--sky);color:var(--sky)}
 .nav a.home{background:var(--sky);border-color:var(--sky);color:var(--surface)}
+.nav a small{font-weight:500;font-size:.82em;color:var(--muted);margin-left:4px}
+.nav a.home small{color:inherit;opacity:.85}
 
 section{padding-block:48px 8px;scroll-margin-top:64px}
 .sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:22px}
@@ -281,8 +286,7 @@ h3.sub{margin:30px 0 12px;font-size:1.4rem;color:var(--sky)}
 footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
 
 @media (max-width:760px){
-  .hero{grid-template-columns:1fr}
-  .art{max-width:220px;order:-1}
+  .art{width:52px}
   .cols3,.tenses{grid-template-columns:1fr}
   .dialogs{grid-template-columns:1fr}
 }
@@ -300,12 +304,6 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
 <body>
 <div class="wrap">
   <header class="hero">
-    <div>
-      <div class="eyebrow">Ôn thi IOE · Lớp 4</div>
-      <h1>Tiếng Anh <span class="red">IOE</span> lớp 4</h1>
-      <p class="lead">Từ vựng có hình và giọng đọc, ngữ pháp vẽ thành tranh, 11 bài hội thoại nghe được, hơn 80 câu luyện đề tự chấm và phiếu tập chép in ra được.</p>
-      <div class="stats" id="stats"></div>
-    </div>
     <div class="art" aria-hidden="true">
       <svg viewBox="0 0 260 220">
         <path d="M200 60 Q150 140 120 150" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="3 3"/>
@@ -322,21 +320,26 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
         <text x="89" y="130" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="800" font-size="34" fill="#fff">C</text>
       </svg>
     </div>
+    <div class="hero-text">
+      <h1>English <span class="red">IOE</span> Grade 4 <span class="hvi">Tiếng Anh IOE lớp 4</span></h1>
+      <p class="lead">Vocabulary, grammar, dialogues, practice tests &amp; copy sheets. <span class="hvi">Từ vựng có giọng đọc, ngữ pháp bằng tranh, hội thoại nghe được, luyện đề tự chấm, phiếu tập chép in được.</span></p>
+    </div>
+    <div class="stats" id="stats"></div>
   </header>
 </div>
 
-<nav class="nav" aria-label="Các phần">
+<nav class="nav" aria-label="Sections · Các phần">
   <div class="wrap">
-    <a class="home" href="../index.html">← Trang chủ</a>
-    <a href="#vocab">Từ vựng</a>
-    <a href="#grammar">Ngữ pháp</a>
-    <a href="#dates">Ngày &amp; tháng</a>
-    <a href="#talk">Hội thoại</a>
-    <a href="#practice">Luyện đề</a>
-    <a href="#exam">Đề thi thử</a>
-    <a href="#copy">Tập chép</a>
-    <a href="#games">Game</a>
-    <a href="#answers" class="ans-link">🔒 Đáp án</a>
+    <a class="home" href="../index.html">← Home <small>Trang chủ</small></a>
+    <a href="#vocab">Vocabulary <small>Từ vựng</small></a>
+    <a href="#grammar">Grammar <small>Ngữ pháp</small></a>
+    <a href="#dates">Dates <small>Ngày &amp; tháng</small></a>
+    <a href="#talk">Dialogues <small>Hội thoại</small></a>
+    <a href="#practice">Practice <small>Luyện đề</small></a>
+    <a href="#exam">Mock test <small>Đề thi thử</small></a>
+    <a href="#copy">Copy <small>Tập chép</small></a>
+    <a href="#games">Games <small>Trò chơi</small></a>
+    <a href="#answers" class="ans-link">🔒 Answers <small>Đáp án</small></a>
   </div>
 </nav>
 
@@ -1078,7 +1081,7 @@ $('#gameLinks').innerHTML=GAMES.map(([ic,t,d,u])=>`<a class="game" href="${u}" t
 /* ---------- Stats + init ---------- */
 const nWords=TOPICS.reduce((a,t)=>a+t.words.length,0);
 const nPractice=FILL.length+ORDER.length+MCQ.length+VERB.length+ERR.length;
-$('#stats').innerHTML=`<span class="stat"><b>${nWords}</b>từ vựng</span><span class="stat"><b>${DLG.length}</b>hội thoại</span><span class="stat"><b>${nPractice}</b>câu luyện</span><span class="stat"><b>${PATTERNS.length}</b>dạng câu</span>`;
+$('#stats').innerHTML=`<span class="stat"><b>${nWords}</b>words <small>từ vựng</small></span><span class="stat"><b>${DLG.length}</b>dialogues <small>hội thoại</small></span><span class="stat"><b>${nPractice}</b>questions <small>câu luyện</small></span><span class="stat"><b>${PATTERNS.length}</b>patterns <small>dạng câu</small></span>`;
 renderTopicChips();renderWords();renderTabs();renderPanel();
 
 /* ---------- Practice tests (original questions in IOE school-round format) ---------- */
@@ -1286,7 +1289,7 @@ if(window.LopHocPIN){
       ol('🔍 Tìm lỗi sai',ERR.map(([s,k,fix])=>`<b>${esc(fix)}</b>`))+
       EXAMS.map(E=>ol(`📝 Đề thi thử: ${E.name}`,E.qs.map(q=>q.t==='fill'?`<b>${esc(q.a[0])}</b>`:q.t==='order'?`<b>${esc(examOrderAnswer(q))}</b>`:`<b>${'ABCD'[q.a]}. ${esc(q.o[q.a])}</b>${q.t==='listen'&&q.o.length&&q.say.length>15?` <small class="muted">(${esc(q.say)})</small>`:''}`))).join('')+`</div>`;
   });
-  LopHocPIN.onChange(u=>document.querySelectorAll('.ans-link').forEach(a=>a.textContent=(u?'🔓':'🔒')+' Đáp án'));
+  LopHocPIN.onChange(u=>document.querySelectorAll('.ans-link').forEach(a=>a.innerHTML=(u?'🔓':'🔒')+' Answers <small>Đáp án</small>'));
 }
 })();
 </script>
