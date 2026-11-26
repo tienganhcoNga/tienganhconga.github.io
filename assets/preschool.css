@@ -233,6 +233,10 @@
 .sp-turn i{display:block;height:7px;width:140px;max-width:100%;border-radius:9px;background:#fff;overflow:hidden;position:relative}
 .sp-turn i::after{content:"";position:absolute;inset:0;background:#ff4f86;transform-origin:left;animation:spBar var(--wait,3s) linear forwards}
 @keyframes spBar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.sp-cue{display:inline-block;align-self:inherit;background:#fff;color:#d81b60;border:2px dashed #ff9ab8;border-radius:999px;padding:1px 12px;font-weight:800;font-size:.95rem;line-height:1.5}
+.sp-card .sp-cue{font-size:1.2rem;padding:3px 16px}
+.sp-pick{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.gact{color:#d81b60;font-size:.9em}
 .hide-text .sp-txt{color:transparent}
 .hide-text .sp-txt b{color:var(--pi);background:none;border-bottom:3px dashed var(--pi)}
 .hide-text .sp-ty{background:transparent;color:transparent}

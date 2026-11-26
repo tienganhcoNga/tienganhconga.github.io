@@ -98,7 +98,7 @@
     var i = P.units.indexOf(u), prev = P.units[i - 1], next = P.units[i + 1];
     var h = '<div class="v-head"><span class="v-ic" aria-hidden="true">' + u.ic + '</span><div><span class="v-n">' + esc(u.n) + "</span><h2>" + esc(u.en) + '</h2></div></div>';
     var rv = enOnly(u.review); if (rv) h += '<p class="review">🔁 Review: ' + esc(rv) + "</p>";
-    if (u.speech) h += '<button class="sp-jump" type="button" data-sp="jump">🎤 My Speech: <b>' + esc(u.speech.t) + "</b> ↓</button>";
+    if (u.speech) { var nS = spList(u).length; h += '<button class="sp-jump" type="button" data-sp="jump">🎤 My Speech: <b>' + esc(u.speech.t) + "</b>" + (nS > 1 ? " +" + (nS - 1) : "") + " ↓</button>"; }
     h += '<div class="block"><div class="b-head"><h3>1. Tap &amp; Listen</h3><button class="btn" type="button" data-act="all-words">▶ Listen to all</button></div>';
     var lastG = null;
     h += u.words.map(function (w, k) {
@@ -346,29 +346,40 @@
   function kidName() { try { return (localStorage.getItem("lophoc-kid-name") || "").trim(); } catch (e) { return ""; } }
   function setKidName(v) { try { localStorage.setItem("lophoc-kid-name", v); } catch (e) {} }
   var plain = function (h) { return String(h).replace(/<br>/g, " ").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(); };
+  /* Một Unit có thể có nhiều bài nói: speech (bài chính) + speeches:[...] (bài thêm).
+     Bài thêm có thể tự viết câu chào hello:[en có {name}, vi, gợi ý EN, gợi ý VI] và câu kết bye:[en, vi, gợi ý EN, gợi ý VI];
+     mỗi dòng lines có thể thêm gợi ý biểu cảm: [hình, câu, nghĩa, "😄 Big smile!", "Cười thật tươi"].
+     Gợi ý EN hiện trên thẻ, gợi ý VI chỉ ở cẩm nang. */
+  function spList(u) { return (u.speech ? [u.speech] : []).concat(u.speeches || []); }
+  function spCur(u) { var L = spList(u); return L[Math.min(SP.k || 0, L.length - 1)]; }
   function segs(u) {
-    var s = u.speech, nm = kidName();
-    var out = [{ ic: "👋", html: "Hi teacher and everyone!<br>My name is <b class=\"sp-nm\">" + (nm ? esc(nm) : "_____") + "</b>.", vi: "Chào cô và các bạn! Tớ tên là …", wide: true }];
-    out.push({ ic: u.ic, html: s.intro[0], vi: s.intro[1], wide: true });
-    s.lines.forEach(function (l) { out.push({ ic: l[0], html: l[1], vi: l[2] }); });
-    out.push({ ic: "🙇", html: s.end[0] + "<br><span class=\"sp-ty\">Thank you for listening!</span>", vi: s.end[1] + " Cảm ơn mọi người đã lắng nghe!", wide: true });
-    out.forEach(function (g) { g.say = plain(g.html).replace("My name is _____.", nm ? "" : "").trim(); });
-    if (!nm) out[0].say = "Hi teacher and everyone!";
+    var s = spCur(u), nm = kidName(), nmHtml = '<b class="sp-nm">' + (nm ? esc(nm) : "_____") + "</b>";
+    var out = [s.hello ? { ic: "👋", html: s.hello[0].replace("{name}", nmHtml), vi: s.hello[1], cue: s.hello[2], wide: true }
+      : { ic: "👋", html: "Hi teacher and everyone!<br>My name is " + nmHtml + ".", vi: "Chào cô và các bạn! Tớ tên là …", wide: true }];
+    if (s.intro) out.push({ ic: u.ic, html: s.intro[0], vi: s.intro[1], wide: true });
+    s.lines.forEach(function (l) { out.push({ ic: l[0], html: l[1], vi: l[2], cue: l[3] }); });
+    out.push(s.bye ? { ic: "🙇", html: s.bye[0], vi: s.bye[1], cue: s.bye[2], wide: true }
+      : { ic: "🙇", html: s.end[0] + "<br><span class=\"sp-ty\">Thank you for listening!</span>", vi: s.end[1] + " Cảm ơn mọi người đã lắng nghe!", wide: true });
+    /* chưa nhập tên thì bỏ câu có chỗ trống khi đọc mẫu */
+    out.forEach(function (g) { g.say = plain(g.html).replace(/[^.!?]*_____[^.!?]*[.!?]\s*/g, "").trim(); });
     return out;
   }
+  var cueTag = function (c) { return c ? '<span class="sp-cue">' + esc(c) + "</span>" : ""; };
   function speechBlock(u) {
     if (!u.speech) return "";
-    var S = segs(u);
+    var S = segs(u), L = spList(u), s = spCur(u);
     var modes = [["listen", "👂", "1. Listen", "Listen and look"], ["repeat", "🦜", "2. Repeat", "Listen and say it"],
       ["self", "🙈", "3. Say it alone", "Look at the pictures"], ["stage", "🌟", "4. On stage!", "Speak to the class"]];
-    return '<div class="block speech" id="speech"><div class="b-head"><h3>4. My Speech</h3><span class="muted">' + esc(u.speech.t) + "</span></div>" +
+    return '<div class="block speech" id="speech"><div class="b-head"><h3>4. My Speech</h3><span class="muted">' + esc(s.t) + "</span></div>" +
+      (L.length > 1 ? '<div class="sp-pick" role="group" aria-label="Choose a speech">' + L.map(function (x, k) {
+        return '<button class="chip" type="button" data-sp="pick" data-k="' + k + '" aria-pressed="' + (x === s) + '">🎤 ' + esc(x.t) + "</button>"; }).join("") + "</div>" : "") +
       '<p class="muted">Speak loud. Look at your friends. Smile! 😊</p>' +
       '<div class="sp-modes">' + modes.map(function (m) { return '<button class="sp-mode ' + m[0] + '" type="button" data-sp="' + m[0] + '" aria-pressed="false"><span class="e" aria-hidden="true">' + m[1] + "</span><b>" + m[2] + "</b><small>" + m[3] + "</small></button>"; }).join("") + "</div>" +
       '<div class="sp-bar"><label>✏️ My name: <input id="spName" type="text" maxlength="24" placeholder="Bin" autocomplete="off" value="' + esc(kidName()) + '"></label>' +
       '<button class="btn" type="button" data-sp="stop" id="spStop" hidden>⏹ Stop</button><span class="sp-status" id="spStatus" aria-live="polite"></span></div>' +
       '<div class="sp-paper" id="spPaper">' + S.map(function (g, k) {
         return '<button class="sp-note c-' + NOTE_C[k % NOTE_C.length] + (g.wide ? " wide" : "") + '" type="button" data-sp-s="' + k + '"><span class="sp-art" aria-hidden="true">' + g.ic + "</span>" +
-          '<span class="sp-body"><span class="sp-txt">' + g.html + '</span><span class="sp-turn" aria-hidden="true">🎤 Your turn!<i></i></span></span></button>';
+          '<span class="sp-body"><span class="sp-txt">' + g.html + "</span>" + cueTag(g.cue) + '<span class="sp-turn" aria-hidden="true">🎤 Your turn!<i></i></span></span></button>';
       }).join("") + "</div></div>";
   }
   function later(fn, ms) { SP.timers.push(setTimeout(fn, ms)); }
@@ -472,7 +483,7 @@
     var st = SP.st, g = st.S[st.i], c = $("#spCard");
     if (hasSpeech) speechSynthesis.cancel();
     c.className = "sp-card c-" + NOTE_C[st.i % NOTE_C.length]; void c.offsetWidth; c.classList.add("enter");
-    c.innerHTML = '<span class="sp-big" aria-hidden="true">' + g.ic + '</span><p class="sp-line' + (st.text ? "" : " hid") + '">' + g.html + "</p>";
+    c.innerHTML = '<span class="sp-big" aria-hidden="true">' + g.ic + '</span><p class="sp-line' + (st.text ? "" : " hid") + '">' + g.html + "</p>" + cueTag(g.cue);
     $("#spDots").innerHTML = st.S.map(function (_, k) { return '<i class="' + (k < st.i ? "ok" : k === st.i ? "now" : "") + '"></i>'; }).join("");
     $("#spCtl").innerHTML = '<button class="sp-btn" type="button" data-sp="st-prev"' + (st.i ? "" : " disabled") + ' aria-label="Back">◀</button>' +
       '<button class="sp-btn" type="button" data-sp="st-hint">🔊 Help</button>' +
@@ -506,6 +517,11 @@
     if (!b) return;
     var a = b.getAttribute("data-sp"), st = SP.st;
     if (a === "jump") { var sp = $("#speech"); if (sp) sp.scrollIntoView({ behavior: "smooth" }); }
+    if (a === "pick" && cur) {
+      spStop(); SP.k = +b.getAttribute("data-k");
+      var old = $("#speech"); if (old) { old.outerHTML = speechBlock(cur); $("#speech").scrollIntoView({ block: "nearest" }); }
+      return;
+    }
     if (a === "listen") spRun(false);
     if (a === "repeat") spRun(true);
     if (a === "stop") spStop();
@@ -553,13 +569,16 @@
     var h = '<details class="gmean"><summary>📖 Nghĩa tiếng Việt của từ, câu và bài nói</summary>' +
       '<h4>Từ mới</h4><p class="gwords">' + u.words.map(function (w) { return "<span><b>" + esc(w[1]) + "</b> " + esc(w[2]) + "</span>"; }).join("") + "</p>" +
       "<h4>Nói theo nào</h4><ul>" + u.talk.map(function (t) { return "<li><i>" + esc(t[0]) + "</i> → " + esc(t[1]) + "</li>"; }).join("") + "</ul>";
-    if (u.speech) {
-      var s = u.speech;
-      h += "<h4>🎤 Bài nói: " + esc(s.t) + "</h4><ul><li><i>Hi teacher and everyone! My name is …</i> → Chào cô và các bạn! Tớ tên là …</li>" +
-        "<li><i>" + plain(s.intro[0]) + "</i> → " + esc(s.intro[1]) + "</li>" +
-        s.lines.map(function (l) { return "<li><i>" + plain(l[1]) + "</i> → " + esc(l[2]) + "</li>"; }).join("") +
-        "<li><i>" + plain(s.end[0]) + " Thank you for listening!</i> → " + esc(s.end[1]) + " Cảm ơn mọi người đã lắng nghe!</li></ul>";
-    }
+    var act = function (en, vi) { return vi ? ' <span class="gact">(' + esc(en || "") + " → " + esc(vi) + ")</span>" : ""; };
+    spList(u).forEach(function (s) {
+      h += "<h4>🎤 Bài nói: " + esc(s.t) + "</h4><ul>" +
+        (s.hello ? "<li><i>" + plain(s.hello[0].replace("{name}", "…")) + "</i> → " + esc(s.hello[1]) + act(s.hello[2], s.hello[3]) + "</li>"
+          : "<li><i>Hi teacher and everyone! My name is …</i> → Chào cô và các bạn! Tớ tên là …</li>") +
+        (s.intro ? "<li><i>" + plain(s.intro[0]) + "</i> → " + esc(s.intro[1]) + "</li>" : "") +
+        s.lines.map(function (l) { return "<li><i>" + plain(l[1]) + "</i> → " + esc(l[2]) + act(l[3], l[4]) + "</li>"; }).join("") +
+        (s.bye ? "<li><i>" + plain(s.bye[0]) + "</i> → " + esc(s.bye[1]) + act(s.bye[2], s.bye[3]) + "</li>"
+          : "<li><i>" + plain(s.end[0]) + " Thank you for listening!</i> → " + esc(s.end[1]) + " Cảm ơn mọi người đã lắng nghe!</li>") + "</ul>";
+    });
     return h + "</details>";
   }
 
@@ -571,7 +590,7 @@
     $$("#units a[data-v]").forEach(function (a) { a.setAttribute("aria-current", a.getAttribute("data-v") === (u ? u.id : id) ? "page" : "false"); });
     spStop(); closeStage();
     document.body.classList.toggle("in-unit", !!u); /* bài học chỉ tiếng Anh: ẩn phần giới thiệu tiếng Việt ở đầu trang */
-    if (u) { cur = u; view.innerHTML = unitView(u); startGame(0); }
+    if (u) { if (cur !== u) SP.k = 0; cur = u; view.innerHTML = unitView(u); startGame(0); }
     else if (id === "answers") { cur = null; G = null; view.innerHTML = guideView(); if (window.LopHocPIN) LopHocPIN.guard($("#answerBox"), guideBody); else guideBody($("#answerBox")); }
     else { cur = null; G = null; view.innerHTML = roadmap(); }
     var nav = $(".nav"); if (nav && nav.getBoundingClientRect().top <= 0) view.scrollIntoView();
