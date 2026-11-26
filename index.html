@@ -219,6 +219,10 @@ function renderGrades(){
 }
 
 const frame=$('#frame');
+/* Mỗi lần mở trang chủ, bài học được tải bản mới nhất (không dùng bản cũ trình duyệt còn giữ),
+   nên sau khi sửa bài và đưa lên GitHub, các em không cần bấm Ctrl + F5. */
+const FRESH='v='+Date.now().toString(36);
+const fresh=file=>file+(file.includes('?')?'&':'?')+FRESH;
 function frameFile(){try{return decodeURIComponent(frame.contentWindow.location.pathname.split('/').slice(-2).join('/'))}catch(e){return ''}}
 function goFrame(file,hash){
   let same=false;
@@ -227,7 +231,7 @@ function goFrame(file,hash){
     const w=frame.contentWindow;
     if(w.location.hash==='#'+hash){const el=w.document.getElementById(hash);if(el)el.scrollIntoView();}
     else w.location.hash=hash;
-  } else frame.src=file+'#'+hash;
+  } else frame.src=fresh(file)+'#'+hash;
 }
 function updateChrome(){
   const has=!!cur;
@@ -241,7 +245,7 @@ function updateChrome(){
   $('#tabAnswer').disabled=!cur.l.answers;
   $('#tabAnswer').title=cur.l.answers?'':'Bài này không có phần đáp án';
   $('#crumb').textContent=`${cur.g.name} › ${cur.l.name} › ${tab==='answers'?'Đáp án':topicName(cur.l,cur.t)}`;
-  $('#openFull').href=cur.l.file+'#'+(tab==='answers'?'answers':cur.t);
+  $('#openFull').href=fresh(cur.l.file)+'#'+(tab==='answers'?'answers':cur.t);
   frame.title=`${cur.l.name}: ${topicName(cur.l,cur.t)}`;
 }
 function select(gid,lid,tid,opts){
@@ -282,7 +286,7 @@ $('#tabLesson').addEventListener('click',e=>{if(!cur)return;
   if(newTabClick(e)){window.open(`#${cur.g.id}/${cur.l.id}/${cur.t}`,'_blank');return;}
   tab='lesson';goFrame(cur.l.file,cur.t);renderMenu();updateChrome();});
 $('#tabAnswer').addEventListener('click',e=>{
-  if(cur&&cur.l.answers&&newTabClick(e)){window.open(cur.l.file+'#answers','_blank');return;}
+  if(cur&&cur.l.answers&&newTabClick(e)){window.open(fresh(cur.l.file)+'#answers','_blank');return;}
   showAnswers();});
 /* Middle click on the toolbar tabs behaves like Ctrl + click */
 ['#tabLesson','#tabAnswer'].forEach(s=>$(s).addEventListener('auxclick',e=>{if(e.button===1&&!e.currentTarget.disabled){e.preventDefault();e.currentTarget.dispatchEvent(new MouseEvent('click',{button:1,bubbles:true}));}}));
