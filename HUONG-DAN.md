@@ -11,6 +11,7 @@ lop-hoc/
 │   ├── course.js / course.css       ← Phần chạy chung cho trang "Ôn 10 chủ đề" lớp 1
 │   └── preschool.js / preschool.css ← Phần chạy chung cho lộ trình mẫu giáo (thẻ hình, hội thoại, trò chơi, cẩm nang)
 ├── lop-1/
+│   ├── unit-lop-1.html     ← Units lớp 1: Starter + 9 Unit (mỗi Unit 4 Lesson: từ → mở rộng mẫu câu → truyện + Value → liên môn; Phonics & Chant; Games) + 4 Review; #lo-trinh = lộ trình và nghĩa tiếng Việt cho cô và phụ huynh. Phần chạy ở assets/units.js
 │   ├── tieng-anh-lop-1.html ← Tiếng Anh lớp 1 (About Me, cơ thể, vị trí, bộ phận của cây, đồ dùng học tập, hình khối, đồ vật trong nhà, ôn tập, các phòng, hoạt động phòng tắm – phòng ngủ)
 │   └── chu-de-lop-1.html   ← Ôn 10 chủ đề (dữ liệu nằm trong file, phần chạy ở assets/course.js)
 ├── lop-4/

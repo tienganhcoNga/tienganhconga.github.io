@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="vi" data-grade="lop-1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Units lớp 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/course.css?v=20261127b">
+<style>
+:root{--accent:var(--sky);--accent-soft:var(--sky-soft)}
+.nav a.rv{border-style:dashed}
+.goals{background:var(--gold-soft);border-radius:14px;padding:10px 14px;margin-bottom:14px;font-size:.98rem}
+.goals ul{margin:4px 0 0;padding-left:1.2em}
+.goals .en,.ck .en{font-weight:700}
+.ltabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;margin-bottom:14px;scroll-margin-top:64px}
+.ltabs .chip{flex:none}
+.ltabs .chip[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.l-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:12px}
+.l-tag{font-weight:800;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--surface);border-radius:999px;padding:3px 12px}
+.l-head h3{font-size:1.6rem}
+.subj{font-weight:700;font-size:.85rem;border:2px solid var(--jade);color:var(--jade);border-radius:8px;padding:1px 10px}
+.l-intro{margin:-4px 0 12px;color:var(--muted)}
+.sw{display:inline-block;width:1em;height:1em;border-radius:50%;border:3px solid rgba(0,0,0,.18);vertical-align:middle}
+.nb{display:inline-grid;place-items:center;min-width:1.25em;height:1.25em;padding:0 .12em;border-radius:.3em;background:var(--gold);color:#fff;font-family:var(--f-display);font-weight:800;font-size:.8em;line-height:1}
+.shp{width:1em;height:1em;display:inline-block;vertical-align:middle}
+.z-big{font-size:1.25em;line-height:1}
+.z-small{font-size:.55em}
+.talks{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.talk{display:flex;gap:12px;align-items:center;background:var(--bg);border-radius:14px;padding:10px 12px}
+.t-ic{font-size:2.4rem;line-height:1;flex:none}
+.t-body{display:flex;flex-direction:column;gap:6px;align-items:flex-start;min-width:0}
+.t-q{display:flex;gap:8px;align-items:center;font-weight:700;font-size:1.05rem}
+.t-a{font-weight:700;color:var(--ok);font-size:1.05rem}
+.t-show{font-size:.9rem;padding:4px 12px}
+.comic{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.frame{background:var(--accent-soft);border-radius:16px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.f-top{display:flex;align-items:center;gap:8px}
+.f-n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--surface);font-weight:800;flex:none}
+.f-bg{font-size:1.8rem;line-height:1;flex:1;letter-spacing:.1em}
+.f-who{font-size:2rem;line-height:1}
+.bub{display:flex;gap:8px;align-items:flex-start;text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:8px 10px;cursor:pointer}
+.bub:hover{border-color:var(--accent)}
+.bub.speaking{border-color:var(--gold);background:var(--gold-soft)}
+.b-av{font-size:1.5rem;line-height:1.1;flex:none}
+.b-tx{font-size:1.05rem}
+.b-tx small{display:block;color:var(--muted);font-size:.85rem}
+.value{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:12px;background:var(--lacquer-soft);border-radius:14px;padding:10px 14px}
+.v-tag{font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--lacquer)}
+.v-en{font-family:var(--f-display);font-weight:800;font-size:1.5rem;color:var(--lacquer)}
+.v-vi{color:var(--ink)}
+.ask{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:4px}
+.phon{margin-bottom:14px}
+.phon:last-child{margin-bottom:0}
+.pline{display:flex;gap:8px;align-items:center;font-size:1.15rem;font-weight:600;flex-basis:100%}
+.pline b{color:var(--lacquer)}
+.ck-u{margin-bottom:12px}
+.ck-u>a{font-weight:800;color:var(--accent);text-decoration:none}
+.ck{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.ck-b{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;background:var(--bg);border:2px solid transparent;border-radius:12px;padding:8px 10px;cursor:pointer}
+.ck-box{width:22px;height:22px;border-radius:6px;border:2px solid var(--muted);flex:none;display:grid;place-items:center;margin-top:2px}
+.ck-b[aria-pressed="true"]{border-color:var(--ok);background:var(--ok-soft)}
+.ck-b[aria-pressed="true"] .ck-box{background:var(--ok);border-color:var(--ok)}
+.ck-b[aria-pressed="true"] .ck-box::after{content:"✓";color:#fff;font-weight:800;font-size:.9rem}
+.g-prompt.qa{flex-direction:row}
+.read-q{font-family:var(--f-display);font-weight:800;font-size:1.7rem;text-align:center}
+.g-opts.one{grid-template-columns:1fr;max-width:480px}
+.next-tab{display:flex;justify-content:flex-end;margin:-4px 0 16px}
+.guide h3{font-size:1.3rem;color:var(--accent);margin-bottom:6px}
+.guide p,.guide ol{margin:8px 0 0}
+.g-u{border-top:1px solid var(--line);padding:10px 0}
+.g-u summary{cursor:pointer;font-size:1.05rem}
+.g-u h4{font-family:var(--f-display);font-size:1.1rem;margin:14px 0 4px;color:var(--accent)}
+.g-u ul,.g-u ol{margin:4px 0;padding-left:1.3em}
+.g-u .tip{margin:6px 0;color:var(--ink)}
+.g-w{margin:4px 0}
+.g-t{border-collapse:collapse;width:100%;margin:6px 0;font-size:.95rem}
+.g-t td{border-top:1px solid var(--line);padding:4px 8px 4px 0;vertical-align:top;width:50%}
+.g-t td+td{color:var(--muted)}
+.g-rv{border-top:1px solid var(--line);margin:0;padding:10px 0}
+.g-rv a{font-weight:800;color:var(--accent);text-decoration:none}
+.no-speech [data-playall]{display:none}
+@media (max-width:560px){ .comic{grid-template-columns:1fr} .g-opts.one{max-width:none} .read-q{font-size:1.35rem} }
+</style>
+<script>(function(){try{var g=document.documentElement.getAttribute("data-grade"),k="lophoc-grade-"+g;if(!(sessionStorage.getItem(k)==="1"||localStorage.getItem(k)==="1"))document.documentElement.classList.add("grade-locked")}catch(e){}})()</script><style>html.grade-locked body>*:not(.pin-gate){visibility:hidden}</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Grade 1 · English</div>
+    <h1 id="cTitle"></h1>
+    <p class="lead" id="cSub"></p>
+    <p class="note" id="cNote"></p>
+  </header>
+</div>
+<nav class="nav" aria-label="Các bài"><div class="wrap" id="units"><a class="home" href="../index.html">← Trang chủ</a></div></nav>
+<main class="wrap" id="unit"></main>
+<div class="wrap"><footer><a href="../index.html">← Về trang chủ</a></footer></div>
+
+<script>
+/* Mỗi Unit: goals (mục tiêu), lessons (4 bài), phonics (âm), chant.
+   lesson: { tag, short, name, subj?, intro?, words?:[[biểu tượng, từ, nghĩa]], patterns?:[[câu, nghĩa]], talk?:[[biểu tượng, câu hỏi, câu trả lời, [2 đáp án sai]?]], story? }
+   story: { title, scenes:[{ bg, lines:[[nhân vật, câu, nghĩa]] }], value:[en, vi], ask:[câu hỏi] }
+   Ôn tập: { id, n, en, vi, ic, review:[các Unit] } */
+window.UNITS={
+ title:'My English <span>Units</span>',
+ sub:'Words, a story, phonics, a chant and games. Tap a word or a picture to listen.',
+ /* Phần duy nhất bằng tiếng Việt: mục 🗺️ Lộ trình (#lo-trinh), cho cô và phụ huynh. */
+ guide:{intro:'<h3>Mỗi Unit đi theo 4 bước</h3>'+
+  '<ol class="steps"><li><b>Lesson 1:</b> học 6–8 từ mới và một mẫu câu chính, luyện "Let\'s talk" (hỏi – đáp theo tranh).</li>'+
+  '<li><b>Lesson 2:</b> thêm từ mới cùng chủ đề và mở rộng mẫu câu (một → nhiều, khẳng định → hỏi, "Yes / No").</li>'+
+  '<li><b>Lesson 3:</b> truyện tranh 4 khung dùng lại từ và câu của Lesson 1–2, kèm câu giao tiếp (Thank you, I\'m sorry, Excuse me…) và một bài học thái độ (Value).</li>'+
+  '<li><b>Lesson 4:</b> bài liên môn (Toán, Mĩ thuật, Khoa học, Sức khỏe) để dùng tiếng Anh vào việc khác.</li></ol>'+
+  '<p>Sau đó là <b>Phonics &amp; Chant</b> (âm → từ → câu, rồi bài chant ôn lại cả Unit) và <b>Games</b> (nghe chọn hình, đọc chọn hình, nhìn hình chọn chữ, hỏi – đáp). Cứ 2 Unit có một bài <b>Review</b> để con tự tích "I can…".</p>'+
+  '<p>Các Unit nối với những bài con đang học trên lớp: câu lệnh trong lớp (Starter), bài nói About Me (Unit 1), đồ dùng học tập và hình khối (Unit 2), cơ thể và hoạt động phòng tắm (Unit 4), các phòng, đồ vật trong nhà và vị trí in / on / under (Unit 6), bộ phận của cây (Unit 8).</p>'+
+  '<p><b>Học ở nhà:</b> mỗi buổi 15–20 phút, một Lesson. Cho con bấm nghe, chỉ tay và nói to. Phần lesson và trò chơi chỉ có tiếng Anh; nghĩa tiếng Việt và câu hỏi gợi ý nằm ở trang này.</p>'},
+ chars:{
+  lan:{name:'Miss Lan',av:'👩‍🏫',pitch:1.05},
+  bi:{name:'Bi',av:'👦',pitch:1.3},
+  na:{name:'Na',av:'👧',pitch:1.55},
+  tom:{name:'Tom',av:'👦🏼',pitch:1.2},
+  mia:{name:'Mia',av:'👧🏽',pitch:1.7},
+  mom:{name:'Mom',av:'👩',pitch:1.15},
+  dad:{name:'Dad',av:'👨',pitch:0.8},
+  grandma:{name:'Grandma',av:'👵',pitch:1.0},
+  class:{name:'Class',av:'🧑‍🤝‍🧑',pitch:1.4},
+  all:{name:'Bi & Na',av:'👦👧',pitch:1.4}
+ },
+ units:[
+
+ /* ================= STARTER ================= */
+ {id:'s',n:'Starter',en:'Hello!',vi:'Chào hỏi · số 1–10 · câu lệnh trong lớp',ic:'👋',
+  goals:['Chào bạn, chào cô và giới thiệu tên: <span class="en">Hello. I\'m Bi.</span>','Hỏi thăm và đáp: <span class="en">How are you? – I\'m fine, thank you.</span>','Đếm từ 1 đến 10','Nghe và làm theo câu lệnh trong lớp: <span class="en">Stand up! Sit down! Open your book!</span>'],
+  can:["I can say hello and goodbye.", "I can say: I'm fine, thank you.", "I can count from 1 to 10.", "I can do it: Stand up! Sit down! Open your book!"],
+  lessons:[
+   {tag:'Lesson 1',short:'Hello',name:'Hello! Hi!',
+    words:[['👋','hello','xin chào'],['🙋','hi','chào'],['🙂','fine','khỏe'],['🙏','thank you','cảm ơn'],['🚶','goodbye','tạm biệt']],
+    patterns:[["Hello. I'm Bi.",'Xin chào. Tớ là Bi.'],["Hi, Bi. I'm Na.",'Chào Bi. Tớ là Na.'],['How are you?','Bạn khỏe không?'],["I'm fine, thank you.",'Tớ khỏe, cảm ơn bạn.'],['Goodbye, Na. – Bye, Bi.','Tạm biệt Na. – Tạm biệt Bi.']],
+    talk:[['👋','Hello!',"Hello. I'm Bi."],['🙂','How are you?',"I'm fine, thank you."],['🚶','Goodbye!','Bye!']]},
+   {tag:'Lesson 2',short:'Numbers',name:'Numbers 1–10',intro:'Học số rồi đếm đồ vật quanh lớp. Cô giơ ngón tay, em đọc số.',
+    words:[['n:1','one','một'],['n:2','two','hai'],['n:3','three','ba'],['n:4','four','bốn'],['n:5','five','năm'],['n:6','six','sáu'],['n:7','seven','bảy'],['n:8','eight','tám'],['n:9','nine','chín'],['n:10','ten','mười']],
+    patterns:[['One, two, three, four, five.','Một, hai, ba, bốn, năm.'],['Six, seven, eight, nine, ten.','Sáu, bảy, tám, chín, mười.'],['How many? – Three.','Có mấy cái? – Ba.']],
+    talk:[['🍎🍎🍎','How many?','Three.',['Two.','Five.']],['⭐⭐⭐⭐⭐','How many?','Five.',['Four.','Six.']],['✏️✏️','How many?','Two.',['Three.','Ten.']]]},
+   {tag:'Lesson 3',short:'Story',name:'Story: Hello, friends!',
+    story:{title:'Hello, friends!',
+     scenes:[
+      {bg:'🏫',lines:[['lan','Hello, class!','Chào cả lớp!'],['class','Hello, Miss Lan!','Chúng con chào cô Lan!']]},
+      {bg:'🪑',lines:[['bi',"Hi! I'm Bi.",'Chào cậu! Tớ là Bi.'],['na',"Hello, Bi. I'm Na.",'Chào Bi. Tớ là Na.']]},
+      {bg:'☀️',lines:[['lan','How are you, Na?','Con khỏe không, Na?'],['na',"I'm fine, thank you.",'Con khỏe ạ, con cảm ơn cô.']]},
+      {bg:'🔔',lines:[['all','Goodbye, Miss Lan!','Chào cô ạ!'],['lan','Bye, Bi! Bye, Na!','Tạm biệt Bi! Tạm biệt Na!']]}],
+     value:['Be friendly.','Thân thiện: gặp ai cũng chào và cười.'],
+     ask:['Cô giáo tên là gì?','Bạn trai tên là gì? Bạn gái tên là gì?','Na trả lời cô thế nào khi cô hỏi "How are you?"']},
+    patterns:[['Hello, Miss Lan!','Chúng con chào cô Lan!'],['How are you? – I\'m fine, thank you.','Bạn khỏe không? – Tớ khỏe, cảm ơn.'],['Goodbye! – Bye!','Tạm biệt! – Tạm biệt!']]},
+   {tag:'Lesson 4',short:'In class',name:'Classroom language',subj:'Classroom',subjVi:'Câu lệnh trong lớp',intro:'Cô nói lệnh, cả lớp làm động tác thật to. Ai làm sai thì ngồi xuống!',
+    words:[['🧍','stand up','đứng lên'],['🪑','sit down','ngồi xuống'],['🙋','hands up','giơ tay lên'],['👇','hands down','bỏ tay xuống'],['🤫','be quiet','trật tự'],['🚶','make a line','xếp hàng'],['👂','listen','nghe'],['👉','point','chỉ'],['📖','open your book','mở sách ra'],['📕','close your book','gấp sách lại']],
+    patterns:[['Stand up, please.','Các con đứng lên nào.'],['Sit down, please.','Các con ngồi xuống nào.'],['Open your book, please.','Các con mở sách ra.'],['May I come in? – Yes, you can.','Con vào lớp được không ạ? – Được con.'],['May I go out? – Yes, you can.','Con ra ngoài được không ạ? – Được con.']],
+    talk:[['🚪','May I come in?','Yes, you can.',["I'm fine, thank you.",'Three.']],['📖','Open your book, please.','OK!',['Goodbye!','Five.']]]}],
+  phonics:{groups:[
+   {label:'h',words:[['👋','hello'],['🎩','hat'],['✋','hand']],line:'Hello, Bi. Hello, Na.'},
+   {label:'b',words:[['🚶','bye'],['⚽','ball'],['🛏️','bed']],line:'Bye, Bi. Bye, Na.'}]},
+  chant:{title:'Hello, hello!',lines:['Hello, hello! How are you?',"I'm fine, I'm fine. Thank you!",'Stand up, sit down. Hands up, hands down!','Goodbye, goodbye. See you soon!']}},
+
+ /* ================= UNIT 1 ================= */
+ {id:'u1',n:'Unit 1',en:'Me and My Friends',vi:'Tên, tuổi · cảm xúc · bài nói About Me',ic:'🧒',
+  goals:['Hỏi và nói tên: <span class="en">What\'s your name? – My name\'s Na.</span>','Hỏi và nói tuổi: <span class="en">How old are you? – I\'m six.</span>','Nói mình đang thấy thế nào: <span class="en">I\'m happy.</span>','Giới thiệu bạn: <span class="en">This is my friend, Tom.</span>','Nói một bài ngắn về bản thân (About Me)'],
+  can:["I can say my name.", "I can say how old I am.", "I can say: I'm happy.", "I can say: This is my friend.", "I can talk about me."],
+  lessons:[
+   {tag:'Lesson 1',short:'Name & age',name:'What\'s your name?',
+    words:[['👦','boy','bạn trai'],['👧','girl','bạn gái'],['🧑‍🤝‍🧑','friend','bạn bè'],['👩‍🏫','teacher','cô giáo'],['🏷️','name','tên'],['🎂','years old','tuổi']],
+    patterns:[["What's your name?",'Bạn tên là gì?'],["My name's Na.",'Tớ tên là Na.'],['How old are you?','Bạn mấy tuổi?'],["I'm six. / I'm six years old.",'Tớ sáu tuổi.'],["I'm a girl. I'm a boy.",'Tớ là con gái. Tớ là con trai.']],
+    talk:[['🏷️',"What's your name?","My name's Na.",["I'm six.","I'm happy."]],['🎂','How old are you?',"I'm six.",["My name's Bi.","I'm fine."]],['👧','Are you a boy or a girl?',"I'm a girl.",["I'm six.",'Yes, it is.']]]},
+   {tag:'Lesson 2',short:'Feelings',name:'How are you?',intro:'Thêm từ chỉ cảm xúc, để trả lời "How are you?" theo nhiều cách.',
+    words:[['😀','happy','vui'],['😢','sad','buồn'],['🤩','great','tuyệt'],['😴','tired','mệt'],['🤤','hungry','đói'],['🙂','OK','ổn']],
+    patterns:[["How are you? – I'm happy.",'Bạn thấy thế nào? – Tớ vui.'],["I'm great! Thank you.",'Tớ thấy tuyệt! Cảm ơn bạn.'],["Are you sad? – No, I'm not. I'm happy.",'Bạn buồn à? – Không. Tớ vui.'],['This is my friend, Tom.','Đây là bạn của tớ, Tom.'],["Is that Mia? – Yes, it is. / No, it isn't.",'Kia là Mia phải không? – Đúng rồi. / Không phải.']],
+    talk:[['😀','How are you?',"I'm happy.",["I'm sad.","I'm tired."]],['😴','How are you?',"I'm tired.",["I'm happy.","I'm hungry."]],['🤤','How are you?',"I'm hungry.",["I'm great!","I'm sad."]],['😢','Are you happy?',"No, I'm not. I'm sad.",["Yes, I am. I'm happy.","I'm six."]]]},
+   {tag:'Lesson 3',short:'Story',name:'Story: A new friend',
+    story:{title:'A new friend',
+     scenes:[
+      {bg:'🛝🌳',lines:[['bi',"Hi! What's your name?",'Chào cậu! Cậu tên là gì?'],['tom',"My name's Tom.",'Tớ tên là Tom.']]},
+      {bg:'🎂',lines:[['bi','How old are you, Tom?','Cậu mấy tuổi, Tom?'],['tom',"I'm six.",'Tớ sáu tuổi.'],['bi',"Me too!",'Tớ cũng thế!']]},
+      {bg:'🌼',lines:[['bi','This is my friend, Na.','Đây là bạn tớ, Na.'],['na','Hi, Tom!','Chào Tom!'],['tom','Hello, Na.','Chào Na.']]},
+      {bg:'⚽',lines:[['na','How are you, Tom?','Cậu thấy thế nào, Tom?'],['tom',"I'm great! Let's play!",'Tớ thấy tuyệt lắm! Chơi thôi!']]}],
+     value:['Be friendly.','Thân thiện: rủ bạn mới chơi cùng.'],
+     ask:['Bạn mới tên là gì? Bạn ấy mấy tuổi?','Bi giới thiệu ai với Tom?','Cuối truyện Tom thấy thế nào?']},
+    patterns:[["What's your name? – My name's Tom.",'Cậu tên là gì? – Tớ tên là Tom.'],['This is my friend, Na.','Đây là bạn tớ, Na.'],["Let's play!",'Chơi thôi!']]},
+   {tag:'Lesson 4',short:'About Me',name:'My speech: About Me',subj:'Speaking',subjVi:'Thuyết trình',intro:'Đứng trước lớp, nói to từng câu. Thay tên, tuổi, gia đình và nơi ở của em vào. (Bài nói đầy đủ có ở trang "Tiếng Anh lớp 1", mục About Me.)',
+    patterns:[['Hello, everyone.','Xin chào mọi người.'],['My name is Na.','Tên tớ là Na.'],["I'm six years old.",'Tớ sáu tuổi.'],["I'm a girl.",'Tớ là con gái.'],['I have one brother.','Tớ có một anh trai.'],['I live in Ha Noi.','Tớ sống ở Hà Nội.'],["I'm happy. Thank you!",'Tớ rất vui. Cảm ơn mọi người!']]}],
+  phonics:{groups:[
+   {label:'m',words:[['🐭','mouse'],['🌙','moon'],['🐒','monkey']],line:'My name is Mia.'},
+   {label:'n',words:[['👃','nose'],['n:9','nine'],['🪺','nest']],line:'Na is nine. No, no, no!'}]},
+  chant:{title:"What's your name?",lines:["What's your name? What's your name?","My name's Na. My name's Na.",'How old are you? How old are you?',"I'm six. I'm six. Hooray!"]}},
+
+ /* ================= UNIT 2 ================= */
+ {id:'u2',n:'Unit 2',en:'My School Things',vi:'Đồ dùng học tập · hình khối',ic:'🎒',
+  goals:['Gọi tên 14 đồ dùng học tập','Hỏi và trả lời: <span class="en">What is it? – It\'s a pen. / It\'s an eraser.</span>','Nói và hỏi mình có gì: <span class="en">I have a ruler. Do you have a pencil? – Yes, I do.</span>','Gọi tên 4 hình: tròn, vuông, tam giác, chữ nhật: <span class="en">Is it a circle? – Yes, it is.</span>'],
+  can:["I can name my school things.", "I can ask: What is it?", "I can say: I have a ruler.", "I can name shapes."],
+  lessons:[
+   {tag:'Lesson 1',short:'School things',name:'What is it?',
+    words:[['🖊️','pen','bút bi'],['✏️','pencil','bút chì'],['🧽','eraser','cục tẩy'],['📏','ruler','thước kẻ'],['👝','pencil case','hộp bút'],['🎒','school bag','cặp sách'],['📕','book','quyển sách'],['📓','notebook','quyển vở']],
+    patterns:[['What is it?','Đây là cái gì?'],["It's a pen.",'Đó là cái bút bi.'],["It's an eraser.",'Đó là cục tẩy.'],["Is it a book? – Yes, it is.",'Có phải quyển sách không? – Đúng rồi.'],["Is it a notebook? – No, it isn't. It's a book.",'Có phải quyển vở không? – Không phải. Đó là quyển sách.']],
+    talk:[['📏','What is it?',"It's a ruler.",["It's a pen.","It's an eraser."]],['🧽','What is it?',"It's an eraser.",["It's a ruler.","It's a book."]],['🎒','What is it?',"It's a school bag.",["It's a pencil case.","It's a pencil."]],['📕','Is it a notebook?',"No, it isn't. It's a book.",['Yes, I do.',"It's a pen."]]]},
+   {tag:'Lesson 2',short:'I have…',name:'I have a pencil.',intro:'Thêm đồ dùng cho giờ vẽ và thủ công. Bây giờ em nói được mình có gì, và hỏi bạn có gì.',
+    words:[['🖍️','crayon','bút sáp màu'],['✂️','scissors','cái kéo'],['🧴','glue','hồ dán'],['📄','paper','tờ giấy'],['🪑','chair','cái ghế'],['🗄️','desk','bàn học']],
+    patterns:[['I have a pencil.','Tớ có một cái bút chì.'],['I have two crayons.','Tớ có hai cái bút sáp.'],['Do you have a ruler?','Bạn có thước kẻ không?'],["Yes, I do. / No, I don't.",'Có. / Không có.'],['Here you are. – Thank you.','Của bạn đây. – Cảm ơn bạn.']],
+    talk:[['✂️','Do you have scissors?','Yes, I do.',["It's a pen.","I'm six."]],['🚫📏','Do you have a ruler?',"No, I don't.",['Yes, it is.','Here you are.']],['🖍️','What do you have?','I have a crayon.',["It's a desk.","I'm happy."]]]},
+   {tag:'Lesson 3',short:'Story',name:"Story: Let's share!",
+    story:{title:"Let's share!",
+     scenes:[
+      {bg:'📝',lines:[['lan','Draw a picture, please.','Các con vẽ một bức tranh nhé.'],['tom',"Oh no! I don't have a pencil.",'Ôi không! Tớ không có bút chì.']]},
+      {bg:'✏️',lines:[['mia','I have two pencils. Here you are.','Tớ có hai cái bút chì. Của cậu đây.'],['tom','Thank you, Mia!','Cảm ơn Mia!']]},
+      {bg:'🧽',lines:[['mia','Do you have an eraser?','Cậu có tẩy không?'],['tom','Yes, I do. Here you are.','Có. Của cậu đây.']]},
+      {bg:'🖼️😀',lines:[['lan','Good job, Tom and Mia!','Giỏi lắm, Tom và Mia!'],['tom',"Let's share!",'Mình cùng chia sẻ nhé!']]}],
+     value:['Share.','Biết chia sẻ đồ dùng với bạn.'],
+     ask:['Tom không có gì?','Ai cho Tom mượn bút chì?','Tom cho Mia mượn gì?']},
+    patterns:[['Here you are.','Của bạn đây.'],['Thank you!','Cảm ơn bạn!'],["Let's share!",'Mình cùng chia sẻ nhé!']]},
+   {tag:'Lesson 4',short:'Shapes',name:'Shapes',subj:'Math',subjVi:'Toán',intro:'Tìm hình quanh lớp: cái bảng là hình gì? Cái đồng hồ là hình gì?',
+    words:[['s:circle:#E53935','circle','hình tròn'],['s:square:#1E88E5','square','hình vuông'],['s:triangle:#43A047','triangle','hình tam giác'],['s:rectangle:#FB8C00','rectangle','hình chữ nhật'],['s:star:#FDD835','star','ngôi sao'],['s:heart:#F06292','heart','trái tim']],
+    patterns:[['What shape is it?','Đây là hình gì?'],["It's a circle.",'Đó là hình tròn.'],['Is it a square? – Yes, it is.','Có phải hình vuông không? – Đúng rồi.'],["Is it a triangle? – No, it isn't. It's a rectangle.",'Có phải hình tam giác không? – Không phải. Đó là hình chữ nhật.']],
+    talk:[['🍕','What shape is it?',"It's a triangle."],['🕐','What shape is it?',"It's a circle."],['📺','What shape is it?',"It's a rectangle."],['🎁','What shape is it?',"It's a square."],['s:circle:#E53935','Is it a square?',"No, it isn't. It's a circle.",['Yes, it is.',"It's a triangle."]]]}],
+  phonics:{groups:[
+   {label:'p',words:[['🖊️','pen'],['✏️','pencil'],['🐷','pig']],line:'A pen and a pencil.'},
+   {label:'b',words:[['📕','book'],['🎒','bag'],['🐻','bear']],line:'A book in my bag.'}]},
+  chant:{title:'In my bag',lines:['What is it? What is it?',"It's a pen. It's a pen.",'Pencil, ruler, eraser, book.','In my bag! Look, look, look!']}},
+
+ /* ================= REVIEW 1 ================= */
+ {id:'r1',n:'Review 1',en:"Let's review! Starter – Unit 2",vi:'Chào hỏi · bản thân · đồ dùng học tập · hình khối',ic:'⭐',review:['s','u1','u2']},
+
+ /* ================= UNIT 3 ================= */
+ {id:'u3',n:'Unit 3',en:'Colors',vi:'Màu sắc · giờ Mĩ thuật · pha màu',ic:'🎨',
+  goals:['Gọi tên 10 màu','Hỏi và trả lời: <span class="en">What color is it? – It\'s red.</span>','Nói về nhiều đồ vật: <span class="en">What color are they? – They\'re blue.</span>','Biết pha màu: <span class="en">Blue and yellow make green.</span>','Nói "I\'m sorry." khi làm lỗi và "That\'s OK." khi bạn xin lỗi'],
+  can:["I can name 10 colors.", "I can ask: What color is it?", "I can say: They're pink.", "I can mix colors.", "I can say: I'm sorry. That's OK."],
+  lessons:[
+   {tag:'Lesson 1',short:'Colors',name:'What color is it?',
+    words:[['c:#E53935','red','màu đỏ'],['c:#FDD835','yellow','màu vàng'],['c:#1E88E5','blue','màu xanh dương'],['c:#43A047','green','màu xanh lá'],['c:#FFFFFF','white','màu trắng'],['c:#222222','black','màu đen']],
+    patterns:[['What color is it?','Nó màu gì?'],["It's red.",'Nó màu đỏ.'],['Is it blue? – Yes, it is.','Nó màu xanh dương à? – Đúng rồi.'],["Is it green? – No, it isn't. It's yellow.",'Nó màu xanh lá à? – Không. Nó màu vàng.']],
+    talk:[['🍎','What color is it?',"It's red."],['🍌','What color is it?',"It's yellow."],['🐸','What color is it?',"It's green."],['🐳','What color is it?',"It's blue."],['🥛','What color is it?',"It's white."]]},
+   {tag:'Lesson 2',short:'More colors',name:'What color are they?',intro:'Thêm 4 màu nữa. Khi có nhiều đồ vật thì hỏi "are they" và trả lời "They\'re…".',
+    words:[['c:#FB8C00','orange','màu cam'],['c:#8E24AA','purple','màu tím'],['c:#F06292','pink','màu hồng'],['c:#8D5A3B','brown','màu nâu'],['c:#9E9E9E','gray','màu xám']],
+    patterns:[['What color are they?','Chúng màu gì?'],["They're pink.",'Chúng màu hồng.'],['My pencils are blue.','Những cái bút chì của tớ màu xanh dương.'],['I like purple.','Tớ thích màu tím.'],["What's your favorite color? – Orange!",'Bạn thích màu nào nhất? – Màu cam!']],
+    talk:[['🍊🍊','What color are they?',"They're orange."],['🐷🐷','What color are they?',"They're pink."],['🍇🍇','What color are they?',"They're purple."],['🐻🐻','What color are they?',"They're brown."]]},
+   {tag:'Lesson 3',short:'Story',name:'Story: The green paint',
+    story:{title:'The green paint',
+     scenes:[
+      {bg:'🎨🖌️',lines:[['na','I have blue paint.','Tớ có màu xanh dương.'],['bi','I have yellow paint.','Tớ có màu vàng.']]},
+      {bg:'💦',lines:[['bi','Oh no! My yellow paint!','Ôi không! Màu vàng của tớ!'],['na','My picture!','Bức tranh của tớ!']]},
+      {bg:'🙇',lines:[['bi',"I'm sorry, Na.",'Tớ xin lỗi, Na.'],['na',"That's OK, Bi.",'Không sao đâu, Bi.']]},
+      {bg:'🌳🐸',lines:[['na','Look! Blue and yellow make green!','Nhìn này! Xanh dương với vàng thành xanh lá!'],['bi','Wow! A green tree!','Ồ! Một cái cây xanh!']]}],
+     value:['Be kind.','Tử tế: bạn lỡ làm hỏng thì tha lỗi cho bạn.'],
+     ask:['Na có màu gì? Bi có màu gì?','Bi làm đổ gì?','Bi nói gì với Na? Na trả lời thế nào?','Xanh dương và vàng pha lại thành màu gì?']},
+    patterns:[["I'm sorry.",'Tớ xin lỗi.'],["That's OK.",'Không sao đâu.'],['Look!','Nhìn này!']]},
+   {tag:'Lesson 4',short:'Mixing colors',name:'Mixing colors',subj:'Art',subjVi:'Mĩ thuật',intro:'Lấy màu nước hoặc bút sáp, tô chồng hai màu lên nhau xem ra màu gì.',
+    words:[['🎨','paint','màu vẽ'],['🖌️','paintbrush','cọ vẽ'],['💧','water','nước'],['🖼️','picture','bức tranh']],
+    patterns:[['Blue and yellow make green.','Xanh dương và vàng thành xanh lá.'],['Red and yellow make orange.','Đỏ và vàng thành cam.'],['Red and white make pink.','Đỏ và trắng thành hồng.'],['Red and blue make purple.','Đỏ và xanh dương thành tím.']],
+    talk:[['c:#1E88E5','Blue and yellow make…','…green.',['…pink.','…orange.']],['c:#E53935','Red and yellow make…','…orange.',['…purple.','…green.']],['c:#FFFFFF','Red and white make…','…pink.',['…brown.','…green.']],['c:#8E24AA','Red and blue make…','…purple.',['…orange.','…white.']]]}],
+  phonics:{groups:[
+   {label:'bl',words:[['c:#1E88E5','blue'],['c:#222222','black'],['🧱','block']],line:'A blue block and a black block.'},
+   {label:'br',words:[['c:#8D5A3B','brown'],['🍞','bread'],['🖌️','brush']],line:'A brown brush.'}]},
+  chant:{title:'Colors',lines:['Red and yellow, blue and green.','Pink and purple, can you see?','What color is it? What color is it?',"It's green! It's green! Like a tree!"]}},
+
+ /* ================= UNIT 4 ================= */
+ {id:'u4',n:'Unit 4',en:'My Body',vi:'Khuôn mặt · cơ thể · thói quen sạch sẽ',ic:'🖐️',
+  goals:['Gọi tên các bộ phận trên mặt và trên cơ thể','Hỏi và trả lời: <span class="en">What\'s this? – It\'s my nose. What are these? – They\'re my hands.</span>','Làm theo lệnh: <span class="en">Touch your nose! Open your mouth!</span>','Nói việc giữ sạch sẽ: <span class="en">I wash my hands. I brush my teeth.</span>','Nói lịch sự: <span class="en">Excuse me. Thank you.</span>'],
+  can:["I can name my face and body.", "I can say: These are my hands.", "I can do it: Touch your nose!", "I can say: I wash my hands.", "I can say: Excuse me."],
+  lessons:[
+   {tag:'Lesson 1',short:'My face',name:"What's this?",
+    words:[['🙂','face','khuôn mặt'],['👁️','eye','mắt'],['👂','ear','tai'],['👃','nose','mũi'],['👄','mouth','miệng'],['💇','hair','tóc']],
+    patterns:[["What's this?",'Đây là gì?'],["It's my nose.",'Đây là mũi của tớ.'],['Touch your nose!','Chạm vào mũi!'],['Open your mouth!','Há miệng ra!'],['Close your eyes!','Nhắm mắt lại!']],
+    talk:[['👃',"What's this?","It's my nose.",["It's my ear.","It's my mouth."]],['👂',"What's this?","It's my ear.",["It's my eye.","It's my hair."]],['👄','Open your mouth!','Aaah!',["It's my nose.",'Yes, I do.']]]},
+   {tag:'Lesson 2',short:'My body',name:'These are my hands.',intro:'Thêm các bộ phận cơ thể. Bộ phận có hai cái thì dùng "These are… / They\'re…".',
+    words:[['🗣️','head','đầu'],['💪','arm','cánh tay'],['✋','hand','bàn tay'],['☝️','finger','ngón tay'],['🦵','leg','chân'],['🦶','foot','bàn chân']],
+    patterns:[['This is my arm.','Đây là cánh tay của tớ.'],['These are my hands.','Đây là hai bàn tay của tớ.'],["What are these? – They're my eyes.",'Đây là gì? – Đây là hai mắt của tớ.'],['I have two hands and ten fingers.','Tớ có hai bàn tay và mười ngón tay.'],['Clap your hands! Stamp your feet!','Vỗ tay! Dậm chân!']],
+    talk:[['✋✋','What are these?',"They're my hands.",["It's my hand.","They're my legs."]],['💪',"What's this?","It's my arm.",["They're my arms.","It's my leg."]],['🦵🦵','What are these?',"They're my legs.",["It's my leg.","They're my hands."]]]},
+   {tag:'Lesson 3',short:'Story',name:"Story: I can't see!",
+    story:{title:"I can't see!",
+     scenes:[
+      {bg:'🎩',lines:[['tom','Look! My new hat!','Nhìn này! Mũ mới của tớ!'],['mia','Wow! A big hat!','Ồ! Mũ to quá!']]},
+      {bg:'📖',lines:[['lan','Open your book, Tom.','Mở sách ra nào, Tom.'],['tom',"I can't see!",'Con không nhìn thấy gì!']]},
+      {bg:'🙋‍♀️',lines:[['mia','Excuse me, Tom. Your hat!','Xin lỗi, Tom. Cái mũ của cậu kìa!'],['tom','Oh!','Ồ!']]},
+      {bg:'👀😀',lines:[['tom','Thank you, Mia. Now I can see!','Cảm ơn Mia. Giờ tớ nhìn thấy rồi!'],['lan','Good boy, Tom.','Giỏi lắm, Tom.']]}],
+     value:['Be polite.','Lịch sự: nói "Excuse me" khi gọi bạn, nói "Thank you" khi được giúp.'],
+     ask:['Tom có gì mới?','Vì sao Tom không nhìn thấy?','Mia nói gì để gọi Tom?']},
+    patterns:[['Excuse me.','Xin lỗi (cho tớ hỏi / làm phiền).'],['Thank you.','Cảm ơn.'],["I can't see!",'Tớ không nhìn thấy!']]},
+   {tag:'Lesson 4',short:'Healthy habits',name:'Healthy habits',subj:'Health',subjVi:'Sức khỏe',intro:'Nối với bài "Bathroom & bedroom" trên lớp. Vừa nói vừa làm động tác.',
+    words:[['👐','wash my hands','rửa tay'],['🧼','wash my face','rửa mặt'],['🦷','brush my teeth','đánh răng'],['💇','comb my hair','chải tóc'],['🛁','take a bath','tắm']],
+    patterns:[['I wash my hands.','Tớ rửa tay.'],['I brush my teeth.','Tớ đánh răng.'],['I can wash my face.','Tớ tự rửa mặt được.'],['Wash your hands, please!','Con đi rửa tay nhé!']],
+    talk:[['🦷','What do you do?','I brush my teeth.',['I wash my hands.','I take a bath.']],['👐','Wash your hands, please!','OK! I wash my hands.',["It's my hand.",'Yes, it is.']],['🛁','Can you take a bath?','Yes, I can.',["It's a bath.","I'm six."]]]}],
+  phonics:{groups:[
+   {label:'f',words:[['🙂','face'],['🦶','foot'],['🐟','fish']],line:'Five fish. Five fingers.'},
+   {label:'h',words:[['✋','hand'],['🗣️','head'],['💇','hair']],line:'Hands on my head!'}]},
+  chant:{title:'Touch your nose',lines:['Touch your nose. Touch your nose.','Open your mouth. Close your eyes.','Clap your hands. Stamp your feet.','Wash your hands. Clean and neat!']}},
+
+ /* ================= REVIEW 2 ================= */
+ {id:'r2',n:'Review 2',en:"Let's review! Units 3 – 4",vi:'Màu sắc · cơ thể · thói quen sạch sẽ',ic:'⭐',review:['u3','u4']},
+
+ /* ================= UNIT 5 ================= */
+ {id:'u5',n:'Unit 5',en:'My Family',vi:'Gia đình · đồ ăn em thích · số 11–20',ic:'👨‍👩‍👧',
+  goals:['Gọi tên các thành viên trong gia đình','Hỏi và giới thiệu: <span class="en">Who\'s this? – This is my mother.</span>','Nói mình thích và không thích món gì: <span class="en">I like rice. I don\'t like fish.</span>','Nói "Here you are." – "Thank you." – "You\'re welcome."','Đếm 11–20 và nói tuổi người khác: <span class="en">He\'s twelve.</span>'],
+  can:["I can name my family.", "I can ask: Who's this?", "I can say: I like rice.", "I can say: You're welcome.", "I can count from 11 to 20."],
+  lessons:[
+   {tag:'Lesson 1',short:'Family',name:"Who's this?",
+    words:[['👩','mother','mẹ'],['👨','father','bố'],['👦','brother','anh / em trai'],['👧','sister','chị / em gái'],['👵','grandmother','bà'],['👴','grandfather','ông'],['👶','baby','em bé']],
+    patterns:[["Who's this?",'Đây là ai?'],['This is my mother.','Đây là mẹ của tớ.'],["Who's that? – That's my father.",'Kia là ai? – Kia là bố của tớ.'],['I love my family.','Tớ yêu gia đình tớ.']],
+    talk:[['👵',"Who's this?",'This is my grandmother.',['This is my father.','This is my sister.']],['👨',"Who's that?","That's my father.",["That's my mother.","That's my baby."]],['👶',"Who's this?",'This is my baby brother.',['This is my grandfather.','I like rice.']]]},
+   {tag:'Lesson 2',short:'Food',name:'I like rice.',intro:'Gia đình ăn cơm cùng nhau. Thêm từ đồ ăn để nói mình thích gì, không thích gì.',
+    words:[['🍚','rice','cơm'],['🐟','fish','cá'],['🍗','chicken','thịt gà'],['🍞','bread','bánh mì'],['🧃','juice','nước hoa quả'],['🥛','milk','sữa'],['🍰','cake','bánh ngọt'],['🍦','ice cream','kem']],
+    patterns:[['I like rice.','Tớ thích cơm.'],["I don't like fish.",'Tớ không thích cá.'],['Do you like milk? – Yes, I do.','Bạn có thích sữa không? – Có.'],["Do you like cake? – No, I don't.",'Bạn có thích bánh ngọt không? – Không.'],['My mother likes chicken.','Mẹ tớ thích thịt gà.']],
+    talk:[['🍦😋','Do you like ice cream?','Yes, I do.',["No, I don't.","It's white."]],['🐟🙅','Do you like fish?',"No, I don't.",['Yes, I do.','This is my mother.']],['🍚','What do you like?','I like rice.',["I'm six.",'This is my sister.']]]},
+   {tag:'Lesson 3',short:'Story',name:'Story: Dinner time',
+    story:{title:'Dinner time',
+     scenes:[
+      {bg:'🍽️',lines:[['mom','Dinner time! Here you are, Na. Rice and fish.','Đến giờ ăn tối rồi! Của con đây, Na. Cơm và cá.'],['na','Thank you, Mom.','Con cảm ơn mẹ.'],['mom',"You're welcome.",'Không có gì con.']]},
+      {bg:'👶😭',lines:[['dad','Oh! The baby is hungry.','Ôi! Em bé đói rồi.']]},
+      {bg:'🥛',lines:[['na','Here you are, baby. Milk!','Của em đây. Sữa này!'],['grandma','Good girl, Na!','Cháu ngoan lắm, Na!']]},
+      {bg:'👶😀',lines:[['na','Look! He is happy now.','Nhìn kìa! Em vui rồi.'],['dad','I love my family!','Bố yêu cả nhà!']]}],
+     value:['Be kind.','Tử tế: quan tâm, giúp đỡ người trong nhà.'],
+     ask:['Mẹ cho Na ăn gì?','Na nói gì khi mẹ đưa cơm?','Vì sao em bé khóc? Na làm gì?']},
+    patterns:[['Here you are.','Của bạn đây.'],['Thank you.','Cảm ơn.'],["You're welcome.",'Không có gì.']]},
+   {tag:'Lesson 4',short:'11–20',name:'Numbers 11–20',subj:'Math',subjVi:'Toán',intro:'Đếm tiếp từ 11 đến 20 rồi hỏi tuổi anh chị trong nhà.',
+    words:[['n:11','eleven','mười một'],['n:12','twelve','mười hai'],['n:13','thirteen','mười ba'],['n:14','fourteen','mười bốn'],['n:15','fifteen','mười lăm'],['n:16','sixteen','mười sáu'],['n:17','seventeen','mười bảy'],['n:18','eighteen','mười tám'],['n:19','nineteen','mười chín'],['n:20','twenty','hai mươi']],
+    patterns:[['How old is your brother?','Anh trai bạn mấy tuổi?'],["He's twelve.",'Anh ấy mười hai tuổi.'],['How old is your sister?','Chị gái bạn mấy tuổi?'],["She's fifteen.",'Chị ấy mười lăm tuổi.']],
+    talk:[['👦 n:12','How old is your brother?',"He's twelve.",["She's twelve.","I'm twelve."]],['👧 n:15','How old is your sister?',"She's fifteen.",["He's fifteen.","She's fifty."]],['n:10','Ten and ten make…','…twenty.',['…eleven.','…twelve.']]]}],
+  phonics:{groups:[
+   {label:'m',words:[['👩','mother'],['🥛','milk'],['🍈','melon']],line:'My mother likes milk.'},
+   {label:'f',words:[['👨','father'],['🐟','fish'],['n:5','five']],line:'My father has five fish.'}]},
+  chant:{title:'This is my family',lines:["Who's this? Who's this?",'This is my mother. This is my father.','Brother, sister, baby too.','I love my family. Yes, I do!']}},
+
+ /* ================= UNIT 6 ================= */
+ {id:'u6',n:'Unit 6',en:'My House',vi:'Các phòng · đồ vật trong nhà · vị trí in, on, under',ic:'🏠',
+  goals:['Gọi tên các phòng và đồ vật trong nhà','Hỏi người trong nhà ở đâu: <span class="en">Where\'s Mom? – She\'s in the kitchen.</span>','Nói đồ vật ở đâu: <span class="en">The ball is under the bed.</span>','Đếm đồ vật: <span class="en">There\'s one bed. There are two chairs.</span>','Giúp bố mẹ dọn dẹp: <span class="en">Let\'s clean up!</span>'],
+  can:["I can name the rooms in my house.", "I can say: She's in the kitchen.", "I can say: It's under the bed.", "I can say: There are two chairs.", "I can help: Let's clean up!"],
+  lessons:[
+   {tag:'Lesson 1',short:'Rooms',name:"Where's Mom?",
+    words:[['🏠','house','ngôi nhà'],['🛋️','living room','phòng khách'],['🛏️','bedroom','phòng ngủ'],['🛁','bathroom','phòng tắm'],['🍳','kitchen','nhà bếp'],['🌳','garden','khu vườn']],
+    patterns:[["Where's Mom?",'Mẹ ở đâu?'],["She's in the kitchen.",'Mẹ ở trong bếp.'],["Where's Dad? – He's in the garden.",'Bố ở đâu? – Bố ở ngoài vườn.'],["Is Bi in the bedroom? – Yes, he is.",'Bi ở trong phòng ngủ à? – Đúng rồi.']],
+    talk:[['👩🍳',"Where's Mom?","She's in the kitchen.",["He's in the kitchen.","She's in the garden."]],['👨🌳',"Where's Dad?","He's in the garden.",["She's in the garden.","He's in the bathroom."]],['👦🛏️',"Where's Bi?","He's in the bedroom.",["He's in the kitchen.","It's a bed."]]]},
+   {tag:'Lesson 2',short:'In, on, under',name:"Where's the ball?",intro:'Nối với bài "Where is…?" và "Things at home" trên lớp. Thêm đồ vật và từ chỉ vị trí.',
+    words:[['🛏️','bed','cái giường'],['🪑','chair','cái ghế'],['🛋️','sofa','ghế sofa'],['💡','lamp','cái đèn'],['📺','TV','ti vi'],['🚪','door','cửa ra vào'],['📥','in','ở trong'],['⬆️','on','ở trên'],['⬇️','under','ở dưới']],
+    patterns:[["Where's the ball?",'Quả bóng ở đâu?'],["It's under the bed.",'Nó ở dưới gầm giường.'],["The cat is on the sofa.",'Con mèo ở trên ghế sofa.'],["Where are the books? – They're in the box.",'Mấy quyển sách ở đâu? – Chúng ở trong hộp.']],
+    talk:[['🐱⬆️🛋️',"Where's the cat?","It's on the sofa.",["It's under the sofa.","It's in the sofa."]],['⚽⬇️🛏️',"Where's the ball?","It's under the bed.",["It's on the bed.","She's in the bedroom."]],['🧸📥📦',"Where's the teddy bear?","It's in the box.",["It's on the box.","It's under the box."]]]},
+   {tag:'Lesson 3',short:'Story',name:"Story: Let's clean up!",
+    story:{title:"Let's clean up!",
+     scenes:[
+      {bg:'🛋️🧸📚',lines:[['mom',"The living room is messy! Let's clean up.",'Phòng khách bừa quá! Mình dọn nhé.'],['all','OK, Mom!','Vâng ạ!']]},
+      {bg:'⚽📚',lines:[['bi','The ball is under the sofa.','Quả bóng ở dưới ghế sofa.'],['na','The books are on the chair.','Mấy quyển sách ở trên ghế.']]},
+      {bg:'📦',lines:[['na',"Where's Kitty?",'Kitty đâu rồi?'],['bi',"Look! She's in the toy box!",'Nhìn kìa! Nó ở trong hộp đồ chơi!']]},
+      {bg:'✨🐱',lines:[['mom','Good job! Thank you, Bi and Na.','Giỏi lắm! Cảm ơn Bi và Na.'],['na',"You're welcome, Mom!",'Không có gì ạ!']]}],
+     value:['Be helpful.','Biết giúp đỡ: cùng bố mẹ dọn nhà.'],
+     ask:['Phòng nào bừa bộn?','Quả bóng ở đâu? Sách ở đâu?','Con mèo Kitty trốn ở đâu?']},
+    patterns:[["Let's clean up!",'Mình cùng dọn dẹp nhé!'],['Good job!','Giỏi lắm!'],["Where's Kitty? – She's in the toy box.",'Kitty đâu? – Nó ở trong hộp đồ chơi.']]},
+   {tag:'Lesson 4',short:'How many?',name:'There are two chairs.',subj:'Math',subjVi:'Toán',intro:'Đếm đồ vật trong từng phòng. Một cái: "There\'s…". Từ hai cái trở lên: "There are…".',
+    patterns:[["There's one bed in the bedroom.",'Trong phòng ngủ có một cái giường.'],['There are two chairs in the kitchen.','Trong bếp có hai cái ghế.'],['How many lamps are there?','Có bao nhiêu cái đèn?'],['There are three lamps.','Có ba cái đèn.']],
+    talk:[['🪑🪑','How many chairs are there?','There are two chairs.',["There's one chair.",'There are three chairs.']],['🛏️','How many beds are there?',"There's one bed.",['There are two beds.','There are four beds.']],['💡💡💡','How many lamps are there?','There are three lamps.',['There are two lamps.',"There's one lamp."]],['🚪🚪🚪🚪','How many doors are there?','There are four doors.',['There are five doors.','There are three doors.']]]}],
+  phonics:{groups:[
+   {label:'ou',say:'ou',words:[['🏠','house'],['🐭','mouse'],['👄','mouth']],line:'A mouse in my house!'},
+   {label:'ow',say:'ow',words:[['c:#8D5A3B','brown'],['🐄','cow'],['🦉','owl']],line:'A brown cow. Wow!'}]},
+  chant:{title:"Where's the cat?",lines:["Where's the cat? Where's the cat?","It's on the bed. It's on the bed.","Where's the ball? Where's the ball?","It's under the chair. Look! It's there!"]}},
+
+ /* ================= REVIEW 3 ================= */
+ {id:'r3',n:'Review 3',en:"Let's review! Units 5 – 6",vi:'Gia đình · đồ ăn · ngôi nhà · vị trí',ic:'⭐',review:['u5','u6']},
+
+ /* ================= UNIT 7 ================= */
+ {id:'u7',n:'Unit 7',en:'My Toys',vi:'Đồ chơi · to, nhỏ, nhanh, chậm · đếm đồ chơi',ic:'🧸',
+  goals:['Gọi tên 8 đồ chơi','Nói mình có gì và bạn có gì: <span class="en">I have a robot. He has a car. She has a doll.</span>','Tả đồ chơi: <span class="en">It\'s a big ball. My car is fast.</span>','Hỏi số lượng: <span class="en">How many dolls do you have? – I have two dolls.</span>','Chờ đến lượt: <span class="en">It\'s your turn.</span>'],
+  can:["I can name my toys.", "I can say: He has a car.", "I can say: It's a big ball.", "I can say: I have three dolls.", "I can say: It's your turn."],
+  lessons:[
+   {tag:'Lesson 1',short:'Toys',name:'I have a robot.',
+    words:[['🏀','ball','quả bóng'],['🪆','doll','búp bê'],['🚗','car','ô tô'],['🧸','teddy bear','gấu bông'],['🤖','robot','người máy'],['🚂','train','tàu hỏa'],['✈️','plane','máy bay'],['🪀','yo-yo','yo-yo']],
+    patterns:[['I have a robot.','Tớ có một con người máy.'],['I have two balls.','Tớ có hai quả bóng.'],['He has a car.','Bạn ấy (trai) có một chiếc ô tô.'],['She has a doll.','Bạn ấy (gái) có một con búp bê.'],['They have a train.','Các bạn ấy có một đoàn tàu.']],
+    talk:[['👦🚗','What does he have?','He has a car.',['She has a car.','I have a doll.']],['👧🪆','What does she have?','She has a doll.',['He has a doll.','She has a ball.']],['🤖','What do you have?','I have a robot.',['He has a robot.',"It's a robot."]]]},
+   {tag:'Lesson 2',short:'Big & small',name:"It's a big ball.",intro:'Thêm từ để tả đồ chơi: to hay nhỏ, nhanh hay chậm, mới.',
+    words:[['z:big:🎈','big','to'],['z:small:🎈','small','nhỏ'],['🏎️','fast','nhanh'],['🐢','slow','chậm'],['🆕','new','mới']],
+    patterns:[["It's a big ball.",'Đó là một quả bóng to.'],["It's a small car.",'Đó là một chiếc ô tô nhỏ.'],['My car is fast.','Ô tô của tớ chạy nhanh.'],['Is the train slow? – Yes, it is.','Đoàn tàu chạy chậm à? – Đúng rồi.'],['I have a new kite.','Tớ có một con diều mới.']],
+    talk:[['z:big:🧸','Is it big or small?',"It's big.",["It's small.","It's fast."]],['z:small:🚗','Is it big or small?',"It's small.",["It's big.","It's slow."]],['🐢','Is it fast?',"No, it isn't. It's slow.",['Yes, it is.',"It's small."]]]},
+   {tag:'Lesson 3',short:'Story',name:"Story: It's your turn!",
+    story:{title:"It's your turn!",
+     scenes:[
+      {bg:'🎂🎈',lines:[['bi','Happy birthday, Mia!','Chúc mừng sinh nhật Mia!'],['mia',"Thank you! I'm seven today.",'Cảm ơn cậu! Hôm nay tớ bảy tuổi.']]},
+      {bg:'🎁🤖',lines:[['bi','Here you are. A robot!','Của cậu đây. Một con người máy!'],['mia','Wow! A big robot! Thank you.','Ồ! Người máy to quá! Cảm ơn cậu.']]},
+      {bg:'🎯',lines:[['tom',"Let's play! It's my turn!",'Chơi thôi! Đến lượt tớ!'],['na',"No, Tom. It's Mia's turn.",'Không, Tom. Đến lượt Mia.']]},
+      {bg:'😀🎯',lines:[['mia',"OK, Tom. It's your turn now.",'Được rồi Tom. Giờ đến lượt cậu.'],['tom','Thank you, Mia!','Cảm ơn Mia!']]}],
+     value:['Be fair.','Công bằng: xếp hàng, chờ đến lượt mình.'],
+     ask:['Mia mấy tuổi?','Bi tặng Mia quà gì?','Tom có chờ đến lượt không? Cuối cùng ai nhường lượt cho Tom?']},
+    patterns:[['Happy birthday!','Chúc mừng sinh nhật!'],["It's my turn.",'Đến lượt tớ.'],["It's your turn.",'Đến lượt cậu.']]},
+   {tag:'Lesson 4',short:'Count toys',name:'How many dolls do you have?',subj:'Math',subjVi:'Toán',intro:'Đếm đồ chơi trong hình rồi trả lời cả câu.',
+    patterns:[['How many dolls do you have?','Bạn có mấy con búp bê?'],['I have three dolls.','Tớ có ba con búp bê.'],['One car and two cars make three cars.','Một ô tô và hai ô tô là ba ô tô.']],
+    talk:[['🪆🪆🪆','How many dolls do you have?','I have three dolls.',['I have two dolls.','I have four dolls.']],['🚗🚗','How many cars do you have?','I have two cars.',['I have one car.','I have three cars.']],['🧸🧸🧸🧸🧸','How many teddy bears do you have?','I have five teddy bears.',['I have four teddy bears.','I have six teddy bears.']],['🏀','How many balls do you have?','I have one ball.',['I have two balls.','I have ten balls.']]]}],
+  phonics:{groups:[
+   {label:'t',words:[['🧸','teddy'],['🚂','train'],['🐯','tiger']],line:'Ten toy trains.'},
+   {label:'d',words:[['🪆','doll'],['🐶','dog'],['🦆','duck']],line:'A doll and a dog.'}]},
+  chant:{title:'My toys',lines:['I have a robot. I have a ball.','I have a teddy bear. Big and small!','Cars are fast. Trains are slow.','Come and play! Ready, go!']}},
+
+ /* ================= UNIT 8 ================= */
+ {id:'u8',n:'Unit 8',en:'In the Park',vi:'Thiên nhiên · trò chơi ngoài trời · can / can\'t · bộ phận của cây',ic:'🌳',
+  goals:['Gọi tên những gì thấy ở công viên','Hỏi và trả lời: <span class="en">What can you see? – I can see a flower.</span>','Nói mình làm được gì: <span class="en">I can ride a bike. I can\'t swim.</span>','Nhờ và giúp bạn: <span class="en">Please help me. – Sure!</span>','Gọi tên các bộ phận của cây'],
+  can:["I can say: I can see a flower.", "I can say: I can ride a bike.", "I can ask: Can you swim?", "I can say: Please help me.", "I can name parts of a plant."],
+  lessons:[
+   {tag:'Lesson 1',short:'Nature',name:'What can you see?',
+    words:[['🌼','flower','bông hoa'],['🌳','tree','cái cây'],['🪨','rock','hòn đá'],['🏞️','river','dòng sông'],['⛰️','hill','ngọn đồi'],['🐦','bird','con chim'],['☀️','sun','mặt trời']],
+    patterns:[['What can you see?','Bạn nhìn thấy gì?'],['I can see a flower.','Tớ nhìn thấy một bông hoa.'],['I can see three birds.','Tớ nhìn thấy ba con chim.'],['Look! A big tree!','Nhìn kìa! Một cái cây to!']],
+    talk:[['🌼','What can you see?','I can see a flower.',['I can see a bird.','I can see a tree.']],['🐦🐦','What can you see?','I can see two birds.',['I can see a bird.','I can see two trees.']],['🪨','What can you see?','I can see a rock.',['I can see a river.','I can see the sun.']]]},
+   {tag:'Lesson 2',short:'Playtime',name:'I can ride a bike.',intro:'Ở công viên em chơi gì? Thêm các trò chơi và "can / can\'t".',
+    words:[['🥅','play football','đá bóng'],['🪢','jump rope','nhảy dây'],['🪁','fly a kite','thả diều'],['🚲','ride a bike','đạp xe'],['🏊','swim','bơi'],['🛝','slide','cầu trượt']],
+    patterns:[['I can ride a bike.','Tớ biết đạp xe.'],["I can't swim.",'Tớ không biết bơi.'],['Can you fly a kite?','Bạn có biết thả diều không?'],["Yes, I can. / No, I can't.",'Có, tớ biết. / Không, tớ không biết.'],["Let's play football!",'Mình đá bóng đi!']],
+    talk:[['🚲👍','Can you ride a bike?','Yes, I can.',["No, I can't.",'Yes, I do.']],['🏊👎','Can you swim?',"No, I can't.",['Yes, I can.',"No, I don't."]],['🪁','What can you do?','I can fly a kite.',['I can see a kite.',"It's a kite."]]]},
+   {tag:'Lesson 3',short:'Story',name:'Story: My kite!',
+    story:{title:'My kite!',
+     scenes:[
+      {bg:'🪁☀️',lines:[['na','Look! My new kite!','Nhìn này! Diều mới của tớ!'],['bi',"It's a big kite!",'Diều to quá!']]},
+      {bg:'💨🌳',lines:[['na','Oh no! My kite! It\'s in the tree!','Ôi không! Diều của tớ! Nó mắc trên cây!']]},
+      {bg:'🪜',lines:[['na','Please help me, Bi.','Giúp tớ với, Bi.'],['bi','Sure!','Được chứ!']]},
+      {bg:'🪁😀',lines:[['bi','Here you are, Na.','Của cậu đây, Na.'],['na','Thank you, Bi! Let\'s fly it together!','Cảm ơn Bi! Mình cùng thả nhé!']]}],
+     value:['Be helpful.','Biết giúp bạn khi bạn nhờ.'],
+     ask:['Na có gì mới?','Con diều bay đi đâu?','Na nhờ Bi thế nào? Bi trả lời ra sao?']},
+    patterns:[['Please help me.','Giúp tớ với.'],['Sure!','Được chứ!'],["Let's fly it together!",'Mình cùng thả nhé!']]},
+   {tag:'Lesson 4',short:'Plants',name:'Parts of a plant',subj:'Science',subjVi:'Khoa học',intro:'Nối với bài "Parts of a plant" trên lớp. Chỉ vào cây thật trong sân trường và nói.',
+    words:[['🌰','seed','hạt'],['🟫','root','rễ cây'],['🌱','stem','thân cây'],['🍃','leaf','lá cây'],['🌸','flower','bông hoa'],['🍊','fruit','quả']],
+    patterns:[['This is the root.','Đây là rễ cây.'],['The leaves are green.','Lá cây màu xanh.'],['Plants need water and sun.','Cây cần nước và ánh nắng.'],['A seed grows into a plant.','Hạt lớn lên thành cây.']],
+    talk:[['🍃','What color are the leaves?',"They're green.",["They're red.","It's a leaf."]],['💧☀️','What do plants need?','Water and sun.',['Milk and cake.','A ball.']],['🟫',"What's this?","It's the root.",["It's the flower.","It's the fruit."]]]}],
+  phonics:{groups:[
+   {label:'fl',words:[['🌼','flower'],['🪁','fly'],['🐸','flag']],line:'Flowers and a flag.'},
+   {label:'pl',words:[['🛝','play'],['🌱','plant'],['✈️','plane']],line:'Play in the park!'}]},
+  chant:{title:'In the park',lines:['What can you see? What can you see?','I can see a flower. I can see a tree.','Can you ride a bike? Yes, I can!','Can you fly a kite? Yes, I can!']}},
+
+ /* ================= UNIT 9 ================= */
+ {id:'u9',n:'Unit 9',en:'At the Zoo',vi:'Con vật · con vật đang làm gì · con vật làm được gì',ic:'🦁',
+  goals:['Gọi tên 10 con vật trong sở thú','Nói con vật ở đâu: <span class="en">The monkey is in the tree.</span>','Hỏi con vật đang làm gì: <span class="en">What\'s the bear doing? – It\'s sleeping.</span>','Hỏi con vật làm được gì: <span class="en">Can zebras run? – Yes, they can.</span>','Giữ an toàn: luôn đi cùng cả lớp'],
+  can:["I can name 10 zoo animals.", "I can say: The monkey is in the tree.", "I can say: It's sleeping.", "I can ask: Can zebras run?", "I can stay with my class."],
+  lessons:[
+   {tag:'Lesson 1',short:'Animals',name:'I can see a monkey.',
+    words:[['🐒','monkey','con khỉ'],['🐘','elephant','con voi'],['🐯','tiger','con hổ'],['🐻','bear','con gấu'],['🦒','giraffe','hươu cao cổ'],['🦁','lion','sư tử'],['🦓','zebra','ngựa vằn'],['🐍','snake','con rắn'],['🦘','kangaroo','chuột túi'],['🐧','penguin','chim cánh cụt']],
+    patterns:[["What's this? – It's a monkey.",'Đây là con gì? – Con khỉ.'],['I can see an elephant.','Tớ nhìn thấy một con voi.'],['The monkey is in the tree.','Con khỉ ở trên cây.'],["Where's the snake? – It's on the rock.",'Con rắn ở đâu? – Nó ở trên hòn đá.']],
+    talk:[['🦒',"What's this?","It's a giraffe.",["It's a zebra.","It's a lion."]],['🐘','What can you see?','I can see an elephant.',['I can see a monkey.','I can see a tiger.']],['🐍🪨',"Where's the snake?","It's on the rock.",["It's in the tree.","It's under the rock."]]]},
+   {tag:'Lesson 2',short:'Doing',name:"What's the bear doing?",intro:'Thêm từ chỉ việc con vật đang làm.',
+    words:[['🧗','climbing','đang leo'],['🍌','eating','đang ăn'],['😴','sleeping','đang ngủ'],['🏊','swimming','đang bơi'],['💃','dancing','đang nhảy múa'],['🥤','drinking','đang uống']],
+    patterns:[["What's the bear doing?",'Con gấu đang làm gì?'],["It's sleeping.",'Nó đang ngủ.'],["The monkey is eating a banana.",'Con khỉ đang ăn chuối.'],["Is the penguin swimming? – Yes, it is.",'Chim cánh cụt đang bơi à? – Đúng rồi.']],
+    talk:[['🐻😴',"What's the bear doing?","It's sleeping.",["It's eating.","It's a bear."]],['🐒🍌',"What's the monkey doing?","It's eating.",["It's sleeping.","It's climbing."]],['🐧💧',"What's the penguin doing?","It's swimming.",["It's dancing.","It's drinking."]]]},
+   {tag:'Lesson 3',short:'Story',name:"Story: Where's Bi?",
+    story:{title:"Where's Bi?",
+     scenes:[
+      {bg:'🦓🦒',lines:[['lan','Look, class! Zebras and giraffes.','Các con nhìn kìa! Ngựa vằn và hươu cao cổ.'],['na','I can see a baby giraffe!','Con nhìn thấy một chú hươu con!']]},
+      {bg:'❓',lines:[['lan',"Where's Bi?",'Bi đâu rồi?'],['na',"I don't know!",'Con không biết ạ!']]},
+      {bg:'🦁🦁',lines:[['na',"Look! He's next to the lions!",'Nhìn kìa! Bạn ấy ở cạnh chuồng sư tử!'],['lan','Bi! Come here, please.','Bi! Lại đây con.']]},
+      {bg:'🤝',lines:[['bi',"I'm sorry, Miss Lan.",'Con xin lỗi cô ạ.'],['lan',"That's OK. Stay with the class, please.",'Không sao. Con đi cùng cả lớp nhé.']]}],
+     value:['Be safe.','An toàn: đi đâu cũng đi cùng cả lớp, không tự đi một mình.'],
+     ask:['Cả lớp đang ở đâu?','Bi chạy đi xem con gì?','Cô Lan dặn Bi điều gì?']},
+    patterns:[["Where's Bi?",'Bi đâu rồi?'],["I'm sorry. – That's OK.",'Con xin lỗi. – Không sao.'],['Come here, please.','Lại đây con.']]},
+   {tag:'Lesson 4',short:'Animals can…',name:'Can zebras run?',subj:'Science',subjVi:'Khoa học',intro:'Mỗi con vật di chuyển theo cách riêng. Bắt chước con vật và nói.',
+    words:[['🏃','run','chạy'],['🐇','hop','nhảy lò cò'],['🐠','swim','bơi'],['🚶','walk','đi bộ'],['🦅','fly','bay'],['🐿️','climb','leo trèo']],
+    patterns:[['Can zebras run? – Yes, they can.','Ngựa vằn chạy được không? – Được.'],["Can snakes walk? – No, they can't.",'Rắn đi bộ được không? – Không.'],['Birds can fly.','Chim bay được.'],["Penguins can swim. They can't fly.",'Chim cánh cụt bơi được. Chúng không bay được.']],
+    talk:[['🦓','Can zebras run?','Yes, they can.',["No, they can't.",'Yes, it is.']],['🐍','Can snakes walk?',"No, they can't.",['Yes, they can.',"No, it isn't."]],['🐧','Can penguins swim?','Yes, they can.',["No, they can't.",'Yes, I do.']],['🦘','Can kangaroos hop?','Yes, they can.',["No, they can't.",'Yes, I can.']]]}],
+  phonics:{groups:[
+   {label:'z',words:[['🦓','zebra'],['🦁','zoo'],['n:0','zero']],line:'A zebra at the zoo.'},
+   {label:'s',words:[['🐍','snake'],['☀️','sun'],['🧦','sock']],line:'Six snakes in the sun.'}]},
+  chant:{title:'At the zoo',lines:['Monkeys climb. Monkeys climb.','Zebras run. Zebras run.','Penguins swim. Snakes say "Sss!"','At the zoo, we have fun!']}},
+
+ /* ================= REVIEW 4 ================= */
+ {id:'r4',n:'Review 4',en:"Let's review! Units 7 – 9",vi:'Đồ chơi · công viên · sở thú',ic:'⭐',review:['u7','u8','u9']}
+ ]};
+</script>
+<script src="../assets/pin.js?v=20261127b"></script>
+<script src="../assets/units.js?v=20261127b"></script>
+</body>
+</html>
