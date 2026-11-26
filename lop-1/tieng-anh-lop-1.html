@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" data-grade="lop-1">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -146,19 +146,68 @@ h3.sub{margin:28px 0 12px;font-size:1.35rem;color:var(--sky)}
 .parts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .part-card{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding:6px 12px;background:var(--surface);cursor:pointer}
 .part-card b{font-family:var(--f-display);font-size:1.1rem}
+/* Mini games: School things, Shapes, Things at home, Review, Rooms, Bathroom & bedroom */
+.topic{display:flex;flex-direction:column;gap:16px}
+.mg-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-bottom:12px}
+.mg-head h3{font-size:1.3rem;color:var(--sky)}
+.mg-words{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.mg-w{background:var(--bg);border:2px solid transparent;border-radius:14px;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;text-align:center;min-width:0}
+.mg-w:hover{border-color:var(--sky)}
+.mg-w.speaking{border-color:var(--gold);background:var(--gold-soft)}
+.mg-w .ic{font-size:2.6rem;line-height:1.15}
+.mg-w b{font-size:1.02rem;overflow-wrap:anywhere}
+.mg-w small{color:var(--muted);font-size:.84rem}
+.mg-svg{width:1em;height:1em;display:inline-block;vertical-align:middle}
+.mg-pats{display:flex;flex-direction:column;gap:4px}
+.mg-pat{display:flex;gap:10px;align-items:flex-start;padding:6px 8px;border-radius:12px}
+.mg-pat .mg-en{font-size:1.08rem;font-weight:600}
+.mg-pat small{display:block;color:var(--muted);font-size:.88rem}
+.mg-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.mg-chip{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 14px;font-weight:700;cursor:pointer}
+.mg-chip[aria-pressed="true"]{background:var(--sky);border-color:var(--sky);color:var(--surface)}
+.mg-box{background:var(--sky-soft);border-radius:16px;padding:16px;min-height:240px}
+.mg-top{display:flex;justify-content:space-between;font-weight:700;color:var(--muted)}
+.mg-time{color:var(--lacquer);font-size:1.15rem}
+.mg-prompt{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 14px;margin:8px 0 14px;min-height:64px;text-align:center}
+.mg-big{font-size:1.2rem;padding:10px 22px}
+.mg-hint{flex-basis:100%}
+.mg-word{font-family:var(--f-display);font-weight:800;font-size:2.2rem}
+.mg-pic{font-size:4rem;line-height:1}
+.mg-q{flex-basis:100%;display:flex;justify-content:center;align-items:center;gap:8px;font-weight:700;font-size:1.25rem}
+.mg-count{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 8px;font-size:2.3rem;max-width:440px;line-height:1.2}
+.mg-colour .mg-svg{width:120px;height:120px}
+.mg-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:560px;margin:0 auto}
+.mg-opt{aspect-ratio:1;border:3px solid var(--line);background:var(--surface);border-radius:18px;font-size:3rem;cursor:pointer;display:grid;place-items:center;padding:0;color:var(--ink)}
+.mg-opts.txt{grid-template-columns:repeat(2,1fr)}
+.mg-opts.txt .mg-opt{aspect-ratio:auto;font-size:1.2rem;font-weight:800;padding:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+.mg-opt:hover{border-color:var(--sky)}
+.mg-opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.mg-opt.wrong{border-color:var(--bad);background:var(--bad-soft);opacity:.6}
+.mg-sw{width:1.3em;height:1.3em;border-radius:50%;border:2px solid #777;flex:none}
+.mg-after{text-align:center;margin:12px 0 0;font-weight:600}
+.mg-sky{position:relative;height:264px;overflow:hidden;border-radius:14px;background:linear-gradient(var(--surface),var(--sky-soft));border:1px solid var(--line)}
+.mg-opt.mg-plane{position:absolute;left:0;aspect-ratio:auto;display:flex;align-items:center;gap:2px;padding:4px 8px 4px 12px;border-radius:999px;font-size:2rem;animation:mg-fly var(--d,9s) linear infinite;animation-delay:var(--dl,0s)}
+.mg-plane .mg-cargo{background:var(--gold-soft);border-radius:12px;padding:0 6px;font-size:2.3rem;line-height:1.3}
+.mg-sky.stop .mg-plane{animation-play-state:paused}
+@keyframes mg-fly{from{left:-170px}to{left:100%}}
+@media (prefers-reduced-motion: reduce){ .mg-opt.mg-plane{animation:none;left:var(--x)} }
+.mg-done{text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;padding:20px 0}
+.mg-stars{font-size:3rem}
+@media (max-width:560px){ .mg-opts{grid-template-columns:repeat(2,1fr);max-width:320px} }
 footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
 
 @media (max-width:760px){
   .speech-grid,.body-wrap,.room-grid,.plant-grid{grid-template-columns:1fr}
 }
 </style>
+<script>(function(){try{var g=document.documentElement.getAttribute("data-grade"),k="lophoc-grade-"+g;if(!(sessionStorage.getItem(k)==="1"||localStorage.getItem(k)==="1"))document.documentElement.classList.add("grade-locked")}catch(e){}})()</script><style>html.grade-locked body>*:not(.pin-gate){visibility:hidden}</style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
     <div class="eyebrow">Lớp 1 · Tiếng Anh</div>
     <h1>Tiếng Anh <span>lớp 1</span></h1>
-    <p class="lead">Bài nói "About Me &amp; My Body", hỏi đáp vị trí đồ vật và các bộ phận của cây. Bấm vào chữ hay hình để nghe đọc.</p>
+    <p class="lead">Bài nói "About Me &amp; My Body", vị trí đồ vật, bộ phận của cây, đồ dùng học tập, hình khối, đồ vật và các phòng trong nhà, hoạt động trong phòng tắm và phòng ngủ. Bấm vào chữ hay hình để nghe đọc.</p>
   </header>
 </div>
 <nav class="nav" aria-label="Các phần">
@@ -169,6 +218,12 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
     <a href="#positions">Positions</a>
     <a href="#room">Find the objects</a>
     <a href="#plants">Plants</a>
+    <a href="#school">School things</a>
+    <a href="#shapes">Shapes</a>
+    <a href="#home">Things at home</a>
+    <a href="#review">Ôn tập</a>
+    <a href="#rooms">Rooms</a>
+    <a href="#routines">Bathroom &amp; bedroom</a>
     <a href="#answers" class="ans-link">🔒 Đáp án</a>
   </div>
 </nav>
@@ -246,6 +301,42 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
         <p class="score" id="pScore" style="margin-top:10px"></p>
       </div>
     </div>
+  </section>
+
+  <section id="school">
+    <div class="sec-head"><h2>Đồ dùng học tập</h2><span class="en">My school things</span>
+      <p class="muted">Bấm vào hình để nghe đọc. Chơi máy bay chữ, đếm đồ vật và đoán màu. Ở nhà, cầm đồ thật lên và nói: <span class="en">I have a pencil!</span></p></div>
+    <div class="topic" data-topic="school"></div>
+  </section>
+
+  <section id="shapes">
+    <div class="sec-head"><h2>Hình khối</h2><span class="en">Shapes</span>
+      <p class="muted">Gọi tên các hình, chơi máy bay chữ, rồi nhìn đồ vật quanh em và nói nó có hình gì: <span class="en">What shape is it? – It's a circle.</span></p></div>
+    <div class="topic" data-topic="shapes"></div>
+  </section>
+
+  <section id="home">
+    <div class="sec-head"><h2>Đồ vật trong nhà</h2><span class="en">Things at home &amp; furniture</span>
+      <p class="muted">Có trò thi 60 giây: làm đúng càng nhiều càng giỏi. Ở nhà, nghe lệnh rồi chạy đến chạm vào đồ vật thật: <span class="en">Run to the door! Point to the clock!</span></p></div>
+    <div class="topic" data-topic="home"></div>
+  </section>
+
+  <section id="review">
+    <div class="sec-head"><h2>Ôn tập</h2><span class="en">Review</span>
+      <p class="muted">Ôn lại đồ dùng học tập, hình khối và đồ vật trong nhà. Trên lớp, cô ôn cùng sách Everybody Up.</p></div>
+    <div class="topic" data-topic="review"></div>
+  </section>
+
+  <section id="rooms">
+    <div class="sec-head"><h2>Các phòng trong nhà</h2><span class="en">Rooms in the house</span>
+      <p class="muted">Đồ vật này ở phòng nào? Em làm gì ở phòng đó? Mẫu: <span class="en">Where are you now? – I'm in the kitchen. I'm eating.</span></p></div>
+    <div class="topic" data-topic="rooms"></div>
+  </section>
+
+  <section id="routines">
+    <div class="sec-head"><h2>Hoạt động trong phòng tắm và phòng ngủ</h2><span class="en">Bathroom &amp; bedroom activities</span>
+      <p class="muted">Nghe lệnh và làm động tác thật to. Trò Simon says: chỉ làm theo khi nghe "Simon says". Phụ huynh nói các câu mẫu cùng con mỗi sáng và tối, 5–10 phút mỗi ngày.</p></div>
+    <div class="topic" data-topic="routines"></div>
   </section>
 
   <section id="answers">

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" data-grade="lop-4">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -296,6 +296,7 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
   html.print-copy .write-lines{display:block;height:58px;background:repeating-linear-gradient(transparent 0 27px,#999 27px 28px)}
 }
 </style>
+<script>(function(){try{var g=document.documentElement.getAttribute("data-grade"),k="lophoc-grade-"+g;if(!(sessionStorage.getItem(k)==="1"||localStorage.getItem(k)==="1"))document.documentElement.classList.add("grade-locked")}catch(e){}})()</script><style>html.grade-locked body>*:not(.pin-gate){visibility:hidden}</style>
 </head>
 <body>
 <div class="wrap">
@@ -418,7 +419,7 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
     <div class="sec-head"><h2>Tập chép mẫu câu</h2><span class="en">Copy &amp; write</span>
       <p class="muted">Mỗi câu chép 2–3 lần. Bấm "In phiếu tập chép" để in ra giấy, phiếu có sẵn dòng kẻ để viết.</p></div>
     <div class="row-tools">
-      <button class="btn primary" id="printCopy">🖨️ In phiếu tập chép</button>
+      <button class="btn primary" id="printCopy">🖨️ In phiếu tập chép (khổ A4)</button>
       <label class="muted"><input type="checkbox" id="copyVi" checked> Hiện nghĩa tiếng Việt</label>
     </div>
     <div id="copyBody"></div>
@@ -990,8 +991,75 @@ $('#copyBody').innerHTML=
  `<h3 class="sub">Phần 2: 37 dạng câu hay ra thi</h3>`+
  PATTERNS.map(([h,list],i)=>`<div class="copy-group"><h4>Dạng ${i+1}: ${esc(h)}</h4><div class="copy-list">${list.map(x=>copyLine(x[0],x[1])).join('')}</div></div>`).join('');
 $('#copyVi').addEventListener('change',e=>{document.querySelectorAll('.cvi').forEach(s=>s.hidden=!e.target.checked);});
-$('#printCopy').addEventListener('click',()=>{document.documentElement.classList.add('print-copy');window.print();});
-window.addEventListener('afterprint',()=>document.documentElement.classList.remove('print-copy'));
+/* Phiếu tập chép khổ A4: mở trang riêng dùng phông chữ có sẵn trong máy (Times New Roman) để in không lỗi font */
+function sheetHTML(){
+  const data={p1:COPY_TOPICS,p2:PATTERNS,tense:['Hiện tại đơn','Hiện tại tiếp diễn','Quá khứ đơn']};
+  const json=JSON.stringify(data).replace(/</g,'\\u003c');
+  return `<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Phiếu tập chép Tiếng Anh IOE lớp 4</title>
+<style>
+@page{size:A4 portrait;margin:14mm 15mm 16mm}
+*{box-sizing:border-box}
+body{margin:0;background:#E4E8EB;color:#111;font-family:"Times New Roman",Times,"Liberation Serif",serif;font-size:13pt;line-height:1.35}
+.bar{position:sticky;top:0;z-index:2;background:#1C2A36;color:#fff;padding:10px 16px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-family:Arial,"Segoe UI",sans-serif;font-size:14px}
+.bar b{font-size:15px}
+.bar label{display:flex;gap:6px;align-items:center}
+.bar select{font:inherit;padding:3px 6px;border-radius:6px}
+.bar button{font:inherit;font-weight:700;padding:7px 16px;border-radius:8px;border:2px solid #E09400;background:#FFB020;color:#1C2A36;cursor:pointer;margin-left:auto}
+.sheet{width:210mm;max-width:100%;margin:14px auto 40px;background:#fff;padding:14mm 15mm 16mm;box-shadow:0 2px 14px rgba(0,0,0,.18)}
+.head{border-bottom:2px solid #111;padding-bottom:4mm;margin-bottom:5mm}
+.head h1{font-family:Arial,"Segoe UI",sans-serif;font-size:17pt;text-align:center;margin:0;letter-spacing:.02em}
+.head .sub{text-align:center;margin:1mm 0 4mm;font-style:italic}
+.info{display:flex;flex-wrap:wrap;gap:2mm 8mm;font-size:12.5pt}
+.info span{white-space:nowrap}
+.guide{margin:3mm 0 0;font-size:12pt}
+h2{font-family:Arial,"Segoe UI",sans-serif;font-size:13.5pt;margin:6mm 0 2mm;break-after:avoid;page-break-after:avoid}
+h3{font-family:Arial,"Segoe UI",sans-serif;font-size:12pt;margin:4mm 0 1.5mm;break-after:avoid;page-break-after:avoid;color:#333}
+.item{break-inside:avoid;page-break-inside:avoid;margin-bottom:3.5mm}
+.src{font-weight:bold;padding-left:7mm;text-indent:-7mm}
+.src .n{display:inline-block;min-width:7mm}
+.src .t{font-weight:normal;font-style:italic;font-size:10.5pt;border:1px solid #888;border-radius:3px;padding:0 1.5mm;margin-right:1.5mm}
+.vi{font-style:italic;font-size:11.5pt;color:#333;margin-left:7mm}
+.row{height:10mm;border-bottom:1px solid #666;position:relative;margin-left:7mm}
+.row::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px dashed #B5B5B5}
+.part2{break-before:page;page-break-before:always}
+.foot{margin-top:6mm;font-size:10pt;color:#555;text-align:center}
+@media print{
+  body{background:#fff}
+  .bar{display:none}
+  .sheet{width:auto;margin:0;padding:0;box-shadow:none}
+}
+</style></head><body>
+<div class="bar"><b>Phiếu tập chép khổ A4</b>
+ <label>Phần <select id="part"><option value="all">Cả hai phần</option><option value="1">Phần 1: Mẫu câu 3 thì</option><option value="2">Phần 2: 37 dạng câu</option></select></label>
+ <label>Số dòng viết mỗi câu <select id="rows"><option>1</option><option selected>2</option><option>3</option></select></label>
+ <label><input type="checkbox" id="vi" checked> Nghĩa tiếng Việt</label>
+ <button type="button" id="print">🖨️ In phiếu</button></div>
+<div class="sheet" id="sheet"></div>
+<script>
+const D=${json};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function render(){
+  const part=document.getElementById('part').value,n=+document.getElementById('rows').value,vi=document.getElementById('vi').checked;
+  const rows='<div class="row"></div>'.repeat(n);
+  let no=0;
+  const item=(en,v,tag)=>'<div class="item"><div class="src"><span class="n">'+(++no)+'.</span>'+(tag?'<span class="t">'+tag+'</span>':'')+esc(en)+'</div>'+(vi?'<div class="vi">'+esc(v)+'</div>':'')+rows+'</div>';
+  let h='<div class="head"><h1>PHIẾU TẬP CHÉP TIẾNG ANH</h1><p class="sub">Ôn thi IOE lớp 4</p><div class="info"><span>Họ và tên: ..............................................................</span><span>Lớp: ...............</span><span>Ngày: ......./......./..............</span></div><p class="guide">Chép lại mỗi câu '+(n>1?n+' lần':'1 lần')+'. Viết hoa chữ cái đầu câu và nhớ dấu chấm, dấu hỏi.</p></div>';
+  if(part!=='2'){h+='<h2>Phần 1: Mẫu câu 3 thì theo 11 chủ đề</h2>';D.p1.forEach(([t,list],i)=>{h+='<h3>'+(i+1)+'. '+esc(t)+'</h3>'+list.map((x,k)=>item(x[0],x[1],D.tense[k])).join('');});}
+  if(part!=='1'){h+='<h2'+(part==='all'?' class="part2"':'')+'>Phần 2: 37 dạng câu hay ra thi</h2>';D.p2.forEach(([t,list],i)=>{h+='<h3>Dạng '+(i+1)+': '+esc(t)+'</h3>'+list.map(x=>item(x[0],x[1])).join('');});}
+  h+='<p class="foot">Lớp học của cô · Tiếng Anh IOE lớp 4</p>';
+  document.getElementById('sheet').innerHTML=h;
+}
+['part','rows','vi'].forEach(id=>document.getElementById(id).addEventListener('change',render));
+document.getElementById('print').addEventListener('click',()=>window.print());
+render();
+<\/script></body></html>`;
+}
+$('#printCopy').addEventListener('click',()=>{
+  const html=sheetHTML();
+  const w=window.open('','_blank');
+  if(w){w.document.open();w.document.write(html);w.document.close();return;}
+  try{const url=URL.createObjectURL(new Blob([html],{type:'text/html'}));location.href=url;}catch(e){alert('Trình duyệt chặn mở cửa sổ mới. Hãy cho phép cửa sổ bật lên (pop-up) rồi bấm lại.');}
+});
 
 /* ---------- Games ---------- */
 const GAMES=[

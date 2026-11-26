@@ -67,12 +67,20 @@ Xem thử trên máy: mở thẳng từng file bài học bằng trình duyệt.
    - Cách B: `git add . && git commit -m "Them bai moi" && git push`
 4. Khoảng 1 phút sau trang tự cập nhật. Nếu chưa thấy thay đổi, nhấn Ctrl + F5.
 
-## Khóa Đáp án bằng mã PIN
+## Mã PIN
 
-- Tab **Đáp án** luôn khóa sẵn. Bấm vào sẽ hiện ô nhập mã PIN, mặc định là **1234**.
-- Nhập đúng một lần thì mọi bài đều mở đáp án, cho đến khi đóng tab trình duyệt hoặc bấm **Khóa lại**.
-- Đổi mã PIN: mở `assets/pin.js`, sửa dòng `var PIN = "1234";`.
-- Đây chỉ là khóa để các em không bấm nhầm. Người rành máy tính vẫn xem được mã PIN trong code, nên đừng dùng nó để giấu thông tin quan trọng.
+Tất cả mã PIN nằm trong `assets/pin.js`. Đổi mã: sửa số trong ngoặc kép rồi đưa file lên lại.
+
+**Mã PIN từng khối lớp** (`GRADE_PINS`)
+- Mỗi khối có một mã riêng. Chưa nhập đúng mã thì không xem được bài của khối đó, kể cả khi mở thẳng link bài.
+- Nhập đúng thì khối đó mở cho đến khi đóng tab trình duyệt. Nếu tick **Nhớ trên máy này** thì máy đó lần sau không phải nhập lại.
+- Nút **🔐 Khóa tất cả** ở cột trái trang chủ sẽ khóa lại mọi khối và phần Đáp án (dùng khi máy dùng chung).
+- Muốn thêm khối mới có mã riêng: thêm một dòng vào `GRADE_PINS` và `GRADE_NAMES`, và ghi `data-grade="<mã khối>"` vào thẻ `<html>` của các trang bài thuộc khối đó.
+
+**Mã PIN Đáp án** (`ANSWER_PIN`)
+- Tab **Đáp án** luôn khóa sẵn. Nhập đúng một lần thì mọi bài mở đáp án cho đến khi đóng tab hoặc bấm **Khóa lại**.
+
+Đây chỉ là khóa để các em không vào nhầm khối hay xem đáp án. Người rành máy tính vẫn đọc được mã trong code, nên đừng dùng nó để giấu thông tin quan trọng.
 
 ## Lưu ý
 

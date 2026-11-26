@@ -107,7 +107,8 @@ button{font:inherit;color:inherit}
   <aside class="side" id="side" aria-label="Khối lớp và chủ đề">
     <h2>📚 Khối lớp</h2>
     <div id="menu"></div>
-    <p class="side-note">Bấm khối lớp để mở danh sách chủ đề.</p>
+    <p class="side-note">Bấm khối lớp để mở danh sách chủ đề. Mỗi khối có mã PIN riêng.</p>
+    <button class="relock" type="button" id="lockAll" hidden style="margin:12px 6px 0">🔐 Khóa tất cả</button>
   </aside>
   <div class="backdrop" id="backdrop"></div>
 
@@ -174,11 +175,13 @@ function find(gid,lid,tid){
 }
 const topicName=(l,t)=>(l.topics.find(x=>x[0]===t)||[])[1]||'';
 
+const locked=id=>!!PIN&&!PIN.gradeOk(id);
 function renderMenu(){
+  $('#lockAll').hidden=!(PIN&&(PIN.anyGradeOpen()||PIN.isUnlocked()));
   $('#menu').innerHTML=GRADES.map(g=>{
     const open=openGrade===g.id;const n=g.lessons.reduce((a,l)=>a+l.topics.length,0);
     return `<div style="--c:var(--${g.c});--c-soft:var(--${g.c}-soft)">
-      <button class="parent" type="button" data-g="${g.id}" aria-expanded="${open}" aria-controls="ch-${g.id}"><span class="dot"></span>${esc(g.name)}<span class="cnt">${n} chủ đề</span><span class="chev" aria-hidden="true">▶</span></button>
+      <button class="parent" type="button" data-g="${g.id}" aria-expanded="${open}" aria-controls="ch-${g.id}"><span class="dot"></span>${esc(g.name)}<span class="cnt">${locked(g.id)?'🔒 cần mã PIN':n+' chủ đề'}</span><span class="chev" aria-hidden="true">▶</span></button>
       <ul class="children" id="ch-${g.id}" ${open?'':'hidden'}>${g.lessons.map(l=>`<li><div class="lesson-h"><span aria-hidden="true">${l.ic}</span>${esc(l.name)}</div>
         <ul style="list-style:none;margin:0;padding:0">${l.topics.map(([tid,tn])=>{const on=cur&&cur.g===g&&cur.l===l&&cur.t===tid&&tab==='lesson';
           return `<li><button class="child" type="button" data-g="${g.id}" data-l="${l.id}" data-t="${tid}" aria-current="${on}">${esc(tn)}</button></li>`}).join('')}</ul></li>`).join('')}</ul></div>`;
@@ -186,7 +189,7 @@ function renderMenu(){
 }
 function renderGrades(){
   $('#grades').innerHTML=GRADES.map(g=>`<button class="gcard" type="button" data-g="${g.id}" style="--c:var(--${g.c})"><h3>${esc(g.name)}</h3><span class="muted" style="color:var(--muted)">${esc(g.note)}</span>
-    <ul>${g.lessons.map(l=>`<li>${l.ic} ${esc(l.name)} <span style="color:var(--muted);font-weight:500">· ${l.topics.length} chủ đề</span></li>`).join('')}</ul><span class="go">Xem chủ đề →</span></button>`).join('');
+    <ul>${g.lessons.map(l=>`<li>${l.ic} ${esc(l.name)} <span style="color:var(--muted);font-weight:500">· ${l.topics.length} chủ đề</span></li>`).join('')}</ul><span class="go">${locked(g.id)?'🔒 Nhập mã PIN để vào':'Xem chủ đề →'}</span></button>`).join('');
 }
 
 const frame=$('#frame');
@@ -218,6 +221,7 @@ function updateChrome(){
 function select(gid,lid,tid,opts){
   opts=opts||{};
   const r=find(gid,lid,tid);if(!r)return;
+  if(locked(gid)){PIN.unlockGrade(gid,()=>select(gid,lid,tid,opts));return;}
   cur=r;openGrade=r.g.id;tab='lesson';
   const h=`#${r.g.id}/${r.l.id}/${r.t}`;
   if(location.hash!==h)history.replaceState(null,'',h);
@@ -236,17 +240,22 @@ $('#menu').addEventListener('click',e=>{
   const c=e.target.closest('.child');
   if(c){select(c.dataset.g,c.dataset.l,c.dataset.t);return;}
   const p=e.target.closest('.parent');
+  if(p&&locked(p.dataset.g)){const id=p.dataset.g;PIN.unlockGrade(id,()=>{openGrade=id;renderMenu();renderGrades();const f=document.querySelector(`#ch-${id} .child`);if(f)f.focus();});return;}
   if(p){openGrade=openGrade===p.dataset.g?null:p.dataset.g;renderMenu();
     const first=document.querySelector(`#ch-${p.dataset.g} .child`);if(first&&openGrade)first.focus({preventScroll:true});}
 });
-$('#grades').addEventListener('click',e=>{const g=e.target.closest('.gcard');if(!g)return;openGrade=g.dataset.g;renderMenu();openDrawer();
+$('#grades').addEventListener('click',e=>{const g=e.target.closest('.gcard');if(!g)return;
+  if(locked(g.dataset.g)){const id=g.dataset.g;PIN.unlockGrade(id,()=>{openGrade=id;renderMenu();renderGrades();openDrawer();const f=document.querySelector(`#ch-${id} .child`);if(f)f.focus();});return;}
+  openGrade=g.dataset.g;renderMenu();openDrawer();
   const first=document.querySelector(`#ch-${g.dataset.g} .child`);if(first)first.focus();});
 $('#tabLesson').addEventListener('click',()=>{if(!cur)return;tab='lesson';goFrame(cur.l.file,cur.t);renderMenu();updateChrome();});
 $('#tabAnswer').addEventListener('click',showAnswers);
 $('#relock').addEventListener('click',()=>{if(PIN)PIN.lock();if(cur&&tab==='answers'){tab='lesson';goFrame(cur.l.file,cur.t);}renderMenu();updateChrome();
   try{frame.contentWindow.LopHocPIN&&frame.contentWindow.LopHocPIN.refresh();}catch(e){}});
 $('#homeLink').addEventListener('click',e=>{e.preventDefault();goHome();});
-if(PIN)PIN.onChange(()=>{updateChrome();try{frame.contentWindow.LopHocPIN&&frame.contentWindow.LopHocPIN.refresh();}catch(e){}
+$('#lockAll').addEventListener('click',()=>{if(!PIN)return;PIN.lockAll();openGrade=null;goHome();renderGrades();});
+if(PIN)PIN.onChange(()=>{updateChrome();renderMenu();renderGrades();
+  if(cur&&locked(cur.g.id)){goHome();return;}try{frame.contentWindow.LopHocPIN&&frame.contentWindow.LopHocPIN.refresh();}catch(e){}
   if(PIN&&!PIN.isUnlocked()&&tab==='answers'&&cur){tab='lesson';goFrame(cur.l.file,cur.t);renderMenu();updateChrome();}});
 
 /* Keep sidebar in sync when the lesson's own menu changes the section */
