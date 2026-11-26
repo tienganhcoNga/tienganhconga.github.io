@@ -83,6 +83,15 @@ h3.sub{margin:30px 0 12px;font-size:1.4rem;color:var(--sky)}
 .btn:hover{border-color:var(--sky);color:var(--sky)}
 .btn.primary{background:var(--sky);border-color:var(--sky);color:var(--surface)}
 .btn.primary:hover{color:var(--surface);filter:brightness(1.08)}
+.btn.check{background:#FFB020;border:2px solid #E09400;color:#1C2A36;font-weight:800;padding:7px 20px;border-radius:12px;box-shadow:0 3px 0 #B87400}
+.btn.check:hover{background:#FFC24D;color:#1C2A36}
+.btn.check:active{transform:translateY(2px);box-shadow:0 1px 0 #B87400}
+.keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.keys .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.keys h3{font-size:1.15rem;color:var(--sky);margin-bottom:6px}
+.keys ol{margin:0;padding-left:1.6em;font-size:.95rem}
+.keys li{margin:3px 0}
+.keys li b{color:var(--ok)}
 .row-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
 
 /* Vocab */
@@ -300,6 +309,7 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
     <a href="#practice">Luyện đề</a>
     <a href="#copy">Tập chép</a>
     <a href="#games">Game</a>
+    <a href="#answers" class="ans-link">🔒 Đáp án</a>
   </div>
 </nav>
 
@@ -386,9 +396,16 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
     <div class="games" id="gameLinks"></div>
   </section>
 
+  <section id="answers">
+    <div class="sec-head"><h2>Đáp án</h2><span class="en">Answer key</span>
+      <p class="muted">Bảng đáp án toàn bộ phần Luyện đề, dành cho giáo viên và phụ huynh.</p></div>
+    <div id="answerBox"></div>
+  </section>
+
   <footer>Tài liệu ôn thi IOE Tiếng Anh lớp 4. <a href="../index.html">← Về trang chủ</a></footer>
 </main>
 
+<script src="../assets/pin.js"></script>
 <script>
 (function(){
 "use strict";
@@ -815,9 +832,9 @@ function renderPanel(){
   const m=MODES.find(x=>x.id===mode); done[mode]={};
   let html=`<div class="head"><p class="muted">${m.tip}</p><div class="row-tools" style="margin:0"><span class="score" id="pScore">${scoreText()}</span><button class="btn" type="button" id="pReset">↺ Làm lại</button></div></div><ol class="items">`;
   if(mode==='fill') html+=FILL.map(([s],i)=>`<li class="item" data-i="${i}"><div class="stem"><span>${esc(s).replace(/(\S*)_(\S*)/,'<span style="white-space:nowrap">$1<input class="blank" maxlength="1" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Chữ cái còn thiếu">$2</span>')}</span></div></li>`).join('');
-  if(mode==='order') html+=ORDER.map(([w],i)=>{let sh=shuffle(w.map((x,k)=>k));return `<li class="item" data-i="${i}"><div class="stem"><span class="muted">${esc(w.join(' / '))}</span></div><div class="row"><div class="built" aria-label="Câu của em"></div></div><div class="row"><div class="tray">${sh.map(k=>`<button class="tile" type="button" data-k="${k}">${esc(w[k])}</button>`).join('')}</div><button class="btn" type="button" data-check>Kiểm tra</button></div></li>`}).join('');
+  if(mode==='order') html+=ORDER.map(([w],i)=>{let sh=shuffle(w.map((x,k)=>k));return `<li class="item" data-i="${i}"><div class="stem"><span class="muted">${esc(w.join(' / '))}</span></div><div class="row"><div class="built" aria-label="Câu của em"></div></div><div class="row"><div class="tray">${sh.map(k=>`<button class="tile" type="button" data-k="${k}">${esc(w[k])}</button>`).join('')}</div><button class="btn check" type="button" data-check>Kiểm tra</button></div></li>`}).join('');
   if(mode==='mcq') html+=MCQ.map(([q,o],i)=>`<li class="item" data-i="${i}"><div class="stem"><span>${esc(q)}</span>${sayBtn(q.replace('___','blank'),'câu hỏi')}</div><div class="row">${o.map((x,k)=>`<button class="opt" type="button" data-k="${k}">${String.fromCharCode(65+k)}. ${esc(x)}</button>`).join('')}</div></li>`).join('');
-  if(mode==='verb') html+=VERB.map(([q,a],i)=>{let n=0;const s=esc(q).replace(/___/g,()=>`<input class="vin" data-b="${n++}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Chỗ trống ${n}">`);return `<li class="item" data-i="${i}"><div class="stem"><span>${s}</span></div><div class="row"><button class="btn" type="button" data-check>Kiểm tra</button></div></li>`}).join('');
+  if(mode==='verb') html+=VERB.map(([q,a],i)=>{let n=0;const s=esc(q).replace(/___/g,()=>`<input class="vin" data-b="${n++}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Chỗ trống ${n}">`);return `<li class="item" data-i="${i}"><div class="stem"><span>${s}</span></div><div class="row"><button class="btn check" type="button" data-check>Kiểm tra</button></div></li>`}).join('');
   if(mode==='err') html+=ERR.map(([s],i)=>`<li class="item" data-i="${i}"><div class="stem"><span>${s.split(' ').map((t,k)=>`<button class="tok" type="button" data-k="${k}">${esc(t)}</button>`).join(' ')}</span></div></li>`).join('');
   html+='</ol>';
   $('#pPanel').innerHTML=html;
@@ -857,10 +874,12 @@ function checkVerb(item,i){
   ins.forEach((inp,k)=>{const ok=q[1][k].some(a=>norm(a)===norm(inp.value));inp.classList.toggle('right',ok);inp.classList.toggle('wrong',!ok);if(!ok)all=false;});
   if(all){item.dataset.solved=1;ins.forEach(x=>x.readOnly=true);mark(i,!item.dataset.missed);item.querySelector('[data-check]').remove();item.insertAdjacentHTML('beforeend',explainHTML('✔ '+esc(q[2])));}
   else{item.dataset.missed=1;miss(i);
-    if(!item.querySelector('.explain')) item.insertAdjacentHTML('beforeend',`<div class="explain bad"><span>Chưa đúng, thử lại nhé. <button class="btn" type="button" data-show style="padding:0 8px">Xem đáp án</button></span></div>`);}
+    if(!item.querySelector('.explain')) item.insertAdjacentHTML('beforeend',`<div class="explain bad"><span>Chưa đúng, thử lại nhé. <button class="btn" type="button" data-show style="padding:0 8px">🔒 Xem đáp án</button></span></div>`);}
 }
 $('#pPanel').addEventListener('click',e=>{
-  const b=e.target.closest('[data-show]');if(!b)return;const item=b.closest('.item');const i=+item.dataset.i;const q=VERB[i];
+  const b=e.target.closest('[data-show]');if(!b)return;
+  if(window.LopHocPIN&&!LopHocPIN.isUnlocked()){LopHocPIN.unlock(()=>b.click());return;}
+  const item=b.closest('.item');const i=+item.dataset.i;const q=VERB[i];
   item.querySelectorAll('.vin').forEach((inp,k)=>{inp.value=q[1][k][0];inp.classList.remove('wrong');inp.classList.add('right');inp.readOnly=true;});
   item.dataset.solved=1;const c=item.querySelector('[data-check]');if(c)c.remove();
   b.closest('.explain').outerHTML=explainHTML('Đáp án: '+q[1].map(a=>'<b>'+esc(a[0])+'</b>').join(' / ')+' · '+esc(q[2]),true);
@@ -959,6 +978,21 @@ const nWords=TOPICS.reduce((a,t)=>a+t.words.length,0);
 const nPractice=FILL.length+ORDER.length+MCQ.length+VERB.length+ERR.length;
 $('#stats').innerHTML=`<span class="stat"><b>${nWords}</b>từ vựng</span><span class="stat"><b>${DLG.length}</b>hội thoại</span><span class="stat"><b>${nPractice}</b>câu luyện</span><span class="stat"><b>${PATTERNS.length}</b>dạng câu</span>`;
 renderTopicChips();renderWords();renderTabs();renderPanel();
+
+/* ---------- Answer key (PIN) ---------- */
+if(window.LopHocPIN){
+  const L='ABCD';
+  LopHocPIN.guard($('#answerBox'),box=>{
+    const ol=(title,items)=>`<div class="card"><h3>${title}</h3><ol>${items.map(x=>`<li>${x}</li>`).join('')}</ol></div>`;
+    box.innerHTML=`<div class="keys">`+
+      ol('✏️ Điền chữ cái',FILL.map(([s,a,w])=>`<b>${esc(a)}</b> → ${esc(w)}`))+
+      ol('🧩 Sắp xếp câu',ORDER.map(([w,a])=>`<b>${esc(a[0])}</b>`))+
+      ol('🔘 Trắc nghiệm',MCQ.map(([q,o,k])=>`<b>${L[k]}. ${esc(o[k])}</b>`))+
+      ol('🔁 Chia động từ',VERB.map(([q,a])=>`<b>${a.map(x=>esc(x[0])).join(' / ')}</b>`))+
+      ol('🔍 Tìm lỗi sai',ERR.map(([s,k,fix])=>`<b>${esc(fix)}</b>`))+`</div>`;
+  });
+  LopHocPIN.onChange(u=>document.querySelectorAll('.ans-link').forEach(a=>a.textContent=(u?'🔓':'🔒')+' Đáp án'));
+}
 })();
 </script>
 </body>

@@ -236,6 +236,7 @@ footer{padding-block:40px 32px;color:var(--muted);font-size:.88rem}
     <a href="#days">4. Ngày lễ</a>
     <a href="#tips">5. Mẹo nhớ & từ vựng</a>
     <a href="#quiz">6. Luyện đề 45 câu</a>
+    <a href="#answers" class="ans-link">🔒 Đáp án</a>
   </div>
 </nav>
 
@@ -341,15 +342,21 @@ footer{padding-block:40px 32px;color:var(--muted);font-size:.88rem}
         <button class="btn" id="shuffle" type="button">Trộn thứ tự câu hỏi</button>
         <button class="btn" id="retryWrong" type="button">Chỉ làm lại câu sai</button>
         <button class="btn" id="reset" type="button">Làm lại từ đầu</button>
-        <button class="btn" id="toggleKey" type="button" aria-expanded="false">Xem bảng đáp án (cho giáo viên)</button>
+        <a class="btn" href="#answers" style="text-decoration:none;text-align:center">🔒 Bảng đáp án (cho giáo viên)</a>
       </aside>
     </div>
-    <div class="key" id="key" hidden></div>
+  </section>
+
+  <section id="answers">
+    <div class="sec-head"><h2>Đáp án 45 câu</h2><span class="en">Answer key</span>
+      <p class="muted">Dành cho giáo viên và phụ huynh.</p></div>
+    <div id="answerBox"></div>
   </section>
 
   <footer>Nội dung theo tài liệu “IOE Grade 4 – Vietnamese History and Landmarks”. Câu 41: từ 1/7/2025 tỉnh Quảng Nam hợp nhất vào TP Đà Nẵng, nên Hội An thuộc TP Đà Nẵng.</footer>
 </main>
 
+<script src="../assets/pin.js"></script>
 <script>
 (function(){
 const $ = s => document.querySelector(s);
@@ -702,8 +709,14 @@ function retryWrong(){const w=order.filter(qi=>picks[qi]!==Q[qi][2]);if(!w.lengt
 $('#retryWrong').onclick=retryWrong;
 $('#shuffle').onclick=()=>{order=Q.map((_,i)=>i);for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}picks={};pos=0;render()};
 $('#reset').onclick=()=>{order=Q.map((_,i)=>i);picks={};pos=0;render()};
-$('#toggleKey').onclick=function(){const k=$('#key');k.hidden=!k.hidden;this.setAttribute('aria-expanded',String(!k.hidden));this.textContent=k.hidden?'Xem bảng đáp án (cho giáo viên)':'Ẩn bảng đáp án'};
-$('#key').innerHTML=Q.map((q,i)=>`<div class="num">${i+1}. <b>${L[q[2]]}</b></div>`).join('');
+if(window.LopHocPIN){
+  LopHocPIN.guard($('#answerBox'),box=>{
+    box.innerHTML=`<div class="key">${Q.map((q,i)=>`<div class="num">${i+1}. <b>${L[q[2]]}</b></div>`).join('')}</div>
+      <div class="tbl-wrap"><table><thead><tr><th>Câu</th><th>Câu hỏi</th><th>Đáp án</th></tr></thead><tbody>${
+      Q.map((q,i)=>`<tr><td class="num">${i+1}</td><td>${esc(q[0])}</td><td><b>${L[q[2]]}. ${esc(q[1][q[2]])}</b><br><small class="muted">${q[3]}</small></td></tr>`).join('')}</tbody></table></div>`;
+  });
+  LopHocPIN.onChange(u=>document.querySelectorAll('.ans-link').forEach(a=>a.textContent=(u?'🔓':'🔒')+' Đáp án'));
+}
 render();
 
 $('#stats').innerHTML=[[evCount,'mốc lịch sử'],[HEROES.length,'nhân vật'],[placeCount,'địa danh'],[Q.length,'câu luyện đề']].map(([n,t])=>`<span class="stat num"><b>${n}</b>${t}</span>`).join('');

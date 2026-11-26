@@ -169,6 +169,7 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
     <a href="#positions">Positions</a>
     <a href="#room">Find the objects</a>
     <a href="#plants">Plants</a>
+    <a href="#answers" class="ans-link">🔒 Đáp án</a>
   </div>
 </nav>
 
@@ -247,9 +248,16 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
     </div>
   </section>
 
+  <section id="answers">
+    <div class="sec-head"><h2>Đáp án</h2><span class="en">Answer key</span>
+      <p class="muted">Dành cho giáo viên và phụ huynh.</p></div>
+    <div id="answerBox"></div>
+  </section>
+
   <footer>Bài học Tiếng Anh lớp 1. <a href="../index.html">← Về trang chủ</a></footer>
 </main>
 
+<script src="../assets/pin.js"></script>
 <script>
 (function(){
 "use strict";
@@ -482,6 +490,18 @@ $('#plantChoices').addEventListener('click',e=>{
   else{b.classList.add('wrong');shakeIt(b);}
 });
 renderPlant();
+
+/* ---------- Answer key (PIN) ---------- */
+if(window.LopHocPIN){
+  LopHocPIN.guard($('#answerBox'),box=>{
+    const ol=(t,items)=>`<div class="card"><h3 style="color:var(--sky);margin-bottom:6px">${t}</h3><ol style="margin:0;padding-left:1.5em">${items.map(x=>`<li>${x}</li>`).join('')}</ol></div>`;
+    box.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">`+
+      ol('Where is …? (Task 1)',SCENES.filter(s=>!s.ex).map(s=>`${esc(s.q)} → <b>It is ${esc(s.ans)} ${esc(s.obj)}.</b>`))+
+      ol('Find the objects (Task 2)',ROOM.map(([a,b,ans])=>`${esc(a)} <b>${ans.map(esc).join(' / ')}</b> ${esc(b)}`))+
+      ol('Parts of a plant',NUMS.map(([n,p])=>`Number ${n}: <b>It is a ${PARTS[p][0]}.</b> (${PARTS[p][1]})`))+`</div>`;
+  });
+  LopHocPIN.onChange(u=>document.querySelectorAll('.ans-link').forEach(a=>a.textContent=(u?'🔓':'🔒')+' Đáp án'));
+}
 })();
 </script>
 </body>

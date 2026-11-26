@@ -12,111 +12,260 @@
   --bg:#F1F5F2; --surface:#FFFFFF; --ink:#1C2A36; --muted:#56676A; --line:#D3DFD8;
   --jade:#2A7A67; --jade-soft:#DBECE5; --lacquer:#B3332A; --lacquer-soft:#F6E1DD;
   --gold:#B98110; --gold-soft:#FAEFD3; --sky:#2F6F98; --sky-soft:#DCEAF3;
+  --bad:#B9352B; --bad-soft:#F8E0DC;
   --f-display:"Baloo 2","Be Vietnam Pro",system-ui,sans-serif;
   --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
-@media (prefers-color-scheme: dark){ :root{
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --bg:#0F171B; --surface:#17222A; --ink:#E6EEEA; --muted:#9DB0AD; --line:#2A3B41;
   --jade:#5DC1A5; --jade-soft:#15312A; --lacquer:#EE7A6C; --lacquer-soft:#3A1F1C;
-  --gold:#E8B84A; --gold-soft:#332811; --sky:#7DB7DA; --sky-soft:#142D3B; color-scheme:dark }}
+  --gold:#E8B84A; --gold-soft:#332811; --sky:#7DB7DA; --sky-soft:#142D3B;
+  --bad:#F2806F; --bad-soft:#3A1D19; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0F171B; --surface:#17222A; --ink:#E6EEEA; --muted:#9DB0AD; --line:#2A3B41;
+  --jade:#5DC1A5; --jade-soft:#15312A; --lacquer:#EE7A6C; --lacquer-soft:#3A1F1C;
+  --gold:#E8B84A; --gold-soft:#332811; --sky:#7DB7DA; --sky-soft:#142D3B;
+  --bad:#F2806F; --bad-soft:#3A1D19; color-scheme:dark }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.wrap{max-width:1000px;margin:0 auto;padding-block:40px 48px}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
 h1,h2,h3{font-family:var(--f-display);line-height:1.15;margin:0;text-wrap:balance}
-h1{font-size:clamp(2.4rem,7vw,3.8rem);font-weight:800}
-h1 span{color:var(--lacquer)}
-.lead{font-size:1.1rem;color:var(--muted);margin:10px 0 0;max-width:36em}
-.grade{margin-top:40px}
-.grade-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.grade-head .tag{font-family:var(--f-display);font-weight:800;font-size:1.5rem;color:var(--surface);background:var(--c);border-radius:10px;padding:2px 16px}
-.grade-head p{margin:0;color:var(--muted)}
-.lessons{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
-a.lesson{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:18px}
-a.lesson:hover{border-color:var(--c)}
-a.lesson:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.lesson .ic{font-size:2.6rem;line-height:1}
-.lesson h3{font-size:1.3rem}
-.lesson p{margin:0;font-size:.95rem;color:var(--muted)}
-.lesson .go{margin-top:auto;padding-top:6px;font-weight:700;color:var(--c)}
-div.lesson{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:18px}
-.lesson.wide{grid-column:1/-1}
-.topics{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.topics a{text-decoration:none;color:var(--ink);font-weight:700;background:var(--c-soft);border:2px solid var(--c);border-radius:999px;padding:4px 14px}
-.topics a:hover{background:var(--c);color:var(--surface)}
-.topics a:focus-visible{outline:3px solid var(--lacquer);outline-offset:2px}
-.soon{background:var(--c-soft);border:2px dashed var(--c);border-radius:16px;padding:18px;color:var(--ink)}
-.soon p{margin:4px 0 0;color:var(--muted);font-size:.95rem}
-footer{margin-top:48px;color:var(--muted);font-size:.85rem}
+button{font:inherit;color:inherit}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+
+.app{display:grid;grid-template-columns:290px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);height:100vh;height:100dvh}
+.top{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));background:var(--surface);border-bottom:1px solid var(--line);min-width:0}
+.brand{font-family:var(--f-display);font-weight:800;font-size:1.5rem;color:var(--ink);text-decoration:none;white-space:nowrap}
+.brand span{color:var(--lacquer)}
+.crumb{color:var(--muted);font-weight:600;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.menu-btn{display:none;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 12px;font-weight:700;cursor:pointer;white-space:nowrap}
+
+/* Sidebar: Parent (khối lớp) -> Child (chủ đề) */
+.side{background:var(--surface);border-right:1px solid var(--line);overflow-y:auto;padding:14px 12px 24px max(12px,env(safe-area-inset-left,0px))}
+.side h2{font-size:1.05rem;color:var(--muted);margin:2px 6px 8px}
+.parent{width:100%;display:flex;align-items:center;gap:10px;text-align:left;border:2px solid transparent;background:var(--c-soft);border-radius:12px;padding:9px 12px;margin-top:8px;font-weight:800;cursor:pointer;font-family:var(--f-display);font-size:1.15rem}
+.parent:hover{border-color:var(--c)}
+.parent .dot{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+.parent .cnt{margin-left:auto;font-family:var(--f-body);font-size:.8rem;font-weight:700;color:var(--muted)}
+.parent .chev{transition:transform .2s;color:var(--c)}
+.parent[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.children{list-style:none;margin:4px 0 6px;padding:0 0 0 14px;border-left:3px solid var(--c-soft);margin-left:16px}
+.lesson-h{display:flex;align-items:center;gap:6px;font-weight:800;font-size:.9rem;color:var(--c);margin:10px 0 2px 6px}
+.child{width:100%;text-align:left;border:0;background:transparent;border-radius:8px;padding:6px 10px;cursor:pointer;font-weight:500}
+.child:hover{background:var(--c-soft)}
+.child[aria-current="true"]{background:var(--c);color:var(--surface);font-weight:700}
+.side-note{margin:18px 6px 0;font-size:.82rem;color:var(--muted)}
+
+/* Main */
+.main{display:flex;flex-direction:column;min-height:0;min-width:0;padding:12px max(16px,env(safe-area-inset-right,0px)) 12px 16px;gap:10px}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.tab{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 16px;font-weight:700;cursor:pointer}
+.tab:hover{border-color:var(--sky)}
+.tab[aria-selected="true"]{background:var(--sky);border-color:var(--sky);color:var(--surface)}
+.tab:disabled{opacity:.45;cursor:not-allowed}
+.relock{border:1px solid var(--bad);background:var(--bad-soft);color:var(--bad);border-radius:10px;padding:7px 14px;font-weight:700;cursor:pointer}
+.open-full{margin-left:auto;color:var(--sky);font-weight:700;text-decoration:none;white-space:nowrap}
+.open-full:hover{text-decoration:underline}
+.frame{flex:1;min-height:0;width:100%;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+
+.welcome{overflow-y:auto;min-height:0;padding:8px 0 24px}
+.welcome h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:800}
+.welcome h1 span{color:var(--lacquer)}
+.welcome .lead{color:var(--muted);font-size:1.08rem;margin:8px 0 22px;max-width:40em}
+.grades{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.gcard{background:var(--surface);border:2px solid var(--line);border-top:8px solid var(--c);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px;text-align:left;cursor:pointer}
+.gcard:hover{border-color:var(--c)}
+.gcard h3{font-size:1.5rem;color:var(--c)}
+.gcard ul{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.gcard li{font-weight:600}
+.gcard .go{margin-top:auto;font-weight:800;color:var(--c)}
+
+.backdrop{display:none}
+@media (max-width:820px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .menu-btn{display:inline-block}
+  .brand{font-size:1.2rem}
+  .side{position:fixed;z-index:50;top:0;bottom:0;left:0;width:min(330px,86vw);transform:translateX(-102%);transition:transform .22s ease;box-shadow:0 10px 40px rgba(0,0,0,.25);padding-top:16px}
+  .side.open{transform:none}
+  .backdrop.show{display:block;position:fixed;inset:0;z-index:40;background:rgba(10,20,25,.4)}
+  .main{padding:10px 16px}
+  .tab{padding:7px 12px}
+  .open-full{margin-left:0}
+}
+@media (prefers-reduced-motion: reduce){ .side,.parent .chev{transition:none} }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>Lớp học <span>của cô</span></h1>
-    <p class="lead">Chọn lớp, bấm vào bài để học. Mỗi bài có hình ảnh, trò chơi và câu hỏi để các em tự luyện.</p>
+<div class="app">
+  <header class="top">
+    <button class="menu-btn" type="button" id="menuBtn" aria-controls="side" aria-expanded="false">☰ Chọn bài</button>
+    <a class="brand" href="#" id="homeLink">Lớp học <span>của cô</span></a>
+    <span class="crumb" id="crumb"></span>
   </header>
 
-  <section class="grade" style="--c:var(--gold);--c-soft:var(--gold-soft)">
-    <div class="grade-head"><span class="tag">Mẫu giáo</span><p>Học mà chơi, chơi mà học</p></div>
-    <div class="lessons">
-      <!-- Thêm bài mẫu giáo: copy khối <div class="lesson"> bên dưới, đổi href thành "mau-giao/ten-bai.html" -->
-      <div class="lesson wide">
-        <div class="ic" aria-hidden="true">🐮</div>
-        <h3>Luyện nói tiếng Anh: My English Speeches</h3>
-        <p>8 bài thuyết trình ngắn có hình vẽ. Chọn một chủ đề để vào thẳng bài:</p>
-        <div class="topics">
-          <a href="mau-giao/english-speeches.html#body">About Me &amp; My Body</a>
-          <a href="mau-giao/english-speeches.html#favorites">My Favorite Things</a>
-          <a href="mau-giao/english-speeches.html#sea">Animals in the Sea</a>
-          <a href="mau-giao/english-speeches.html#farm">Animals on the Farm</a>
-          <a href="mau-giao/english-speeches.html#can">Things I Can Do</a>
-          <a href="mau-giao/english-speeches.html#actions">What Animals Can Do</a>
-          <a href="mau-giao/english-speeches.html#colors">Animal Colors</a>
-          <a href="mau-giao/english-speeches.html#bodies">Animal Bodies</a>
-        </div>
+  <aside class="side" id="side" aria-label="Khối lớp và chủ đề">
+    <h2>📚 Khối lớp</h2>
+    <div id="menu"></div>
+    <p class="side-note">Bấm khối lớp để mở danh sách chủ đề.</p>
+  </aside>
+  <div class="backdrop" id="backdrop"></div>
+
+  <main class="main">
+    <div class="toolbar" id="toolbar" hidden>
+      <div role="tablist" aria-label="Chế độ xem" style="display:flex;gap:8px">
+        <button class="tab" type="button" role="tab" id="tabLesson" aria-selected="true">📖 Bài học</button>
+        <button class="tab" type="button" role="tab" id="tabAnswer" aria-selected="false">🔒 Đáp án</button>
       </div>
+      <button class="relock" type="button" id="relock" hidden>🔐 Khóa lại</button>
+      <a class="open-full" id="openFull" href="#" target="_blank" rel="noopener">Mở toàn trang ↗</a>
     </div>
-  </section>
 
-  <section class="grade" style="--c:var(--sky);--c-soft:var(--sky-soft)">
-    <div class="grade-head"><span class="tag">Lớp 1</span><p>Tiếng Anh</p></div>
-    <div class="lessons">
-      <!-- Thêm bài lớp 1: copy khối <div class="lesson"> bên dưới, đổi href thành "lop-1/ten-bai.html" -->
-      <div class="lesson wide">
-        <div class="ic" aria-hidden="true">🧒</div>
-        <h3>Tiếng Anh lớp 1: About Me, Positions, Plants</h3>
-        <p>Bài nói giới thiệu bản thân và cơ thể, hỏi đáp vị trí đồ vật, các bộ phận của cây. Chọn phần để vào thẳng:</p>
-        <div class="topics">
-          <a href="lop-1/tieng-anh-lop-1.html#about">About Me (bài nói)</a>
-          <a href="lop-1/tieng-anh-lop-1.html#body">My Body</a>
-          <a href="lop-1/tieng-anh-lop-1.html#positions">Where is …?</a>
-          <a href="lop-1/tieng-anh-lop-1.html#room">Find the objects</a>
-          <a href="lop-1/tieng-anh-lop-1.html#plants">Parts of a plant</a>
-        </div>
-      </div>
+    <div class="welcome" id="welcome">
+      <h1>Lớp học <span>của cô</span></h1>
+      <p class="lead">Chọn khối lớp, rồi chọn chủ đề để học. Mỗi bài có hình ảnh, giọng đọc, trò chơi và câu hỏi để các em tự luyện.</p>
+      <div class="grades" id="grades"></div>
     </div>
-  </section>
 
-  <section class="grade" style="--c:var(--jade);--c-soft:var(--jade-soft)">
-    <div class="grade-head"><span class="tag">Lớp 4</span><p>Ôn thi IOE</p></div>
-    <div class="lessons">
-      <a class="lesson" href="lop-4/su-viet-ioe.html">
-        <div class="ic" aria-hidden="true">🥁</div>
-        <h3>Sử Việt cho IOE</h3>
-        <p>Dòng thời gian, đoán nhân vật, địa danh, ngày lễ, mẹo nhớ và 45 câu luyện đề.</p>
-        <span class="go">Vào học →</span>
-      </a>
-      <a class="lesson" href="lop-4/tieng-anh-ioe.html">
-        <div class="ic" aria-hidden="true">🔤</div>
-        <h3>Tiếng Anh IOE lớp 4</h3>
-        <p>Từ vựng 12 chủ đề có giọng đọc, ngữ pháp bằng hình, 11 hội thoại, 99 câu luyện đề và phiếu tập chép.</p>
-        <span class="go">Vào học →</span>
-      </a>
-    </div>
-  </section>
-
-  <footer>Trang học tập dành cho học sinh.</footer>
+    <iframe class="frame" id="frame" title="Bài học" hidden></iframe>
+  </main>
 </div>
+
+<script src="assets/pin.js"></script>
+<script>
+(function(){
+"use strict";
+/* ===== Danh sách bài học =====
+   Parent = khối lớp, mỗi khối có các bài (lessons), mỗi bài có các chủ đề (topics).
+   Thêm bài mới: thêm một mục vào "lessons" của khối tương ứng.
+   - file: đường dẫn tới file bài học
+   - topics: [mã chủ đề trong bài (phần sau dấu #), tên hiển thị]
+   - answers: true nếu bài có phần Đáp án (mục #answers trong bài) */
+const GRADES=[
+ {id:'mau-giao',name:'Mẫu giáo',c:'gold',note:'Học mà chơi, chơi mà học',lessons:[
+  {id:'speeches',ic:'🐮',name:'My English Speeches',file:'mau-giao/english-speeches.html',answers:false,topics:[
+   ['body','About Me & My Body'],['favorites','My Favorite Things'],['sea','Animals in the Sea'],['farm','Animals on the Farm'],
+   ['can','Things I Can Do'],['actions','What Animals Can Do'],['colors','Animal Colors'],['bodies','Animal Bodies']]}]},
+ {id:'lop-1',name:'Lớp 1',c:'sky',note:'Tiếng Anh',lessons:[
+  {id:'tieng-anh',ic:'🧒',name:'Tiếng Anh lớp 1',file:'lop-1/tieng-anh-lop-1.html',answers:true,topics:[
+   ['about','About Me (bài nói)'],['body','My Body'],['positions','Where is …?'],['room','Find the objects'],['plants','Parts of a plant']]}]},
+ {id:'lop-4',name:'Lớp 4',c:'jade',note:'Ôn thi IOE',lessons:[
+  {id:'tieng-anh',ic:'🔤',name:'Tiếng Anh IOE',file:'lop-4/tieng-anh-ioe.html',answers:true,topics:[
+   ['vocab','Từ vựng'],['grammar','Ngữ pháp'],['dates','Ngày & tháng'],['talk','Hội thoại'],['practice','Luyện đề'],['copy','Tập chép'],['games','Game ôn thêm']]},
+  {id:'su-viet',ic:'🥁',name:'Sử Việt IOE',file:'lop-4/su-viet-ioe.html',answers:true,topics:[
+   ['timeline','Dòng thời gian'],['heroes','Đoán nhân vật'],['places','Địa danh'],['days','Ngày lễ'],['tips','Mẹo nhớ & từ vựng'],['quiz','Luyện đề 45 câu']]}]}];
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const PIN=window.LopHocPIN;
+let openGrade=null, cur=null, tab='lesson';  // cur = {g,l,t}
+
+function find(gid,lid,tid){
+  const g=GRADES.find(x=>x.id===gid);if(!g)return null;
+  const l=g.lessons.find(x=>x.id===lid)||g.lessons[0];
+  const t=(l.topics.find(x=>x[0]===tid)||l.topics[0])[0];
+  return {g,l,t};
+}
+const topicName=(l,t)=>(l.topics.find(x=>x[0]===t)||[])[1]||'';
+
+function renderMenu(){
+  $('#menu').innerHTML=GRADES.map(g=>{
+    const open=openGrade===g.id;const n=g.lessons.reduce((a,l)=>a+l.topics.length,0);
+    return `<div style="--c:var(--${g.c});--c-soft:var(--${g.c}-soft)">
+      <button class="parent" type="button" data-g="${g.id}" aria-expanded="${open}" aria-controls="ch-${g.id}"><span class="dot"></span>${esc(g.name)}<span class="cnt">${n} chủ đề</span><span class="chev" aria-hidden="true">▶</span></button>
+      <ul class="children" id="ch-${g.id}" ${open?'':'hidden'}>${g.lessons.map(l=>`<li><div class="lesson-h"><span aria-hidden="true">${l.ic}</span>${esc(l.name)}</div>
+        <ul style="list-style:none;margin:0;padding:0">${l.topics.map(([tid,tn])=>{const on=cur&&cur.g===g&&cur.l===l&&cur.t===tid&&tab==='lesson';
+          return `<li><button class="child" type="button" data-g="${g.id}" data-l="${l.id}" data-t="${tid}" aria-current="${on}">${esc(tn)}</button></li>`}).join('')}</ul></li>`).join('')}</ul></div>`;
+  }).join('');
+}
+function renderGrades(){
+  $('#grades').innerHTML=GRADES.map(g=>`<button class="gcard" type="button" data-g="${g.id}" style="--c:var(--${g.c})"><h3>${esc(g.name)}</h3><span class="muted" style="color:var(--muted)">${esc(g.note)}</span>
+    <ul>${g.lessons.map(l=>`<li>${l.ic} ${esc(l.name)} <span style="color:var(--muted);font-weight:500">· ${l.topics.length} chủ đề</span></li>`).join('')}</ul><span class="go">Xem chủ đề →</span></button>`).join('');
+}
+
+const frame=$('#frame');
+function frameFile(){try{return decodeURIComponent(frame.contentWindow.location.pathname.split('/').slice(-2).join('/'))}catch(e){return ''}}
+function goFrame(file,hash){
+  let same=false;
+  try{same=frame.getAttribute('src')&&frameFile()===file;}catch(e){}
+  if(same){
+    const w=frame.contentWindow;
+    if(w.location.hash==='#'+hash){const el=w.document.getElementById(hash);if(el)el.scrollIntoView();}
+    else w.location.hash=hash;
+  } else frame.src=file+'#'+hash;
+}
+function updateChrome(){
+  const has=!!cur;
+  $('#welcome').hidden=has; frame.hidden=!has; $('#toolbar').hidden=!has;
+  const unlocked=PIN?PIN.isUnlocked():false;
+  $('#tabAnswer').textContent=(unlocked?'🔓':'🔒')+' Đáp án';
+  $('#relock').hidden=!unlocked;
+  if(!has){$('#crumb').textContent='';return;}
+  $('#tabLesson').setAttribute('aria-selected',tab==='lesson');
+  $('#tabAnswer').setAttribute('aria-selected',tab==='answers');
+  $('#tabAnswer').disabled=!cur.l.answers;
+  $('#tabAnswer').title=cur.l.answers?'':'Bài này không có phần đáp án';
+  $('#crumb').textContent=`${cur.g.name} › ${cur.l.name} › ${tab==='answers'?'Đáp án':topicName(cur.l,cur.t)}`;
+  $('#openFull').href=cur.l.file+'#'+(tab==='answers'?'answers':cur.t);
+  frame.title=`${cur.l.name}: ${topicName(cur.l,cur.t)}`;
+}
+function select(gid,lid,tid,opts){
+  opts=opts||{};
+  const r=find(gid,lid,tid);if(!r)return;
+  cur=r;openGrade=r.g.id;tab='lesson';
+  const h=`#${r.g.id}/${r.l.id}/${r.t}`;
+  if(location.hash!==h)history.replaceState(null,'',h);
+  if(!opts.noFrame)goFrame(r.l.file,r.t);
+  renderMenu();updateChrome();closeDrawer();
+}
+function showAnswers(){
+  if(!cur||!cur.l.answers)return;
+  const go=()=>{tab='answers';goFrame(cur.l.file,'answers');renderMenu();updateChrome();};
+  if(PIN&&!PIN.isUnlocked())PIN.unlock(go);else go();
+}
+function goHome(){cur=null;tab='lesson';frame.removeAttribute('src');history.replaceState(null,'',location.pathname);renderMenu();updateChrome();}
+
+/* Events */
+$('#menu').addEventListener('click',e=>{
+  const c=e.target.closest('.child');
+  if(c){select(c.dataset.g,c.dataset.l,c.dataset.t);return;}
+  const p=e.target.closest('.parent');
+  if(p){openGrade=openGrade===p.dataset.g?null:p.dataset.g;renderMenu();
+    const first=document.querySelector(`#ch-${p.dataset.g} .child`);if(first&&openGrade)first.focus({preventScroll:true});}
+});
+$('#grades').addEventListener('click',e=>{const g=e.target.closest('.gcard');if(!g)return;openGrade=g.dataset.g;renderMenu();openDrawer();
+  const first=document.querySelector(`#ch-${g.dataset.g} .child`);if(first)first.focus();});
+$('#tabLesson').addEventListener('click',()=>{if(!cur)return;tab='lesson';goFrame(cur.l.file,cur.t);renderMenu();updateChrome();});
+$('#tabAnswer').addEventListener('click',showAnswers);
+$('#relock').addEventListener('click',()=>{if(PIN)PIN.lock();if(cur&&tab==='answers'){tab='lesson';goFrame(cur.l.file,cur.t);}renderMenu();updateChrome();
+  try{frame.contentWindow.LopHocPIN&&frame.contentWindow.LopHocPIN.refresh();}catch(e){}});
+$('#homeLink').addEventListener('click',e=>{e.preventDefault();goHome();});
+if(PIN)PIN.onChange(()=>{updateChrome();try{frame.contentWindow.LopHocPIN&&frame.contentWindow.LopHocPIN.refresh();}catch(e){}
+  if(PIN&&!PIN.isUnlocked()&&tab==='answers'&&cur){tab='lesson';goFrame(cur.l.file,cur.t);renderMenu();updateChrome();}});
+
+/* Keep sidebar in sync when the lesson's own menu changes the section */
+frame.addEventListener('load',()=>{
+  try{
+    const w=frame.contentWindow;
+    const sync=()=>{if(!cur)return;const h=w.location.hash.slice(1);
+      if(h==='answers'){if(tab!=='answers'){tab='answers';renderMenu();updateChrome();}return;}
+      if(cur.l.topics.some(x=>x[0]===h)&&(h!==cur.t||tab!=='lesson')){cur.t=h;tab='lesson';history.replaceState(null,'',`#${cur.g.id}/${cur.l.id}/${h}`);renderMenu();updateChrome();}};
+    w.addEventListener('hashchange',sync);
+  }catch(e){}
+});
+
+/* Mobile drawer */
+function openDrawer(){if(matchMedia('(max-width:820px)').matches){$('#side').classList.add('open');$('#backdrop').classList.add('show');$('#menuBtn').setAttribute('aria-expanded','true');}}
+function closeDrawer(){$('#side').classList.remove('open');$('#backdrop').classList.remove('show');$('#menuBtn').setAttribute('aria-expanded','false');}
+$('#menuBtn').addEventListener('click',()=>$('#side').classList.contains('open')?closeDrawer():openDrawer());
+$('#backdrop').addEventListener('click',closeDrawer);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#side').classList.contains('open'))closeDrawer();});
+
+/* Start: #lop-4/tieng-anh/vocab */
+function fromHash(){const [g,l,t]=location.hash.slice(1).split('/');if(g&&GRADES.some(x=>x.id===g))select(g,l,t);else{renderMenu();updateChrome();}}
+window.addEventListener('hashchange',fromHash);
+renderGrades();fromHash();
+})();
+</script>
 </body>
 </html>

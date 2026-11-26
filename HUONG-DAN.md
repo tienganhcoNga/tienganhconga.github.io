@@ -4,8 +4,10 @@
 
 ```
 lop-hoc/
-├── index.html              ← Trang chủ (Mẫu giáo + Lớp 4)
+├── index.html              ← Trang chủ: cột trái Khối lớp → Chủ đề, bên phải là bài học + tab Đáp án
 ├── .nojekyll               ← File rỗng, giữ nguyên (để GitHub không xử lý lại file)
+├── assets/
+│   └── pin.js              ← Khóa phần Đáp án bằng mã PIN (đổi mã PIN ở đây)
 ├── lop-1/
 │   └── tieng-anh-lop-1.html ← Tiếng Anh lớp 1 (About Me, cơ thể, vị trí, bộ phận của cây)
 ├── lop-4/
@@ -51,12 +53,22 @@ Xem thử trên máy: bấm đúp vào `index.html`.
 
 ## Các lần sau: thêm bài mới
 
-1. Bỏ file bài mới vào đúng thư mục (`mau-giao/` hoặc `lop-4/`).
-2. Mở `index.html`, copy một khối `<a class="lesson" ...> ... </a>` rồi sửa `href`, biểu tượng, tên bài và mô tả.
+1. Bỏ file bài mới vào đúng thư mục (`mau-giao/`, `lop-1/` hoặc `lop-4/`).
+2. Mở `index.html`, tìm danh sách `GRADES` (gần đầu phần `<script>`):
+   - Thêm bài vào `lessons` của khối lớp tương ứng: `id`, biểu tượng `ic`, tên `name`, đường dẫn `file`, danh sách chủ đề `topics` (mã chủ đề là phần sau dấu `#` trong bài).
+   - Ghi `answers: true` nếu bài có mục Đáp án (`<section id="answers">`).
+   - Muốn thêm khối lớp mới (ví dụ Mầm, Chồi, Lá): thêm một mục mới vào `GRADES`. Màu `c` chọn một trong: `gold`, `sky`, `jade`, `lacquer`.
 3. Đưa lên GitHub:
    - Cách A: vào repo, bấm **Add file → Upload files**, kéo file mới vào (giữ đúng thư mục), bấm **Commit**.
    - Cách B: `git add . && git commit -m "Them bai moi" && git push`
 4. Khoảng 1 phút sau trang tự cập nhật. Nếu chưa thấy thay đổi, nhấn Ctrl + F5.
+
+## Khóa Đáp án bằng mã PIN
+
+- Tab **Đáp án** luôn khóa sẵn. Bấm vào sẽ hiện ô nhập mã PIN, mặc định là **1234**.
+- Nhập đúng một lần thì mọi bài đều mở đáp án, cho đến khi đóng tab trình duyệt hoặc bấm **Khóa lại**.
+- Đổi mã PIN: mở `assets/pin.js`, sửa dòng `var PIN = "1234";`.
+- Đây chỉ là khóa để các em không bấm nhầm. Người rành máy tính vẫn xem được mã PIN trong code, nên đừng dùng nó để giấu thông tin quan trọng.
 
 ## Lưu ý
 
