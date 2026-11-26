@@ -111,6 +111,7 @@
         var who = P.chars[t[2] || 0];
         return '<div class="bub ' + ((t[2] || 0) === 2 ? "r" : "") + '" data-t="' + k + '"><span class="who" aria-hidden="true">' + who + '</span><button class="bb" type="button" data-t="' + k + '"><span class="en">' + esc(t[0]) + "</span></button></div>";
       }).join("") + "</div></div>";
+    h += songBlock(u);
     var gs = gamesOf(u);
     h += '<div class="block"><div class="b-head"><h3>3. Games</h3></div>' +
       '<div class="gtabs">' + gs.map(function (g, k) { return '<button class="chip" type="button" data-g="' + k + '" aria-pressed="' + (k === 0) + '">' + esc(g.name) + "</button>"; }).join("") + "</div>" +
@@ -119,6 +120,29 @@
     h += '<div class="u-nav">' + (prev ? '<a class="btn" href="#' + prev.id + '">← ' + esc(prev.n) + "</a>" : '<a class="btn" href="#lo-trinh">← Start</a>') +
       (next ? '<a class="btn primary" href="#' + next.id + '">' + esc(next.n) + ": " + esc(next.en) + " →</a>" : (P.next ? '<a class="btn primary" target="_top" href="' + P.next.href + '">' + esc(P.next.label) + " →</a>" : "")) + "</div>";
     return h;
+  }
+  /* ---------- bài hát ----------
+     Unit khai báo song:{t, verses:[{ic, cue:[gợi ý EN, gợi ý VI], lines:[câu (có <b>)], vi:"nghĩa"}]}.
+     Trong bài chỉ hiện tiếng Anh; nghĩa và gợi ý động tác tiếng Việt nằm ở cẩm nang. */
+  function songBlock(u) {
+    if (!u.song) return "";
+    var s = u.song;
+    return '<div class="block song" id="song"><div class="b-head"><h3>🎵 Let&#39;s sing!</h3><span class="muted">' + esc(s.t) + '</span><button class="btn" type="button" data-act="all-song">▶ Listen to all</button></div>' +
+      '<p class="muted">Sing and do the actions! Tap a picture to hear it.</p><div class="verses">' +
+      s.verses.map(function (v, k) {
+        return '<button class="verse c-' + NOTE_C[k % NOTE_C.length] + '" type="button" data-verse="' + k + '"><span class="v-art" aria-hidden="true">' + v.ic + '</span><span class="v-lines">' +
+          v.lines.map(function (l) { return '<span class="v-line">' + l + "</span>"; }).join("") + "</span>" + cueTag(v.cue && v.cue[0]) + "</button>";
+      }).join("") + "</div></div>";
+  }
+  /* đọc lần lượt các dòng của bài hát, tô sáng dòng đang đọc */
+  function singLines(els) {
+    if (!hasSpeech || !els.length) return;
+    speechSynthesis.cancel();
+    els.forEach(function (el) {
+      speak(plain(el.innerHTML), { queue: true, rate: 0.85,
+        onstart: function () { $$(".v-line.on,.verse.on").forEach(function (x) { x.classList.remove("on"); }); el.classList.add("on"); el.closest(".verse").classList.add("on"); },
+        onend: function () { el.classList.remove("on"); } });
+    });
   }
   function vis(o, big) {
     if (o.x && o.x.color) return '<span class="ball" style="--c:' + o.x.color + '" aria-hidden="true"></span>';
@@ -283,10 +307,12 @@
       if (act === "cmd") nextCmd(false);
       if (act === "cmd-again" && G.i >= 0) nextCmd(true);
       if (act === "all-words") { if (hasSpeech) speechSynthesis.cancel(); var cards = $$(".card"); cur.words.forEach(function (w, k) { speak(w[1].replace(/ \/ /g, ", "), { queue: true, onstart: function () { cards.forEach(function (c) { c.classList.remove("on"); }); cards[k].classList.add("on"); }, onend: function () { cards[k].classList.remove("on"); } }); }); }
+      if (act === "all-song") singLines($$(".verses .v-line"));
       if (act === "all-talk") { if (hasSpeech) speechSynthesis.cancel(); var bs = $$(".bub"); cur.talk.forEach(function (x, k) { speak(x[0], { queue: true, voice: x[2] || 0, onstart: function () { bs.forEach(function (c) { c.classList.remove("on"); }); bs[k].classList.add("on"); }, onend: function () { bs[k].classList.remove("on"); } }); }); }
       return;
     }
     var gt = t.closest(".gtabs .chip"); if (gt) { startGame(+gt.getAttribute("data-g")); return; }
+    var vs = t.closest(".verse"); if (vs) { singLines($$(".v-line", vs)); return; }
     var card = t.closest(".card");
     if (card) { var w = cur.words[+card.getAttribute("data-w")]; card.classList.add("on", "zoom"); speak(w[1].replace(/ \/ /g, ", "), { onend: function () { card.classList.remove("on"); } }); setTimeout(function () { card.classList.remove("zoom"); }, 450); return; }
     var bb = t.closest(".bb"); if (bb) { var x = cur.talk[+bb.getAttribute("data-t")]; speak(x[0], { voice: x[2] || 0 }); return; }
@@ -569,6 +595,8 @@
     var h = '<details class="gmean"><summary>📖 Nghĩa tiếng Việt của từ, câu và bài nói</summary>' +
       '<h4>Từ mới</h4><p class="gwords">' + u.words.map(function (w) { return "<span><b>" + esc(w[1]) + "</b> " + esc(w[2]) + "</span>"; }).join("") + "</p>" +
       "<h4>Nói theo nào</h4><ul>" + u.talk.map(function (t) { return "<li><i>" + esc(t[0]) + "</i> → " + esc(t[1]) + "</li>"; }).join("") + "</ul>";
+    if (u.song) h += "<h4>🎵 Bài hát: " + esc(u.song.t) + "</h4><ul>" + u.song.verses.map(function (v) {
+      return "<li><i>" + v.lines.map(plain).join(" / ") + "</i> → " + esc(v.vi || "") + (v.cue ? ' <span class="gact">(' + esc(v.cue[0]) + " → " + esc(v.cue[1]) + ")</span>" : "") + "</li>"; }).join("") + "</ul>";
     var act = function (en, vi) { return vi ? ' <span class="gact">(' + esc(en || "") + " → " + esc(vi) + ")</span>" : ""; };
     spList(u).forEach(function (s) {
       h += "<h4>🎤 Bài nói: " + esc(s.t) + "</h4><ul>" +
