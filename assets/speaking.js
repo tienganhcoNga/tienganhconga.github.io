@@ -125,17 +125,18 @@
     }).join("");
     var th = D.tableHead || ["Bài ôn", "Học sau", "Từ vựng của", "5 bài nói"];
     return '<div class="u-head"><span class="u-ic" aria-hidden="true">🗺️</span><div><div class="u-n">' + esc(D.guideName || "Lộ trình") + "</div><h2>" + esc(D.guideTitle || "Ôn tập nói") + "</h2>" +
-      '<div class="u-vi">' + esc(D.guideSub || "Cứ học xong vài Unit thì có một buổi ôn nói, gom lại toàn bộ từ đã học.") + "</div></div></div>" +
+      (D.guideSub === "" ? "" : '<div class="u-vi">' + esc(D.guideSub || "Cứ học xong vài Unit thì có một buổi ôn nói, gom lại toàn bộ từ đã học.") + "</div>") + "</div></div>" +
       '<div class="block sk-guide">' + D.guide + "</div>" +
       '<div class="block"><div class="b-head"><h3>' + esc(D.tableTitle || "Lịch ôn tập") + '</h3></div><div class="sk-tw"><table class="sk-t"><thead><tr>' + th.map(function (h) { return "<th>" + esc(h) + "</th>"; }).join("") + "</tr></thead><tbody>" + rows + "</tbody></table></div></div>" +
-      '<div class="block"><div class="b-head"><h3>5 kiểu bài nói</h3></div><div class="sk-types">' +
+      /* guideTypes: false = không hiện khối giải thích 5 kiểu bài nói */
+      (D.guideTypes === false ? "" : '<div class="block"><div class="b-head"><h3>5 kiểu bài nói</h3></div><div class="sk-types">' +
       [["talk", "Hai bạn (hoặc cô và bé) hỏi – đáp. Bấm “Be A / Be B”: máy đọc vai kia, đến lượt bé thì máy chờ."],
         ["story", "Nhìn tranh kể lại một câu chuyện có mở đầu, rắc rối và kết thúc. Bé kể ở ngôi thứ ba: <i>He… She… The dog…</i>"],
         ["show", "Đứng trước lớp giới thiệu một thứ: đồ chơi, gia đình, con vật… Có câu chào và câu cảm ơn."],
         ["compare", "Hai bé đứng cạnh nhau, mỗi bé nói một bên. Câu ở giữa cả hai cùng nói. Luyện <i>but / too / both</i>."],
         ["me", "Bé kể chuyện của chính mình theo thứ tự: <i>First… Then… Finally…</i> Bé thay chi tiết thật của mình vào."]]
         .map(function (x) { var T = TYPES[x[0]]; return '<div class="sk-type"><span class="e" aria-hidden="true">' + T.ic + "</span><b>" + T.vi + "</b><small>" + T.en + "</small><p>" + x[1] + "</p></div>"; }).join("") +
-      "</div></div>";
+      "</div></div>");
   }
 
   function bank(r) {
@@ -228,12 +229,13 @@
     var idx = D.reviews.indexOf(r);
     return '<div class="u-head"><span class="u-ic" aria-hidden="true">' + r.ic + '</span><div><div class="u-n">' + esc(r.n) + " · " + esc(r.span) + "</div><h2>" + esc(r.title) + "</h2></div></div>" +
       '<div class="sk-map" aria-label="Units">' + r.units.map(function (id) { var u = D.units[id]; return '<span class="' + (r.fresh.indexOf(id) >= 0 ? "new" : "") + '" title="' + esc(u.n + ": " + u.en) + '">' + u.ic + "</span>"; }).join("") + "</div>" +
-      bank(r) +
-      '<div class="sk-tabs" role="tablist">' + r.tasks.map(function (t, k) {
+      (D.cards && !r.noCards && hasEx(r) ? cardsBlock(r) : bank(r)) + (D.games && !r.noGames ? gamesBlock(r) : "") +
+      /* mục chỉ có từ và trò chơi (tasks rỗng) thì không có phần bài nói */
+      (r.tasks.length ? '<div class="sk-tabs" role="tablist">' + r.tasks.map(function (t, k) {
         var T = TYPES[t.type];
         return '<button class="sk-tab" type="button" role="tab" data-ti="' + k + '" aria-selected="' + (k === cur.ti) + '"><span class="e" aria-hidden="true">' + T.ic + "</span><b>" + esc(T.en) + "</b><small>" + (t.badge ? esc(t.badge) + " · " : "") + fill(t.title) + "</small></button>";
       }).join("") + "</div>" +
-      '<div id="taskBox">' + taskView(r, cur.ti) + "</div>" +
+      '<div id="taskBox">' + taskView(r, cur.ti) + "</div>" : "") +
       '<div class="u-nav">' + (idx > 0 ? '<a class="btn" href="#' + D.reviews[idx - 1].id + '">← ' + esc(D.reviews[idx - 1].n) + "</a>" : '<a class="btn" href="#lo-trinh">← 🗺️</a>') +
       (idx < D.reviews.length - 1 ? '<a class="btn primary" href="#' + D.reviews[idx + 1].id + '">' + esc(D.reviews[idx + 1].n) + " →</a>" : "") + "</div>";
   }
@@ -418,6 +420,157 @@
     var o = $("#skStage"); if (o) o.remove(); document.documentElement.classList.remove("sk-lock");
     if (ST) { ST = null; if (hasSpeech) speechSynthesis.cancel(); }
   }
+
+  /* ---------- thẻ từ có câu ví dụ (D.cards) ----------
+     Từ trong kho: [hình, từ, nghĩa, câu ví dụ (có <b>), nghĩa câu]. Bấm thẻ: đọc từ rồi đọc câu. */
+  function poolOf(r) {
+    var ids = r.fresh && r.fresh.length ? r.fresh : r.units, seen = {}, out = [];
+    ids.forEach(function (id) { (D.units[id] ? D.units[id].w : []).forEach(function (w) { if (!seen[w[1]]) { seen[w[1]] = 1; out.push({ ic: w[0], w: w[1], ex: w[3] || "" }); } }); });
+    return out;
+  }
+  function hasEx(r) { return poolOf(r).some(function (x) { return x.ex; }); }
+  function cardsBlock(r) {
+    var P = poolOf(r);
+    return '<div class="block sk-words" id="words"><div class="b-head"><h3>📚 Words</h3><span class="muted">' + P.length + ' words · Tap a card to listen</span>' +
+      '<button class="btn" type="button" data-g="allwords">▶ Play all</button></div><div class="sk-wcards">' +
+      P.map(function (x, k) {
+        return '<button class="sk-wc" type="button" data-card="' + k + '"><span class="sk-wic" aria-hidden="true">' + icon(x.ic) + '</span><span class="sk-ww">' + esc(x.w) + "</span>" +
+          (x.ex ? '<span class="sk-wex">' + fill(x.ex) + "</span>" : "") + "</button>";
+      }).join("") + "</div></div>";
+  }
+  function sayCard(x, el, then) {
+    if (el) { $$(".sk-wc").forEach(function (c) { c.classList.remove("on"); }); el.classList.add("on"); }
+    speak(x.w, { rate: 0.8, onend: function () {
+      if (!x.ex) { if (el) el.classList.remove("on"); if (then) then(); return; }
+      setTimeout(function () { speak(plain(fill(x.ex)), { onend: function () { if (el) el.classList.remove("on"); if (then) then(); } }); }, 250);
+    } });
+  }
+
+  /* ---------- trò chơi với từ của bài (D.games) ---------- */
+  var GAMES = [["listen", "👂", "Listen and choose"], ["look", "👀", "Look and choose"], ["fill", "✏️", "Fill the gap"], ["memory", "🎴", "Memory"], ["say", "🎤", "Say it!"]];
+  var G = null;
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function gamesBlock(r) {
+    var P = poolOf(r), ex = P.some(function (x) { return x.ex; });
+    return '<div class="block sk-games" id="games"><div class="b-head"><h3>🎮 Games</h3><span class="muted">Play with the words</span></div>' +
+      '<div class="sk-gtabs">' + GAMES.filter(function (g) { return g[0] !== "fill" || ex; }).map(function (g) {
+        return '<button class="chip" type="button" data-g="start" data-gt="' + g[0] + '" aria-pressed="false">' + g[1] + " " + g[2] + "</button>";
+      }).join("") + '</div><div class="sk-gbox" id="gameBox"><p class="muted sk-gstart">Choose a game! 👆</p></div></div>';
+  }
+  function options(item, n, key) {
+    /* lựa chọn sai: khác từ, khác hình (để không có hai đáp án giống nhau) */
+    var others = shuffle(G.pool.filter(function (x) { return x.w !== item.w && x[key] !== item[key]; })), picked = [], seen = {};
+    seen[item[key]] = 1;
+    others.forEach(function (x) { if (picked.length < n - 1 && !seen[x[key]]) { seen[x[key]] = 1; picked.push(x); } });
+    return shuffle(picked.concat([item]));
+  }
+  function gameStart(type) {
+    var r = cur.r; if (!r) return;
+    var pool = poolOf(r);
+    if (type === "fill") pool = pool.filter(function (x) { return x.ex; });
+    G = { type: type, pool: pool, list: shuffle(pool).slice(0, Math.min(8, pool.length)), i: 0, score: 0, miss: false };
+    $$(".sk-gtabs .chip").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-gt") === type ? "true" : "false"); });
+    if (type === "memory") return memStart();
+    gameShow();
+  }
+  function gTop() { return '<div class="sk-gtop"><span>' + (G.i + 1) + " / " + G.list.length + "</span><span>⭐ " + G.score + "</span></div>"; }
+  function gameShow() {
+    var box = $("#gameBox"); if (!box || !G) return;
+    if (G.i >= G.list.length) return gameEnd();
+    var it = G.list[G.i]; G.miss = false;
+    if (G.type === "listen") {
+      box.innerHTML = gTop() + '<div class="sk-gq"><button class="sk-sbtn go" type="button" data-g="hear">🔊 Listen</button></div><div class="sk-opts pics">' +
+        options(it, 4, "ic").map(function (o) { return '<button class="sk-opt" type="button" data-g="ans" data-w="' + esc(o.w) + '" aria-label="picture">' + icon(o.ic) + "</button>"; }).join("") + "</div>";
+      setTimeout(function () { speak(it.w, { rate: 0.8 }); }, 300);
+    } else if (G.type === "look") {
+      box.innerHTML = gTop() + '<div class="sk-gq"><span class="sk-gpic" aria-hidden="true">' + icon(it.ic) + '</span><span class="muted">What is it?</span></div><div class="sk-opts words">' +
+        options(it, 4, "w").map(function (o) { return '<button class="sk-opt" type="button" data-g="ans" data-w="' + esc(o.w) + '">' + esc(o.w) + "</button>"; }).join("") + "</div>";
+    } else if (G.type === "fill") {
+      var gap = fill(it.ex).replace(/<b>[\s\S]*?<\/b>/, '<span class="sk-gap">____</span>');
+      box.innerHTML = gTop() + '<div class="sk-gq col"><span class="sk-gpic sm" aria-hidden="true">' + icon(it.ic) + '</span><p class="sk-gsent">' + gap + '</p></div><div class="sk-opts words">' +
+        options(it, 3, "w").map(function (o) { return '<button class="sk-opt" type="button" data-g="ans" data-w="' + esc(o.w) + '">' + esc(o.w) + "</button>"; }).join("") + "</div>";
+    } else if (G.type === "say") {
+      box.innerHTML = gTop() + '<div class="sk-gq col"><span class="sk-gpic" aria-hidden="true">' + icon(it.ic) + '</span><p class="sk-gword" id="gWord" hidden>' + esc(it.w) + "</p>" +
+        '<p class="sk-gmsg" id="gMsg">' + (SR ? "Say the word!" : "Say the word, then check!") + "</p></div>" +
+        '<div class="sk-ctl">' + (SR ? '<button class="sk-sbtn go" type="button" data-g="mic">🎤 Say it</button>' : "") +
+        '<button class="sk-sbtn" type="button" data-g="hint">🔊 Help</button>' +
+        '<button class="sk-sbtn" type="button" data-g="said">' + (SR ? "Next ▶" : "✓ I said it!") + "</button></div>";
+    }
+  }
+  function gameAnswer(btn) {
+    var it = G.list[G.i], ok = btn.getAttribute("data-w") === it.w;
+    if (!ok) { btn.classList.add("bad"); btn.disabled = true; G.miss = true; chime(false); return; }
+    if (!G.miss) G.score++;
+    btn.classList.add("ok"); $$(".sk-opt").forEach(function (b) { b.disabled = true; }); chime(true);
+    var next = function () { G.i++; gameShow(); };
+    if (G.type === "fill") { var s = $(".sk-gsent"); if (s) s.innerHTML = fill(it.ex); speak(plain(fill(it.ex)), { onend: function () { setTimeout(next, 500); } }); }
+    else { speak(it.w, { rate: 0.8 }); setTimeout(next, 1300); }
+  }
+  function sayResult(ok) {
+    var it = G.list[G.i], m = $("#gMsg"), w = $("#gWord"); if (w) w.hidden = false;
+    if (ok) { if (!G.miss) G.score++; chime(true); if (m) m.textContent = "🎉 Great!"; setTimeout(function () { G.i++; gameShow(); }, 1200); }
+    else { G.miss = true; chime(false); if (m) m.textContent = "Try again! Listen: " + it.w; speak(it.w, { rate: 0.75 }); }
+  }
+  function micListen() {
+    var it = G.list[G.i], m = $("#gMsg"), rec;
+    try { rec = new SR(); } catch (e) { return; }
+    rec.lang = "en-US"; rec.interimResults = false; rec.maxAlternatives = 5;
+    if (m) m.textContent = "👂 Listening…";
+    rec.onresult = function (e) {
+      var target = it.w.toLowerCase(), heard = [];
+      for (var i = 0; i < e.results[0].length; i++) heard.push(e.results[0][i].transcript.toLowerCase());
+      sayResult(heard.some(function (h) { return h.indexOf(target) >= 0 || target.indexOf(h.trim()) >= 0 && h.trim().length > 2; }));
+    };
+    rec.onerror = function () { if (m) m.textContent = "Tap 🎤 and say it again!"; };
+    rec.start();
+  }
+  function memStart() {
+    var pick = shuffle(G.pool).filter(function (x, k, a) { return a.findIndex(function (y) { return y.ic === x.ic; }) === k; }).slice(0, 6), cards = [];
+    pick.forEach(function (x, k) { cards.push({ k: k, face: icon(x.ic), w: x.w, pic: true }, { k: k, face: esc(x.w), w: x.w }); });
+    G.cards = shuffle(cards); G.open = []; G.done = 0; G.moves = 0; G.pairs = pick.length;
+    $("#gameBox").innerHTML = '<div class="sk-gtop"><span>Find the pairs!</span><span id="gMoves">0 moves</span></div><div class="sk-mem">' +
+      G.cards.map(function (c, i) { return '<button class="sk-mc' + (c.pic ? " pic" : "") + '" type="button" data-g="flip" data-i="' + i + '"><span class="back">?</span><span class="face">' + c.face + "</span></button>"; }).join("") + "</div>";
+  }
+  function memFlip(btn) {
+    var i = +btn.getAttribute("data-i"), c = G.cards[i];
+    if (btn.classList.contains("up") || G.open.length >= 2) return;
+    btn.classList.add("up"); G.open.push({ i: i, el: btn }); if (!c.pic) speak(c.w, { rate: 0.85 });
+    if (G.open.length < 2) return;
+    G.moves++; var mv = $("#gMoves"); if (mv) mv.textContent = G.moves + " moves";
+    var a = G.open[0], b = G.open[1];
+    if (G.cards[a.i].k === G.cards[b.i].k) {
+      a.el.classList.add("ok"); b.el.classList.add("ok"); G.open = []; G.done++; chime(true);
+      if (G.done === G.pairs) { G.score = Math.max(0, G.pairs * 2 - G.moves + G.pairs); G.list = new Array(G.pairs * 2); setTimeout(gameEnd, 700); }
+    } else setTimeout(function () { a.el.classList.remove("up"); b.el.classList.remove("up"); G.open = []; }, 900);
+  }
+  function gameEnd() {
+    var n = G.type === "memory" ? G.pairs * 2 : G.list.length, ratio = Math.min(1, G.score / Math.max(1, n));
+    var stars = ratio >= 0.9 ? "⭐⭐⭐" : ratio >= 0.6 ? "⭐⭐" : "⭐";
+    $("#gameBox").innerHTML = '<div class="sk-gend"><div class="sk-stars">' + stars + "</div><p class=\"sk-sline\">" + (ratio >= 0.6 ? "Great job!" : "Good try!") + "</p>" +
+      (G.type === "memory" ? '<p class="muted">' + G.moves + " moves</p>" : '<p class="muted">' + G.score + " / " + n + "</p>") +
+      '<button class="btn primary" type="button" data-g="start" data-gt="' + G.type + '">↺ Play again</button></div>';
+    speak(ratio >= 0.6 ? "Great job!" : "Good try!"); if (ratio >= 0.9) confetti();
+  }
+  document.addEventListener("click", function (e) {
+    var card = e.target.closest("[data-card]");
+    if (card && cur.r) { if (hasSpeech) speechSynthesis.cancel(); sayCard(poolOf(cur.r)[+card.getAttribute("data-card")], card); return; }
+    var b = e.target.closest("[data-g]"); if (!b) return;
+    var a = b.getAttribute("data-g");
+    if (a === "allwords" && cur.r) {
+      var P = poolOf(cur.r), els = $$(".sk-wc"), k = 0;
+      (function nx() { if (k >= P.length) return; var x = P[k], el = els[k]; k++; if (el) el.scrollIntoView({ block: "nearest", behavior: "smooth" }); sayCard(x, el, function () { setTimeout(nx, 400); }); })();
+      return;
+    }
+    if (a === "start") { gameStart(b.getAttribute("data-gt")); return; }
+    if (!G) return;
+    if (a === "hear") speak(G.list[G.i].w, { rate: 0.75 });
+    if (a === "ans") gameAnswer(b);
+    if (a === "flip") memFlip(b);
+    if (a === "mic") micListen();
+    if (a === "hint") { G.miss = true; var w = $("#gWord"); if (w) w.hidden = false; speak(G.list[G.i].w, { rate: 0.75 }); }
+    if (a === "said") sayResult(true);
+  });
 
   /* ---------- sự kiện ---------- */
   document.addEventListener("click", function (e) {
