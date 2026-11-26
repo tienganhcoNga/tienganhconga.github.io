@@ -51,7 +51,8 @@ button{font:inherit;color:inherit}
 .parent .chev{transition:transform .2s;color:var(--c)}
 .parent[aria-expanded="true"] .chev{transform:rotate(90deg)}
 .children{list-style:none;margin:4px 0 6px;padding:0 0 0 14px;border-left:3px solid var(--c-soft);margin-left:16px}
-.lesson-h{display:flex;align-items:center;gap:6px;font-weight:800;font-size:.9rem;color:var(--c);margin:10px 0 2px 6px}
+.lesson-h{display:flex;align-items:center;gap:6px;font-weight:800;font-size:.9rem;color:var(--c);margin:10px 0 2px 0;padding:4px 6px;border-radius:8px;text-decoration:none;cursor:pointer}
+.lesson-h:hover{background:var(--c-soft)}
 .child{display:block;width:100%;text-align:left;border:0;background:transparent;border-radius:8px;padding:6px 10px;cursor:pointer;font-weight:500;color:inherit;text-decoration:none;font-size:inherit}
 .child:hover{background:var(--c-soft)}
 .child[aria-current="true"]{background:var(--c);color:var(--surface);font-weight:700}
@@ -107,7 +108,7 @@ button{font:inherit;color:inherit}
   <aside class="side" id="side" aria-label="Khối lớp và chủ đề">
     <h2>📚 Khối lớp</h2>
     <div id="menu"></div>
-    <p class="side-note">Bấm khối lớp để mở danh sách chủ đề. Mỗi khối có mã PIN riêng.</p>
+    <p class="side-note">Bấm khối lớp hoặc tên bài để mở ngay bài đầu tiên. Mỗi khối có mã PIN riêng.</p>
     <button class="relock" type="button" id="lockAll" hidden style="margin:12px 6px 0">🔐 Khóa tất cả</button>
   </aside>
   <div class="backdrop" id="backdrop"></div>
@@ -124,7 +125,7 @@ button{font:inherit;color:inherit}
 
     <div class="welcome" id="welcome">
       <h1>Lớp học <span>của cô</span></h1>
-      <p class="lead">Chọn khối lớp, rồi chọn chủ đề để học. Mỗi bài có hình ảnh, giọng đọc, trò chơi và câu hỏi để các em tự luyện.</p>
+      <p class="lead">Bấm vào khối lớp để vào học ngay. Mỗi bài có hình ảnh, giọng đọc, trò chơi và câu hỏi để các em tự luyện.</p>
       <div class="grades" id="grades"></div>
     </div>
 
@@ -186,14 +187,14 @@ function renderMenu(){
     const open=openGrade===g.id;const n=g.lessons.reduce((a,l)=>a+l.topics.length,0);
     return `<div style="--c:var(--${g.c});--c-soft:var(--${g.c}-soft)">
       <button class="parent" type="button" data-g="${g.id}" aria-expanded="${open}" aria-controls="ch-${g.id}"><span class="dot"></span>${esc(g.name)}<span class="cnt">${locked(g.id)?'🔒 cần mã PIN':n+' chủ đề'}</span><span class="chev" aria-hidden="true">▶</span></button>
-      <ul class="children" id="ch-${g.id}" ${open?'':'hidden'}>${g.lessons.map(l=>`<li><div class="lesson-h"><span aria-hidden="true">${l.ic}</span>${esc(l.name)}</div>
+      <ul class="children" id="ch-${g.id}" ${open?'':'hidden'}>${g.lessons.map(l=>`<li><a class="lesson-h" href="#${g.id}/${l.id}/${l.topics[0][0]}" data-g="${g.id}" data-l="${l.id}"><span aria-hidden="true">${l.ic}</span>${esc(l.name)}</a>
         <ul style="list-style:none;margin:0;padding:0">${l.topics.map(([tid,tn])=>{const on=cur&&cur.g===g&&cur.l===l&&cur.t===tid&&tab==='lesson';
           return `<li><a class="child" href="#${g.id}/${l.id}/${tid}" data-g="${g.id}" data-l="${l.id}" data-t="${tid}" aria-current="${on}">${esc(tn)}</a></li>`}).join('')}</ul></li>`).join('')}</ul></div>`;
   }).join('');
 }
 function renderGrades(){
   $('#grades').innerHTML=GRADES.map(g=>`<button class="gcard" type="button" data-g="${g.id}" style="--c:var(--${g.c})"><h3>${esc(g.name)}</h3><span class="muted" style="color:var(--muted)">${esc(g.note)}</span>
-    <ul>${g.lessons.map(l=>`<li>${l.ic} ${esc(l.name)} <span style="color:var(--muted);font-weight:500">· ${l.topics.length} chủ đề</span></li>`).join('')}</ul><span class="go">${locked(g.id)?'🔒 Nhập mã PIN để vào':'Xem chủ đề →'}</span></button>`).join('');
+    <ul>${g.lessons.map(l=>`<li>${l.ic} ${esc(l.name)} <span style="color:var(--muted);font-weight:500">· ${l.topics.length} chủ đề</span></li>`).join('')}</ul><span class="go">${locked(g.id)?'🔒 Nhập mã PIN để vào':'Vào học →'}</span></button>`).join('');
 }
 
 const frame=$('#frame');
@@ -245,15 +246,17 @@ const newTabClick=e=>e.ctrlKey||e.metaKey||e.shiftKey||e.button===1;
 $('#menu').addEventListener('click',e=>{
   const c=e.target.closest('.child');
   if(c){if(newTabClick(e))return;e.preventDefault();select(c.dataset.g,c.dataset.l,c.dataset.t);return;}
+  /* Bấm tên bài: mở luôn chủ đề đầu tiên của bài đó */
+  const h=e.target.closest('.lesson-h');
+  if(h){if(newTabClick(e))return;e.preventDefault();select(h.dataset.g,h.dataset.l);return;}
+  /* Bấm khối lớp: mở luôn bài đầu tiên của khối (nếu đang ở khối đó thì chỉ đóng/mở danh sách) */
   const p=e.target.closest('.parent');
-  if(p&&locked(p.dataset.g)){const id=p.dataset.g;PIN.unlockGrade(id,()=>{openGrade=id;renderMenu();renderGrades();const f=document.querySelector(`#ch-${id} .child`);if(f)f.focus();});return;}
-  if(p){openGrade=openGrade===p.dataset.g?null:p.dataset.g;renderMenu();
-    const first=document.querySelector(`#ch-${p.dataset.g} .child`);if(first&&openGrade)first.focus({preventScroll:true});}
+  if(!p)return;
+  const id=p.dataset.g;
+  if(cur&&cur.g.id===id){openGrade=openGrade===id?null:id;renderMenu();return;}
+  select(id);
 });
-$('#grades').addEventListener('click',e=>{const g=e.target.closest('.gcard');if(!g)return;
-  if(locked(g.dataset.g)){const id=g.dataset.g;PIN.unlockGrade(id,()=>{openGrade=id;renderMenu();renderGrades();openDrawer();const f=document.querySelector(`#ch-${id} .child`);if(f)f.focus();});return;}
-  openGrade=g.dataset.g;renderMenu();openDrawer();
-  const first=document.querySelector(`#ch-${g.dataset.g} .child`);if(first)first.focus();});
+$('#grades').addEventListener('click',e=>{const g=e.target.closest('.gcard');if(!g)return;select(g.dataset.g);});
 $('#tabLesson').addEventListener('click',e=>{if(!cur)return;
   if(newTabClick(e)){window.open(`#${cur.g.id}/${cur.l.id}/${cur.t}`,'_blank');return;}
   tab='lesson';goFrame(cur.l.file,cur.t);renderMenu();updateChrome();});
