@@ -19,7 +19,17 @@
     var u = new SpeechSynthesisUtterance(text); u.lang = "en-US"; u.rate = o.rate || 0.8;
     if (voices.length) u.voice = voices[0];
     if (o.onstart) u.onstart = o.onstart; if (o.onend) { u.onend = o.onend; u.onerror = o.onend; }
+    window.__lastUtt = u; // keep a reference: Chrome can drop onend for utterances that get garbage-collected
     speechSynthesis.speak(u);
+  }
+  /* Speak, then run next() only after the speech has finished (and at least minMs after starting).
+     A fallback timer moves on if the browser never reports the end. */
+  function sayThen(text, next, minMs) {
+    var t0 = Date.now(), fired = false;
+    var go = function () { if (fired) return; fired = true; setTimeout(next, Math.max(250, minMs - (Date.now() - t0))); };
+    if (!hasSpeech) { go(); return; }
+    speak(text, { onend: go });
+    setTimeout(go, minMs + 6000);
   }
   var clean = function (w) { return w.replace(/ \/ /g, ", "); };
   var sayBtn = function (t) { return '<button class="say" type="button" data-say="' + esc(t) + '" aria-label="Nghe: ' + esc(t) + '">' + SPK + "</button>"; };
@@ -63,6 +73,7 @@
 
   /* games */
   function startGame(kind) {
+    if (hasSpeech) speechSynthesis.cancel();
     document.querySelectorAll(".gtabs .chip").forEach(function (c) { c.setAttribute("aria-pressed", c.getAttribute("data-g") === kind); });
     var pool = cur.words.map(function (w, k) { return k; });
     game = { kind: kind, order: shuffle(pool).slice(0, Math.min(8, pool.length)), i: 0, ok: 0, miss: false };
@@ -78,7 +89,7 @@
     var k = game.order[game.i], w = cur.words[k];
     var others = shuffle(cur.words.map(function (x, j) { return j; }).filter(function (j) { return j !== k && cur.words[j][0] !== w[0]; })).slice(0, 3);
     var opts = shuffle([k].concat(others));
-    game.ans = k; game.miss = false;
+    game.ans = k; game.miss = false; game.answered = false;
     var prompt;
     if (game.kind === "listen") prompt = '<button class="btn primary big" type="button" id="hear">🔊 Nghe</button><span class="muted">Nghe rồi bấm vào hình đúng</span>';
     else if (game.kind === "read") prompt = '<span class="read-w">' + esc(w[1]) + "</span>" + sayBtn(clean(w[1]));
@@ -89,7 +100,7 @@
         var o = cur.words[j];
         return '<button class="g-opt" type="button" data-j="' + j + '" aria-label="' + esc(game.kind === "pic" ? o[1] : o[2]) + '">' + (game.kind === "pic" ? esc(o[1]) : '<span aria-hidden="true">' + o[0] + "</span>") + "</button>";
       }).join("") + "</div>";
-    if (game.kind === "listen") setTimeout(function () { speak(clean(w[1])); }, 250);
+    if (game.kind === "listen") { var g0 = game, i0 = game.i; setTimeout(function () { if (game === g0 && game.i === i0 && !game.answered) speak(clean(w[1])); }, 250); }
   }
   document.addEventListener("click", function (e) {
     var t = e.target;
@@ -100,10 +111,10 @@
     if (o && game && !o.disabled) {
       var j = +o.getAttribute("data-j"), w = cur.words[game.ans];
       if (j === game.ans) {
-        o.classList.add("right"); if (!game.miss) game.ok++;
+        o.classList.add("right"); game.answered = true; if (!game.miss) game.ok++;
         document.querySelectorAll(".g-opt").forEach(function (b) { b.disabled = true; });
-        speak("Yes! " + clean(w[1]));
-        setTimeout(function () { game.i++; round(); }, 1200);
+        var mine = game;
+        sayThen("Yes! " + clean(w[1]), function () { if (game === mine) { game.i++; round(); } }, 1000);
       } else { o.classList.add("wrong"); game.miss = true; o.disabled = true; }
       return;
     }

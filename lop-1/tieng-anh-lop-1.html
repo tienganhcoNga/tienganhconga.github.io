@@ -367,7 +367,18 @@ if(hasSpeech){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;}
 function speak(text,o){o=o||{};if(!hasSpeech)return;if(!o.queue)speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=o.rate||0.8;const w=o.voice||0;
   if(voices.length)u.voice=voices[w%voices.length];u.pitch=voices.length>1?1:(w%2?0.85:1.2);
-  if(o.onstart)u.onstart=o.onstart;if(o.onend){u.onend=o.onend;u.onerror=o.onend;}speechSynthesis.speak(u);}
+  if(o.onstart)u.onstart=o.onstart;if(o.onend){u.onend=o.onend;u.onerror=o.onend;}
+  window.__lastUtt=u; // keep a reference: Chrome can drop onend for utterances that get garbage-collected
+  speechSynthesis.speak(u);}
+/* Speak, then run next() only after the speech has finished (and at least minMs after starting).
+   A fallback timer moves on if the browser never reports the end. */
+function sayThen(text,next,minMs){
+  const t0=Date.now();let fired=false;
+  const go=()=>{if(fired)return;fired=true;setTimeout(next,Math.max(250,minMs-(Date.now()-t0)));};
+  if(!hasSpeech||!text){go();return;}
+  speak(text,{onend:go});
+  setTimeout(go,minMs+6000);
+}
 const sayBtn=t=>`<button class="say" type="button" data-say="${esc(t)}" aria-label="Nghe: ${esc(t)}">${SPK}</button>`;
 document.addEventListener('click',e=>{const b=e.target.closest('[data-say]');if(b){e.stopPropagation();speak(b.dataset.say);}});
 
@@ -465,8 +476,8 @@ $('#gHide').addEventListener('change',e=>document.querySelectorAll('.lbl').forEa
 function pickPart(lbl){
   const w=lbl.dataset.part;
   if(!gTarget){speak(w);return;}
-  if(w===gTarget){lbl.classList.add('right');gScore.n++;if(!gMissed)gScore.ok++;$('#gScore').textContent=`Đúng ${gScore.ok}/${gScore.n}`;speak(`Yes! This is my ${w}.`.replace('This is my','These are my').replace(/These are my (head|face|nose|mouth)\./,'This is my $1.'));
-    setTimeout(()=>{document.querySelectorAll('.lbl').forEach(l=>l.classList.remove('right','wrong'));nextAsk();},1600);}
+  if(w===gTarget){lbl.classList.add('right');gScore.n++;if(!gMissed)gScore.ok++;$('#gScore').textContent=`Đúng ${gScore.ok}/${gScore.n}`;sayThen(`Yes! This is my ${w}.`.replace('This is my','These are my').replace(/These are my (head|face|nose|mouth)\./,'This is my $1.'),
+      ()=>{document.querySelectorAll('.lbl').forEach(l=>l.classList.remove('right','wrong'));nextAsk();},1200);}
   else{lbl.classList.add('wrong');gMissed=true;setTimeout(()=>lbl.classList.remove('wrong'),700);}
 }
 $('#bodySvg').addEventListener('click',e=>{const l=e.target.closest('.lbl');if(l)pickPart(l);});
@@ -656,9 +667,9 @@ function miniGame(el,modes){
   const left=()=>Math.max(0,Math.ceil((g.end-Date.now())/1000));
   function stop(){if(g&&g.tick){clearInterval(g.tick);g.tick=null;}}
   function cur(){if(g.timed&&!g.list[g.i])g.list[g.i]=modes[g.m].gen(g.list[g.i-1]);return g.list[g.i];}
-  function start(i){
-    stop();el.querySelectorAll('.mg-chip').forEach(c=>c.setAttribute('aria-pressed',+c.dataset.m===i));
-    const m=modes[i];g={m:i,i:0,ok:0,miss:false,timed:!!m.timed,list:m.timed?[]:m.rounds()};
+  function start(i,quiet){
+    stop();if(hasSpeech&&!quiet)speechSynthesis.cancel();el.querySelectorAll('.mg-chip').forEach(c=>c.setAttribute('aria-pressed',+c.dataset.m===i));
+    const m=modes[i];g={m:i,i:0,ok:0,miss:false,quiet:!!quiet,timed:!!m.timed,list:m.timed?[]:m.rounds()};
     if(g.timed){g.end=Date.now()+60000;g.tick=setInterval(tick,250);}
     show();
   }
@@ -676,7 +687,7 @@ function miniGame(el,modes){
     const opts=r.opts.map((o,j)=>`<button class="mg-opt${r.sky?' mg-plane':''}" type="button" data-j="${j}" aria-label="${esc(o.label)}"${r.sky?` style="top:${8+j*86}px;--d:${(8+Math.random()*3).toFixed(1)}s;--dl:-${(Math.random()*7).toFixed(1)}s;--x:${5+j*30}%"`:''}>${o.html}</button>`).join('');
     box.innerHTML=`<div class="mg-top"><span>${g.timed?`<span class="mg-time">⏱️ ${left()}s</span>`:`Câu ${g.i+1}/${g.list.length}`}</span><span>⭐ ${g.ok}</span></div>`+
       `<div class="mg-prompt">${r.prompt}</div>`+(r.sky?`<div class="mg-sky">${opts}</div>`:`<div class="mg-opts${r.txt?' txt':''}">${opts}</div>`)+`<p class="mg-after" hidden></p>`;
-    if(r.say&&!g.timed){const mine=g;setTimeout(()=>{if(g===mine&&cur()===r)speak(r.say);},250);}
+    if(r.say&&!g.timed){const mine=g;if(!(g.quiet&&g.i===0))setTimeout(()=>{if(g===mine&&cur()===r&&!r.answered)speak(r.say);},250);}
   }
   el.addEventListener('click',e=>{
     const c=e.target.closest('.mg-chip');if(c){start(+c.dataset.m);return;}
@@ -684,15 +695,14 @@ function miniGame(el,modes){
     const o=e.target.closest('.mg-opt');if(!o||o.disabled||!g||(g.timed&&!g.tick))return;
     const r=cur(),mine=g;
     if(r.opts[+o.dataset.j].ok){
-      o.classList.add('right');if(!g.miss)g.ok++;
+      o.classList.add('right');r.answered=true;if(!g.miss)g.ok++;
       box.querySelectorAll('.mg-opt').forEach(b=>b.disabled=true);
       const sky=$('.mg-sky',box);if(sky)sky.classList.add('stop');
       if(r.reveal){const a=$('.mg-after',box);a.innerHTML=r.reveal;a.hidden=false;}
-      if(r.praise)speak(r.praise);
-      setTimeout(()=>{if(g===mine&&!(g.timed&&!g.tick)){g.i++;show();}},g.timed?500:(r.wait||1400));
+      sayThen(r.praise,()=>{if(g===mine&&!(g.timed&&!g.tick)){g.i++;show();}},g.timed?300:(r.wait||1200));
     }else{o.classList.add('wrong');o.disabled=true;g.miss=true;}
   });
-  start(0);
+  start(0,true); // on page load, don't read the first question aloud (the child presses 🔊 Nghe)
 }
 
 function topic(id,o){
