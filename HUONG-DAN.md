@@ -12,11 +12,11 @@ lop-hoc/
 │   ├── preschool.js / preschool.css ← Phần chạy chung cho lộ trình mẫu giáo (thẻ hình, hội thoại, trò chơi, cẩm nang)
 │   └── speaking.js / speaking.css   ← Phần chạy chung cho các trang "Ôn tập nói" và "Giáo án lớp 1"
 ├── lop-1/
-│   ├── giao-an-lop-1.html  ← Giáo án lớp 1: 16 Unit giao tiếp theo chủ đề sách trên lớp (mỗi Unit một chữ cái, 2 bài nói), Math 1–2 / Science 1–3 (tiếng Anh cho Toán – Khoa học), Story Time (5 truyện cổ tích), 8 bài nói về con vật (Easy / Challenge). Đã lọc bỏ mẫu câu vượt lớp 1
-│   ├── unit-lop-1.html     ← Units lớp 1: Starter + 9 Unit (mỗi Unit 4 Lesson: từ → mở rộng mẫu câu → truyện + Value → liên môn; Phonics & Chant; Games) + 4 Review; #lo-trinh = lộ trình và nghĩa tiếng Việt cho cô và phụ huynh. Phần chạy ở assets/units.js
+│   ├── giao-an-lop-1.html  ← Giáo án lớp 1: 16 Unit giao tiếp theo chủ đề sách trên lớp (mỗi Unit một chữ cái, 2 bài nói), Math / Science (tiếng Anh cho Toán – Khoa học), Story Time (5 truyện cổ tích), 8 bài nói về con vật (Easy / Challenge). Đã lọc bỏ mẫu câu vượt lớp 1. Menu Lớp 1 chỉ còn: Giáo án, Ôn tập nói, Bài tập về nhà
+│   ├── unit-lop-1.html     ← (đã bỏ khỏi menu, nội dung gom vào Giáo án) Units lớp 1: Starter + 9 Unit (mỗi Unit 4 Lesson: từ → mở rộng mẫu câu → truyện + Value → liên môn; Phonics & Chant; Games) + 4 Review; #lo-trinh = lộ trình và nghĩa tiếng Việt cho cô và phụ huynh. Phần chạy ở assets/units.js
 │   ├── on-tap-noi.html     ← Ôn tập nói lớp 1 theo 16 Unit của Giáo án: sau Unit 3, 5, 7, 9, 11, 13, 15 và Big Show; mỗi lần gom từ của tất cả Unit đã học, 5 kiểu bài nói
-│   ├── tieng-anh-lop-1.html ← Tiếng Anh lớp 1 (About Me, cơ thể, vị trí, bộ phận của cây, đồ dùng học tập, hình khối, đồ vật trong nhà, ôn tập, các phòng, hoạt động phòng tắm – phòng ngủ)
-│   └── chu-de-lop-1.html   ← Ôn 10 chủ đề (dữ liệu nằm trong file, phần chạy ở assets/course.js)
+│   ├── tieng-anh-lop-1.html ← (đã bỏ khỏi menu, nội dung gom vào Giáo án) Tiếng Anh lớp 1 (About Me, cơ thể, vị trí, bộ phận của cây, đồ dùng học tập, hình khối, đồ vật trong nhà, ôn tập, các phòng, hoạt động phòng tắm – phòng ngủ)
+│   └── chu-de-lop-1.html   ← (đã bỏ khỏi menu, phần hợp lớp 1 gom vào Giáo án) Ôn 10 chủ đề (dữ liệu nằm trong file, phần chạy ở assets/course.js)
 ├── lop-4/
 │   ├── units-lop-4.html    ← Từ vựng & Lộ trình lớp 4: #lo-trinh (lịch 35 tuần), #tu-dien (tra tất cả từ), #s, #u1…#u20 (từ, mẫu câu, hội thoại trong bài + lời bài nghe có đóng vai, 3 trò luyện từ). Từ ở assets/lop4-words.js, hội thoại ở assets/lop4-dialogues.js
 │   ├── on-tap-noi.html     ← Ôn tập nói lớp 4: sau Unit 3, rồi cứ 2 Unit một lần (5, 7, … 19), cuối năm Big Show; mỗi lần 5 kiểu bài nói
