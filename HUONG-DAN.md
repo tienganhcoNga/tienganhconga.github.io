@@ -20,7 +20,9 @@ lop-hoc/
 └── mau-giao/
     ├── giai-doan-1.html    ← Lộ trình 3 tháng đầu cho bé mới bắt đầu: 8 Unit, 24 buổi (#lo-trinh, #u1…#u8, #answers = cẩm nang)
     ├── giai-doan-2.html    ← Giai đoạn 2 (tháng 4–6): 8 Unit khó hơn, nhiều hội thoại
-    └── english-speeches.html ← Luyện nói tiếng Anh (8 chủ đề, mở thẳng một chủ đề bằng #farm, #sea...)
+    └── english-speeches.html ← Bản bài nói cũ (đã bỏ khỏi menu; bài nói nay nằm trong mục 4 "Bé thuyết trình" của từng Unit)
+
+Mỗi Unit mẫu giáo có mục "4. Bé thuyết trình". Nội dung bài nói nằm ở dòng `speech:{...}` ngay dưới `talk:` của Unit đó: `t` là tên bài, `intro` là câu mở đầu, `lines` là các câu (hình, câu tiếng Anh, nghĩa), `end` là câu kết. Từ nào muốn làm từ khóa (còn hiện khi bé tự nói) thì bọc trong `<b>…</b>`.
 
 Không ghi tên sách giáo khoa hay nhà xuất bản lên trang (vì bản quyền). Bài do cô tự soạn theo chủ đề.
 ```
