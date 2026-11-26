@@ -42,8 +42,12 @@
     ".pin-box{background:var(--surface,#fff);color:var(--ink,#1C2A36);border-radius:18px;padding:22px 20px;width:min(360px,100%);text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.3);font-family:var(--f-body,system-ui,sans-serif)}" +
     ".pin-box h4{margin:0 0 4px;font-family:var(--f-display,inherit);font-size:1.3rem}" +
     ".pin-box p{margin:0;color:var(--muted,#56676A);font-size:.92rem}" +
-    ".pin-box input[type=password]{width:100%;margin:14px 0 6px;padding:10px;font-size:1.6rem;letter-spacing:.4em;text-align:center;border:2px solid var(--line,#D3DFD8);border-radius:12px;background:var(--surface,#fff);color:inherit}" +
-    ".pin-box input[type=password]:focus{outline:none;border-color:var(--sky,#2F6F98)}" +
+    ".pin-field{position:relative;margin:14px 0 6px}" +
+    ".pin-field input{width:100%;padding:10px 52px;font-size:1.6rem;letter-spacing:.4em;text-align:center;border:2px solid var(--line,#D3DFD8);border-radius:12px;background:var(--surface,#fff);color:inherit}" +
+    ".pin-field input:focus{outline:none;border-color:var(--sky,#2F6F98)}" +
+    ".pin-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:40px;height:40px;border:0;border-radius:10px;background:transparent;cursor:pointer;display:grid;place-items:center;color:var(--muted,#56676A);padding:0}" +
+    ".pin-eye:hover{background:var(--sky-soft,#DCEAF3);color:var(--sky,#2F6F98)}" +
+    ".pin-eye svg{width:24px;height:24px}" +
     ".pin-rem{display:flex;gap:8px;align-items:center;justify-content:center;font-size:.9rem;color:var(--muted,#56676A);margin-bottom:4px}" +
     ".pin-err{color:var(--bad,#B9352B);font-size:.9rem;min-height:1.4em;font-weight:600}" +
     ".pin-row{display:flex;gap:10px;justify-content:center;margin-top:8px;flex-wrap:wrap}" +
@@ -60,17 +64,31 @@
     "html.grade-locked body>*:not(.pin-gate){visibility:hidden}";
   var st = document.createElement("style"); st.textContent = css; (document.head || document.documentElement).appendChild(st);
 
+  var EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var EYE_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.9 17.9A10.8 10.8 0 0 1 12 19C5 19 1 12 1 12a19.8 19.8 0 0 1 5.1-5.9M9.9 5.2A10 10 0 0 1 12 5c7 0 11 7 11 7a19.6 19.6 0 0 1-2.2 3.2M14.1 14.1a3 3 0 1 1-4.2-4.2"/><path d="M1 1l22 22"/></svg>';
+
   /* Hộp nhập PIN dùng chung. opt: {title, desc, check(value)->bool, remember, onOk, gate, homeHref} */
   function pinForm(opt, wrap) {
     wrap.innerHTML = '<div class="pin-box" role="dialog" aria-modal="true" aria-labelledby="pinT">' +
       (opt.gate ? '<div class="big" aria-hidden="true">🔒</div>' : "") +
       '<h4 id="pinT">' + opt.title + "</h4><p>" + opt.desc + "</p>" +
-      '<input type="password" inputmode="numeric" maxlength="8" autocomplete="off" aria-label="Mã PIN">' +
+      '<div class="pin-field"><input type="password" inputmode="numeric" maxlength="8" autocomplete="off" aria-label="Mã PIN">' +
+      '<button type="button" class="pin-eye" aria-label="Hiện mã đã nhập" aria-pressed="false" title="Hiện mã đã nhập">' + EYE + "</button></div>" +
       (opt.remember ? '<label class="pin-rem"><input type="checkbox"> Nhớ trên máy này</label>' : "") +
       '<div class="pin-err" aria-live="polite"></div><div class="pin-row">' +
       (opt.gate ? '<a href="' + opt.homeHref + '" target="_top">← Trang chủ</a>' : '<button type="button" class="pin-cancel">Hủy</button>') +
       '<button type="button" class="pin-ok">Mở khóa</button></div></div>';
-    var inp = wrap.querySelector("input[type=password]"), err = wrap.querySelector(".pin-err"), rem = wrap.querySelector(".pin-rem input");
+    var inp = wrap.querySelector(".pin-field input"), err = wrap.querySelector(".pin-err"), rem = wrap.querySelector(".pin-rem input");
+    var eye = wrap.querySelector(".pin-eye");
+    eye.onclick = function () {
+      var show = inp.type === "password";
+      inp.type = show ? "text" : "password";
+      eye.innerHTML = show ? EYE_OFF : EYE;
+      eye.setAttribute("aria-pressed", show);
+      eye.setAttribute("aria-label", show ? "Ẩn mã đã nhập" : "Hiện mã đã nhập");
+      eye.title = eye.getAttribute("aria-label");
+      inp.focus();
+    };
     function verify() {
       if (opt.check(inp.value.trim(), rem && rem.checked)) { if (opt.onOk) opt.onOk(); }
       else { err.textContent = "Sai mã PIN, thử lại nhé."; inp.select(); }
