@@ -687,7 +687,7 @@ function miniGame(el,modes){
     const opts=r.opts.map((o,j)=>`<button class="mg-opt${r.sky?' mg-plane':''}" type="button" data-j="${j}" aria-label="${esc(o.label)}"${r.sky?` style="top:${8+j*86}px;--d:${(8+Math.random()*3).toFixed(1)}s;--dl:-${(Math.random()*7).toFixed(1)}s;--x:${5+j*30}%"`:''}>${o.html}</button>`).join('');
     box.innerHTML=`<div class="mg-top"><span>${g.timed?`<span class="mg-time">⏱️ ${left()}s</span>`:`Câu ${g.i+1}/${g.list.length}`}</span><span>⭐ ${g.ok}</span></div>`+
       `<div class="mg-prompt">${r.prompt}</div>`+(r.sky?`<div class="mg-sky">${opts}</div>`:`<div class="mg-opts${r.txt?' txt':''}">${opts}</div>`)+`<p class="mg-after" hidden></p>`;
-    if(r.say&&!g.timed){const mine=g;if(!(g.quiet&&g.i===0))setTimeout(()=>{if(g===mine&&cur()===r&&!r.answered)speak(r.say);},250);}
+    // The question is read only when the child presses 🔊 (no automatic reading).
   }
   el.addEventListener('click',e=>{
     const c=e.target.closest('.mg-chip');if(c){start(+c.dataset.m);return;}
@@ -702,7 +702,7 @@ function miniGame(el,modes){
       sayThen(r.praise,()=>{if(g===mine&&!(g.timed&&!g.tick)){g.i++;show();}},g.timed?300:(r.wait||1200));
     }else{o.classList.add('wrong');o.disabled=true;g.miss=true;}
   });
-  start(0,true); // on page load, don't read the first question aloud (the child presses 🔊 Nghe)
+  start(0,true); // on page load, don't cancel speech that is already playing
 }
 
 function topic(id,o){

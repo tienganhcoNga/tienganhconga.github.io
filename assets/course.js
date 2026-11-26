@@ -100,7 +100,7 @@
         var o = cur.words[j];
         return '<button class="g-opt" type="button" data-j="' + j + '" aria-label="' + esc(game.kind === "pic" ? o[1] : o[2]) + '">' + (game.kind === "pic" ? esc(o[1]) : '<span aria-hidden="true">' + o[0] + "</span>") + "</button>";
       }).join("") + "</div>";
-    if (game.kind === "listen") { var g0 = game, i0 = game.i; setTimeout(function () { if (game === g0 && game.i === i0 && !game.answered) speak(clean(w[1])); }, 250); }
+    // The word is read only when the child presses 🔊 Nghe (no automatic reading).
   }
   document.addEventListener("click", function (e) {
     var t = e.target;
