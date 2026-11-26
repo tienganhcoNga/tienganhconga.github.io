@@ -78,10 +78,11 @@
     if (t.type === "talk") t.lines.forEach(function (l) { out.push({ who: l[0], ic: l[3] || "", html: l[1], vi: l[2] }); });
     else if (t.type === "compare") t.lines.forEach(function (l) { out.push({ who: l[0], ic: l[1], html: l[2], vi: l[3] }); });
     else {
-      if (t.type === "show") out.push({ who: "N", ic: "👋", html: (D.hello || "Hello, everyone! My name is {name}."), vi: "Chào cả lớp! Tớ tên là …", extra: true });
+      /* own: bài tự có câu chào và câu kết, không thêm tự động */
+      if (t.type === "show" && !t.own) out.push({ who: "N", ic: "👋", html: (D.hello || "Hello, everyone! My name is {name}."), vi: "Chào cả lớp! Tớ tên là …", extra: true });
       t.lines.forEach(function (l) { out.push({ who: "N", ic: l[0], html: l[1], vi: l[2] }); });
       if (t.type === "story") out.push({ who: "N", ic: "📕", html: "The end!", vi: "Hết truyện!", extra: true });
-      else out.push({ who: "N", ic: "🙇", html: "Thank you for listening!", vi: "Cảm ơn mọi người đã lắng nghe!", extra: true });
+      else if (!t.own) out.push({ who: "N", ic: "🙇", html: "Thank you for listening!", vi: "Cảm ơn mọi người đã lắng nghe!", extra: true });
     }
     out.forEach(function (g, k) { g.k = k; g.html = fill(g.html); g.say = plain(g.html); });
     return out;
@@ -122,10 +123,11 @@
       return "<tr><td><a href=\"#" + r.id + "\">" + r.ic + " " + esc(r.n) + "</a></td><td>" + esc(r.when) + "</td><td>" + esc(r.span) + "</td><td>" +
         r.tasks.map(function (t) { return TYPES[t.type].ic + " " + esc(t.title); }).join("<br>") + "</td></tr>";
     }).join("");
-    return '<div class="u-head"><span class="u-ic" aria-hidden="true">🗺️</span><div><div class="u-n">' + esc(D.guideName || "Lộ trình") + "</div><h2>Ôn tập nói</h2>" +
-      '<div class="u-vi">Cứ học xong vài Unit thì có một buổi ôn nói, gom lại toàn bộ từ đã học.</div></div></div>' +
+    var th = D.tableHead || ["Bài ôn", "Học sau", "Từ vựng của", "5 bài nói"];
+    return '<div class="u-head"><span class="u-ic" aria-hidden="true">🗺️</span><div><div class="u-n">' + esc(D.guideName || "Lộ trình") + "</div><h2>" + esc(D.guideTitle || "Ôn tập nói") + "</h2>" +
+      '<div class="u-vi">' + esc(D.guideSub || "Cứ học xong vài Unit thì có một buổi ôn nói, gom lại toàn bộ từ đã học.") + "</div></div></div>" +
       '<div class="block sk-guide">' + D.guide + "</div>" +
-      '<div class="block"><div class="b-head"><h3>Lịch ôn tập</h3></div><div class="sk-tw"><table class="sk-t"><thead><tr><th>Bài ôn</th><th>Học sau</th><th>Từ vựng của</th><th>5 bài nói</th></tr></thead><tbody>' + rows + "</tbody></table></div></div>" +
+      '<div class="block"><div class="b-head"><h3>' + esc(D.tableTitle || "Lịch ôn tập") + '</h3></div><div class="sk-tw"><table class="sk-t"><thead><tr>' + th.map(function (h) { return "<th>" + esc(h) + "</th>"; }).join("") + "</tr></thead><tbody>" + rows + "</tbody></table></div></div>" +
       '<div class="block"><div class="b-head"><h3>5 kiểu bài nói</h3></div><div class="sk-types">' +
       [["talk", "Hai bạn (hoặc cô và bé) hỏi – đáp. Bấm “Be A / Be B”: máy đọc vai kia, đến lượt bé thì máy chờ."],
         ["story", "Nhìn tranh kể lại một câu chuyện có mở đầu, rắc rối và kết thúc. Bé kể ở ngôi thứ ba: <i>He… She… The dog…</i>"],
@@ -212,7 +214,7 @@
   function taskView(r, ti) {
     var t = r.tasks[ti], T = TYPES[t.type], L = lines(t);
     return '<div class="block sk-task type-' + t.type + '" id="task">' +
-      '<div class="sk-th"><span class="sk-tic" aria-hidden="true">' + (t.ic || T.ic) + '</span><div><div class="sk-tt">' + T.ic + " " + T.en + "</div><h3>" + fill(t.title) + "</h3>" +
+      '<div class="sk-th"><span class="sk-tic" aria-hidden="true">' + (t.ic || T.ic) + '</span><div><div class="sk-tt">' + T.ic + " " + T.en + (t.badge ? ' <span class="sk-badge">' + esc(t.badge) + "</span>" : "") + "</div><h3>" + fill(t.title) + "</h3>" +
       '<div class="sk-use">Words from: ' + usedUnits(r, t).map(function (id) { return '<span class="' + (r.fresh.indexOf(id) >= 0 ? "new" : "") + '">' + esc(unitLabel(id)) + "</span>"; }).join("") + "</div></div></div>" +
       modeBtns(t) +
       '<div class="sk-bar"><label>✏️ My name: <input id="skName" type="text" maxlength="24" placeholder="' + esc(D.kid || "Bin") + '" autocomplete="off" value="' + esc(kidName()) + '"></label>' +
@@ -229,7 +231,7 @@
       bank(r) +
       '<div class="sk-tabs" role="tablist">' + r.tasks.map(function (t, k) {
         var T = TYPES[t.type];
-        return '<button class="sk-tab" type="button" role="tab" data-ti="' + k + '" aria-selected="' + (k === cur.ti) + '"><span class="e" aria-hidden="true">' + T.ic + "</span><b>" + esc(T.en) + "</b><small>" + fill(t.title) + "</small></button>";
+        return '<button class="sk-tab" type="button" role="tab" data-ti="' + k + '" aria-selected="' + (k === cur.ti) + '"><span class="e" aria-hidden="true">' + T.ic + "</span><b>" + esc(T.en) + "</b><small>" + (t.badge ? esc(t.badge) + " · " : "") + fill(t.title) + "</small></button>";
       }).join("") + "</div>" +
       '<div id="taskBox">' + taskView(r, cur.ti) + "</div>" +
       '<div class="u-nav">' + (idx > 0 ? '<a class="btn" href="#' + D.reviews[idx - 1].id + '">← ' + esc(D.reviews[idx - 1].n) + "</a>" : '<a class="btn" href="#lo-trinh">← 🗺️</a>') +
@@ -251,7 +253,7 @@
               (t.tip ? '<p class="sk-ntip">👩‍🏫 ' + t.tip + "</p>" : "") +
               "<ul>" + lines(t).map(function (g) {
                 var who = t.type === "talk" ? roleName(t, g.who) + ": " : t.type === "compare" ? (g.who === "B" ? "Cả hai: " : plain(fill((g.who === "L" ? t.left : t.right)[1])) + ": ") : "";
-                return "<li><i>" + esc(who) + esc(g.say) + "</i> → " + esc(g.vi || "") + "</li>";
+                return "<li><i>" + esc(who) + esc(g.say) + "</i> → " + esc(String(g.vi || "").replace(/\{name\}/g, nameOf())) + "</li>";
               }).join("") + "</ul></details>";
           }).join("") + "</div>";
       }).join("");

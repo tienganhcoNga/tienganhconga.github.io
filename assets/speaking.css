@@ -230,3 +230,4 @@ html.sk-lock,html.sk-lock body{overflow:hidden}
   .sk-stage{padding-left:calc(var(--cw) + 4px);padding-right:calc(var(--cw) + 4px)}
 }
 @media (prefers-reduced-motion:reduce){ .sk-scard.enter,.sk-confetti span{animation:none} .sk-ln,.sk-mode{transition:none} }
+.sk-badge{display:inline-block;margin-left:6px;font-size:.72rem;letter-spacing:.04em;background:var(--gold);color:#fff;border-radius:999px;padding:1px 8px;vertical-align:middle}

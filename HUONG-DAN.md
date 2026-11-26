@@ -10,9 +10,11 @@ lop-hoc/
 │   ├── pin.js              ← Khóa phần Đáp án bằng mã PIN (đổi mã PIN ở đây)
 │   ├── course.js / course.css       ← Phần chạy chung cho trang "Ôn 10 chủ đề" lớp 1
 │   ├── preschool.js / preschool.css ← Phần chạy chung cho lộ trình mẫu giáo (thẻ hình, hội thoại, trò chơi, cẩm nang)
-│   └── speaking.js / speaking.css   ← Phần chạy chung cho 2 trang "Ôn tập nói" (mẫu giáo và lớp 1)
+│   └── speaking.js / speaking.css   ← Phần chạy chung cho các trang "Ôn tập nói" và "Giáo án lớp 1"
 ├── lop-1/
+│   ├── giao-an-lop-1.html  ← Giáo án lớp 1: 16 Unit giao tiếp theo chủ đề sách trên lớp (mỗi Unit một chữ cái, 2 bài nói), Math 1–2 / Science 1–3 (tiếng Anh cho Toán – Khoa học), Story Time (5 truyện cổ tích), 8 bài nói về con vật (Easy / Challenge). Đã lọc bỏ mẫu câu vượt lớp 1
 │   ├── unit-lop-1.html     ← Units lớp 1: Starter + 9 Unit (mỗi Unit 4 Lesson: từ → mở rộng mẫu câu → truyện + Value → liên môn; Phonics & Chant; Games) + 4 Review; #lo-trinh = lộ trình và nghĩa tiếng Việt cho cô và phụ huynh. Phần chạy ở assets/units.js
+│   ├── on-tap-noi.html     ← Ôn tập nói lớp 1 theo 16 Unit của Giáo án: sau Unit 3, 5, 7, 9, 11, 13, 15 và Big Show; mỗi lần gom từ của tất cả Unit đã học, 5 kiểu bài nói
 │   ├── tieng-anh-lop-1.html ← Tiếng Anh lớp 1 (About Me, cơ thể, vị trí, bộ phận của cây, đồ dùng học tập, hình khối, đồ vật trong nhà, ôn tập, các phòng, hoạt động phòng tắm – phòng ngủ)
 │   └── chu-de-lop-1.html   ← Ôn 10 chủ đề (dữ liệu nằm trong file, phần chạy ở assets/course.js)
 ├── lop-4/
