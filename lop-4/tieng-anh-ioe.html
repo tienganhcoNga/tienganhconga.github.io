@@ -92,6 +92,32 @@ h3.sub{margin:30px 0 12px;font-size:1.4rem;color:var(--sky)}
 .keys ol{margin:0;padding-left:1.6em;font-size:.95rem}
 .keys li{margin:3px 0}
 .keys li b{color:var(--ok)}
+/* Exam */
+.exam .ehead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}
+.exam .part{font-weight:800;color:var(--sky)}
+.exam .timer{font-family:var(--f-display);font-weight:800;font-size:1.3rem;font-variant-numeric:tabular-nums;background:var(--sky-soft);border-radius:10px;padding:2px 12px}
+.exam .timer.low{background:var(--bad-soft);color:var(--bad)}
+.exam .qtext{font-size:1.2rem;font-weight:600;margin:6px 0 12px}
+.exam .passage{background:var(--gold-soft);border-radius:12px;padding:12px 14px;margin-bottom:12px;line-height:1.7}
+.exam .eopts{display:grid;gap:8px}
+.exam .eopt{display:flex;gap:10px;align-items:center;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:8px 12px;cursor:pointer;font-weight:600}
+.exam .eopt:hover{border-color:var(--sky)}
+.exam .eopt[aria-pressed="true"]{border-color:var(--sky);background:var(--sky-soft)}
+.exam .eopt .k{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--sky);color:var(--surface);font-weight:800;flex:none}
+.exam .listen{font-size:1.1rem;padding:10px 18px}
+.exam .enav{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;align-items:center}
+.exam .edots{display:flex;flex-wrap:wrap;gap:4px;margin-top:14px}
+.exam .edot{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-size:.8rem;font-weight:700;cursor:pointer;padding:0}
+.exam .edot.done{background:var(--sky-soft);border-color:var(--sky)}
+.exam .edot.cur{outline:2px solid var(--gold)}
+.exam .edot.r{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.exam .edot.w{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.exam .result{text-align:center;padding:10px 0}
+.exam .result .big{font-family:var(--f-display);font-weight:800;font-size:3rem;color:var(--sky);line-height:1}
+.exam .rev{list-style:none;margin:14px 0 0;padding:0;text-align:left}
+.exam .rev li{display:flex;gap:8px;padding:6px 0;border-top:1px dashed var(--line);font-size:.95rem}
+.exam .rev .mk{font-weight:800;min-width:1.4em}
+.exam .rev .mk.r{color:var(--ok)} .exam .rev .mk.w{color:var(--bad)}
 .row-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
 
 /* Vocab */
@@ -307,6 +333,7 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
     <a href="#dates">Ngày &amp; tháng</a>
     <a href="#talk">Hội thoại</a>
     <a href="#practice">Luyện đề</a>
+    <a href="#exam">Đề thi thử</a>
     <a href="#copy">Tập chép</a>
     <a href="#games">Game</a>
     <a href="#answers" class="ans-link">🔒 Đáp án</a>
@@ -378,6 +405,13 @@ footer{margin:48px 0 40px;color:var(--muted);font-size:.85rem}
       <p class="muted">Đủ 5 dạng bài hay gặp trong đề IOE cấp trường. Máy chấm ngay, sai thì làm lại được.</p></div>
     <div class="tabs" id="pTabs" role="tablist"></div>
     <div class="panel" id="pPanel"></div>
+  </section>
+
+  <section id="exam">
+    <div class="sec-head"><h2>Đề thi thử IOE</h2><span class="en">Practice tests · School round</span>
+      <p class="muted">Mỗi đề 30 câu, làm trong 30 phút, giống dạng đề IOE cấp trường: nghe, điền chữ cái, trắc nghiệm, điền từ, sắp xếp câu, đọc hiểu, chọn câu đáp. Làm hết rồi bấm "Nộp bài" để xem điểm.</p></div>
+    <div class="chips" id="examSets" role="group" aria-label="Chọn đề"></div>
+    <div class="panel exam" id="examBox"></div>
   </section>
 
   <section id="copy">
@@ -970,6 +1004,7 @@ const GAMES=[
  ['↔️','Opposite adjectives','Tính từ trái nghĩa','https://wordwall.net/resource/73037727/esl/opposite-adjectives'],
  ['😀','Adjectives: emotions','Tính từ chỉ cảm xúc','https://wordwall.net/resource/100783189/adjectives-emotions-basic'],
  ['🧑','Adjectives for people','Tính từ miêu tả người','https://wordwall.net/resource/18183473/english/adjectives-people'],
+ ['📂','Kho đề thi IOE lớp 4','dethiioe.com: tải đề có file nghe và đáp án (cần đăng nhập)','https://dethiioe.com/de-thi-ioe/de-thi-ioe-lop-4/'],
  ['🃏','Flashcard 11 chủ đề IOE lớp 4','Web ôn từ vựng theo 11 chủ đề','https://bestflashcard.com/learning-english-vocabulary/topic/v1-ioe-lop-4-11-chu-de']];
 $('#gameLinks').innerHTML=GAMES.map(([ic,t,d,u])=>`<a class="game" href="${u}" target="_blank" rel="noopener"><span class="ic" aria-hidden="true">${ic}</span><span><b>${esc(t)}</b><small>${esc(d)}</small></span></a>`).join('');
 
@@ -978,6 +1013,198 @@ const nWords=TOPICS.reduce((a,t)=>a+t.words.length,0);
 const nPractice=FILL.length+ORDER.length+MCQ.length+VERB.length+ERR.length;
 $('#stats').innerHTML=`<span class="stat"><b>${nWords}</b>từ vựng</span><span class="stat"><b>${DLG.length}</b>hội thoại</span><span class="stat"><b>${nPractice}</b>câu luyện</span><span class="stat"><b>${PATTERNS.length}</b>dạng câu</span>`;
 renderTopicChips();renderWords();renderTabs();renderPanel();
+
+/* ---------- Practice tests (original questions in IOE school-round format) ---------- */
+const PART={listen:'Part 1 · Listen and choose',letter:'Part 2 · Choose the missing letter',mc:'Part 3 · Choose the correct answer',fill:'Part 4 · Fill in the blank with ONE word',order:'Part 5 · Put the parts in the correct order',read:'Part 6 · Read and choose',talk:'Part 7 · What do you say?'};
+const LQ='Listen and choose the word you hear.', LA='Listen and choose the correct answer.';
+const EXAMS=[
+ {name:'Đề 1',theme:'Trường lớp, quốc gia, ngày tháng',
+  passage:"Hi, my name is Akiko. I'm from Tokyo, Japan. I'm nine years old and I'm in Class 4B. My birthday is on the fifth of March. I go to school from Monday to Friday. I have English on Tuesdays and Thursdays. My favourite subject is Music because I like singing.",
+  qs:[
+  {t:'listen',say:'nationality',q:LQ,o:['national','nationality','nature'],a:1},
+  {t:'listen',say:"When is your birthday? It's on the twenty-second of May.",q:LA+' When is her birthday?',o:['the 2nd of May','the 22nd of May','the 20th of May'],a:1},
+  {t:'listen',say:"Where are you from? I'm from Australia.",q:LA+' Where is she from?',o:['Austria','Australia','America'],a:1},
+  {t:'listen',say:'What subjects do you have today? I have Maths, Art and Music.',q:LA+' What subjects does he have today?',o:['Maths, Art and Music','Maths, English and Music','Art, IT and Music'],a:0},
+  {t:'listen',say:'What time do you get up? I get up at six fifteen.',q:LA+' What time does she get up?',o:['6:05','6:15','6:50'],a:1},
+  {t:'letter',q:'Wedne_day',o:['s','z','c','d'],a:0},
+  {t:'letter',q:'Jap_nese',o:['e','a','o','i'],a:1},
+  {t:'letter',q:'Sept_mber',o:['a','i','e','o'],a:2},
+  {t:'letter',q:'sw_mming pool',o:['e','a','u','i'],a:3},
+  {t:'letter',q:'Thu_sday',o:['r','s','e','a'],a:0},
+  {t:'mc',q:"I'm from Japan. I'm ______.",o:['Japan','Japanese','English','Japanes'],a:1},
+  {t:'mc',q:'We have English ______ Mondays and Fridays.',o:['in','at','on','to'],a:2},
+  {t:'mc',q:'My birthday is ______ October.',o:['on','in','at','of'],a:1},
+  {t:'mc',q:"What ______ is it today? – It's Tuesday.",o:['date','day','time','month'],a:1},
+  {t:'mc',q:"She ______ swim, but she can't skate.",o:['can','can\'t','does','is'],a:0},
+  {t:'mc',q:'Which is the twelfth month of the year?',o:['November','February','December','October'],a:2},
+  {t:'mc',q:"What's your ______ subject? – It's Science.",o:['favourite','like','love','good'],a:0},
+  {t:'mc',q:'Look! Mai and Nam ______ football in the playground.',o:['play','plays','are playing','is playing'],a:2},
+  {t:'fill',q:"Where ___ you from? – I'm from Vietnam.",a:['are']},
+  {t:'fill',q:'What day is it today? – It ___ Wednesday.',a:['is']},
+  {t:'fill',q:"When is your birthday? – It's on the ___ of June. (1st)",a:['first']},
+  {t:'fill',q:'My hobby is ___ stamps. (collect)',a:['collecting']},
+  {t:'order',parts:['Where','are your','new friends','from?']},
+  {t:'order',parts:['I have','Music and Art','on','Thursdays.']},
+  {t:'order',parts:['She can','play the piano','but she can\'t','ride a bike.']},
+  {t:'read',q:'Akiko is from ______.',o:['Japan','Malaysia','Australia'],a:0},
+  {t:'read',q:'When is her birthday?',o:['On the 5th of March.','On the 15th of March.','On the 5th of May.'],a:0},
+  {t:'read',q:'Why does she like Music?',o:['Because she likes singing.','Because she likes dancing.','Because she likes drawing.'],a:0},
+  {t:'talk',q:'A: Nice to meet you.\nB: ______',o:['Nice to meet you, too.',"I'm fine, thank you.",'Goodbye.'],a:0},
+  {t:'talk',q:'A: Can I borrow your pen?\nB: ______',o:['Sure. Here you are.','Yes, I do.',"No, I don't."],a:0}]},
+ {name:'Đề 2',theme:'Gia đình, nghề nghiệp, đồ ăn, ngôi nhà',
+  passage:'My name is Minh. There are four people in my family: my father, my mother, my sister and me. My father is a farmer. He works on a farm near our house. My mother is a teacher at a primary school. My sister is a student. We usually have dinner together at seven o\'clock in the evening.',
+  qs:[
+  {t:'listen',say:'kitchen',q:LQ,o:['kitchen','chicken','kitten'],a:0},
+  {t:'listen',say:"What does your father do? He's a doctor.",q:LA+' What does his father do?',o:['He is a doctor.','He is a driver.','He is a farmer.'],a:0},
+  {t:'listen',say:"What would you like to drink? I'd like some orange juice.",q:LA+' What would she like to drink?',o:['apple juice','orange juice','lemonade'],a:1},
+  {t:'listen',say:"Where is the cat? It's under the table.",q:LA+' Where is the cat?',o:['on the table','next to the table','under the table'],a:2},
+  {t:'listen',say:"What is your mother doing? She's cooking in the kitchen.",q:LA+' What is his mother doing?',o:['cleaning','cooking','reading'],a:1},
+  {t:'letter',q:'farm_r',o:['a','e','o','u'],a:1},
+  {t:'letter',q:'bat_room',o:['c','t','h','s'],a:2},
+  {t:'letter',q:'brea_fast',o:['k','c','g','t'],a:0},
+  {t:'letter',q:'fact_ry',o:['u','a','e','o'],a:3},
+  {t:'letter',q:'veg_table',o:['i','e','a','o'],a:1},
+  {t:'mc',q:'A nurse works in a ______.',o:['farm','factory','hospital','field'],a:2},
+  {t:'mc',q:'My father ______ to work by bus every day.',o:['go','goes','going','is go'],a:1},
+  {t:'mc',q:'Would you like ______ milk? – Yes, please.',o:['a','an','some','any'],a:2},
+  {t:'mc',q:'There ______ two pictures on the wall.',o:['is','are','am','be'],a:1},
+  {t:'mc',q:'I go to bed ______ nine o\'clock.',o:['in','on','at','for'],a:2},
+  {t:'mc',q:'What does your mother look like? – She is ______ and slim.',o:['tall','teacher','cooking','happily'],a:0},
+  {t:'mc',q:'My brother is ______ than me.',o:['old','older','oldest','more old'],a:1},
+  {t:'mc',q:'Be quiet! The baby ______.',o:['sleeps','is sleeping','sleep','slept'],a:1},
+  {t:'fill',q:'A farmer works ___ a farm.',a:['on']},
+  {t:'fill',q:"What ___ your father do? – He's a worker.",a:['does']},
+  {t:'fill',q:"I'm hungry. I'd ___ some bread, please.",a:['like']},
+  {t:'fill',q:'My sister and I ___ at home now. (be)',a:['are']},
+  {t:'order',parts:['My mother','works','in a','hospital.']},
+  {t:'order',parts:['What time','do you','have','breakfast?']},
+  {t:'order',parts:['There are','three bedrooms','in','my house.']},
+  {t:'read',q:"How many people are there in Minh's family?",o:['three','four','five'],a:1},
+  {t:'read',q:"What does Minh's mother do?",o:['She is a teacher.','She is a farmer.','She is a nurse.'],a:0},
+  {t:'read',q:'What time do they usually have dinner?',o:["At six o'clock.","At seven o'clock.","At eight o'clock."],a:1},
+  {t:'talk',q:"A: What's the matter with you?\nB: ______",o:['I have a headache.',"It's a book.","I'm nine."],a:0},
+  {t:'talk',q:'A: Thank you very much.\nB: ______',o:["You're welcome.",'Yes, please.',"I'm fine."],a:0}]},
+ {name:'Đề 3',theme:'Động vật, địa điểm, quần áo, quá khứ, dự định',
+  passage:"Last Sunday, Nam and his family went to the zoo. They went there by bus. Nam saw many animals. The monkeys were very funny. They were jumping and swinging. The elephants were big and strong. Nam's sister liked the peacocks because they were beautiful. At noon, they had lunch near the lake. They were tired but very happy.",
+  qs:[
+  {t:'listen',say:'giraffe',q:LQ,o:['gorilla','giraffe','goldfish'],a:1},
+  {t:'listen',say:'Where were you yesterday? I was at the zoo.',q:LA+' Where was he yesterday?',o:['at the zoo','at the cinema','at the park'],a:0},
+  {t:'listen',say:"How much is this jumper? It's ninety thousand dong.",q:LA+' How much is the jumper?',o:['19,000 dong','90,000 dong','99,000 dong'],a:1},
+  {t:'listen',say:"What are you going to do this summer? I'm going to visit Ha Long Bay.",q:LA+' What is she going to do this summer?',o:['visit Hue','go to the beach','visit Ha Long Bay'],a:2},
+  {t:'listen',say:"Where is the bookshop? It's between the pharmacy and the cinema.",q:LA+' Where is the bookshop?',o:['next to the pharmacy','between the pharmacy and the cinema','opposite the cinema'],a:1},
+  {t:'letter',q:'kang_roo',o:['a','e','o','u'],a:0},
+  {t:'letter',q:'eleph_nt',o:['e','a','o','i'],a:1},
+  {t:'letter',q:'j_mper',o:['a','o','u','i'],a:2},
+  {t:'letter',q:'s_ndals',o:['e','o','u','a'],a:3},
+  {t:'letter',q:'superm_rket',o:['a','e','o','u'],a:0},
+  {t:'mc',q:'Where ______ you yesterday? – I was at home.',o:['was','were','are','did'],a:1},
+  {t:'mc',q:'We ______ to the zoo last Sunday.',o:['go','goes','went','going'],a:2},
+  {t:'mc',q:'Monkeys can ______ trees.',o:['climb','climbs','climbing','climbed'],a:0},
+  {t:'mc',q:'How much ______ these sandals?',o:['is','are','was','does'],a:1},
+  {t:'mc',q:"I'm going to ______ my grandparents this weekend.",o:['visit','visits','visiting','visited'],a:0},
+  {t:'mc',q:'Ha Long Bay is in ______ Vietnam.',o:['north','northern','southern','centre'],a:1},
+  {t:'mc',q:'She is wearing a red ______ and blue jeans.',o:['shoes','trousers','jumper','sandals'],a:2},
+  {t:'mc',q:'What did you ______ at the zoo? – I saw two tigers.',o:['see','saw','seeing','sees'],a:0},
+  {t:'fill',q:'What ___ you do yesterday? – I watched TV.',a:['did']},
+  {t:'fill',q:"I'm going ___ visit Da Nang next week.",a:['to']},
+  {t:'fill',q:'Hue is ___ central Vietnam.',a:['in']},
+  {t:'fill',q:'Yesterday I ___ a big elephant at the zoo. (see)',a:['saw']},
+  {t:'order',parts:['We went','to the zoo','with our parents','last Sunday.']},
+  {t:'order',parts:['How much','is','this','yellow skirt?']},
+  {t:'order',parts:['What are you','going to do','this','summer?']},
+  {t:'read',q:'How did they go to the zoo?',o:['By bus.','By car.','By bike.'],a:0},
+  {t:'read',q:"Why did Nam's sister like the peacocks?",o:['Because they were beautiful.','Because they were funny.','Because they were big.'],a:0},
+  {t:'read',q:'Where did they have lunch?',o:['At home.','Near the lake.','In a restaurant.'],a:1},
+  {t:'talk',q:'A: What does he look like?\nB: ______',o:['He is tall and thin.','He likes football.','He is a doctor.'],a:0},
+  {t:'talk',q:"A: Let's go to the cinema!\nB: ______",o:['Great idea!','Yes, I am.',"It's 10,000 dong."],a:0}]}];
+const EXAM_MIN=30;
+let ex=null; // {i, ans:[], pos, done, left, timer, mixed:[], retry:bool}
+function examOrderAnswer(q){return q.parts.join(' ');}
+function examCorrect(q,v){
+  if(v==null||v==='')return false;
+  if(q.t==='fill')return q.a.some(a=>norm(a)===norm(v));
+  if(q.t==='order')return Array.isArray(v)&&v.length===q.parts.length&&v.every((k,i)=>k===i);
+  return v===q.a;
+}
+function examShowAnswer(q,v){
+  if(v==null||v===''||(Array.isArray(v)&&!v.length))return '(chưa làm)';
+  if(q.t==='fill')return v;
+  if(q.t==='order')return v.map(k=>q.parts[k]).join(' ');
+  return q.o[v];
+}
+function startExam(i){
+  clearInterval(ex&&ex.timer);
+  const E=EXAMS[i];
+  ex={i,ans:E.qs.map(()=>null),pos:0,done:false,left:EXAM_MIN*60,retry:false,
+      mixed:E.qs.map(q=>{if(q.t!=='order')return null;let s;do{s=shuffle(q.parts.map((_,k)=>k));}while(s.every((k,j)=>k===j));return s;})};
+  ex.timer=setInterval(tick,1000);
+  renderExamSets();renderExam();
+}
+function tick(){if(!ex||ex.done||ex.retry)return;ex.left--;const t=$('#examBox .timer');if(t){t.textContent=fmt(ex.left);t.classList.toggle('low',ex.left<=120);}if(ex.left<=0)submitExam(true);}
+const fmt=s=>`${String(Math.floor(Math.max(s,0)/60)).padStart(2,'0')}:${String(Math.max(s,0)%60).padStart(2,'0')}`;
+function renderExamSets(){
+  $('#examSets').innerHTML=EXAMS.map((E,i)=>`<button class="chip" type="button" data-set="${i}" aria-pressed="${!!ex&&ex.i===i}">📝 ${E.name}: ${esc(E.theme)}</button>`).join('');
+}
+function renderExam(){
+  const box=$('#examBox');
+  if(!ex){box.innerHTML='<p class="muted">Chọn một đề ở trên để bắt đầu. Đồng hồ 30 phút chạy ngay khi mở đề.</p>';return;}
+  const E=EXAMS[ex.i];
+  if(ex.done){
+    const right=E.qs.filter((q,k)=>examCorrect(q,ex.ans[k])).length;
+    box.innerHTML=`<div class="result"><div class="big">${right}/${E.qs.length}</div><p style="font-size:1.1rem;margin-top:6px">${right*10} / ${E.qs.length*10} điểm · ${right===E.qs.length?'Xuất sắc!':right>=24?'Rất giỏi!':right>=15?'Khá lắm, ôn lại câu sai nhé.':'Cố lên! Làm lại câu sai để nhớ lâu hơn.'}</p>
+      <div class="enav" style="justify-content:center">${right<E.qs.length?'<button class="btn check" type="button" data-ex="retry">Làm lại câu sai</button>':''}<button class="btn" type="button" data-ex="restart">↺ Làm lại cả đề</button></div></div>
+      <p class="muted" style="margin-top:10px">Đáp án đúng xem ở mục <a href="#answers">Đáp án</a> (cần mã PIN).</p>
+      <ul class="rev">${E.qs.map((q,k)=>{const ok=examCorrect(q,ex.ans[k]);return `<li><span class="mk ${ok?'r':'w'}">${ok?'✔':'✘'}</span><span><b>${k+1}.</b> ${esc(q.t==='order'?'Sắp xếp: '+q.parts.join(' / '):q.t==='listen'?'(Nghe) '+q.q:q.q.replace(/\n/g,' '))}<br><small class="muted">Em chọn: ${esc(examShowAnswer(q,ex.ans[k]))}</small></span></li>`}).join('')}</ul>`;
+    return;
+  }
+  const k=ex.pos,q=E.qs[k],v=ex.ans[k];
+  let body='';
+  if(q.t==='read')body+=`<div class="passage">${esc(E.passage)}</div>`;
+  if(q.t==='listen')body+=`<button class="btn primary listen" type="button" data-ex="play">🔊 Nghe</button>`;
+  if(q.t==='order')body+=`<div class="qtext">Sắp xếp các phần thành câu đúng:</div><div class="built" id="exBuilt">${(v||[]).map(p=>`<button class="tile" type="button" data-back="${p}">${esc(q.parts[p])}</button>`).join('')}</div>
+     <div class="tray" style="margin-top:8px">${ex.mixed[k].filter(p=>!(v||[]).includes(p)).map(p=>`<button class="tile" type="button" data-take="${p}">${esc(q.parts[p])}</button>`).join('')}</div>`;
+  else if(q.t==='fill')body+=`<div class="qtext">${esc(q.q).replace('___','<input class="vin" id="exFill" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Từ cần điền">')}</div>`;
+  else{
+    const qt=q.t==='letter'?`Choose the missing letter: <b style="font-size:1.4rem;letter-spacing:.06em">${esc(q.q)}</b>`:esc(q.q).replace(/\n/g,'<br>');
+    body+=`<div class="qtext">${qt}</div><div class="eopts">${q.o.map((o,j)=>`<button class="eopt" type="button" data-opt="${j}" aria-pressed="${v===j}"><span class="k">${'ABCD'[j]}</span><span>${esc(o)}</span></button>`).join('')}</div>`;
+  }
+  const answered=ex.ans.filter((a,j)=>a!=null&&a!==''&&!(Array.isArray(a)&&!a.length)).length;
+  box.innerHTML=`<div class="ehead"><span><b>${E.name}</b> · Câu ${k+1}/${E.qs.length} · <span class="part">${PART[q.t]}</span></span>${ex.retry?'<span class="muted">Đang làm lại câu sai</span>':`<span class="timer ${ex.left<=120?'low':''}" aria-label="Thời gian còn lại">${fmt(ex.left)}</span>`}</div>
+    ${body}
+    <div class="enav"><button class="btn" type="button" data-ex="prev" ${k===0?'disabled':''}>← Câu trước</button><button class="btn primary" type="button" data-ex="next" ${k===E.qs.length-1?'disabled':''}>Câu tiếp →</button>
+      <span class="muted">Đã làm ${answered}/${E.qs.length}</span><button class="btn check" type="button" data-ex="submit" style="margin-left:auto">Nộp bài</button></div>
+    <div class="edots">${E.qs.map((qq,j)=>{const a=ex.ans[j];const d=a!=null&&a!==''&&!(Array.isArray(a)&&!a.length);return `<button class="edot ${d?'done':''} ${j===k?'cur':''}" type="button" data-go="${j}" aria-label="Câu ${j+1}">${j+1}</button>`}).join('')}</div>`;
+  const f=$('#exFill');if(f){f.value=v||'';}
+  if(q.t==='listen'&&!ex.played?.[k]){ex.played=ex.played||{};ex.played[k]=1;setTimeout(()=>speak(q.say,{rate:0.8}),250);}
+}
+function submitExam(auto){
+  const E=EXAMS[ex.i];const left=ex.ans.filter(a=>a==null||a===''||(Array.isArray(a)&&!a.length)).length;
+  if(!auto&&left&&!confirm(`Còn ${left} câu chưa làm. Em có muốn nộp bài luôn không?`))return;
+  ex.done=true;ex.retry=false;clearInterval(ex.timer);renderExam();
+  $('#exam').scrollIntoView({block:'start'});
+}
+$('#examSets').addEventListener('click',e=>{const b=e.target.closest('[data-set]');if(!b)return;
+  if(ex&&!ex.done&&ex.i!==+b.dataset.set&&!confirm('Đổi sang đề khác? Bài đang làm sẽ bị xóa.'))return;
+  startExam(+b.dataset.set);});
+$('#examBox').addEventListener('click',e=>{
+  if(!ex)return;const E=EXAMS[ex.i];const k=ex.pos,q=E.qs[k];
+  const a=e.target.closest('[data-ex]');
+  if(a){const act=a.dataset.ex;
+    if(act==='play')speak(q.say,{rate:0.8});
+    if(act==='prev'&&ex.pos>0){ex.pos--;renderExam();}
+    if(act==='next'&&ex.pos<E.qs.length-1){ex.pos++;renderExam();}
+    if(act==='submit')submitExam(false);
+    if(act==='restart')startExam(ex.i);
+    if(act==='retry'){ex.ans=ex.ans.map((v,j)=>examCorrect(E.qs[j],v)?v:null);ex.done=false;ex.retry=true;ex.played={};ex.pos=ex.ans.findIndex(v=>v==null);renderExam();}
+    return;}
+  const o=e.target.closest('[data-opt]');if(o){ex.ans[k]=+o.dataset.opt;renderExam();return;}
+  const g=e.target.closest('[data-go]');if(g){ex.pos=+g.dataset.go;renderExam();return;}
+  const t=e.target.closest('[data-take]');if(t){ex.ans[k]=(ex.ans[k]||[]).concat(+t.dataset.take);renderExam();return;}
+  const bk=e.target.closest('[data-back]');if(bk){ex.ans[k]=(ex.ans[k]||[]).filter(p=>p!==+bk.dataset.back);renderExam();return;}
+});
+$('#examBox').addEventListener('input',e=>{if(e.target.id==='exFill'&&ex){ex.ans[ex.pos]=e.target.value;const d=$('#examBox .edot.cur');if(d)d.classList.toggle('done',!!e.target.value.trim());}});
+$('#examBox').addEventListener('keydown',e=>{if(e.target.id==='exFill'&&e.key==='Enter'){e.preventDefault();const E=EXAMS[ex.i];if(ex.pos<E.qs.length-1){ex.pos++;renderExam();}}});
+renderExamSets();renderExam();
 
 /* ---------- Answer key (PIN) ---------- */
 if(window.LopHocPIN){
@@ -989,7 +1216,8 @@ if(window.LopHocPIN){
       ol('🧩 Sắp xếp câu',ORDER.map(([w,a])=>`<b>${esc(a[0])}</b>`))+
       ol('🔘 Trắc nghiệm',MCQ.map(([q,o,k])=>`<b>${L[k]}. ${esc(o[k])}</b>`))+
       ol('🔁 Chia động từ',VERB.map(([q,a])=>`<b>${a.map(x=>esc(x[0])).join(' / ')}</b>`))+
-      ol('🔍 Tìm lỗi sai',ERR.map(([s,k,fix])=>`<b>${esc(fix)}</b>`))+`</div>`;
+      ol('🔍 Tìm lỗi sai',ERR.map(([s,k,fix])=>`<b>${esc(fix)}</b>`))+
+      EXAMS.map(E=>ol(`📝 Đề thi thử: ${E.name}`,E.qs.map(q=>q.t==='fill'?`<b>${esc(q.a[0])}</b>`:q.t==='order'?`<b>${esc(examOrderAnswer(q))}</b>`:`<b>${'ABCD'[q.a]}. ${esc(q.o[q.a])}</b>${q.t==='listen'&&q.o.length&&q.say.length>15?` <small class="muted">(${esc(q.say)})</small>`:''}`))).join('')+`</div>`;
   });
   LopHocPIN.onChange(u=>document.querySelectorAll('.ans-link').forEach(a=>a.textContent=(u?'🔓':'🔒')+' Đáp án'));
 }
