@@ -9,7 +9,7 @@ window.L4 = {
   s:{n:"Starter",en:"Hello again!",vi:"Chào lại các bạn",ic:"👋",w:[
    ["👋","hello","xin chào"],["🙂","Nice to meet you","rất vui được gặp bạn"],["🚶","goodbye","tạm biệt"],["👋","See you later","hẹn gặp lại"],
    ["📖","open your book","mở sách ra"],["📕","close your book","gấp sách lại"],["🙋","raise your hand","giơ tay lên"],["🧍","stand up","đứng lên"],["🪑","sit down","ngồi xuống"],
-   ["👂","listen","nghe"],["📚","read","đọc"],["✍️","write","viết"],["⚽","play football","đá bóng"],["🏀","play basketball","chơi bóng rổ"],["🙈","play hide-and-seek","chơi trốn tìm"],["🪢","skip","nhảy dây"]],
+   ["👂","listen","nghe"],["📚","read","đọc"],["✍️","write","viết"],["⚽","play football","đá bóng"],["🏀","play basketball","chơi bóng rổ"],["🙈","play hide-and-seek","chơi trốn tìm"],["🤸","skip","nhảy dây"]],
    p:[["Hello. I'm Nam. Nice to meet you.","Xin chào. Tớ là Nam. Rất vui được gặp bạn."],["How are you? – I'm fine, thank you.","Bạn khỏe không? – Tớ khỏe, cảm ơn bạn."],["Let's play football! – OK, let's go!","Cùng đá bóng nhé! – Được, đi thôi!"]]},
 
   u1:{n:"Unit 1",en:"My friends",vi:"Bạn bè của tớ",ic:"🌏",w:[
@@ -38,13 +38,13 @@ window.L4 = {
 
   u5:{n:"Unit 5",en:"Things we can do",vi:"Những việc chúng mình làm được",ic:"🎸",w:[
    ["🍳","cook","nấu ăn"],["🎨","draw","vẽ"],["🎸","play the guitar","chơi đàn ghi-ta"],["🎹","play the piano","chơi đàn pi-a-nô"],
-   ["🚲","ride a bike","đi xe đạp"],["🐎","ride a horse","cưỡi ngựa"],["🛼","roller skate","trượt pa-tanh"],["🏊","swim","bơi"],
+   ["🚲","ride a bike","đi xe đạp"],["🐎","ride a horse","cưỡi ngựa"],["⛸️","roller skate","trượt pa-tanh"],["🏊","swim","bơi"],
    ["🎤","sing","hát"],["💃","dance","nhảy múa"],["🪁","fly a kite","thả diều"],["🏸","play badminton","chơi cầu lông"]],
    p:[["Can you swim? – Yes, I can. / No, I can't.","Bạn có biết bơi không? – Có. / Không."],["Can she play the piano? – No, she can't, but she can play the guitar.","Bạn ấy chơi pi-a-nô được không? – Không, nhưng bạn ấy chơi ghi-ta được."],["I can ride a bike, but I can't ride a horse.","Tớ đi xe đạp được, nhưng không cưỡi ngựa được."]]},
 
   u6:{n:"Unit 6",en:"Our school facilities",vi:"Cơ sở vật chất trường mình",ic:"🏫",w:[
-   ["🏙️","city","thành phố"],["🏘️","town","thị trấn"],["🛖","village","làng"],["⛰️","mountains","vùng núi"],
-   ["🏢","building","tòa nhà"],["🌳","garden","vườn trường"],["🛝","playground","sân chơi"],["💻","computer room","phòng máy tính"],
+   ["🏙️","city","thành phố"],["🏘️","town","thị trấn"],["🏘️","village","làng"],["⛰️","mountains","vùng núi"],
+   ["🏢","building","tòa nhà"],["🌳","garden","vườn trường"],["🎠","playground","sân chơi"],["💻","computer room","phòng máy tính"],
    ["📚","library","thư viện"],["🏫","classroom","phòng học"],["🤸","gym","phòng thể chất"]],
    p:[["Where's your school? – It's in the village.","Trường bạn ở đâu? – Ở trong làng."],["How many buildings are there at your school? – There are three.","Trường bạn có bao nhiêu tòa nhà? – Có ba tòa."],["There is one computer room. There are two gardens.","Có một phòng máy tính. Có hai khu vườn."]]},
 
@@ -116,7 +116,7 @@ window.L4 = {
 
   u20:{n:"Unit 20",en:"At summer camp",vi:"Ở trại hè",ic:"⛺",w:[
    ["⛺","summer camp","trại hè"],["🔥","building a campfire","đang đốt lửa trại"],["💃","dancing around the campfire","đang nhảy quanh lửa trại"],["🃏","playing card games","đang chơi bài"],
-   ["🪢","playing tug of war","đang kéo co"],["⛺","putting up a tent","đang dựng lều"],["🎤","singing songs","đang hát"],["📸","taking a photo","đang chụp ảnh"],["📖","telling a story","đang kể chuyện"]],
+   ["🤸","playing tug of war","đang kéo co"],["⛺","putting up a tent","đang dựng lều"],["🎤","singing songs","đang hát"],["📸","taking a photo","đang chụp ảnh"],["📖","telling a story","đang kể chuyện"]],
    p:[["What's he doing? – He's putting up a tent.","Bạn ấy đang làm gì? – Bạn ấy đang dựng lều."],["What are they doing? – They're playing tug of war.","Các bạn ấy đang làm gì? – Các bạn đang chơi kéo co."]]}
  },
  order: ["s","u1","u2","u3","u4","u5","u6","u7","u8","u9","u10","u11","u12","u13","u14","u15","u16","u17","u18","u19","u20"]
