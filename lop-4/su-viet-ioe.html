@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sử Việt IOE lớp 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<style>
+/* Layout: one long study page; sticky chapter bar; each chapter is a band of cards drawn from Dong Son bronze, lacquer red and imperial gold. */
+:root{
+  --bg:#F1F5F2; --surface:#FFFFFF; --ink:#1C2A36; --muted:#56676A; --line:#D3DFD8;
+  --jade:#2A7A67; --jade-soft:#DBECE5; --jade-deep:#1E5A4C;
+  --lacquer:#B3332A; --lacquer-soft:#F6E1DD;
+  --gold:#B98110; --gold-soft:#FAEFD3;
+  --sky:#2F6F98; --sky-soft:#DCEAF3;
+  --stone:#C9C2B4; --dark:#3A3330;
+  --ok:#23824F; --ok-soft:#DDF2E5; --bad:#B9352B; --bad-soft:#F8E0DC;
+  --f-display:"Baloo 2","Be Vietnam Pro",system-ui,sans-serif;
+  --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0F171B; --surface:#17222A; --ink:#E6EEEA; --muted:#9DB0AD; --line:#2A3B41;
+  --jade:#5DC1A5; --jade-soft:#15312A; --jade-deep:#123A31;
+  --lacquer:#EE7A6C; --lacquer-soft:#3A1F1C;
+  --gold:#E8B84A; --gold-soft:#332811;
+  --sky:#7DB7DA; --sky-soft:#142D3B;
+  --stone:#6E685E; --dark:#0B0F12;
+  --ok:#62CF92; --ok-soft:#14301F; --bad:#F2806F; --bad-soft:#3A1D19;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0F171B; --surface:#17222A; --ink:#E6EEEA; --muted:#9DB0AD; --line:#2A3B41;
+  --jade:#5DC1A5; --jade-soft:#15312A; --jade-deep:#123A31;
+  --lacquer:#EE7A6C; --lacquer-soft:#3A1F1C;
+  --gold:#E8B84A; --gold-soft:#332811;
+  --sky:#7DB7DA; --sky-soft:#142D3B;
+  --stone:#6E685E; --dark:#0B0F12;
+  --ok:#62CF92; --ok-soft:#14301F; --bad:#F2806F; --bad-soft:#3A1D19;
+  color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1120px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+.en{font-style:italic;color:var(--sky)}
+.muted{color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center;padding-block:40px 24px}
+.eyebrow{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--jade)}
+.hero h1{font-size:clamp(2.6rem,7vw,4.6rem);font-weight:800;margin-top:6px}
+.hero h1 .red{color:var(--lacquer)}
+.hero .lead{font-size:1.12rem;margin-top:14px;max-width:34em}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:600}
+.stat b{font-family:var(--f-display);font-size:1.2rem;color:var(--lacquer);margin-right:4px}
+.drum{width:100%;max-width:340px;justify-self:center;aspect-ratio:1}
+.drum svg{width:100%;height:100%;display:block}
+@media (prefers-reduced-motion: no-preference){ .drum svg .spin{transform-origin:150px 150px;animation:spin 80s linear infinite} }
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Chapter bar */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.nav a{flex:none;text-decoration:none;color:var(--ink);font-weight:600;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.95rem}
+.nav a:hover{border-color:var(--jade);color:var(--jade)}
+
+section{padding-block:48px 8px;scroll-margin-top:64px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:22px}
+.sec-head .en{font-size:1.1rem}
+.sec-head p.muted{flex-basis:100%;max-width:60em}
+
+.say{border:1px solid var(--line);background:var(--surface);border-radius:999px;width:30px;height:30px;display:inline-grid;place-items:center;cursor:pointer;flex:none;padding:0;color:var(--sky)}
+.say:hover{border-color:var(--sky)}
+.say svg{width:15px;height:15px}
+.no-speech .say{display:none}
+
+/* Timeline */
+.era{margin-bottom:28px}
+.era-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.era-tag{background:var(--c);color:var(--surface);font-family:var(--f-display);font-weight:700;padding:2px 14px;border-radius:8px;font-size:1.1rem}
+.era-head .en{font-size:.95rem}
+.events{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.ev{background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--c);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.ev-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.ev-year{font-family:var(--f-display);font-weight:800;font-size:1.45rem;color:var(--c);line-height:1.1}
+.ev-ic{font-size:2.1rem;line-height:1}
+.ev-title{font-weight:700;font-size:1.04rem}
+.ev-who{font-size:.92rem;color:var(--muted)}
+.ev-who b{color:var(--ink)}
+.ev-tip{font-size:.88rem;background:var(--c-soft);border-radius:8px;padding:6px 10px}
+.ev-en{display:flex;gap:8px;align-items:center;font-size:.92rem;margin-top:auto;padding-top:4px;border-top:1px dashed var(--line)}
+
+/* Heroes */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.who-card{position:relative;text-align:left;cursor:pointer;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px;min-height:190px}
+.who-card:hover{border-color:var(--gold)}
+.who-card .ic{font-size:2.4rem;line-height:1}
+.who-card .clue{font-size:.98rem}
+.who-card .hint{margin-top:auto;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.who-card .back{display:none}
+.who-card.open{background:var(--gold-soft);border-color:var(--gold)}
+.who-card.open .front{display:none}
+.who-card.open .back{display:flex;flex-direction:column;gap:6px}
+.who-card .name{font-family:var(--f-display);font-weight:800;font-size:1.4rem;color:var(--lacquer);line-height:1.15}
+.who-card .alias{font-size:.88rem;color:var(--muted)}
+@media (prefers-reduced-motion: no-preference){ .who-card.open{animation:pop .35s ease} }
+@keyframes pop{0%{transform:rotateY(70deg)}100%{transform:none}}
+.row-tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px;font-weight:600;cursor:pointer}
+.btn:hover{border-color:var(--jade);color:var(--jade)}
+.btn.primary{background:var(--jade);border-color:var(--jade);color:var(--surface)}
+.btn.primary:hover{color:var(--surface);filter:brightness(1.08)}
+
+/* Landmarks */
+.region{margin-bottom:26px}
+.region-label{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-family:var(--f-display);font-weight:700;font-size:1.2rem;color:var(--jade)}
+.region-label::after{content:"";flex:1;height:2px;background:var(--line)}
+.places{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.place{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.place .pic{background:var(--sky-soft);aspect-ratio:16/10;max-width:100%}
+.place .pic svg{width:100%;height:100%;display:block}
+.place .body{padding:12px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.place .where{display:inline-block;align-self:flex-start;background:var(--lacquer-soft);color:var(--lacquer);font-weight:700;font-size:.82rem;border-radius:999px;padding:2px 10px}
+.place ul{margin:0;padding-left:18px;font-size:.92rem}
+.place .ioe{margin-top:auto;font-size:.88rem;background:var(--sky-soft);border-radius:8px;padding:6px 10px}
+.place .ioe b{color:var(--sky)}
+/* drawing palette */
+.i-sky{fill:var(--sky-soft)} .i-water{fill:var(--sky);opacity:.35} .i-wave{stroke:var(--sky);fill:none;stroke-width:2;stroke-linecap:round}
+.i-roof{fill:var(--lacquer)} .i-gold{fill:var(--gold)} .i-wall{fill:var(--gold-soft);stroke:var(--ink);stroke-width:1.4}
+.i-stone{fill:var(--stone);stroke:var(--ink);stroke-width:1.4} .i-dark{fill:var(--dark)} .i-green{fill:var(--jade)} .i-ln{stroke:var(--ink);fill:none;stroke-width:1.6;stroke-linecap:round}
+.i-lotus{fill:var(--lacquer-soft);stroke:var(--lacquer);stroke-width:1.2} .i-white{fill:var(--surface);stroke:var(--ink);stroke-width:1.4} .i-sun{fill:var(--gold);opacity:.85}
+.i-txt{fill:var(--ink);font:700 7px var(--f-body)} .i-star{fill:#F4D03F}
+.unesco{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.badge{background:var(--surface);border:1px dashed var(--gold);border-radius:10px;padding:8px 12px;font-size:.92rem}
+.badge b{font-family:var(--f-display);color:var(--gold);font-size:1.1rem;margin-right:6px}
+
+/* Holidays */
+.months{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.month{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;min-width:0}
+.month h3{font-size:1.05rem;display:flex;justify-content:space-between;gap:6px}
+.month h3 .en{font-family:var(--f-body);font-size:.85rem;font-weight:400}
+.month.empty{opacity:.55}
+.day{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin-top:10px;align-items:start}
+.day .d{grid-row:span 2;font-family:var(--f-display);font-weight:800;font-size:1.6rem;line-height:1;color:var(--lacquer);min-width:2ch;text-align:center}
+.day .lunar{display:block;font-family:var(--f-body);font-size:.6rem;font-weight:700;color:var(--gold);text-transform:uppercase}
+.day .vn{font-weight:600;font-size:.92rem;line-height:1.3}
+.day .say-line{display:flex;gap:6px;align-items:center;font-size:.82rem}
+
+/* Tips */
+.tips{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.tip{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;min-width:0}
+.tip h3{color:var(--jade);margin-bottom:8px}
+.tip .trap{color:var(--bad);font-weight:700}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px}
+.chain span{background:var(--gold-soft);border-radius:8px;padding:3px 9px;font-weight:600;font-size:.92rem}
+.chain i{font-style:normal;color:var(--muted)}
+.ord{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 14px;font-size:.92rem;margin-top:6px}
+.ord b{color:var(--lacquer);display:inline-block;min-width:3ch}
+.tbl-wrap{overflow-x:auto;margin-top:22px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.w{font-weight:700;color:var(--sky);white-space:nowrap}
+
+/* Quiz */
+.quiz{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.qcard{background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:22px;min-width:0}
+.qmeta{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700;color:var(--muted);font-size:.9rem}
+.qtext{font-family:var(--f-display);font-weight:700;font-size:clamp(1.3rem,3vw,1.7rem);margin:12px 0 18px;display:flex;gap:10px;align-items:flex-start}
+.qtext span{flex:1}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{text-align:left;border:2px solid var(--line);background:var(--bg);border-radius:12px;padding:12px 14px;cursor:pointer;font-size:1.05rem;display:flex;gap:10px;align-items:center}
+.opt .k{font-family:var(--f-display);font-weight:800;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);flex:none}
+.opt:hover:not([disabled]){border-color:var(--jade)}
+.opt[disabled]{cursor:default}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.right .k{background:var(--ok);color:var(--surface);border-color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.wrong .k{background:var(--bad);color:var(--surface);border-color:var(--bad)}
+.feedback{margin-top:16px;border-radius:12px;padding:12px 14px;font-size:.98rem}
+.feedback.good{background:var(--ok-soft)} .feedback.bad{background:var(--bad-soft)}
+.feedback b{font-family:var(--f-display);font-size:1.1rem}
+.qnav{display:flex;justify-content:space-between;gap:10px;margin-top:18px;flex-wrap:wrap}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.score{display:flex;align-items:baseline;gap:8px}
+.score b{font-family:var(--f-display);font-size:2.4rem;color:var(--jade);line-height:1}
+.dots{display:grid;grid-template-columns:repeat(9,1fr);gap:5px}
+.dot{aspect-ratio:1;border-radius:7px;border:1px solid var(--line);background:var(--bg);font-size:.72rem;font-weight:700;cursor:pointer;padding:0;display:grid;place-items:center}
+.dot.cur{outline:2px solid var(--ink);outline-offset:1px}
+.dot.r{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.dot.w{background:var(--bad);border-color:var(--bad);color:var(--surface)}
+.side .btn{width:100%}
+.key{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px;margin-top:14px}
+.key div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-weight:700;text-align:center}
+.key div b{color:var(--lacquer)}
+.done{text-align:center;padding:10px}
+.done .big{font-family:var(--f-display);font-size:3.2rem;font-weight:800;color:var(--jade)}
+footer{padding-block:40px 32px;color:var(--muted);font-size:.88rem}
+
+@media (max-width:900px){ .months{grid-template-columns:repeat(2,1fr)} .quiz{grid-template-columns:1fr} }
+@media (max-width:640px){ .hero{grid-template-columns:1fr;padding-block:24px 8px} .drum{max-width:220px;grid-row:1} .opts{grid-template-columns:1fr} .months{grid-template-columns:1fr} .ord{grid-template-columns:1fr 1fr} }
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}.nav a.home{background:var(--jade);border-color:var(--jade);color:var(--surface)}</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">IOE lớp 4 · Vietnamese History and Landmarks</div>
+      <h1>Sử Việt <span class="red">cho IOE</span> lớp 4</h1>
+      <p class="lead">Học theo câu chuyện: ai làm gì, năm nào, ở đâu. Mỗi mốc đều có câu tiếng Anh để các em đọc to và trả lời nhanh trong bài thi.</p>
+      <div class="stats" id="stats"></div>
+    </div>
+    <div class="drum" aria-label="Mặt trống đồng Đông Sơn"><svg id="drum" viewBox="0 0 300 300" role="img"></svg></div>
+  </header>
+</div>
+
+<nav class="nav" aria-label="Các phần">
+  <div class="wrap">
+    <a class="home" href="../index.html">← Trang chủ</a>
+    <a href="#timeline">1. Dòng thời gian</a>
+    <a href="#heroes">2. Đoán nhân vật</a>
+    <a href="#places">3. Địa danh</a>
+    <a href="#days">4. Ngày lễ</a>
+    <a href="#tips">5. Mẹo nhớ & từ vựng</a>
+    <a href="#quiz">6. Luyện đề 45 câu</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="timeline">
+    <div class="sec-head">
+      <h2>Dòng thời gian</h2><span class="en">Timeline of Vietnamese history</span>
+      <p class="muted">Đi từ thời các vua Hùng đến ngày nay. Bấm nút loa để nghe câu tiếng Anh (nếu trình duyệt hỗ trợ).</p>
+    </div>
+    <div id="eras"></div>
+  </section>
+
+  <section id="heroes">
+    <div class="sec-head">
+      <h2>Đoán nhân vật</h2><span class="en">Who am I?</span>
+      <p class="muted">Đọc gợi ý cho cả lớp, cho các em đoán, rồi bấm vào thẻ để lật xem đáp án.</p>
+    </div>
+    <div class="row-tools">
+      <button class="btn" id="openAll" type="button">Lật tất cả</button>
+      <button class="btn" id="closeAll" type="button">Úp tất cả</button>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section id="places">
+    <div class="sec-head">
+      <h2>Địa danh từ Bắc vào Nam</h2><span class="en">Famous landmarks</span>
+      <p class="muted">Mỗi địa danh có câu hỏi IOE hay gặp ở cuối thẻ.</p>
+    </div>
+    <div id="regions"></div>
+    <h3 style="margin-top:8px">Di sản được UNESCO ghi danh <span class="en" style="font-family:var(--f-body);font-weight:400;font-size:.95rem">UNESCO heritage</span></h3>
+    <div class="unesco" id="unesco"></div>
+  </section>
+
+  <section id="days">
+    <div class="sec-head">
+      <h2>Lịch ngày lễ</h2><span class="en">Special days in a year</span>
+      <p class="muted">Đề IOE hay hỏi ngày lễ bằng tiếng Anh, ví dụ: <i>National Day is on September 2nd</i> (đọc là <i>September the second</i>).</p>
+    </div>
+    <div class="months" id="months"></div>
+  </section>
+
+  <section id="tips">
+    <div class="sec-head">
+      <h2>Mẹo nhớ nhanh</h2><span class="en">Memory tricks</span>
+      <p class="muted">Những chỗ đề hay gài bẫy, gom lại cho dễ nhớ.</p>
+    </div>
+    <div class="tips">
+      <div class="tip"><h3>Hà Nội thích số 10</h3>
+        <p>1010: Lý Thái Tổ dời đô về Thăng Long.<br>10/10/1954: Giải phóng Thủ đô.<br>2010: Hoàng thành Thăng Long thành Di sản thế giới (tròn 1000 năm Thăng Long).</p></div>
+      <div class="tip"><h3>Miếu trước, Trường sau</h3>
+        <p><b>1070</b> xây Văn Miếu (nơi thờ) → <b>1076</b> lập Quốc Tử Giám (nơi học, trường đại học đầu tiên). 70 nhỏ hơn 76, nên Miếu có trước.</p>
+        <p class="en" style="margin-top:6px">Quoc Tu Giam was Vietnam's first national university.</p></div>
+      <div class="tip"><h3>Bạch Đằng thắng hai lần</h3>
+        <p><b>938</b>: Ngô Quyền đánh quân Nam Hán.<br><b>1288</b>: Trần Hưng Đạo đánh quân Nguyên.</p>
+        <p class="trap" style="margin-top:6px">Bẫy: hỏi Ngô Quyền thì chọn 938, không chọn 1288.</p></div>
+      <div class="tip"><h3>Một người, nhiều tên</h3>
+        <div class="chain"><span>Lý Công Uẩn</span><i>=</i><span>Lý Thái Tổ</span></div>
+        <div class="chain"><span>Nguyễn Ánh</span><i>=</i><span>vua Gia Long</span></div>
+        <div class="chain"><span>Nguyễn Huệ</span><i>=</i><span>vua Quang Trung</span></div>
+        <div class="chain"><span>Trần Quốc Tuấn</span><i>=</i><span>Trần Hưng Đạo</span></div>
+        <div class="chain"><span>Lý Bí</span><i>=</i><span>Lý Nam Đế</span></div>
+        <div class="chain"><span>Triệu Thị Trinh</span><i>=</i><span>Bà Triệu</span></div></div>
+      <div class="tip"><h3>Các tên của Bác Hồ</h3>
+        <div class="chain"><span>Nguyễn Sinh Cung</span><i>→</i><span>Nguyễn Tất Thành</span><i>→</i><span>Nguyễn Ái Quốc</span><i>→</i><span>Hồ Chí Minh</span></div>
+        <p style="margin-top:8px">Tên lúc mới sinh (<i class="en">birth name</i>) là <b>Nguyễn Sinh Cung</b>.<br>Ba con số: sinh <b>19/5/1890</b> · ra đi tìm đường cứu nước <b>5/6/1911</b> · đọc Tuyên ngôn Độc lập <b>2/9/1945</b>.</p></div>
+      <div class="tip"><h3>Hai ngày Phụ nữ, một ngày Nhà giáo</h3>
+        <p><b>8/3</b>: Quốc tế Phụ nữ, <i class="en">International Women's Day</i>.<br><b>20/10</b>: Phụ nữ Việt Nam, <i class="en">Vietnamese Women's Day</i>.<br><b>20/11</b>: Nhà giáo Việt Nam, tháng <i class="en">November</i>.</p>
+        <p class="trap" style="margin-top:6px">Đọc kỹ chữ International hay Vietnamese.</p></div>
+      <div class="tip"><h3>Kinh đô qua các thời</h3>
+        <div class="chain"><span>Phong Châu</span><i>→</i><span>Cổ Loa</span><i>→</i><span>Hoa Lư</span><i>→</i><span>Thăng Long</span><i>→</i><span>Phú Xuân (Huế)</span><i>→</i><span>Hà Nội</span></div>
+        <p style="margin-top:8px">Sài Gòn (<i class="en">Saigon</i>) là tên cũ của TP Hồ Chí Minh, đổi tên ngày 2/7/1976.</p></div>
+      <div class="tip"><h3>Số thứ tự tiếng Anh</h3>
+        <div class="ord num">
+          <span><b>1st</b> first</span><span><b>2nd</b> second</span>
+          <span><b>3rd</b> third</span><span><b>4th</b> fourth</span>
+          <span><b>5th</b> fifth</span><span><b>8th</b> eighth</span>
+          <span><b>9th</b> ninth</span><span><b>10th</b> tenth</span>
+          <span><b>19th</b> nineteenth</span><span><b>20th</b> twentieth</span>
+          <span><b>22nd</b> twenty-second</span><span><b>30th</b> thirtieth</span></div>
+        <p class="trap" style="margin-top:6px">Bẫy: nineteenth (19) khác ninth (9).</p></div>
+      <div class="tip"><h3>Đoán nhanh địa điểm</h3>
+        <p>Văn Miếu, Chùa Một Cột, Lăng Bác, Ba Đình, Hồ Hoàn Kiếm: <b>Hà Nội</b>.<br>Đền Hùng: <b>Phú Thọ</b>. Quê Bác: <b>Nghệ An</b>.<br>Kinh đô nhà Nguyễn: <b>Huế</b>. Hội An: <b>TP Đà Nẵng</b>.<br>Dinh Độc Lập: <b>TP Hồ Chí Minh</b>.</p></div>
+    </div>
+
+    <h3 style="margin-top:32px">Từ vựng hay gặp <span class="en" style="font-family:var(--f-body);font-weight:400;font-size:.95rem">Key words</span></h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Tiếng Anh</th><th>Nghĩa</th><th>Câu ví dụ</th></tr></thead>
+      <tbody id="vocab"></tbody>
+    </table></div>
+  </section>
+
+  <section id="quiz">
+    <div class="sec-head">
+      <h2>Luyện đề 45 câu</h2><span class="en">Choose the correct answer A, B, C or D</span>
+      <p class="muted">Bấm đáp án (hoặc phím A, B, C, D). Trả lời xong sẽ hiện lời giải ngắn. Có thể trộn câu hoặc chỉ làm lại câu sai.</p>
+    </div>
+    <div class="quiz">
+      <div class="qcard" id="qcard"></div>
+      <aside class="side">
+        <div class="score"><b id="score" class="num">0</b><span class="muted num" id="scoreOf">/ 45 câu đúng</span></div>
+        <div class="dots" id="dots"></div>
+        <button class="btn" id="shuffle" type="button">Trộn thứ tự câu hỏi</button>
+        <button class="btn" id="retryWrong" type="button">Chỉ làm lại câu sai</button>
+        <button class="btn" id="reset" type="button">Làm lại từ đầu</button>
+        <button class="btn" id="toggleKey" type="button" aria-expanded="false">Xem bảng đáp án (cho giáo viên)</button>
+      </aside>
+    </div>
+    <div class="key" id="key" hidden></div>
+  </section>
+
+  <footer>Nội dung theo tài liệu “IOE Grade 4 – Vietnamese History and Landmarks”. Câu 41: từ 1/7/2025 tỉnh Quảng Nam hợp nhất vào TP Đà Nẵng, nên Hội An thuộc TP Đà Nẵng.</footer>
+</main>
+
+<script>
+(function(){
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const canSpeak = 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined';
+if(!canSpeak) document.body.classList.add('no-speech');
+const SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>';
+const sayBtn = t => `<button class="say" type="button" data-say="${esc(t)}" aria-label="Nghe câu tiếng Anh">${SPK}</button>`;
+function speak(t){ try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang='en-US'; u.rate=.85; speechSynthesis.speak(u);}catch(e){} }
+document.addEventListener('click', e => { const b=e.target.closest('[data-say]'); if(b){ e.stopPropagation(); speak(b.dataset.say); } });
+
+/* ---------- Bronze drum ---------- */
+(function drum(){
+  const s=$('#drum'), NS='http://www.w3.org/2000/svg';
+  const el=(n,a,p)=>{const x=document.createElementNS(NS,n);for(const k in a)x.setAttribute(k,a[k]);(p||s).appendChild(x);return x};
+  el('circle',{cx:150,cy:150,r:148,style:'fill:var(--jade-deep)'});
+  const g=el('g',{class:'spin'});
+  const gold='stroke:var(--gold);fill:none';
+  [140,128,112,84,70,46].forEach((r,i)=>el('circle',{cx:150,cy:150,r,style:gold,'stroke-width':i===0?3:1.6},g));
+  // tick rings
+  [[134,90],[76,60]].forEach(([r,n])=>{for(let i=0;i<n;i++){const a=i/n*2*Math.PI;const r2=r+(r>100?5:5);el('line',{x1:150+Math.cos(a)*(r-5),y1:150+Math.sin(a)*(r-5),x2:150+Math.cos(a)*r2,y2:150+Math.sin(a)*r2,style:'stroke:var(--gold)','stroke-width':1.4},g)}});
+  // flying Lac birds
+  for(let i=0;i<6;i++){const a=i/6*360;const b=el('g',{transform:`rotate(${a} 150 150) translate(150 52)`},g);
+    el('path',{d:'M-14 0 Q-4 -10 0 -2 Q8 -14 16 -8 Q8 -4 4 2 L-2 8 Q-6 2 -14 0Z',style:'fill:var(--gold)'},b);}
+  // houses / dancers ring as dots
+  for(let i=0;i<24;i++){const a=i/24*2*Math.PI;el('circle',{cx:150+Math.cos(a)*58,cy:150+Math.sin(a)*58,r:3.2,style:'fill:var(--gold)'},g)}
+  // 14-ray star
+  let d='';const n=14;for(let i=0;i<n*2;i++){const r=i%2?14:42;const a=i/(n*2)*2*Math.PI-Math.PI/2;d+=(i?'L':'M')+(150+Math.cos(a)*r).toFixed(1)+' '+(150+Math.sin(a)*r).toFixed(1)}
+  el('path',{d:d+'Z',style:'fill:var(--gold)'},g);
+  el('circle',{cx:150,cy:150,r:8,style:'fill:var(--jade-deep)'},g);
+})();
+
+/* ---------- Timeline ---------- */
+const C = {jade:['var(--jade)','var(--jade-soft)'],red:['var(--lacquer)','var(--lacquer-soft)'],gold:['var(--gold)','var(--gold-soft)'],sky:['var(--sky)','var(--sky-soft)']};
+const ERAS = [
+ {n:'Buổi đầu dựng nước',en:'Building the first states',c:'jade',ev:[
+  {y:'Thế kỉ VII TCN',ic:'🥁',t:'Thành lập nước Văn Lang',w:'Các vua Hùng',tip:'Nhà nước đầu tiên của người Việt. Kinh đô Phong Châu (Phú Thọ). Trống đồng Đông Sơn là báu vật thời này.',en:'The Hung Kings founded Van Lang.'},
+  {y:'Năm 258 TCN',ic:'🏹',t:'Thành lập nước Âu Lạc',w:'An Dương Vương (Thục Phán)',tip:'Xây thành Cổ Loa hình xoắn ốc, có nỏ thần bắn nhiều mũi tên.',en:'An Duong Vuong founded Au Lac.'},
+  {y:'Năm 179 TCN',ic:'⛓️',t:'Âu Lạc rơi vào ách đô hộ của Triệu Đà',w:'An Dương Vương',tip:'Bắt đầu hơn 1000 năm bị phương Bắc đô hộ.',en:'Au Lac was invaded in 179 BC.'}]},
+ {n:'Hơn 1000 năm đấu tranh',en:'Uprisings for freedom',c:'red',ev:[
+  {y:'Năm 40',ic:'🐘',t:'Khởi nghĩa Hai Bà Trưng',w:'Trưng Trắc, Trưng Nhị',tip:'Hai chị em cưỡi voi đánh đuổi quân Hán.',en:'The Trung Sisters led an uprising in 40.'},
+  {y:'Năm 248',ic:'🐘',t:'Khởi nghĩa Bà Triệu',w:'Triệu Thị Trinh',tip:'Bà Triệu mặc áo giáp, cưỡi voi ra trận.',en:'Ba Trieu led the uprising in 248.'},
+  {y:'Năm 542',ic:'🔥',t:'Khởi nghĩa Lý Bí',w:'Lý Bí',tip:'Đánh đuổi quân Lương.',en:'Ly Bi led an uprising in 542.'},
+  {y:'Năm 544',ic:'🏰',t:'Thành lập nước Vạn Xuân',w:'Lý Nam Đế (chính là Lý Bí)',tip:'Vạn Xuân nghĩa là “muôn mùa xuân”.',en:'Ly Nam De founded Van Xuan in 544.'},
+  {y:'Năm 938',ic:'⚓',t:'Chiến thắng Bạch Đằng, mở ra thời kì độc lập lâu dài',w:'Ngô Quyền',tip:'Cắm cọc gỗ đầu bịt sắt dưới lòng sông. Nước triều rút, thuyền giặc mắc cọc vỡ tan.',en:'Ngo Quyen won the Battle of Bach Dang in 938.'}]},
+ {n:'Nhà Đinh, Tiền Lê',en:'Independent kingdom',c:'gold',ev:[
+  {y:'Năm 968',ic:'🌾',t:'Thống nhất đất nước, lập nước Đại Cồ Việt',w:'Đinh Bộ Lĩnh',tip:'Hồi nhỏ chăn trâu, lấy bông lau làm cờ tập trận. Đóng đô ở Hoa Lư.',en:'Dinh Bo Linh unified the country in 968.'},
+  {y:'Năm 981',ic:'🛡️',t:'Kháng chiến chống quân Tống',w:'Lê Hoàn',tip:'Đánh thắng quân Tống lần thứ nhất.',en:'Le Hoan defeated the Song army in 981.'}]},
+ {n:'Nhà Lý',en:'The Ly Dynasty',c:'sky',ev:[
+  {y:'Năm 1009',ic:'👑',t:'Nhà Lý được thành lập',w:'Lý Công Uẩn',tip:'Lý Công Uẩn lên ngôi, chính là vua Lý Thái Tổ.',en:'Ly Cong Uan founded the Ly Dynasty in 1009.'},
+  {y:'Năm 1010',ic:'🐉',t:'Dời đô từ Hoa Lư ra Thăng Long',w:'Lý Thái Tổ',tip:'Tương truyền vua thấy rồng vàng bay lên nên đặt tên Thăng Long (rồng bay lên). Nay là Hà Nội.',en:'Ly Thai To moved the capital to Thang Long in 1010.'},
+  {y:'Năm 1070',ic:'🏛️',t:'Xây dựng Văn Miếu',w:'Lý Thánh Tông',tip:'Văn Miếu là nơi thờ Khổng Tử, ở Hà Nội.',en:'The Temple of Literature was built in 1070.'},
+  {y:'Năm 1076',ic:'📚',t:'Thành lập Quốc Tử Giám',w:'Lý Nhân Tông',tip:'Trường đại học đầu tiên của Việt Nam.',en:'Quoc Tu Giam was established in 1076.'},
+  {y:'1075 – 1077',ic:'📜',t:'Kháng chiến chống quân Tống',w:'Lý Thường Kiệt',tip:'Thắng lớn trên sông Như Nguyệt. Gắn với bài thơ “Nam quốc sơn hà”.',en:'Ly Thuong Kiet defeated the Song army.'}]},
+ {n:'Nhà Trần',en:'The Tran Dynasty',c:'red',ev:[
+  {y:'Năm 1226',ic:'👑',t:'Nhà Trần được thành lập',w:'Trần Thái Tông',tip:'Vua đầu tiên của nhà Trần.',en:'The Tran Dynasty was founded in 1226.'},
+  {y:'1258, 1285, 1287–1288',ic:'⚔️',t:'Ba lần kháng chiến chống quân Mông – Nguyên',w:'Các vua Trần, Trần Quốc Tuấn (Trần Hưng Đạo)',tip:'Lần thứ ba thắng lớn trên sông Bạch Đằng năm 1288.',en:'Tran Hung Dao defeated the Mongol army three times.'}]},
+ {n:'Nhà Hồ, Hậu Lê',en:'The Ho and Later Le Dynasties',c:'jade',ev:[
+  {y:'Năm 1400',ic:'🏯',t:'Nhà Hồ được thành lập',w:'Hồ Quý Ly',tip:'Xây Thành Nhà Hồ ở Thanh Hóa.',en:'Ho Quy Ly founded the Ho Dynasty in 1400.'},
+  {y:'Năm 1418',ic:'🗡️',t:'Khởi nghĩa Lam Sơn',w:'Lê Lợi',tip:'Bắt đầu ở Lam Sơn (Thanh Hóa), đánh đuổi quân Minh sau 10 năm.',en:'Le Loi led the Lam Son uprising.'},
+  {y:'Năm 1428',ic:'🐢',t:'Nhà Hậu Lê được thành lập',w:'Lê Lợi (vua Lê Thái Tổ)',tip:'Truyền thuyết: vua trả gươm thần cho Rùa Vàng ở hồ Lục Thủy, từ đó gọi là hồ Hoàn Kiếm.',en:'Le Loi returned the sword at Hoan Kiem Lake.'}]},
+ {n:'Mở mang bờ cõi, Tây Sơn, Nhà Nguyễn',en:'Trade towns, Quang Trung and the Nguyen Dynasty',c:'gold',ev:[
+  {y:'Thế kỉ XVI – XVII',ic:'⛵',t:'Hội An thành thương cảng quốc tế',w:'Thương nhân Nhật, Hoa, phương Tây',tip:'Tàu buôn nhiều nước đến buôn bán. Còn lại Chùa Cầu và phố cổ.',en:'Hoi An was a busy trading port.'},
+  {y:'Năm 1698',ic:'🗺️',t:'Lập phủ Gia Định',w:'Nguyễn Hữu Cảnh',tip:'Vùng đất Gia Định sau này là Sài Gòn, nay là TP Hồ Chí Minh.',en:'Nguyen Huu Canh set up Gia Dinh in 1698.'},
+  {y:'Năm 1789',ic:'🐎',t:'Chiến thắng Ngọc Hồi – Đống Đa',w:'Quang Trung (Nguyễn Huệ)',tip:'Mùa xuân Kỷ Dậu, đánh tan quân Thanh chỉ trong mấy ngày Tết.',en:'King Quang Trung defeated the Qing army in 1789.'},
+  {y:'Năm 1802',ic:'🏯',t:'Nhà Nguyễn được thành lập, Huế là kinh đô',w:'Nguyễn Ánh (vua Gia Long)',tip:'Triều đại phong kiến cuối cùng. Vua cuối cùng là Bảo Đại (thoái vị năm 1945).',en:'Gia Long founded the Nguyen Dynasty in 1802.'}]},
+ {n:'Thời hiện đại',en:'Modern times',c:'red',ev:[
+  {y:'19/5/1890',ic:'🪷',t:'Bác Hồ ra đời',w:'Nguyễn Sinh Cung',tip:'Sinh ở Nghệ An (quê nội làng Sen, Kim Liên, Nam Đàn).',en:'Uncle Ho was born in Nghe An on May 19th, 1890.'},
+  {y:'5/6/1911',ic:'🚢',t:'Ra đi tìm đường cứu nước',w:'Nguyễn Tất Thành',tip:'Rời bến Nhà Rồng (Sài Gòn) trên một con tàu buôn.',en:'Nguyen Tat Thanh left to find a way to save the country.'},
+  {y:'2/9/1945',ic:'📜',t:'Đọc Tuyên ngôn Độc lập, khai sinh nước Việt Nam',w:'Chủ tịch Hồ Chí Minh',tip:'Tại Quảng trường Ba Đình, Hà Nội. Bác là Chủ tịch nước đầu tiên.',en:'Ho Chi Minh read the Declaration of Independence at Ba Dinh Square.'},
+  {y:'7/5/1954',ic:'🎖️',t:'Chiến thắng Điện Biên Phủ',w:'Đại tướng Võ Nguyên Giáp',tip:'“Lừng lẫy năm châu, chấn động địa cầu”.',en:'General Vo Nguyen Giap won the Battle of Dien Bien Phu in 1954.'},
+  {y:'10/10/1954',ic:'🎉',t:'Giải phóng Thủ đô Hà Nội',w:'',tip:'Đoàn quân tiến về tiếp quản Thủ đô.',en:'Hanoi was liberated on October 10th, 1954.'},
+  {y:'30/4/1975',ic:'🚩',t:'Giải phóng miền Nam, thống nhất đất nước',w:'',tip:'Xe tăng tiến vào Dinh Độc Lập.',en:'The South was liberated on April 30th, 1975.'},
+  {y:'2/7/1976',ic:'🏙️',t:'Sài Gòn – Gia Định mang tên TP Hồ Chí Minh',w:'',tip:'Saigon là tên cũ của TP Hồ Chí Minh.',en:'Saigon became Ho Chi Minh City.'}]}
+];
+let evCount=0;
+$('#eras').innerHTML = ERAS.map(e=>{const [c,cs]=C[e.c];return `<div class="era" style="--c:${c};--c-soft:${cs}">
+  <div class="era-head"><span class="era-tag">${e.n}</span><span class="en">${e.en}</span></div>
+  <div class="events">${e.ev.map(v=>{evCount++;return `<article class="ev">
+    <div class="ev-top"><div class="ev-year num">${v.y}</div><div class="ev-ic" aria-hidden="true">${v.ic}</div></div>
+    <div class="ev-title">${v.t}</div>
+    ${v.w?`<div class="ev-who">Nhân vật: <b>${v.w}</b></div>`:''}
+    <div class="ev-tip">${v.tip}</div>
+    <div class="ev-en">${sayBtn(v.en)}<span class="en">${v.en}</span></div>
+  </article>`}).join('')}</div></div>`}).join('');
+
+/* ---------- Heroes ---------- */
+const HEROES = [
+ ['🥁','Chúng tôi dựng nên nước Văn Lang, nước đầu tiên của người Việt.','Các vua Hùng','The Hung Kings','Đền thờ ở Phú Thọ. Giỗ Tổ 10/3 âm lịch.','The Hung Kings founded Van Lang.'],
+ ['🏹','Ta lập nước Âu Lạc, xây thành Cổ Loa xoắn ốc và có nỏ thần.','An Dương Vương','King An Duong Vuong','Tên thật: Thục Phán.','An Duong Vuong founded Au Lac.'],
+ ['🐘🐘','Hai chị em chúng tôi cưỡi voi khởi nghĩa năm 40.','Hai Bà Trưng','The Trung Sisters','Trưng Trắc và Trưng Nhị.','The Trung Sisters are Trung Trac and Trung Nhi.'],
+ ['🐘','Tôi khởi nghĩa năm 248. Tên thật của tôi là Triệu Thị Trinh.','Bà Triệu','Ba Trieu','Cưỡi voi, mặc áo giáp vàng.','Ba Trieu led the uprising in 248.'],
+ ['🏰','Ta khởi nghĩa năm 542, hai năm sau lập nước Vạn Xuân.','Lý Bí','Ly Nam De','Lên ngôi xưng là Lý Nam Đế.','Ly Bi founded Van Xuan.'],
+ ['⚓','Ta cắm cọc gỗ dưới sông Bạch Đằng, thắng quân Nam Hán năm 938.','Ngô Quyền','Ngo Quyen','Mở ra thời kì độc lập lâu dài.','Ngo Quyen won the Battle of Bach Dang in 938.'],
+ ['🌾','Hồi nhỏ ta lấy bông lau làm cờ. Năm 968 ta dẹp loạn 12 sứ quân.','Đinh Bộ Lĩnh','Dinh Bo Linh','Đặt tên nước là Đại Cồ Việt, đóng đô ở Hoa Lư.','Dinh Bo Linh unified the country.'],
+ ['🛡️','Năm 981 ta chỉ huy quân dân đánh tan quân Tống.','Lê Hoàn','Le Hoan','Vua Lê Đại Hành, nhà Tiền Lê.','Le Hoan defeated the Song army.'],
+ ['🐉','Năm 1010 ta dời đô từ Hoa Lư ra Thăng Long.','Lý Thái Tổ','Ly Thai To','Tên thật: Lý Công Uẩn. Lập nhà Lý năm 1009.','Ly Thai To moved the capital to Thang Long.'],
+ ['🏛️','Năm 1070 ta cho xây Văn Miếu ở kinh thành.','Lý Thánh Tông','Ly Thanh Tong','Năm 1076, vua Lý Nhân Tông lập Quốc Tử Giám bên cạnh.','The Temple of Literature was built in 1070.'],
+ ['📜','Ta đánh tan quân Tống trên sông Như Nguyệt (1075 – 1077).','Lý Thường Kiệt','Ly Thuong Kiet','Gắn với bài thơ “Nam quốc sơn hà”.','Ly Thuong Kiet fought against the Song army.'],
+ ['⚔️','Ta chỉ huy quân dân nhà Trần đánh thắng quân Mông – Nguyên, thắng Bạch Đằng năm 1288.','Trần Hưng Đạo','Tran Hung Dao','Tên thật: Trần Quốc Tuấn.','Tran Hung Dao defeated the Mongol army.'],
+ ['🐢','Ta lãnh đạo khởi nghĩa Lam Sơn, sau đó trả gươm thần cho Rùa Vàng.','Lê Lợi','Le Loi','Lập nhà Hậu Lê năm 1428. Gắn với hồ Hoàn Kiếm.','Le Loi led the Lam Son uprising.'],
+ ['🐎','Mùa xuân năm 1789, ta đánh tan quân Thanh ở Ngọc Hồi – Đống Đa.','Quang Trung','King Quang Trung','Tên thật: Nguyễn Huệ, người anh hùng áo vải Tây Sơn.','King Quang Trung defeated the Qing army in 1789.'],
+ ['👑','Năm 1802 ta lập nhà Nguyễn và đóng đô ở Huế.','Gia Long','King Gia Long','Tên thật: Nguyễn Ánh.','Gia Long founded the Nguyen Dynasty.'],
+ ['🪭','Ta là vị vua cuối cùng của Việt Nam, thoái vị năm 1945.','Bảo Đại','Emperor Bao Dai','Vua thứ 13 của nhà Nguyễn.','Bao Dai was the last emperor of Vietnam.'],
+ ['⭐','Tôi sinh ngày 19/5/1890 ở Nghệ An, đọc Tuyên ngôn Độc lập ngày 2/9/1945.','Bác Hồ','President Ho Chi Minh','Chủ tịch nước đầu tiên. Tên lúc nhỏ: Nguyễn Sinh Cung.','Ho Chi Minh was the first president of Vietnam.'],
+ ['🎖️','Tôi chỉ huy quân đội ta giành chiến thắng Điện Biên Phủ năm 1954.','Võ Nguyên Giáp','General Vo Nguyen Giap','Đại tướng đầu tiên của Quân đội nhân dân Việt Nam.','General Vo Nguyen Giap won at Dien Bien Phu.']
+];
+$('#cards').innerHTML = HEROES.map((h,i)=>`<div class="who-card" role="button" tabindex="0" aria-pressed="false" data-i="${i}">
+  <div class="front"><div class="ic" aria-hidden="true">${h[0]}</div><p class="clue">${h[1]}</p><p class="clue" style="font-weight:700">Tôi là ai?</p><div class="hint">Bấm để lật</div></div>
+  <div class="back"><div class="ic" aria-hidden="true">${h[0]}</div><div class="name">${h[2]}</div><div class="alias en">${h[3]}</div><p style="font-size:.92rem">${h[4]}</p>
+    <div class="ev-en" style="border-top:1px dashed var(--line)">${sayBtn(h[5])}<span class="en">${h[5]}</span></div></div>
+</div>`).join('');
+const flip=(c,on)=>{c.classList.toggle('open',on);c.setAttribute('aria-pressed',on?'true':'false')};
+$('#cards').addEventListener('click',e=>{const c=e.target.closest('.who-card');if(c)flip(c,!c.classList.contains('open'))});
+$('#cards').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('who-card')){e.preventDefault();flip(e.target,!e.target.classList.contains('open'))}});
+$('#openAll').onclick=()=>document.querySelectorAll('.who-card').forEach(c=>flip(c,true));
+$('#closeAll').onclick=()=>document.querySelectorAll('.who-card').forEach(c=>flip(c,false));
+
+/* ---------- Landmarks (hand-drawn SVG) ---------- */
+const water='<rect class="i-water" x="0" y="82" width="160" height="18"/><path class="i-wave" d="M12 90q8-5 16 0t16 0M104 94q8-5 16 0t16 0"/>';
+const SVG = {
+ hung:`<rect class="i-sky" width="160" height="100"/><circle class="i-sun" cx="128" cy="22" r="10"/>
+  <path class="i-green" d="M0 100Q30 60 70 42Q80 38 90 42Q130 60 160 100Z"/>
+  <path class="i-ln" d="M80 98l-6-10h10l-6-10h10l-6-10h8l-4-8" style="stroke:var(--gold-soft)"/>
+  <circle class="i-green" cx="40" cy="78" r="9" style="filter:brightness(.8)"/><circle class="i-green" cx="122" cy="80" r="10" style="filter:brightness(.8)"/>
+  <rect class="i-wall" x="64" y="28" width="32" height="16"/><rect class="i-dark" x="76" y="34" width="8" height="10"/>
+  <path class="i-roof" d="M56 30Q80 22 104 30L98 20Q80 14 62 20Z"/><path class="i-roof" d="M66 18Q80 6 94 18Z"/>`,
+ vanmieu:`<rect class="i-sky" width="160" height="100"/><rect class="i-green" x="0" y="84" width="160" height="16"/>
+  <rect class="i-stone" x="44" y="50" width="10" height="34"/><rect class="i-stone" x="64" y="50" width="10" height="34"/><rect class="i-stone" x="86" y="50" width="10" height="34"/><rect class="i-stone" x="106" y="50" width="10" height="34"/>
+  <path class="i-roof" d="M32 52Q80 42 128 52L120 44L40 44Z"/>
+  <rect class="i-wall" x="56" y="24" width="48" height="20"/>
+  <circle class="i-sun" cx="80" cy="34" r="7"/><path class="i-ln" d="M80 27v14M73 34h14M75 29l10 10M85 29l-10 10" style="stroke-width:1"/>
+  <path class="i-roof" d="M44 26Q80 16 116 26L106 14L54 14Z"/><circle class="i-gold" cx="80" cy="11" r="3"/>
+  <text class="i-txt" x="80" y="97" text-anchor="middle" style="fill:var(--surface)">KHUÊ VĂN CÁC</text>`,
+ motcot:`<rect class="i-sky" width="160" height="100"/>${water}
+  <ellipse class="i-lotus" cx="34" cy="84" rx="9" ry="3"/><ellipse class="i-lotus" cx="128" cy="86" rx="9" ry="3"/>
+  <rect class="i-stone" x="75" y="56" width="10" height="34"/>
+  <path class="i-ln" d="M80 64L62 56M80 64L98 56M80 60L70 56M80 60L90 56"/>
+  <rect class="i-wall" x="58" y="40" width="44" height="16"/><rect class="i-dark" x="74" y="44" width="12" height="12"/>
+  <path class="i-roof" d="M42 42Q54 40 58 30L102 30Q106 40 118 42Q80 36 42 42Z"/><path class="i-roof" d="M60 30Q80 14 100 30Z"/>`,
+ thaprua:`<rect class="i-sky" width="160" height="100"/><rect class="i-water" x="0" y="66" width="160" height="34"/>
+  <path class="i-wave" d="M10 90q8-5 16 0t16 0M110 92q8-5 16 0t16 0"/>
+  <ellipse class="i-green" cx="80" cy="74" rx="44" ry="7"/>
+  <rect class="i-stone" x="58" y="48" width="44" height="24"/>
+  <path class="i-dark" d="M63 72v-10a4.5 4.5 0 0 1 9 0v10zM75.5 72v-10a4.5 4.5 0 0 1 9 0v10zM88 72v-10a4.5 4.5 0 0 1 9 0v10z"/>
+  <rect class="i-stone" x="64" y="34" width="32" height="14"/><path class="i-dark" d="M70 48v-6a3 3 0 0 1 6 0v6zM84 48v-6a3 3 0 0 1 6 0v6z"/>
+  <rect class="i-stone" x="71" y="22" width="18" height="12"/><path class="i-roof" d="M66 24Q80 12 94 24Z"/><circle class="i-gold" cx="80" cy="13" r="2.5"/>
+  <ellipse class="i-green" cx="128" cy="84" rx="9" ry="5" style="filter:brightness(.75)"/><circle class="i-green" cx="138" cy="82" r="3" style="filter:brightness(.75)"/>`,
+ lang:`<rect class="i-sky" width="160" height="100"/><rect class="i-green" x="0" y="86" width="160" height="14"/>
+  <rect class="i-stone" x="18" y="80" width="124" height="6"/><rect class="i-stone" x="26" y="74" width="108" height="6"/>
+  <rect class="i-stone" x="36" y="46" width="88" height="28"/>
+  <path class="i-dark" d="M44 50h5v24h-5zM56 50h5v24h-5zM68 50h5v24h-5zM87 50h5v24h-5zM99 50h5v24h-5zM111 50h5v24h-5z"/>
+  <rect class="i-stone" x="30" y="36" width="100" height="10"/><text class="i-txt" x="80" y="44" text-anchor="middle">HỒ CHÍ MINH</text>
+  <rect class="i-stone" x="46" y="28" width="68" height="8"/>
+  <path class="i-ln" d="M148 86V20"/><rect class="i-roof" x="148" y="20" width="0.1" height="0"/><path class="i-roof" d="M148 20h-0z"/>
+  <rect x="148" y="20" width="0" height="0"/><path d="M148 20h0" />
+  <g transform="translate(148 20)"><rect class="i-roof" x="0" y="0" width="18" height="12" style="fill:#DA251D"/><path class="i-star" d="M9 2.2l1.2 3.2h3.4l-2.7 2 1 3.3-2.9-2-2.9 2 1-3.3-2.7-2h3.4z"/></g>`,
+ lang_sen:`<rect class="i-sky" width="160" height="100"/><rect class="i-green" x="0" y="70" width="160" height="30"/>
+  <path class="i-gold" d="M30 50L60 26L110 26L132 50Z" style="filter:saturate(.6)"/><path class="i-ln" d="M40 44h86M48 36h70"/>
+  <rect class="i-wall" x="40" y="50" width="84" height="24"/><rect class="i-dark" x="74" y="56" width="16" height="18"/>
+  <rect class="i-dark" x="50" y="56" width="12" height="9"/><rect class="i-dark" x="102" y="56" width="12" height="9"/>
+  <rect class="i-water" x="8" y="80" width="144" height="16" rx="8"/>
+  <g class="i-lotus"><path d="M30 88q4-10 8 0q-4 3-8 0z"/><path d="M56 90q4-10 8 0q-4 3-8 0z"/><path d="M104 88q4-10 8 0q-4 3-8 0z"/><path d="M128 90q4-10 8 0q-4 3-8 0z"/></g>
+  <ellipse class="i-green" cx="44" cy="92" rx="7" ry="2.5" style="filter:brightness(.75)"/><ellipse class="i-green" cx="118" cy="93" rx="7" ry="2.5" style="filter:brightness(.75)"/>`,
+ hue:`<rect class="i-sky" width="160" height="100"/><rect class="i-water" x="0" y="88" width="160" height="12"/>
+  <rect class="i-stone" x="10" y="58" width="140" height="30" style="fill:var(--lacquer-soft)"/>
+  <path class="i-dark" d="M30 88v-14a7 7 0 0 1 14 0v14zM72 88v-18a8 8 0 0 1 16 0v18zM116 88v-14a7 7 0 0 1 14 0v14z"/>
+  <rect class="i-wall" x="38" y="42" width="84" height="16"/>
+  <path class="i-ln" d="M48 42v16M60 42v16M72 42v16M88 42v16M100 42v16M112 42v16"/>
+  <path class="i-gold" d="M28 44Q80 36 132 44L124 36L36 36Z"/><rect class="i-wall" x="56" y="26" width="48" height="10"/>
+  <path class="i-gold" d="M44 28Q80 18 116 28L106 18L54 18Z"/><circle class="i-roof" cx="80" cy="15" r="3"/>
+  <text class="i-txt" x="80" y="68" text-anchor="middle">NGỌ MÔN</text>`,
+ hoian:`<rect class="i-sky" width="160" height="100"/>${water}
+  <path class="i-wall" d="M24 74Q80 58 136 74L136 82Q80 66 24 82Z"/>
+  <path class="i-ln" d="M40 68v-16M60 63v-15M80 61v-15M100 63v-15M120 68v-16"/>
+  <path class="i-roof" d="M16 56Q80 36 144 56L136 46Q80 28 24 46Z"/><path class="i-roof" d="M64 40Q80 26 96 40Z"/>
+  <g><path class="i-ln" d="M50 56v6M110 56v6"/><circle class="i-roof" cx="50" cy="66" r="4.5" style="fill:var(--gold)"/><circle class="i-roof" cx="110" cy="66" r="4.5"/></g>
+  <circle class="i-sun" cx="22" cy="20" r="8"/>`,
+ dinh:`<rect class="i-sky" width="160" height="100"/><ellipse class="i-green" cx="80" cy="94" rx="90" ry="14"/>
+  <rect class="i-white" x="18" y="44" width="124" height="38"/>
+  <path class="i-ln" d="M18 58h124M18 70h124" style="stroke-width:1"/>
+  <path class="i-ln" d="${Array.from({length:15},(_,i)=>`M${26+i*8} 46v34`).join('')}" style="stroke-width:1.2"/>
+  <rect class="i-white" x="12" y="38" width="136" height="6"/><rect class="i-white" x="50" y="30" width="60" height="8"/>
+  <path class="i-ln" d="M80 30V10"/><g transform="translate(80 10)"><rect x="0" y="0" width="18" height="12" style="fill:#DA251D"/><path class="i-star" d="M9 2.2l1.2 3.2h3.4l-2.7 2 1 3.3-2.9-2-2.9 2 1-3.3-2.7-2h3.4z"/></g>
+  <ellipse class="i-water" cx="80" cy="90" rx="14" ry="3.5" style="opacity:.7"/>`
+};
+// clean the flag pole drawing for mausoleum
+SVG.lang = SVG.lang.replace(/<rect class="i-roof" x="148" y="20" width="0.1" height="0"\/><path class="i-roof" d="M148 20h-0z"\/>\s*<rect x="148" y="20" width="0" height="0"\/><path d="M148 20h0" \/>/,'');
+const REGIONS = [
+ {n:'Miền Bắc',p:[
+  {s:'hung',vn:'Đền Hùng',en:'Hung Kings Temple',at:'Tỉnh Phú Thọ',f:['Thờ các vua Hùng, người dựng nước Văn Lang.','Giỗ Tổ Hùng Vương: 10/3 âm lịch.','2012: Tín ngưỡng thờ cúng Hùng Vương được UNESCO ghi danh.'],q:'Where is the Hung Kings Temple?',a:'Phu Tho Province'},
+  {s:'vanmieu',vn:'Văn Miếu – Quốc Tử Giám',en:'Temple of Literature',at:'Hà Nội',f:['1070: vua Lý Thánh Tông xây Văn Miếu.','1076: lập Quốc Tử Giám, trường đại học đầu tiên.','Khuê Văn Các là biểu tượng của Hà Nội.'],q:'When was the Temple of Literature built?',a:'In 1070'},
+  {s:'motcot',vn:'Chùa Một Cột',en:'One Pillar Pagoda',at:'Hà Nội',f:['Xây thời nhà Lý (năm 1049).','Chùa đứng trên một cột đá giữa hồ, giống bông sen.'],q:'Where is the One Pillar Pagoda?',a:'Hanoi'},
+  {s:'thaprua',vn:'Hồ Hoàn Kiếm – Tháp Rùa',en:'Hoan Kiem Lake (Lake of the Returned Sword)',at:'Hà Nội',f:['Truyền thuyết vua Lê Lợi trả gươm thần cho Rùa Vàng.','Hoàn Kiếm nghĩa là “trả lại gươm”.'],q:'Which lake is associated with the legend of King Le Loi?',a:'Hoan Kiem Lake'},
+  {s:'lang',vn:'Quảng trường Ba Đình – Lăng Bác',en:"Ba Dinh Square – Ho Chi Minh's Mausoleum",at:'Hà Nội',f:['2/9/1945: Bác đọc Tuyên ngôn Độc lập tại đây.','Lăng Chủ tịch Hồ Chí Minh nằm bên quảng trường.'],q:'Where did Uncle Ho read the Declaration of Independence?',a:'Ba Dinh Square'}]},
+ {n:'Miền Trung',p:[
+  {s:'lang_sen',vn:'Làng Sen – quê Bác',en:"Uncle Ho's hometown",at:'Tỉnh Nghệ An',f:['Bác sinh ngày 19/5/1890 ở Nghệ An.','Quê nội: làng Sen (Kim Liên, Nam Đàn).'],q:'Where was Uncle Ho born?',a:'Nghe An Province'},
+  {s:'hue',vn:'Kinh thành Huế – Ngọ Môn',en:'Hue Imperial City',at:'TP Huế',f:['Kinh đô nhà Nguyễn từ 1802 đến 1945.','1993: Quần thể di tích Cố đô Huế là Di sản thế giới.'],q:'Which city was the capital of the Nguyen Dynasty?',a:'Hue'},
+  {s:'hoian',vn:'Phố cổ Hội An – Chùa Cầu',en:'Hoi An Ancient Town',at:'TP Đà Nẵng',f:['Thế kỉ XVI – XVII là thương cảng quốc tế sầm uất.','1999: được UNESCO công nhận là Di sản thế giới.','Từ 1/7/2025, Quảng Nam hợp nhất vào TP Đà Nẵng.'],q:'Where is Hoi An Ancient Town?',a:'Da Nang City'}]},
+ {n:'Miền Nam',p:[
+  {s:'dinh',vn:'Dinh Độc Lập',en:'Independence Palace',at:'TP Hồ Chí Minh',f:['30/4/1975: xe tăng quân giải phóng húc đổ cổng Dinh.','TP Hồ Chí Minh có tên cũ là Sài Gòn (Saigon).'],q:'Where is the Independence Palace?',a:'Ho Chi Minh City'}]}
+];
+let placeCount=0;
+$('#regions').innerHTML = REGIONS.map(r=>`<div class="region"><div class="region-label">${r.n}</div><div class="places">${r.p.map(p=>{placeCount++;return `<article class="place">
+  <div class="pic"><svg viewBox="0 0 160 100" role="img" aria-label="Hình vẽ ${esc(p.vn)}" preserveAspectRatio="xMidYMid slice">${SVG[p.s]}</svg></div>
+  <div class="body"><span class="where">📍 ${p.at}</span><h3>${p.vn}</h3><div class="en" style="font-size:.92rem">${p.en}</div>
+  <ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul>
+  <div class="ioe">IOE hỏi: <i>${p.q}</i><br>→ <b>${p.a}</b></div></div></article>`}).join('')}</div></div>`).join('');
+$('#unesco').innerHTML = [['1993','Quần thể di tích Cố đô Huế'],['1999','Phố cổ Hội An'],['2005','Không gian văn hóa Cồng chiêng Tây Nguyên'],['2010','Hoàng thành Thăng Long'],['2012','Tín ngưỡng thờ cúng Hùng Vương']]
+  .map(([y,t])=>`<div class="badge num"><b>${y}</b>${t}</div>`).join('');
+
+/* ---------- Holidays ---------- */
+const MONTHS=[['Tháng 1','January'],['Tháng 2','February'],['Tháng 3','March'],['Tháng 4','April'],['Tháng 5','May'],['Tháng 6','June'],['Tháng 7','July'],['Tháng 8','August'],['Tháng 9','September'],['Tháng 10','October'],['Tháng 11','November'],['Tháng 12','December']];
+const ORD={1:'first',2:'second',3:'third',4:'fourth',7:'seventh',8:'eighth',10:'tenth',19:'nineteenth',20:'twentieth',22:'twenty-second',30:'thirtieth'};
+const SUF=d=>d===1||d===21?'st':d===2||d===22?'nd':d===3?'rd':'th';
+const DAYS=[
+ [2,3,'Thành lập Đảng Cộng sản Việt Nam (1930)'],
+ [3,8,'Quốc tế Phụ nữ',"International Women's Day"],
+ [3,10,'Giỗ Tổ Hùng Vương','Hung Kings Commemoration Day',true],
+ [4,30,'Giải phóng miền Nam, thống nhất đất nước','Reunification Day'],
+ [5,7,'Chiến thắng Điện Biên Phủ (1954)','Dien Bien Phu Victory Day'],
+ [5,19,'Ngày sinh Bác Hồ (1890)',"Uncle Ho's birthday"],
+ [6,1,'Quốc tế Thiếu nhi',"International Children's Day"],
+ [7,4,'Quốc khánh nước Mỹ','American Independence Day'],
+ [8,19,'Cách mạng tháng Tám thành công ở Hà Nội (1945)','August Revolution Day'],
+ [9,2,'Quốc khánh Việt Nam (1945)','National Day'],
+ [10,10,'Giải phóng Thủ đô (1954)','Hanoi Liberation Day'],
+ [10,20,'Phụ nữ Việt Nam',"Vietnamese Women's Day"],
+ [11,20,'Nhà giáo Việt Nam',"Vietnamese Teachers' Day"],
+ [12,22,'Thành lập Quân đội nhân dân Việt Nam (1944)',"Vietnam People's Army Day"]
+];
+$('#months').innerHTML = MONTHS.map(([vn,en],i)=>{const ds=DAYS.filter(d=>d[0]===i+1);return `<div class="month${ds.length?'':' empty'}"><h3>${vn}<span class="en">${en}</span></h3>
+  ${ds.map(d=>{const line=d[3]?`${d[3]} is on ${en} ${d[1]}${SUF(d[1])}.`:'';const spoken=d[3]?`${d[3]} is on ${en} the ${ORD[d[1]]}.`:'';return `<div class="day"><div class="d num">${d[1]}${d[4]?'<span class="lunar">âm lịch</span>':''}</div>
+   <div class="vn">${d[2]}</div>${d[3]?`<div class="say-line">${d[4]?'':sayBtn(spoken)}<span class="en">${d[4]?d[3]+' (lunar calendar)':line}</span></div>`:'<div></div>'}</div>`}).join('')}
+  ${ds.length?'':'<p class="muted" style="font-size:.85rem;margin-top:8px">Không có ngày cần nhớ</p>'}</div>`}).join('');
+
+/* ---------- Vocabulary ---------- */
+const VOCAB=[
+ ['found (founded)','thành lập','The Hung Kings founded Van Lang.'],
+ ['uprising','cuộc khởi nghĩa','Le Loi led the Lam Son uprising.'],
+ ['dynasty','triều đại, nhà (Lý, Trần...)','Gia Long founded the Nguyen Dynasty.'],
+ ['capital','thủ đô, kinh đô','Hanoi is the capital of Vietnam.'],
+ ['move the capital','dời đô','Ly Thai To moved the capital to Thang Long.'],
+ ['king / emperor','vua / hoàng đế','Bao Dai was the last emperor of Vietnam.'],
+ ['president','chủ tịch nước','Ho Chi Minh was the first president of Vietnam.'],
+ ['general','vị tướng','General Vo Nguyen Giap won at Dien Bien Phu.'],
+ ['battle','trận đánh','Ngo Quyen won the Battle of Bach Dang.'],
+ ['defeat','đánh bại','Quang Trung defeated the Qing army.'],
+ ['army','quân đội','The Mongol army was very strong.'],
+ ['Declaration of Independence','Tuyên ngôn Độc lập','Uncle Ho read it at Ba Dinh Square.'],
+ ['national university','trường đại học quốc gia','Quoc Tu Giam was the first national university.'],
+ ['temple / pagoda','đền / chùa','The One Pillar Pagoda is in Hanoi.'],
+ ['mausoleum','lăng','Ho Chi Minh’s Mausoleum is in Hanoi.'],
+ ['palace / citadel','dinh, cung điện / kinh thành','The Independence Palace is in Ho Chi Minh City.'],
+ ['ancient town','phố cổ','Hoi An Ancient Town is in Da Nang City.'],
+ ['birth name / former name','tên khai sinh / tên cũ','Saigon is the former name of Ho Chi Minh City.'],
+ ['legend','truyền thuyết','Hoan Kiem Lake has a legend about King Le Loi.'],
+ ['heritage','di sản','Hue is a World Heritage Site.']
+];
+$('#vocab').innerHTML = VOCAB.map(v=>`<tr><td class="w">${v[0]}</td><td>${v[1]}</td><td><span style="display:inline-flex;gap:8px;align-items:center">${sayBtn(v[2])}<span class="en">${esc(v[2])}</span></span></td></tr>`).join('');
+
+/* ---------- Quiz ---------- */
+const Q=[
+ ["Vietnam's National Day is on ______.",["September 2nd","October 2nd","April 30th","May 19th"],0,"Ngày 2/9/1945 Bác Hồ đọc Tuyên ngôn Độc lập, nên 2/9 là Quốc khánh."],
+ ["Uncle Ho was born in ______.",["Hanoi","Hue","Nghe An","Da Nang"],2,"Bác sinh ở Nghệ An (làng Sen, Kim Liên, Nam Đàn)."],
+ ["Vietnamese Teachers' Day is in ______.",["October","November","December","September"],1,"Ngày Nhà giáo Việt Nam là 20/11, tháng 11 = November."],
+ ["Who moved the capital to Thang Long?",["Ngo Quyen","Le Loi","Ly Thai To","Quang Trung"],2,"Năm 1010, vua Lý Thái Tổ dời đô từ Hoa Lư ra Thăng Long."],
+ ["The Battle of Dien Bien Phu was won in ______.",["1945","1954","1975","1930"],1,"Chiến thắng Điện Biên Phủ ngày 7/5/1954."],
+ ["International Women's Day is on the ______ of March.",["first","fifth","eighth","tenth"],2,"8/3: March 8th, đọc là the eighth."],
+ ["Who was the first president of Vietnam?",["Vo Nguyen Giap","Ho Chi Minh","Le Loi","Gia Long"],1,"Chủ tịch Hồ Chí Minh là Chủ tịch nước đầu tiên."],
+ ["The Temple of Literature is in ______.",["Hue","Hanoi","Hai Phong","Da Nang"],1,"Văn Miếu – Quốc Tử Giám ở Hà Nội."],
+ ["American Independence Day is on ______.",["July 4th","June 4th","July 14th","August 4th"],0,"Ngày 4/7 là Quốc khánh nước Mỹ. (14/7 là Quốc khánh nước Pháp.)"],
+ ["Uncle Ho's birthday is on May ______.",["nineteenth","ninth","twentieth","fifth"],0,"Bác sinh ngày 19/5. Cẩn thận: ninth là 9, nineteenth mới là 19."],
+ ["Who was the first man to walk on the Moon?",["Yuri Gagarin","Neil Armstrong","Thomas Edison","Isaac Newton"],1,"Neil Armstrong đặt chân lên Mặt Trăng năm 1969. Yuri Gagarin là người đầu tiên bay vào vũ trụ."],
+ ["Vietnamese Women's Day is on ______.",["March 8th","October 20th","November 20th","December 22nd"],1,"20/10 là ngày Phụ nữ Việt Nam. 8/3 là Quốc tế Phụ nữ."],
+ ["Quoc Tu Giam was established in ______.",["1010","1070","1076","1802"],2,"Quốc Tử Giám lập năm 1076, sau Văn Miếu (1070) 6 năm."],
+ ["Ngo Quyen won the Battle of Bach Dang in ______.",["938","968","1010","1288"],0,"Ngô Quyền thắng năm 938. Năm 1288 là trận Bạch Đằng của Trần Hưng Đạo."],
+ ["Who founded the Nguyen Dynasty?",["Bao Dai","Gia Long","Le Loi","Ly Thai To"],1,"Nguyễn Ánh lên ngôi năm 1802, lấy hiệu Gia Long."],
+ ["Who was the first president of Vietnam?",["Vo Nguyen Giap","Ho Chi Minh","Pham Van Dong","Ton Duc Thang"],1,"Chủ tịch Hồ Chí Minh."],
+ ["Where was Uncle Ho born?",["Ha Tinh Province","Thanh Hoa Province","Cao Bang Province","Nghe An Province"],3,"Bác sinh ở tỉnh Nghệ An. (Cao Bằng là nơi Bác về nước năm 1941.)"],
+ ["What was Uncle Ho's birth name?",["Nguyen Sinh Cung","Nguyen Tat Thanh","Nguyen Ai Quoc","Ho Chi Minh"],0,"Tên lúc mới sinh là Nguyễn Sinh Cung, sau đó là Nguyễn Tất Thành."],
+ ["Who were the founders of Van Lang?",["The Trung Sisters","The Tran Kings","The Hung Kings","The Ly Kings"],2,"Các vua Hùng dựng nước Văn Lang."],
+ ["Who founded Au Lac?",["Ngo Quyen","An Duong Vuong","Dinh Bo Linh","Le Hoan"],1,"An Dương Vương lập nước Âu Lạc, xây thành Cổ Loa."],
+ ["Who won the Battle of Bach Dang in 938?",["Le Loi","Tran Hung Dao","Ly Thuong Kiet","Ngo Quyen"],3,"Ngô Quyền, năm 938."],
+ ["Who moved the capital to Thang Long in 1010?",["Ly Thai To","Ly Thanh Tong","Tran Thai Tong","King Quang Trung"],0,"Lý Thái Tổ. (Lý Thánh Tông là người xây Văn Miếu.)"],
+ ["Who led the Lam Son uprising?",["Ngo Quyen","Le Hoan","Le Loi","Dinh Bo Linh"],2,"Lê Lợi lãnh đạo khởi nghĩa Lam Sơn năm 1418."],
+ ["Who were the Trung Sisters?",["Trung Trac and Ba Trieu","Trung Nhi and Ba Trieu","Trung Trac and Nguyen Thi Minh Khai","Trung Trac and Trung Nhi"],3,"Hai Bà Trưng là Trưng Trắc và Trưng Nhị."],
+ ["Who led the uprising in 248?",["Trung Trac","Ba Trieu","Trung Nhi","Ly Bi"],1,"Năm 248 là khởi nghĩa Bà Triệu."],
+ ["Who led the Vietnamese army to victory at Dien Bien Phu in 1954?",["General Vo Nguyen Giap","General Nguyen Chi Thanh","General Van Tien Dung","General Hoang Van Thai"],0,"Đại tướng Võ Nguyên Giáp."],
+ ["Who defeated the Qing army in 1789?",["King Gia Long","King Le Loi","King Quang Trung","King Ly Thai To"],2,"Vua Quang Trung, chiến thắng Ngọc Hồi – Đống Đa."],
+ ["Who was the last emperor of Vietnam?",["King Minh Mang","King Khai Dinh","King Tu Duc","Emperor Bao Dai"],3,"Bảo Đại thoái vị năm 1945, là vị vua cuối cùng."],
+ ["Who founded the Nguyen Dynasty?",["King Minh Mang","King Gia Long","King Quang Trung","King Bao Dai"],1,"Vua Gia Long (Nguyễn Ánh), năm 1802."],
+ ["Who read the Declaration of Independence in 1945?",["Ho Chi Minh","Vo Nguyen Giap","Pham Van Dong","Truong Chinh"],0,"Chủ tịch Hồ Chí Minh, ngày 2/9/1945."],
+ ["What is the capital of Vietnam?",["Hue","Hanoi","Da Nang","Ho Chi Minh City"],1,"Thủ đô là Hà Nội."],
+ ["What was the name of Hanoi in 1010?",["Hoa Lu","Phu Xuan","Gia Dinh","Thang Long"],3,"Năm 1010 gọi là Thăng Long. Hoa Lư là kinh đô cũ, Phú Xuân là Huế, Gia Định là Sài Gòn."],
+ ["What was the former name of Ho Chi Minh City?",["Saigon","Thang Long","Dong Do","Phu Xuan"],0,"Tên cũ là Sài Gòn, đổi tên ngày 2/7/1976."],
+ ["Where did Uncle Ho read the Declaration of Independence?",["Hoan Kiem Lake","Independence Palace","Ba Dinh Square","Temple of Literature"],2,"Quảng trường Ba Đình, Hà Nội."],
+ ["Where is Ho Chi Minh's Mausoleum?",["Hai Phong","Hanoi","Hue","Da Nang"],1,"Lăng Bác ở Quảng trường Ba Đình, Hà Nội."],
+ ["Where is the Temple of Literature?",["Hanoi","Nha Trang","Ho Chi Minh City","Can Tho"],0,"Văn Miếu ở Hà Nội."],
+ ["What was Vietnam's first national university?",["Hanoi University","Hue University","Thang Long University","Quoc Tu Giam"],3,"Quốc Tử Giám (1076) là trường đại học đầu tiên."],
+ ["When was the Temple of Literature built?",["In 938","In 1010","In 1070","In 1076"],2,"Văn Miếu xây năm 1070. Miếu trước, Trường sau."],
+ ["When was Quoc Tu Giam established?",["In 1076","In 1070","In 1010","In 1802"],0,"Quốc Tử Giám lập năm 1076."],
+ ["Where is the Hung Kings Temple?",["Nghe An Province","Cao Bang Province","Lao Cai Province","Phu Tho Province"],3,"Đền Hùng ở tỉnh Phú Thọ."],
+ ["Where is Hoi An Ancient Town?",["Hanoi","Da Nang City","Hue City","Ho Chi Minh City"],1,"Từ 1/7/2025 tỉnh Quảng Nam hợp nhất vào TP Đà Nẵng, nên Hội An thuộc TP Đà Nẵng."],
+ ["Which city was the capital of the Nguyen Dynasty?",["Hanoi","Hai Phong","Hue","Da Nang"],2,"Kinh đô nhà Nguyễn là Huế (1802 – 1945)."],
+ ["Where is the One Pillar Pagoda?",["Hue","Can Tho","Nha Trang","Hanoi"],3,"Chùa Một Cột ở Hà Nội, gần Lăng Bác."],
+ ["Where is the Independence Palace?",["Ho Chi Minh City","Hanoi","Da Nang","Hue"],0,"Dinh Độc Lập ở TP Hồ Chí Minh."],
+ ["Which lake is associated with the legend of King Le Loi?",["West Lake","Hoan Kiem Lake","Ba Be Lake","Xuan Huong Lake"],1,"Hồ Hoàn Kiếm, nơi vua Lê Lợi trả gươm cho Rùa Vàng."]
+];
+const L='ABCD';
+let order=Q.map((_,i)=>i), pos=0, picks={};
+const total=()=>order.length;
+function renderDots(){
+  $('#dots').innerHTML=order.map((qi,i)=>{const p=picks[qi];const cls=p===undefined?'':(p===Q[qi][2]?'r':'w');return `<button type="button" class="dot num ${cls} ${i===pos?'cur':''}" data-p="${i}" aria-label="Câu ${qi+1}">${qi+1}</button>`}).join('');
+  const right=order.filter(qi=>picks[qi]===Q[qi][2]).length;
+  $('#score').textContent=right; $('#scoreOf').textContent=`/ ${total()} câu đúng`;
+}
+function render(){
+  renderDots();
+  const answered=order.filter(qi=>picks[qi]!==undefined).length;
+  if(pos>=total()){
+    const right=order.filter(qi=>picks[qi]===Q[qi][2]).length;
+    const wrong=total()-right;
+    $('#qcard').innerHTML=`<div class="done"><div class="big num">${right}/${total()}</div>
+      <p style="font-size:1.15rem;margin-top:6px">${right===total()?'Xuất sắc! Đúng hết rồi.':right>=total()*0.8?'Rất giỏi! Xem lại vài câu sai nhé.':'Cố lên! Làm lại các câu sai để nhớ lâu hơn.'}</p>
+      <div class="qnav" style="justify-content:center"><button class="btn" type="button" id="back1">Xem lại câu cuối</button>${wrong?'<button class="btn primary" type="button" id="again">Làm lại câu sai</button>':''}</div></div>`;
+    $('#back1').onclick=()=>{pos=total()-1;render()};
+    if(wrong) $('#again').onclick=retryWrong;
+    return;
+  }
+  const qi=order[pos], q=Q[qi], p=picks[qi];
+  $('#qcard').innerHTML=`<div class="qmeta"><span class="num">Câu ${pos+1} / ${total()}</span><span class="num">Đã làm ${answered}</span></div>
+   <div class="qtext"><span>Question ${qi+1}. ${esc(q[0])}</span>${sayBtn(q[0].replace(/_+/g,'blank'))}</div>
+   <div class="opts">${q[1].map((o,i)=>{let c='';if(p!==undefined){if(i===q[2])c='right';else if(i===p)c='wrong'}return `<button type="button" class="opt ${c}" data-o="${i}" ${p!==undefined?'disabled':''}><span class="k">${L[i]}</span><span>${esc(o)}</span></button>`}).join('')}</div>
+   ${p!==undefined?`<div class="feedback ${p===q[2]?'good':'bad'}"><b>${p===q[2]?'Đúng rồi!':'Chưa đúng. Đáp án: '+L[q[2]]+'. '+esc(q[1][q[2]])}</b><br>${q[3]}</div>`:''}
+   <div class="qnav"><button class="btn" type="button" id="prev" ${pos===0?'disabled':''}>← Câu trước</button><button class="btn primary" type="button" id="next">${pos===total()-1?'Xem kết quả':'Câu tiếp →'}</button></div>`;
+  $('#prev').onclick=()=>{if(pos>0){pos--;render()}};
+  $('#next').onclick=()=>{pos++;render()};
+}
+function choose(i){const qi=order[pos];if(pos>=total()||picks[qi]!==undefined)return;picks[qi]=i;render()}
+$('#qcard').addEventListener('click',e=>{const b=e.target.closest('.opt');if(b&&!b.disabled)choose(+b.dataset.o)});
+$('#dots').addEventListener('click',e=>{const b=e.target.closest('.dot');if(b){pos=+b.dataset.p;render()}});
+document.addEventListener('keydown',e=>{
+  const r=$('#quiz').getBoundingClientRect(); if(r.top>innerHeight||r.bottom<0) return;
+  if(e.target.matches('input,textarea')) return;
+  const k=e.key.toUpperCase(); const i=L.indexOf(k);
+  if(i>=0&&k.length===1){choose(i)} else if(e.key==='ArrowRight'&&pos<total()){pos++;render()} else if(e.key==='ArrowLeft'&&pos>0){pos--;render()}
+});
+function retryWrong(){const w=order.filter(qi=>picks[qi]!==Q[qi][2]);if(!w.length)return;w.forEach(qi=>delete picks[qi]);order=w;pos=0;render()}
+$('#retryWrong').onclick=retryWrong;
+$('#shuffle').onclick=()=>{order=Q.map((_,i)=>i);for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}picks={};pos=0;render()};
+$('#reset').onclick=()=>{order=Q.map((_,i)=>i);picks={};pos=0;render()};
+$('#toggleKey').onclick=function(){const k=$('#key');k.hidden=!k.hidden;this.setAttribute('aria-expanded',String(!k.hidden));this.textContent=k.hidden?'Xem bảng đáp án (cho giáo viên)':'Ẩn bảng đáp án'};
+$('#key').innerHTML=Q.map((q,i)=>`<div class="num">${i+1}. <b>${L[q[2]]}</b></div>`).join('');
+render();
+
+$('#stats').innerHTML=[[evCount,'mốc lịch sử'],[HEROES.length,'nhân vật'],[placeCount,'địa danh'],[Q.length,'câu luyện đề']].map(([n,t])=>`<span class="stat num"><b>${n}</b>${t}</span>`).join('');
+})();
+</script>
+</body>
+</html>

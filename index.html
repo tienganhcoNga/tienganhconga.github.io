@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lớp học của cô</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#F1F5F2; --surface:#FFFFFF; --ink:#1C2A36; --muted:#56676A; --line:#D3DFD8;
+  --jade:#2A7A67; --jade-soft:#DBECE5; --lacquer:#B3332A; --lacquer-soft:#F6E1DD;
+  --gold:#B98110; --gold-soft:#FAEFD3; --sky:#2F6F98; --sky-soft:#DCEAF3;
+  --f-display:"Baloo 2","Be Vietnam Pro",system-ui,sans-serif;
+  --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root{
+  --bg:#0F171B; --surface:#17222A; --ink:#E6EEEA; --muted:#9DB0AD; --line:#2A3B41;
+  --jade:#5DC1A5; --jade-soft:#15312A; --lacquer:#EE7A6C; --lacquer-soft:#3A1F1C;
+  --gold:#E8B84A; --gold-soft:#332811; --sky:#7DB7DA; --sky-soft:#142D3B; color-scheme:dark }}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1000px;margin:0 auto;padding-block:40px 48px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.4rem,7vw,3.8rem);font-weight:800}
+h1 span{color:var(--lacquer)}
+.lead{font-size:1.1rem;color:var(--muted);margin:10px 0 0;max-width:36em}
+.grade{margin-top:40px}
+.grade-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.grade-head .tag{font-family:var(--f-display);font-weight:800;font-size:1.5rem;color:var(--surface);background:var(--c);border-radius:10px;padding:2px 16px}
+.grade-head p{margin:0;color:var(--muted)}
+.lessons{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+a.lesson{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:18px}
+a.lesson:hover{border-color:var(--c)}
+a.lesson:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.lesson .ic{font-size:2.6rem;line-height:1}
+.lesson h3{font-size:1.3rem}
+.lesson p{margin:0;font-size:.95rem;color:var(--muted)}
+.lesson .go{margin-top:auto;padding-top:6px;font-weight:700;color:var(--c)}
+div.lesson{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:18px}
+.lesson.wide{grid-column:1/-1}
+.topics{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.topics a{text-decoration:none;color:var(--ink);font-weight:700;background:var(--c-soft);border:2px solid var(--c);border-radius:999px;padding:4px 14px}
+.topics a:hover{background:var(--c);color:var(--surface)}
+.topics a:focus-visible{outline:3px solid var(--lacquer);outline-offset:2px}
+.soon{background:var(--c-soft);border:2px dashed var(--c);border-radius:16px;padding:18px;color:var(--ink)}
+.soon p{margin:4px 0 0;color:var(--muted);font-size:.95rem}
+footer{margin-top:48px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Lớp học <span>của cô</span></h1>
+    <p class="lead">Chọn lớp, bấm vào bài để học. Mỗi bài có hình ảnh, trò chơi và câu hỏi để các em tự luyện.</p>
+  </header>
+
+  <section class="grade" style="--c:var(--gold);--c-soft:var(--gold-soft)">
+    <div class="grade-head"><span class="tag">Mẫu giáo</span><p>Học mà chơi, chơi mà học</p></div>
+    <div class="lessons">
+      <!-- Thêm bài mẫu giáo: copy khối <div class="lesson"> bên dưới, đổi href thành "mau-giao/ten-bai.html" -->
+      <div class="lesson wide">
+        <div class="ic" aria-hidden="true">🐮</div>
+        <h3>Luyện nói tiếng Anh: My English Speeches</h3>
+        <p>8 bài thuyết trình ngắn có hình vẽ. Chọn một chủ đề để vào thẳng bài:</p>
+        <div class="topics">
+          <a href="mau-giao/english-speeches.html#body">About Me &amp; My Body</a>
+          <a href="mau-giao/english-speeches.html#favorites">My Favorite Things</a>
+          <a href="mau-giao/english-speeches.html#sea">Animals in the Sea</a>
+          <a href="mau-giao/english-speeches.html#farm">Animals on the Farm</a>
+          <a href="mau-giao/english-speeches.html#can">Things I Can Do</a>
+          <a href="mau-giao/english-speeches.html#actions">What Animals Can Do</a>
+          <a href="mau-giao/english-speeches.html#colors">Animal Colors</a>
+          <a href="mau-giao/english-speeches.html#bodies">Animal Bodies</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grade" style="--c:var(--jade);--c-soft:var(--jade-soft)">
+    <div class="grade-head"><span class="tag">Lớp 4</span><p>Ôn thi IOE</p></div>
+    <div class="lessons">
+      <a class="lesson" href="lop-4/su-viet-ioe.html">
+        <div class="ic" aria-hidden="true">🥁</div>
+        <h3>Sử Việt cho IOE</h3>
+        <p>Dòng thời gian, đoán nhân vật, địa danh, ngày lễ, mẹo nhớ và 45 câu luyện đề.</p>
+        <span class="go">Vào học →</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>Trang học tập dành cho học sinh.</footer>
+</div>
+</body>
+</html>
