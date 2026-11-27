@@ -54,7 +54,7 @@
   var css = "" +
     ".vc-btn{position:absolute;top:4px;right:0;font:inherit;font-size:.9rem;font-weight:700;padding:6px 12px;border-radius:999px;cursor:pointer;border:1px solid var(--line,#D3DFD8);background:var(--surface,#fff);color:var(--ink,#1C2A36)}" +
     ".vc-btn:hover{border-color:var(--sky,#2F6F98);color:var(--sky,#2F6F98)}" +
-    "header.hero{position:relative}" +
+    "header.hero{position:relative}header.hero .eyebrow{padding-right:96px}" +
     ".vc-bg{position:fixed;inset:0;background:rgba(10,20,25,.55);display:flex;align-items:center;justify-content:center;z-index:1000;padding:16px}" +
     ".vc-box{background:var(--surface,#fff);color:var(--ink,#1C2A36);border-radius:18px;padding:18px;width:min(420px,100%);max-height:min(560px,90vh);display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 50px rgba(0,0,0,.3);font-family:var(--f-body,system-ui,sans-serif)}" +
     ".vc-box h4{margin:0;font-family:var(--f-display,inherit);font-size:1.25rem}" +

@@ -154,7 +154,7 @@ function speak(text,o){
   o=o||{}; if(!hasSpeech)return;
   if(!o.queue)speechSynthesis.cancel();
   var u=new SpeechSynthesisUtterance(String(text).replace(/ – /g,". ").replace(/_{2,}|…/g,", "));u.lang="en-US";u.rate=o.rate||0.85;u.pitch=o.pitch||1;
-  if(voices.length)u.voice=voices[(o.voice||0)%voices.length];
+  if(window.LopHocVoice)LopHocVoice.apply(u,o.voice||0);else if(voices.length)u.voice=voices[(o.voice||0)%voices.length];
   if(o.onstart)u.onstart=o.onstart; if(o.onend){u.onend=o.onend;u.onerror=o.onend}
   (window.__utts=window.__utts||[]).push(u); if(window.__utts.length>60)window.__utts.shift();
   speechSynthesis.speak(u);
@@ -377,5 +377,7 @@ window.addEventListener("hashchange",function(){route();var m=$("#unit");if(m&&d
 })();
 </script>
 <script src="../assets/pin.js?v=20261127e"></script>
+<script src="../assets/voice.js?v=20261127b"></script>
+<script src="../assets/kidnav.js?v=20261127b"></script>
 </body>
 </html>
