@@ -41,7 +41,7 @@ Xem thử trên máy: mở thẳng từng file bài học bằng trình duyệt.
 
 1. Vào https://github.com, đăng nhập bằng **tài khoản cá nhân**, không dùng tài khoản công ty.
 2. Bấm **New repository**:
-   - Repository name: `lop-hoc` (tên này sẽ nằm trong link)
+   - Repository name: `tienganhcoNga` (tên này sẽ nằm trong link)
    - Chọn **Public** (gói miễn phí chỉ bật Pages được cho repo Public)
    - Bấm **Create repository**
 3. Đưa file lên, chọn **một** trong hai cách:
@@ -58,7 +58,7 @@ Xem thử trên máy: mở thẳng từng file bài học bằng trình duyệt.
    git init -b main
    git add .
    git commit -m "Trang hoc dau tien"
-   git remote add origin https://github.com/<ten-tai-khoan>/lop-hoc.git
+   git remote add origin https://github.com/<ten-tai-khoan>/tienganhcoNga.git
    git push -u origin main
    ```
 
@@ -66,7 +66,7 @@ Xem thử trên máy: mở thẳng từng file bài học bằng trình duyệt.
    - Source: **Deploy from a branch**
    - Branch: **main**, thư mục **/ (root)**, bấm **Save**
 5. Chờ 1–2 phút, tải lại trang Settings → Pages sẽ thấy link:
-   `https://<ten-tai-khoan>.github.io/lop-hoc/`
+   `https://<ten-tai-khoan>.github.io/tienganhcoNga/`
    Gửi link này cho học sinh và phụ huynh.
 
 ## Các lần sau: thêm bài mới
