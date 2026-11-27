@@ -256,7 +256,7 @@
     function pickN(a, n) { return shuffle(a).slice(0, Math.min(n, a.length)); }
     function others(P, it, key, n) {
       var seen = {}, out = []; seen[it[key]] = 1;
-      shuffle(P).forEach(function (x) { if (out.length < n && x.w !== it.w && !seen[x[key]]) { seen[x[key]] = 1; out.push(x); } });
+      shuffle(P).forEach(function (x) { if (out.length < n && x.w !== it.w && x.ic !== it.ic && !seen[x[key]]) { seen[x[key]] = 1; out.push(x); } });
       return out;
     }
     function open(g, tid) {

@@ -13,6 +13,8 @@
 (function () {
   "use strict";
   var D = window.SPEAK;
+  /* thư mục ảnh assets/img/ (tính từ chỗ đặt speaking.js, dùng được ở mọi trang) */
+  var IMG = ((document.currentScript && document.currentScript.src) || "").replace(/[^\/]*$/, "") + "img/";
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
@@ -74,6 +76,7 @@
     if (s.indexOf("c:") === 0) return '<span class="sk-sw" style="background:' + esc(s.slice(2)) + '"></span>';
     if (s.indexOf("n:") === 0) return '<span class="sk-nb">' + esc(s.slice(2)) + "</span>";
     if (s.indexOf("s:") === 0) { var p = s.slice(2).split(":"); return '<svg class="sk-shp" viewBox="0 0 100 100" aria-hidden="true"><g fill="' + esc(p[1] || "#1E88E5") + '" stroke="rgba(0,0,0,.25)" stroke-width="3">' + (SH[p[0]] || "") + "</g></svg>"; }
+    if (s.indexOf("i:") === 0) return '<img class="sk-img" src="' + esc(IMG + s.slice(2)) + '" alt="" draggable="false">';
     if (s.indexOf("z:") === 0) { var q = s.slice(2).split(":"); return '<span class="sk-z-' + esc(q[0]) + '">' + q.slice(1).join(":") + "</span>"; }
     return s;
   }
@@ -691,7 +694,7 @@
   }
   function options(item, n, key) {
     /* lựa chọn sai: khác từ, khác hình (để không có hai đáp án giống nhau) */
-    var others = shuffle(G.pool.filter(function (x) { return x.w !== item.w && x[key] !== item[key]; })), picked = [], seen = {};
+    var others = shuffle(G.pool.filter(function (x) { return x.w !== item.w && x.ic !== item.ic && x[key] !== item[key]; })), picked = [], seen = {};
     seen[item[key]] = 1;
     others.forEach(function (x) { if (picked.length < n - 1 && !seen[x[key]]) { seen[x[key]] = 1; picked.push(x); } });
     return shuffle(picked.concat([item]));
