@@ -38,8 +38,8 @@
 .sk-type p{grid-column:1/-1;margin-top:8px;font-size:.92rem}
 
 /* đầu bài ôn */
-.sk-map{display:flex;flex-wrap:wrap;gap:6px;margin:-6px 0 14px}
-.sk-map span{font-size:1.5rem;line-height:1;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:var(--surface);border:1px solid var(--line)}
+.sk-map{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 0}
+.sk-map span{font-size:1.2rem;line-height:1;width:34px;height:34px;display:grid;place-items:center;border-radius:12px;background:var(--surface);border:1px solid var(--line)}
 .sk-map span.new{border:2px solid var(--pink);background:var(--pink-soft)}
 
 /* kho từ */
@@ -339,3 +339,4 @@ html.sk-lock,html.sk-lock body{overflow:hidden}
 .sk-prog i.d{background:var(--gold,#E8B931);border-color:var(--gold,#E8B931)}
 .sk-prog i.c{border-color:var(--accent);background:var(--accent-soft);transform:scale(1.3)}
 .sk-opt.bad{border-color:#F4A259;background:#FFE9D2}
+@media (max-width:560px){ .sk-wcards{grid-template-columns:repeat(2,minmax(0,1fr))} .sk-wc{padding:10px 6px} }

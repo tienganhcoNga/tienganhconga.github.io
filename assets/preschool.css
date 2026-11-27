@@ -297,8 +297,7 @@ html.sp-lock,html.sp-lock body{overflow:hidden}
 .gside[hidden],.sp-bar [hidden],.sp-ctl [hidden],.sp-rec-on[hidden]{display:none!important}
 
 /* ---------- Bài học chỉ tiếng Anh ---------- */
-body.in-unit .hero, body.in-unit footer{display:none}
-body.in-unit .nav{margin-top:12px}
+/* ẩn phần giới thiệu khi đang học (body.in-unit): course.css */
 .grp-gap{height:12px}
 .fcard .q{display:grid;place-items:center;min-height:64px}
 .fcard .fq{font-family:var(--f-display);font-weight:800;font-size:1.6rem;color:var(--gold);line-height:1}

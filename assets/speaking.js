@@ -435,8 +435,9 @@
     };
     STEP = KID.use(["words", "games", "talk", "home"].filter(function (k) { return parts[k]; }).map(function (k) { return STEP_INFO[k]; }), STEP,
       nr ? { href: "#" + nr.id, ic: nr.ic, label: "Next: " + nr.n } : null);
-    return '<div class="u-head"><span class="u-ic" aria-hidden="true">' + r.ic + '</span><div><div class="u-n">' + esc(r.n) + " · " + esc(r.span) + "</div><h2>" + esc(r.title) + "</h2>" + vi(r.when) + "</div></div>" +
-      '<div class="sk-map" aria-label="Units">' + r.units.map(function (id) { var u = D.units[id]; return '<span class="' + (r.fresh.indexOf(id) >= 0 ? "new" : "") + '" title="' + esc(u.n + ": " + u.en) + '">' + u.ic + "</span>"; }).join("") + "</div>" +
+    return '<div class="u-head"><span class="u-ic" aria-hidden="true">' + r.ic + '</span><div><div class="u-n">' + esc(r.n) + " · " + esc(r.span) + "</div><h2>" + esc(r.title) + "</h2>" + vi(r.when) +
+      /* các Unit của bài ôn: hàng icon nhỏ ngay dưới tên bài (bài chỉ một Unit thì không cần) */
+      (r.units.length > 1 ? '<div class="sk-map" aria-label="Units">' + r.units.map(function (id) { var u = D.units[id]; return '<span class="' + (r.fresh.indexOf(id) >= 0 ? "new" : "") + '" title="' + esc(u.n + ": " + u.en) + '">' + u.ic + "</span>"; }).join("") + "</div>" : "") + "</div></div>" +
       KID.bar() +
       KID.panel("words", parts.words) + KID.panel("games", parts.games) +
       /* mục chỉ có từ và trò chơi (tasks rỗng) thì không có phần bài nói */
@@ -480,6 +481,7 @@
     if (hw && hw.r) { r = hw.r; id = r.id; }
     if (id.indexOf("n-") === 0) { var el = document.getElementById(id); if (el) { el.scrollIntoView(); return; } id = "answers"; }
     G = null; GP = null;
+    document.body.classList.toggle("in-unit", !!r); /* đang học một bài: ẩn phần giới thiệu, thu gọn đầu bài (course.css) */
     if (r) { if (cur.r !== r) { cur.ti = 0; BK.sec = null; STEP = null; } if (hw && hw.r) STEP = "home"; cur.r = r; main.innerHTML = reviewView(r); showStep(STEP, false); }
     else if (id === "answers") {
       cur.r = null; main.innerHTML = notesView();

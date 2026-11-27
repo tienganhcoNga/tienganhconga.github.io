@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="../assets/course.css?v=20261127kit">
+<link rel="stylesheet" href="../assets/course.css?v=20261127tight">
 <style>
 :root{--accent:var(--jade);--accent-soft:var(--jade-soft)}
 .nav a.sm{font-size:.85rem}
@@ -355,6 +355,7 @@ function check(){
 function route(){
   dStop();
   var id=location.hash.slice(1), main=$("#unit");
+  document.body.classList.toggle("in-unit",!!U[id]); /* đang học một Unit: ẩn phần giới thiệu, thu gọn đầu bài (course.css) */
   if(U[id]){if(G.id!==id)STEP=null;G.id=id;main.innerHTML=unitView(id);newGame();showStep(STEP,false);document.title=label(id)+" · Từ vựng lớp 4"}
   else if(id==="tu-dien"){main.innerHTML=dict();filterDict("");document.title="Tất cả từ vựng · Lớp 4"}
   else {id="lo-trinh";main.innerHTML=guide();document.title="Lộ trình · Từ vựng lớp 4"}

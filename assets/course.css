@@ -125,5 +125,19 @@ nav.steps::-webkit-scrollbar{display:none}
 .go-next{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:800;font-size:1.8rem;padding:10px 36px;border-radius:999px;border:0;background:var(--accent);color:#fff;cursor:pointer;text-decoration:none;box-shadow:0 5px 0 rgba(0,0,0,.2);animation:goNudge 1.8s ease-in-out infinite}
 .go-next span{font-size:2.1rem;line-height:1}
 @keyframes goNudge{50%{transform:translateX(7px)}}
-@media (max-width:560px){ .stp{width:62px;padding:6px 2px;border-radius:16px} .stp .e{font-size:1.7rem} .stp b{font-size:.78rem} .stp-line{min-width:6px} .go-next{font-size:1.5rem;padding:10px 30px} .step-head h3{font-size:1.2rem} .st-say{flex-basis:100%;order:3} .st-x{order:4} }
+@media (max-width:560px){ .stp{width:62px;padding:6px 2px;border-radius:16px} .stp .e{font-size:1.7rem} .stp b{font-size:.78rem} .stp-line{min-width:6px} .go-next{font-size:1.5rem;padding:10px 30px} .step-head h3{font-size:1.2rem} .st-say{flex-basis:100%;order:3} .st-x{order:2} }
 @media (prefers-reduced-motion: reduce){ .go-next{animation:none} .stp[aria-current="true"]{transform:none} }
+/* Đang học một bài (body.in-unit, trang tự bật): ẩn phần giới thiệu, thu gọn đầu bài và thanh bước
+   để màn hình dành cho thẻ từ và trò chơi */
+body.in-unit .hero, body.in-unit footer{display:none}
+body.in-unit .nav{margin-top:12px}
+body.in-unit main{padding-top:14px}
+body.in-unit .u-head, body.in-unit .v-head{gap:12px;margin-bottom:10px}
+body.in-unit .u-ic, body.in-unit .v-ic{font-size:2.6rem}
+body.in-unit .u-head h2, body.in-unit .v-head h2{font-size:clamp(1.5rem,4vw,2.1rem)}
+body.in-unit .u-n, body.in-unit .v-n{font-size:.78rem}
+body.in-unit .goal{padding:6px 12px;margin-bottom:8px;font-size:.92rem}
+body.in-unit .review{margin:-2px 0 8px;padding:6px 12px}
+body.in-unit nav.steps{margin:0 0 8px;padding:8px 4px}
+body.in-unit .stp{padding:5px 4px}
+body.in-unit .stp .e{font-size:1.9rem}
