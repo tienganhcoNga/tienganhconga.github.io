@@ -11,7 +11,9 @@
   "use strict";
   var box = document.getElementById("units");
   if (!box) return;
-  var TEACH = /^#(lo-trinh|answers)$/, EXTRA = /^#(tu-dien|hw)$/;  /* EXTRA: có trong bảng All nhưng không nằm trong chuỗi bài ‹ › (#hw: bảng Bài tập về nhà 16 Unit) */
+  /* TEACH: chỉ nằm trong ô 🔒 cho cô và ba mẹ, không có trong bảng All và chuỗi bài ‹ ›
+     (#known = 📒 Words I know của Giáo án lớp 1: ôn từ cũ, dễ làm bé rối) */
+  var TEACH = /^#(lo-trinh|answers|known)$/, EXTRA = /^#(tu-dien|hw)$/;  /* EXTRA: có trong bảng All nhưng không nằm trong chuỗi bài ‹ › (#hw: bảng Bài tập về nhà 16 Unit) */
 
   var css = "" +
     ".kn-on>a:not(.home){display:none!important}" +
@@ -112,7 +114,7 @@
       it.kid.concat(it.extra).forEach(function (p) { domIc[p.href.slice(1)] = p.ic; });
       here.g.lessons.forEach(function (l) {
         var mine = l === here.l;
-        var cards = l.topics.filter(function (t) { return !/^(lo-trinh|answers)$/.test(t[0]); }).map(function (t) {
+        var cards = l.topics.filter(function (t) { return !/^(lo-trinh|answers|known)$/.test(t[0]); }).map(function (t) {
           var nm = splitName(t[1]), a = { href: mine ? "#" + t[0] : "#", "data-go": mine ? "" : here.g.id + "/" + l.id + "/" + t[0] };
           if (mine && t[0] === curId) a["aria-current"] = "page";
           return card(t[2] || (mine && domIc[t[0]]) || l.ic, nm.t, nm.s, a);
