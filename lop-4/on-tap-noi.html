@@ -25,6 +25,7 @@
 <div class="wrap"><footer><a href="../index.html">← Về trang chủ</a> · <a href="units-lop-4.html#lo-trinh">📗 Từ vựng &amp; Lộ trình lớp 4</a></footer></div>
 
 <script src="../assets/lop4-words.js?v=20261127a"></script>
+<script src="../assets/lop4-dialogues.js?v=20261127a"></script>
 <script>
 /* Ôn tập nói lớp 4, theo trang Từ vựng & Lộ trình lớp 4 (Starter + Unit 1–20). Kho từ lấy từ assets/lop4-words.js.
    Ôn sau Unit 3 (gồm cả Starter), rồi cứ 2 Unit một lần: sau Unit 5, 7, 9, 11, 13, 15, 17, 19; cuối năm là Big Show (cả 20 Unit).
@@ -36,6 +37,23 @@ window.SPEAK={
  kid:'Minh', rate:0.9, waitWord:600, viUI:false, guideName:'Lộ trình',
  hello:'Good morning, everyone. My name is {name}. I\'m in grade four.',
  units:window.L4.units,
+ /* 🏠 Bài tập về nhà theo Unit (assets/homework.js): khối cuối mỗi bài ôn, tab là các Unit mới; #hw = bảng 21 Unit, #hw-u5 = Unit 5.
+    Từ lấy ở kho từ (lop4-words.js); câu cho Fill the gap, Make a sentence lấy từ mẫu câu (p) và hội thoại (lop4-dialogues.js);
+    Ask and answer lấy các cặp hỏi – đáp. Lớp 4 hiện luôn nghĩa tiếng Việt (showVi). */
+ homework:{key:'lophoc.hw.l4',showVi:true,maxWords:9,
+  note:'Chọn Unit vừa học trên lớp. Mỗi ngày 2–3 bài, khoảng 15 phút; làm sai cứ chọn lại, mỗi bài có sao. Bài 🙋 Ask and answer: đọc câu hỏi, tự trả lời cả câu rồi mới bấm 👀 xem. Bấm 🖨️ Worksheet để in phiếu 6 phần có đáp án.',
+  sentences:function(g){
+   var out=[],u=window.L4.units[g]||{},D=(window.L4_DLG||{})[g]||[];
+   var split=function(en,vi){var a=en.split(/ – | \/ /),b=String(vi||'').split(/ – | \/ /);a.forEach(function(x,i){out.push([x.replace(/["“”]/g,"'"),a.length===b.length?b[i]:''])})};
+   (u.p||[]).forEach(function(p){split(p[0],p[1])});
+   D.forEach(function(d){d.lines.forEach(function(l){if(l[1].split(' ').length>=3&&!/[A-Z]-[A-Z]/.test(l[1]))split(l[1],l[2])})});
+   return out;},
+  qa:function(g){
+   var out=[],u=window.L4.units[g]||{},D=(window.L4_DLG||{})[g]||[];
+   (u.p||[]).forEach(function(p){var a=p[0].split(' – '),b=String(p[1]).split(' – ');if(a.length===2)out.push([a[0],a[1],b[0]||'',b[1]||''])});
+   D.forEach(function(d){for(var i=0;i+1<d.lines.length;i++){var x=d.lines[i],y=d.lines[i+1];
+    if(/\?$/.test(x[1])&&!/\?$/.test(y[1])&&x[0]!==y[0]&&x[0]&&y[0])out.push([x[1],y[1],x[2],y[2]])}});
+   return out;}},
  guide:'<h3>Vì sao có bài ôn nói?</h3>'+
   '<p>Trên lớp, mỗi Unit con học từ và mẫu câu riêng lẻ. Trang này giúp con <b>nối các Unit lại với nhau</b>: mỗi bài ôn gom từ của <b>tất cả</b> các Unit đã học vào 5 kiểu bài nói, để con dùng từ cũ cùng từ mới và nói thành đoạn 8–12 câu, không chỉ trả lời một câu.</p>'+
   '<h3>Khi nào ôn?</h3>'+
@@ -54,6 +72,11 @@ window.SPEAK={
   '<li><b>Show and tell (thuyết trình):</b> đứng trước lớp, có câu chào, 3 ý chính và câu cảm ơn. Nhìn các bạn, nói to, dùng tay chỉ tranh.</li>'+
   '<li><b>Compare (so sánh):</b> hai bạn đứng cạnh nhau, mỗi bạn một bên; luyện <i>but, too, both, and</i>.</li>'+
   '<li><b>My story (tự sự):</b> con kể chuyện của chính mình theo thứ tự <i>First → Then → After that → Finally</i>, hoặc như một trang nhật kí.</li></ul>'+
+  '<h3>🏠 Bài tập về nhà theo Unit</h3>'+
+  '<p>Cuối mỗi bài ôn có khối <b>🏠 Homework</b>, mỗi tab là một Unit mới của bài ôn đó (bấm <b>📚 All units</b> hoặc mục <b>Bài tập về nhà</b> trên menu để chọn thẳng Starter, Unit 1–20). Mỗi Unit có các dạng bài tự chấm, có sao: <i>Listen and choose, Look and choose, Yes or no, Match, Missing letter, Spell it, Write the word, Fill the gap</i> (điền từ vào mẫu câu và câu hội thoại trong bài), <i>Make a sentence</i> (xếp câu), <i>Memory, Say it</i> và <i>🙋 Ask and answer</i> (hỏi – đáp theo mẫu câu của Unit, câu trả lời được che để con tự nói trước). Nút <b>🖨️ Worksheet</b> in phiếu 6 phần có đáp án.</p>'+
+  '<ul><li>Mỗi ngày 2–3 bài, khoảng 15 phút. Con tự làm, ba mẹ xem số sao ở tab Unit (⭐ 5/12).</li>'+
+  '<li>Bài <b>Ask and answer</b>: ba mẹ đọc câu hỏi (hoặc bấm 🔊), con trả lời thành câu đủ rồi mới bấm 👀 xem lại.</li>'+
+  '<li>Sao lưu trên máy đang dùng.</li></ul>'+
   '<h3>Mẹo</h3>'+
   '<ul><li>Gõ tên con vào ô <b>My name</b>: tên con hiện trong bài.</li><li>Không ngắt lời để sửa. Con nói xong, cô nhắc lại câu đúng một lần.</li>'+
   '<li>Trên sân khấu, tick <b>Record my voice</b> để con nghe lại và tự nhận xét: “Mình nói to chưa? Rõ chưa? Có ngập ngừng không?”</li>'+
@@ -865,7 +888,8 @@ window.SPEAK={
 </script>
 <script src="../assets/pin.js?v=20261127e"></script>
 <script src="../assets/voice.js?v=20261127bi"></script>
-<script src="../assets/speaking.js?v=20261127bk"></script>
-<script src="../assets/kidnav.js?v=20261127bi"></script>
+<script src="../assets/homework.js?v=20261127g"></script>
+<script src="../assets/speaking.js?v=20261127hw"></script>
+<script src="../assets/kidnav.js?v=20261127hw"></script>
 </body>
 </html>

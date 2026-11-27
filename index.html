@@ -303,10 +303,12 @@ button{font:inherit;color:inherit}
             <div class="gbox"><h3>Có gì trong Lớp 4?</h3><ul>
               <li><b>📗 Từ vựng &amp; Lộ trình</b>: lịch 35 tuần · <b>📒 Tất cả từ vựng</b> (tra từ) · Starter và Unit 1–20: từ, mẫu câu, hội thoại có đóng vai, 3 trò luyện từ.</li>
               <li><b>🎤 Ôn tập nói</b>: sau Unit 3, rồi cứ 2 Unit một lần, Big Show cuối năm; mỗi lần 5 kiểu bài nói.</li>
+              <li><b>🏠 Bài tập về nhà (theo Unit)</b>: Starter và Unit 1–20, ở cuối mỗi bài ôn và ở menu. 12 dạng tự chấm: nghe, nhìn, nối, đánh vần, gõ từ, điền từ vào mẫu câu, xếp câu, hỏi – đáp…; có nghĩa tiếng Việt và phiếu in.</li>
               <li><b>🔤 Tiếng Anh IOE</b>: từ vựng, ngữ pháp, ngày tháng, hội thoại, luyện đề, đề thi thử, tập chép, game ôn thêm.</li>
               <li><b>🥁 Sử Việt IOE</b>: dòng thời gian, đoán nhân vật, địa danh, ngày lễ, mẹo nhớ, luyện đề 45 câu.</li></ul></div>
             <div class="gbox"><h3>Một tuần ở nhà gợi ý</h3><ul>
               <li><b>Sau buổi học trên lớp:</b> mở Unit vừa học, nghe lại từ và hội thoại, chơi 3 trò luyện từ.</li>
+              <li><b>Các ngày sau:</b> vào <b>Bài tập về nhà</b> của Unit đó, mỗi ngày 2–3 bài (khoảng 15 phút); bài <b>🙋 Ask and answer</b>: ba mẹ đọc câu hỏi, con trả lời cả câu.</li>
               <li><b>Giữa tuần:</b> luyện hội thoại: bé đóng một vai, ba mẹ hoặc máy đóng vai còn lại.</li>
               <li><b>Cuối tuần:</b> làm 1 bài <b>Luyện đề</b> hoặc phần <b>Tập chép</b> của IOE; khi gần thi thì làm <b>Đề thi thử</b>.</li>
               <li>Sau mỗi 2 Unit: làm bài <b>Ôn tập nói</b> tương ứng.</li></ul></div>
@@ -315,6 +317,7 @@ button{font:inherit;color:inherit}
               <li>Từ hay sai: ghi vào sổ, hôm sau tra lại ở <b>📒 Tất cả từ vựng</b>.</li>
               <li>Ôn thi: mỗi ngày 15–20 phút đều đặn tốt hơn học dồn trước ngày thi.</li></ul></div>
           </div>
+          <button class="btn" type="button" data-go="lop-4/bai-tap/hw">🏠 Mở Bài tập về nhà Lớp 4</button>
           <button class="btn" type="button" data-go="lop-4/units/lo-trinh">🗺️ Mở Lộ trình Lớp 4</button>
         </div>
       </section>
@@ -394,6 +397,15 @@ const GRADES=[
   {id:'on-noi',ic:'🎤',name:'Ôn tập nói',en:'Speaking',file:'lop-4/on-tap-noi.html',answers:true,topics:[
    ['lo-trinh','🗺️ Cách ôn và lịch ôn'],['r1','Speaking 1: Unit 1–3','🌏'],['r2','Speaking 2: Unit 1–5','🎂'],['r3','Speaking 3: Unit 1–7','🏫'],['r4','Speaking 4: Unit 1–9','🏅'],['r5','Speaking 5: Unit 1–11','🏖️'],
    ['r6','Speaking 6: Unit 1–13','👩‍⚕️'],['r7','Speaking 7: Unit 1–15','🏡'],['r8','Speaking 8: Unit 1–17','🌦️'],['r9','Speaking 9: Unit 1–19','🦁'],['r10','Big Show: cả 20 Unit','🏆']]},
+  /* Bài tập về nhà Lớp 4: cuối mỗi bài Ôn tập nói (cùng file), chia theo Starter + 20 Unit */
+  {id:'bai-tap',ic:'🏠',name:'Bài tập về nhà (theo Unit)',en:'Homework',file:'lop-4/on-tap-noi.html',answers:true,topics:[
+   ['hw','🏠 Tất cả 21 Unit','🏠'],
+   ['hw-s','Starter: Hello again!','👋'],['hw-u1','Unit 1: My friends','🌏'],['hw-u2','Unit 2: Time and daily routines','⏰'],['hw-u3','Unit 3: My week','📅'],
+   ['hw-u4','Unit 4: My birthday party','🎂'],['hw-u5','Unit 5: Things we can do','🎸'],['hw-u6','Unit 6: Our school facilities','🏫'],['hw-u7','Unit 7: Our timetables','🗓️'],
+   ['hw-u8','Unit 8: My favourite subjects','⭐'],['hw-u9','Unit 9: Our sports day','🏅'],['hw-u10','Unit 10: Our summer holidays','🏖️'],['hw-u11','Unit 11: My home','🏠'],
+   ['hw-u12','Unit 12: Jobs','👩‍⚕️'],['hw-u13','Unit 13: Appearance','🧑'],['hw-u14','Unit 14: Daily activities','🧽'],['hw-u15','Unit 15: My family’s weekends','👨‍👩‍👧'],
+   ['hw-u16','Unit 16: Weather','🌦️'],['hw-u17','Unit 17: In the city','🚦'],['hw-u18','Unit 18: At the shopping centre','🛍️'],['hw-u19','Unit 19: The animal world','🦁'],
+   ['hw-u20','Unit 20: At summer camp','⛺']]},
   {id:'tieng-anh',ic:'🔤',name:'Tiếng Anh IOE',en:'IOE English',file:'lop-4/tieng-anh-ioe.html',answers:true,topics:[
    ['vocab','Từ vựng','🔤'],['grammar','Ngữ pháp','🧩'],['dates','Ngày & tháng','📅'],['talk','Hội thoại','💬'],['practice','Luyện đề','✏️'],['exam','Đề thi thử','📝'],['copy','Tập chép','✍️'],['games','Game ôn thêm','🎮']]},
   {id:'su-viet',ic:'🥁',name:'Sử Việt IOE',en:'IOE History',file:'lop-4/su-viet-ioe.html',answers:true,topics:[

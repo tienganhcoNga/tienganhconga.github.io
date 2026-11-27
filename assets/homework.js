@@ -20,6 +20,9 @@
      young:true       chế độ Mầm non: phiếu in cho bé chưa biết viết (tô chữ, nghe rồi khoanh hình, khoanh chữ, nối, vẽ và nói)
      types:[…]        chỉ dùng các dạng này (Mầm non: listen, look, yesno, match, memory, say, talk)
      talk có thể ghi dạng { e, s, c, b, x } giống dòng hw: của trang Giai đoạn Mầm non
+     sentences(g)     hàm trả về [[câu tiếng Anh, nghĩa]] của Unit: tự tìm từ của Unit trong câu làm chỗ trống (Fill the gap), câu ngắn dùng cho Make a sentence
+     qa(g)            hàm trả về [[câu hỏi, trả lời, nghĩa hỏi, nghĩa đáp]] → dạng 🙋 Ask and answer
+     showVi:true      hiện luôn nghĩa tiếng Việt (Lớp 4 không có nút Song ngữ); maxWords: số từ tối đa của câu xếp; note: lời dặn đầu khối
    Bài của bé chỉ có tiếng Anh; tiếng Việt nằm trong <span class="vi-t"> (nút 🇻🇳 Song ngữ).
    Số sao mỗi bài lưu trên máy (localStorage "lophoc.hw.l1"). */
 (function () {
@@ -29,7 +32,7 @@
     var $ = function (s, r) { return (r || document).querySelector(s); };
     var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
     var speak = function (t, o) { K.speak(t, o || { rate: 0.8 }); };
-    var KEY = HD.key || "lophoc.hw.l1", N = 8, YOUNG = !!HD.young, ONLY = HD.types || null;
+    var KEY = HD.key || "lophoc.hw.l1", N = 8, YOUNG = !!HD.young, ONLY = HD.types || null, MAXTOK = HD.maxWords || 7;
     /* talk dạng {e,s,c,b,x} (giống hw: của trang Giai đoạn Mầm non) → dạng mảng */
     var TALK = {};
     Object.keys(HD.talk || {}).forEach(function (g) {
@@ -91,7 +94,9 @@
       ".hw-ln{display:flex;align-items:center;gap:10px;margin-top:6px}" +
       ".hw-ln .who{flex:none;font-size:1.6rem}.hw-ln .t{flex:1;font-weight:700;font-size:1.1rem}" +
       ".hw-ln.k .t.hid{color:transparent;background:repeating-linear-gradient(90deg,var(--accent-soft) 0 10px,transparent 10px 14px);border-radius:8px;user-select:none}" +
-      "html.bi .hw-ln .t.hid .vi-t{visibility:hidden}" +
+      "html.bi .hw-ln .t.hid .vi-t,.hw-vi .hw-ln .t.hid .vi-t{visibility:hidden}" +
+      ".hw-hint{margin:0;color:var(--muted);font-style:italic;text-align:center}" +
+      ".hw-vi .vi-t{display:block;font-size:.8em;font-weight:500;font-style:italic;color:var(--muted);margin-top:2px}.hw-vi .vi-t.in{display:inline;margin:0 0 0 .4em}" +
       ".hw-sp{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid var(--line);background:var(--surface);cursor:pointer;font-size:1.05rem}" +
       ".hw-sp:hover{border-color:var(--accent)}" +
       ".hw-tc .note{font-size:.9rem;color:var(--muted);margin:0 0 4px}" +
@@ -133,7 +138,31 @@
     var isSpell = function (x) { return /^[a-z]{3,9}$/i.test(x.w); };
     function gapOK(x) { var m = /<b>([\s\S]*?)<\/b>/.exec(x.ex || ""); return !!m && plain(m[1]).toLowerCase() === x.w.toLowerCase(); }
     function tokens(x) { return plain(fill(x.ex)).split(" ").filter(Boolean); }
-    function orderOK(x) { if (!x.ex) return false; var n = tokens(x).length; return n >= 3 && n <= 7; }
+    function orderOK(x) { if (!x.ex) return false; var n = tokens(x).length; return n >= 3 && n <= MAXTOK; }
+    /* Câu thêm của Unit (HD.sentences(g) → [[câu tiếng Anh, nghĩa]], vd. mẫu câu và hội thoại lớp 4):
+       tự tìm một từ của Unit trong câu để làm chỗ trống (Fill the gap); câu 3–MAXTOK từ dùng cho Make a sentence. */
+    var SCACHE = {};
+    function extra(g) {
+      if (SCACHE[g]) return SCACHE[g];
+      var out = [], W = words(g).filter(function (x) { return x.w.length >= 3; }).sort(function (a, b) { return b.w.length - a.w.length; });
+      var list = HD.sentences ? (HD.sentences(g) || []) : [], seen = {};
+      list.forEach(function (pv) {
+        var en = String(pv[0]).replace(/\s+/g, " ").trim(), v = pv[1] || "";
+        if (!en || seen[en] || !/[a-z]/i.test(en)) return; seen[en] = 1;
+        var hit = null;
+        for (var i = 0; i < W.length && !hit; i++) {
+          var re = new RegExp("(^|[^A-Za-z'])(" + W[i].w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")(?![A-Za-z'])", "i"), m = re.exec(en);
+          if (m) hit = { x: W[i], at: m.index + m[1].length, len: m[2].length };
+        }
+        var ex = hit ? esc(en.slice(0, hit.at)) + "<b>" + esc(en.substr(hit.at, hit.len)) + "</b>" + esc(en.slice(hit.at + hit.len)) : esc(en);
+        out.push({ ic: hit ? hit.x.ic : (D.units[g] || {}).ic || "💬", w: hit ? en.substr(hit.at, hit.len) : "", ex: ex, exVi: v, gapOnly: !!hit, sent: true });
+      });
+      return (SCACHE[g] = out);
+    }
+    function gapPool(g) { return words(g).filter(gapOK).concat(extra(g).filter(function (x) { return x.w && x.exVi && gapOK(x); })); }
+    function orderPool(g) { return words(g).filter(orderOK).concat(extra(g).filter(orderOK)); }
+    /* Hỏi – đáp (HD.qa(g) → [[câu hỏi, câu trả lời, nghĩa hỏi, nghĩa đáp]]) */
+    function qaPool(g) { return HD.qa ? (HD.qa(g) || []) : []; }
     function uniqPics(P) { var s = {}; return P.filter(function (x) { if (s[x.ic]) return false; s[x.ic] = 1; return true; }); }
     function reviewOf(g) { return D.reviews.filter(function (r) { return (r.fresh || []).indexOf(g) >= 0; })[0] || D.reviews.filter(function (r) { return r.units.indexOf(g) >= 0; })[0]; }
 
@@ -149,12 +178,13 @@
       ["order", "🧩", "Make a sentence", "Xếp từ thành câu", "Tap the words in order to make a sentence.", "Bấm các từ theo đúng thứ tự để thành câu."],
       ["memory", "🎴", "Memory", "Lật thẻ tìm cặp hình – chữ", "Find the pairs: a picture and its word.", "Lật thẻ, tìm cặp hình và chữ giống nhau."],
       ["say", "🎤", "Say it!", "Nhìn hình, nói từ", "Look at the picture and say the word.", "Nhìn hình rồi nói to từ tiếng Anh."],
-      ["talk", "💬", "Talk at home", "Nói cùng ba mẹ", "Talk with Mom or Dad. Say your part!", "Ba mẹ đọc câu của ba mẹ, con nói câu của con. Câu của con được che, bấm 👀 để xem."]
+      ["talk", "💬", "Talk at home", "Nói cùng ba mẹ", "Talk with Mom or Dad. Say your part!", "Ba mẹ đọc câu của ba mẹ, con nói câu của con. Câu của con được che, bấm 👀 để xem."],
+      ["qa", "🙋", "Ask and answer", "Hỏi – đáp", "Read the question. Say the answer, then tap 👀 to check.", "Ba mẹ (hoặc bạn) đọc câu hỏi, con trả lời; câu trả lời được che, bấm 👀 để xem lại."]
     ];
     function typesFor(g) {
       var P = words(g), S = P.filter(isSpell), out = [];
       var ok = { listen: uniqPics(P).length >= 4, look: P.length >= 4, yesno: P.length >= 3, match: uniqPics(P).length >= 4, letter: S.length >= 3, spell: S.length >= 3,
-        write: S.length >= 3, gap: P.filter(gapOK).length >= 3, order: P.filter(orderOK).length >= 3, memory: uniqPics(P).length >= 4, say: P.length >= 3, talk: !!TALK[g] };
+        write: S.length >= 3, gap: gapPool(g).length >= 3, order: orderPool(g).length >= 3, memory: uniqPics(P).length >= 4, say: P.length >= 3, talk: !!TALK[g], qa: qaPool(g).length >= 2 };
       BASE.forEach(function (b) { if (ok[b[0]] && (!ONLY || ONLY.indexOf(b[0]) >= 0)) out.push({ id: b[0], ic: b[1], t: b[2], vi: b[3], how: b[4], howVi: b[5] }); });
       ((HD.extra || {})[g] || []).forEach(function (x, k) { out.push({ id: "x" + k, ic: x.ic || "⭐", t: x.t, vi: x.vi || "", how: x.how || "", howVi: x.howVi || "", x: x, extra: true }); });
       return out;
@@ -172,9 +202,9 @@
       var us = (r.fresh && r.fresh.length ? r.fresh : r.units).filter(function (g) { return D.units[g]; });
       if (!us.length) return "";
       var g = sel[r.id] && us.indexOf(sel[r.id]) >= 0 ? sel[r.id] : us[0]; sel[r.id] = g;
-      return '<div class="block hw" id="homework"><div class="b-head"><h3>🏠 Homework' + vi("Bài tập về nhà", true) + "</h3>" +
+      return '<div class="block hw' + (HD.showVi ? " hw-vi" : "") + '" id="homework"><div class="b-head"><h3>🏠 Homework' + vi("Bài tập về nhà", true) + "</h3>" +
         '<span class="muted">Choose your unit and play!</span><a class="btn" href="#hw">📚 All units</a></div>' +
-        '<p class="vi-t hw-guide" lang="vi">Ba mẹ chọn Unit con vừa học trên lớp. Mỗi ngày làm 2–3 bài (10–15 phút), ngồi cùng con, bấm 🔊 để nghe mẫu. Làm sai cứ cho con chọn lại; mỗi bài có sao để con thi đua. Bài 💬 Talk at home là phần nói chuyện thật với con, nên làm mỗi ngày. Bấm 🖨️ Worksheet để in phiếu cho con làm bằng bút chì.</p>' +
+        '<p class="vi-t hw-guide" lang="vi">' + esc(HD.note || "Ba mẹ chọn Unit con vừa học trên lớp. Mỗi ngày làm 2–3 bài (10–15 phút), ngồi cùng con, bấm 🔊 để nghe mẫu. Làm sai cứ cho con chọn lại; mỗi bài có sao để con thi đua. Bài 💬 Talk at home là phần nói chuyện thật với con, nên làm mỗi ngày. Bấm 🖨️ Worksheet để in phiếu cho con làm bằng bút chì.") + "</p>" +
         '<div class="hw-units" role="tablist" aria-label="Units">' + us.map(function (id) {
           var u = D.units[id];
           return '<button class="hw-ut" type="button" role="tab" data-hw="unit" data-u="' + id + '" aria-selected="' + (id === g) + '"><span class="e" aria-hidden="true">' + u.ic + "</span><span>" + esc(u.n) + "<small>" + esc(u.en) + '</small><span class="hw-pg" data-pg="' + id + '">' + pgText(id) + "</span></span></button>";
@@ -197,12 +227,12 @@
 
     /* ---------- bảng 16 Unit (#hw) ---------- */
     function hub() {
-      return '<div class="u-head"><span class="u-ic" aria-hidden="true">🏠</span><div><div class="u-n">Homework · ' + unitIds.length + " units</div><h2>Choose your unit!</h2>" +
+      return '<div class="' + (HD.showVi ? "hw-vi" : "") + '"><div class="u-head"><span class="u-ic" aria-hidden="true">🏠</span><div><div class="u-n">Homework · ' + unitIds.length + " units</div><h2>Choose your unit!</h2>" +
         vi("Bài tập về nhà theo từng Unit. Ba mẹ chọn Unit con đang học trên lớp; mỗi Unit có nhiều dạng bài và trò chơi, và phiếu in.") + "</div></div>" +
         '<div class="hw-hub">' + unitIds.map(function (id) {
           var u = D.units[id];
           return '<a href="#hw-' + id + '"><span class="e" aria-hidden="true">' + u.ic + "</span>" + esc(u.n) + "<small>" + esc(u.en) + '</small><span class="hw-pg">' + pgText(id) + "</span></a>";
-        }).join("") + "</div>";
+        }).join("") + "</div></div>";
     }
     /* #hw-g5 → bài ôn có Unit 5 là Unit mới */
     function match(id) {
@@ -232,8 +262,9 @@
       else if (t.id === "yesno") G.list = pickN(P, N).map(function (it, k) { var o = others(P, it, "w", 1)[0]; return { it: it, sh: k % 2 && o ? o : it }; });
       else if (t.id === "match") { var M = pickN(uniqPics(P), N); G.list = []; for (var k = 0; k < M.length; k += 4) G.list.push(M.slice(k, k + 4)); if (G.list.length > 1 && G.list[G.list.length - 1].length < 2) G.list[G.list.length - 2] = G.list[G.list.length - 2].concat(G.list.pop()); }
       else if (t.id === "letter" || t.id === "spell" || t.id === "write") G.list = pickN(S, 6);
-      else if (t.id === "gap") G.list = pickN(P.filter(gapOK), N);
-      else if (t.id === "order") G.list = pickN(P.filter(orderOK), 6);
+      else if (t.id === "gap") G.list = pickN(gapPool(g), N);
+      else if (t.id === "order") G.list = pickN(orderPool(g), 6);
+      else if (t.id === "qa") G.list = [1];
       else if (t.id === "memory") G.list = pickN(uniqPics(P), 6);
       else if (t.id === "talk") G.list = [1];
       if (t.id === "yesno") G.list = shuffle(G.list);
@@ -286,7 +317,7 @@
           '</div><div class="sk-ctl"><button class="sk-sbtn go" type="button" data-hw="check">✔ Check</button><button class="sk-sbtn" type="button" data-hw="whint">💡 Help</button></div>';
       } else if (t.id === "gap") {
         var gap = fill(it.ex).replace(/<b>[\s\S]*?<\/b>/, '<span class="sk-gap">____</span>');
-        h = '<div class="sk-gq col"><span class="sk-gpic sm" aria-hidden="true">' + icon(it.ic) + '</span><p class="sk-gsent" id="hwSent">' + gap + "</p></div>" +
+        h = '<div class="sk-gq col"><span class="sk-gpic sm" aria-hidden="true">' + icon(it.ic) + '</span><p class="sk-gsent" id="hwSent">' + gap + "</p>" + (it.sent && HD.showVi ? '<p class="hw-hint">' + esc(it.exVi) + "</p>" : "") + "</div>" +
           '<div class="sk-opts words">' + shuffle(others(G.P, it, "w", 2).concat([it])).map(function (o) { return '<button class="sk-opt" type="button" data-hw="ans" data-v="' + esc(o.w) + '">' + esc(o.w) + "</button>"; }).join("") + "</div>";
       } else if (t.id === "order") {
         G.tok = tokens(it);
@@ -298,6 +329,7 @@
           '<div class="sk-ctl">' + (SR ? '<button class="sk-sbtn go" type="button" data-hw="mic">🎤 Say it</button>' : "") +
           '<button class="sk-sbtn" type="button" data-hw="shint">🔊 Help</button><button class="sk-sbtn" type="button" data-hw="said">' + (SR ? "Next ▶" : "✓ I said it!") + "</button></div>";
       } else if (t.id === "talk") return showTalk(box);
+      else if (t.id === "qa") return showQA(box);
       box.innerHTML = gh() + h;
       var inp = $("#hwIn"); if (inp) inp.focus();
     }
@@ -323,7 +355,7 @@
       }
       if (t === "letter") { if (v !== G.ans) return wrong(btn); var w = $("#hwBox .hw-word"); if (w) w.textContent = it.w; return right(btn, it.w); }
       if (v !== it.w) return wrong(btn);
-      if (t === "gap") { var s = $("#hwSent"); if (s) s.innerHTML = fill(it.ex); return right(btn, plain(fill(it.ex))); }
+      if (t === "gap") { var s = $("#hwSent"); if (s) s.innerHTML = fill(it.ex) + (it.sent && HD.showVi ? "" : vi(it.exVi)); return right(btn, plain(fill(it.ex))); }
       right(btn, it.w);
     }
     function spellTap(btn) {
@@ -421,6 +453,14 @@
         (T[4] ? '<p class="vi-t note" lang="vi">🏠 Từ dùng thêm ở nhà: ' + esc(T[4]) + "</p>" : "") +
         '</div><div class="sk-ctl" style="margin-top:12px"><button class="sk-sbtn go" type="button" data-hw="tdone">✓ We talked today!</button></div>';
     }
+    function showQA(box) {
+      var L = pickN(qaPool(G.g), 6);
+      box.innerHTML = gh(false) + '<div class="hw-talk">' + L.map(function (q, k) {
+        return '<div class="hw-tc"><h5>' + (k + 1) + ".</h5>" +
+          '<div class="hw-ln p"><span class="who" aria-hidden="true">🙋</span><span class="t">' + esc(q[0]) + vi(q[2]) + "</span>" + spk(q[0]) + "</div>" +
+          '<div class="hw-ln k"><span class="who" aria-hidden="true">🧒</span><span class="t hid">' + esc(q[1]) + vi(q[3]) + '</span><button class="hw-sp" type="button" data-hw="peek" aria-label="Show">👀</button>' + spk(q[1]) + "</div></div>";
+      }).join("") + '</div><div class="sk-ctl" style="margin-top:12px"><button class="sk-sbtn go" type="button" data-hw="tdone">✓ I can answer!</button></div>';
+    }
     /* ---------- bài riêng của Unit ---------- */
     function showExtra(box) {
       var x = G.t.x, it = G.list[G.i], h = "";
@@ -485,14 +525,14 @@
       h += "<h2>4. Match.</h2><div class=\"mt\">" + mt.map(function (x, k) { return '<div class="p">' + pic(x) + '<span class="dot"></span></div><div></div><div class="w"><span class="dot"></span>' + esc(mw[k].w) + "</div>"; }).join("") + "</div>";
       A.push(["4. Match", mt.map(function (x) { return x.w; })]);
       /* 5. Fill the gap */
-      var fg = pickN(P.filter(gapOK), 5);
+      var fg = pickN(gapPool(g), 5);
       if (fg.length >= 3) {
         h += "<h2>5. Read and write the missing word.</h2><div class=\"wb\">" + shuffle(fg).map(function (x) { return esc(x.w); }).join(" &nbsp;·&nbsp; ") + "</div><ol>" +
           fg.map(function (x) { return "<li>" + plain(fill(x.ex).replace(/<b>[\s\S]*?<\/b>/, "@@")).replace("@@", "__________") + "</li>"; }).join("") + "</ol>";
         A.push(["5. Fill the gap", fg.map(function (x) { return x.w; })]);
       }
       /* 6. Put the words in order */
-      var po = pickN(P.filter(orderOK), 3);
+      var po = pickN(orderPool(g), 3);
       if (po.length) {
         h += "<h2>6. Put the words in order.</h2><ol>" + po.map(function (x) { return "<li>" + shuffle(tokens(x)).map(esc).join(" &nbsp;/&nbsp; ") + '<span class="ln"></span></li>'; }).join("") + "</ol>";
         A.push(["6. Put the words in order", po.map(function (x) { return tokens(x).join(" "); })]);
