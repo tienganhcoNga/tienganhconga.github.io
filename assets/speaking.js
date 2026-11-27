@@ -34,8 +34,12 @@
     SPEED = parseFloat(b.getAttribute("data-speed")); try { localStorage.setItem("lophoc.speed", String(SPEED)); } catch (err) {}
     document.querySelectorAll("[data-speed]").forEach(function (x) { x.setAttribute("aria-pressed", String(parseFloat(x.getAttribute("data-speed")) === SPEED)); });
   });
+  /* AW: số lượt "Play all". Đọc câu khác (không xếp hàng) hoặc bấm ⏹ Stop (sự kiện lophoc:stop từ voice.js) thì tăng AW, chuỗi Play all đang chạy tự dừng */
+  var AW = 0;
+  document.addEventListener("lophoc:stop", function () { AW++; });
   function speak(text, o) {
     o = o || {};
+    if (!o.queue && !o.keep) AW++;
     if (!hasSpeech) { if (o.onend) setTimeout(o.onend, 600); return; }
     if (!o.queue) speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(String(text).replace(/\.\.\./g, ","));
@@ -624,9 +628,10 @@
   }
   function sayCard(x, el, then) {
     if (el) { $$(".sk-wc").forEach(function (c) { c.classList.remove("on"); }); el.classList.add("on"); }
-    speak(x.w, { rate: 0.8, onend: function () {
-      if (!x.ex) { if (el) el.classList.remove("on"); if (then) then(); return; }
-      setTimeout(function () { speak(plain(fill(x.ex)), { onend: function () { if (el) el.classList.remove("on"); if (then) then(); } }); }, 250);
+    var id = then ? AW : ++AW, live = function () { return id === AW; };
+    speak(x.w, { rate: 0.8, keep: true, onend: function () {
+      if (!x.ex || !live()) { if (el) el.classList.remove("on"); if (then && live()) then(); return; }
+      setTimeout(function () { if (!live()) { if (el) el.classList.remove("on"); return; } speak(plain(fill(x.ex)), { keep: true, onend: function () { if (el) el.classList.remove("on"); if (then && live()) then(); } }); }, 250);
     } });
   }
 
@@ -746,8 +751,8 @@
     var b = e.target.closest("[data-g]"); if (!b) return;
     var a = b.getAttribute("data-g");
     if (a === "allwords" && cur.r) {
-      var P = poolOf(cur.r), els = $$(".sk-wc"), k = 0;
-      (function nx() { if (k >= P.length) return; var x = P[k], el = els[k]; k++; if (el) el.scrollIntoView({ block: "nearest", behavior: "smooth" }); sayCard(x, el, function () { setTimeout(nx, 400); }); })();
+      var P = poolOf(cur.r), els = $$(".sk-wc"), k = 0, id = ++AW;
+      (function nx() { if (k >= P.length || id !== AW) return; var x = P[k], el = els[k]; k++; if (el) el.scrollIntoView({ block: "nearest", behavior: "smooth" }); sayCard(x, el, function () { setTimeout(nx, 400); }); })();
       return;
     }
     if (a === "start") { gameStart(b.getAttribute("data-gt"), b.hasAttribute("data-wbp")); return; }

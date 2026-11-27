@@ -114,5 +114,38 @@
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount); else mount();
 
+  /* ---------- Nút "Play all / Listen to all": đang đọc thì nút thành ⏹ Stop, bấm lần nữa để dừng ----------
+     Bắt click ở pha capture nên chạy trước code của từng trang. Khi dừng: hủy giọng đọc và phát sự kiện
+     "lophoc:stop" để các chuỗi đọc nối tiếp (speaking.js) không đọc tiếp câu sau. */
+  var PA = '[data-g="allwords"],[data-act^="all-"],[data-playall],#playWords,#playPat,[data-hw="sall"]';
+  var paBtn = null, paTimer = 0;
+  function paReset() {
+    clearInterval(paTimer); paTimer = 0;
+    if (!paBtn) return;
+    paBtn.innerHTML = paBtn.__lhHtml; paBtn.classList.remove("pa-on"); paBtn.removeAttribute("aria-pressed"); paBtn = null;
+  }
+  function paStop() {
+    paReset();
+    try { document.dispatchEvent(new Event("lophoc:stop")); } catch (e) {}
+    if (ok) speechSynthesis.cancel();
+    var hl = document.querySelectorAll(".speaking,.sk-wc.on,.card.on,.bub.on,.v-line.on,.verse.on");
+    for (var i = 0; i < hl.length; i++) hl[i].classList.remove("speaking", "on");
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target && e.target.closest ? e.target.closest(PA) : null;
+    if (!b || !ok) return;
+    if (b === paBtn) { e.preventDefault(); e.stopImmediatePropagation(); paStop(); return; }
+    if (paBtn) paStop();
+    setTimeout(function () {
+      if (!document.contains(b)) return;
+      paBtn = b; b.__lhHtml = b.innerHTML; b.innerHTML = "⏹ Stop"; b.classList.add("pa-on"); b.setAttribute("aria-pressed", "true");
+      var idle = 0;
+      paTimer = setInterval(function () {
+        if (!document.contains(b)) { paReset(); return; }
+        if (speechSynthesis.speaking || speechSynthesis.pending) idle = 0; else if (++idle >= 4) paReset();
+      }, 400);
+    }, 0);
+  }, true);
+
   window.LopHocVoice = { list: list, get: get, apply: apply, open: open };
 })();
