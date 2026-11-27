@@ -139,7 +139,7 @@
         var v2 = sentence ? "" : lookup(c.nodeValue);
         if (v2) { var sp = span(v2, true); el.insertBefore(sp, c.nextSibling); c = sp; }
         else if (MISS && !(c.nextSibling && isVi(c.nextSibling))) miss(onlyInline(el) ? txt(el) : c.nodeValue);
-      } else if (c.nodeType === 1 && !(done && INL.test(c.tagName)) && !(sentence && EMPH.test(c.tagName))) walk(c);
+      } else if (c.nodeType === 1 && !(done && INL.test(c.tagName) && c.tagName !== "SMALL") && !(sentence && EMPH.test(c.tagName))) walk(c);
     }
   }
   var timer = 0, mo = null;
