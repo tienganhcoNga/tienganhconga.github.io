@@ -138,8 +138,17 @@
     var nav = $("#units");
     nav.insertAdjacentHTML("beforeend", '<a href="#lo-trinh" data-id="lo-trinh">🗺️ ' + esc(D.guideName || "Lộ trình") + "</a>" +
       D.reviews.map(function (r) { return '<a href="#' + r.id + '" data-id="' + r.id + '">' + r.ic + " " + esc(r.n) + "</a>"; }).join("") +
-      (HW ? '<a href="#hw" data-id="hw">🏠 Homework</a>' : "") +
+      (HW ? '<a href="#hw" data-id="hw">🏠 Homework</a>' +
+        /* chuỗi bài của trang Bài tập về nhà (#hw-g1…): ẩn, chỉ hiện thay chuỗi Speaking khi đang mở bài tập một Unit */
+        HW.units().map(function (g) { var u = D.units[g]; return '<a href="#hw-' + g + '" data-id="hw-' + g + '" data-hwu hidden>' + u.ic + " " + esc(u.n) + "</a>"; }).join("") : "") +
       '<a href="#answers" data-id="answers">🔒 Cẩm nang</a>');
+  }
+  /* thanh chọn bài đi theo trang đang mở: bài tập một Unit → chuỗi Unit của Bài tập; còn lại → chuỗi Speaking */
+  function navMode(hw) {
+    $$("#units a[data-id]").forEach(function (a) {
+      var isHw = a.hasAttribute("data-hwu"), isRev = D.reviews.some(function (r) { return r.id === a.getAttribute("data-id"); });
+      if (isHw) a.hidden = !hw; else if (isRev) a.hidden = hw;
+    });
   }
   function unitLabel(id) { var u = D.units[id]; return u ? u.n : id; }
 
@@ -481,21 +490,22 @@
     var id = location.hash.slice(1), r = D.reviews.filter(function (x) { return x.id === id; })[0];
     var main = $("#view"), hw = HW && HW.match(id);
     if (HW) HW.reset();
-    if (hw && hw.r) { r = hw.r; id = r.id; }
     if (id.indexOf("n-") === 0) { var el = document.getElementById(id); if (el) { el.scrollIntoView(); return; } id = "answers"; }
     G = null; GP = null;
-    document.body.classList.toggle("in-unit", !!r); /* đang học một bài: ẩn phần giới thiệu, thu gọn đầu bài (course.css) */
-    if (r) { if (cur.r !== r) { cur.ti = 0; BK.sec = null; STEP = null; } if (hw && hw.r) STEP = "home"; cur.r = r; main.innerHTML = reviewView(r); showStep(STEP, false); }
+    var hwPage = !!(hw && hw.r); /* #hw-g11: trang bài tập riêng của Unit, không mở cả bài Speaking chứa Unit đó */
+    navMode(hwPage);
+    document.body.classList.toggle("in-unit", !!r || hwPage); /* đang học một bài: ẩn phần giới thiệu, thu gọn đầu bài (course.css) */
+    if (hwPage) { cur.r = null; main.innerHTML = HW.page(hw.g); window.scrollTo(0, 0); }
+    else if (r) { if (cur.r !== r) { cur.ti = 0; BK.sec = null; STEP = null; } cur.r = r; main.innerHTML = reviewView(r); showStep(STEP, false); }
     else if (id === "answers") {
       cur.r = null; main.innerHTML = notesView();
       if (window.LopHocPIN) window.LopHocPIN.guard($("#notesBox"), notesBody); else notesBody($("#notesBox"));
     }
     else if (hw && hw.hub) { cur.r = null; main.innerHTML = HW.hub(); }
     else { cur.r = null; id = "lo-trinh"; main.innerHTML = guide(); }
-    if (hw && hw.r) setTimeout(function () { var el = $("#homework"); if (el) el.scrollIntoView(); }, 30);
     $$("#units a[data-id]").forEach(function (a) { a.setAttribute("aria-current", a.getAttribute("data-id") === id ? "page" : "false"); });
     var on = $('#units a[aria-current="page"]'); if (on && on.scrollIntoView) on.scrollIntoView({ block: "nearest", inline: "center" });
-    document.title = (hw && hw.r ? "Homework " + unitLabel(hw.g) + " · " : "") + (r ? r.n + ": " + r.title : id === "answers" ? "Cẩm nang" : hw && hw.hub ? "Homework" : "Lộ trình") + " · " + D.pageName;
+    document.title = (hwPage ? "Homework " + unitLabel(hw.g) + ": " + D.units[hw.g].en : r ? r.n + ": " + r.title : id === "answers" ? "Cẩm nang" : hw && hw.hub ? "Homework" : "Lộ trình") + " · " + D.pageName;
   }
   function showTask(ti) {
     stop(); cur.ti = ti;

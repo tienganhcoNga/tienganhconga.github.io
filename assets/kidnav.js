@@ -79,7 +79,7 @@
   function items() {
     var kid = [], teach = [], extra = [];
     Array.prototype.forEach.call(box.children, function (a) {
-      if (a.tagName !== "A" || a.classList.contains("home")) return;
+      if (a.tagName !== "A" || a.classList.contains("home") || a.hidden) return; /* nút ẩn (hidden): không thuộc chuỗi bài đang mở */
       var p = parts(a); (TEACH.test(p.href) ? teach : EXTRA.test(p.href) ? extra : kid).push(p);
     });
     return { kid: kid, teach: teach, extra: extra };
@@ -100,10 +100,15 @@
     var G = null;
     try { if (window.parent !== window) G = window.parent.LOPHOC_GRADES; } catch (e) {}
     if (!G) return null;
-    var path = decodeURIComponent(location.pathname);
-    for (var i = 0; i < G.length; i++) for (var j = 0; j < G[i].lessons.length; j++)
-      if (path.slice(-(G[i].lessons[j].file.length + 1)) === "/" + G[i].lessons[j].file) return { g: G[i], l: G[i].lessons[j] };
-    return null;
+    /* một file có thể là nhiều bài trên trang chủ (Ôn tập nói và Bài tập về nhà cùng file): chọn bài có mục đang mở */
+    var path = decodeURIComponent(location.pathname), h = location.hash.slice(1), hit = null;
+    for (var i = 0; i < G.length; i++) for (var j = 0; j < G[i].lessons.length; j++) {
+      var l = G[i].lessons[j];
+      if (path.slice(-(l.file.length + 1)) !== "/" + l.file) continue;
+      if (l.topics.some(function (t) { return t[0] === h; })) return { g: G[i], l: l };
+      if (!hit) hit = { g: G[i], l: l };
+    }
+    return hit;
   }
   /* "Unit 3: Under the Sea" → chữ to "Unit 3", chữ nhỏ "Under the Sea" */
   function splitName(n) {

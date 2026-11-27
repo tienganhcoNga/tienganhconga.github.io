@@ -242,6 +242,20 @@
           return '<a href="#hw-' + id + '"><span class="e" aria-hidden="true">' + u.ic + "</span>" + esc(u.n) + "<small>" + esc(u.en) + '</small><span class="hw-pg">' + pgText(id) + "</span></a>";
         }).join("") + "</div></div>";
     }
+    /* các Unit có trang bài tập riêng (#hw-<mã>), theo thứ tự trong bảng 16 Unit */
+    function units() { return unitIds.filter(function (g) { return !!reviewOf(g); }); }
+    /* ---------- trang bài tập của một Unit (#hw-g11): trang riêng, không nằm trong bài Speaking ----------
+       Thanh trên (kidnav) đi theo chuỗi Unit của Bài tập về nhà: ‹ Unit 10 · Unit 11 · Unit 12 › */
+    function page(g) {
+      var u = D.units[g], ids = units(), k = ids.indexOf(g), pr = ids[k - 1], nx = ids[k + 1];
+      return '<div class="u-head"><span class="u-ic" aria-hidden="true">' + u.ic + '</span><div><div class="u-n">Homework · ' + esc(u.n) + "</div><h2>" + esc(u.en) + "</h2></div></div>" +
+        '<div class="block hw' + (HD.showVi ? " hw-vi" : "") + '" id="homework"><div class="b-head"><h3>🏠 Homework' + vi("Bài tập về nhà", true) + "</h3>" +
+        '<span class="muted">Choose a game!</span><a class="btn" href="#hw">📚 All units</a></div>' +
+        '<p class="vi-t hw-guide" lang="vi">' + esc(HD.note || "Mỗi ngày làm 2–3 bài (10–15 phút), ngồi cùng con, bấm 🔊 để nghe mẫu. Làm sai cứ cho con chọn lại; mỗi bài có sao để con thi đua. Bài 💬 Talk at home là phần nói chuyện thật với con, nên làm mỗi ngày. Bấm 🖨️ Worksheet để in phiếu cho con làm bằng bút chì.") + "</p>" +
+        '<div id="hwUnit">' + unitView(g) + "</div></div>" +
+        '<div class="u-nav">' + (pr ? '<a class="btn" href="#hw-' + pr + '">← ' + esc(D.units[pr].n) + "</a>" : '<a class="btn" href="#hw">← 📚 All units</a>') +
+        (nx ? '<a class="btn primary" href="#hw-' + nx + '">' + esc(D.units[nx].n) + " →</a>" : "") + "</div>";
+    }
     /* #hw-g5 → bài ôn có Unit 5 là Unit mới */
     function match(id) {
       if (id === "hw") return { hub: true };
@@ -586,8 +600,7 @@
         if (r) sel[r.id] = g;
         $$(".hw-ut").forEach(function (x) { x.setAttribute("aria-selected", String(x === b)); });
         $("#hwUnit").innerHTML = unitView(g);
-        try { history.replaceState(null, "", "#hw-" + g); } catch (err) {}
-        return;
+        return; /* trong bài Speaking: giữ nguyên địa chỉ #r5 (#hw-g10 giờ là trang bài tập riêng của Unit) */
       }
       if (a === "open") { open(b.getAttribute("data-u"), b.getAttribute("data-t")); return; }
       if (a === "print") { printSheet(b.getAttribute("data-u")); return; }
@@ -611,6 +624,6 @@
     });
     document.addEventListener("keydown", function (e) { if (e.key === "Enter" && e.target.id === "hwIn" && G) { e.preventDefault(); writeCheck(); } });
 
-    return { block: block, parts: parts, hub: hub, match: match, reset: function () { G = null; } };
+    return { block: block, parts: parts, hub: hub, match: match, units: units, page: page, reset: function () { G = null; } };
   };
 })();
