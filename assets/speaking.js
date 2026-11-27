@@ -229,17 +229,31 @@
     return h ? '<div class="sk-xs">' + h + "</div>" : "";
   }
 
+  /* Nhóm Level: các bài liền nhau có cùng group (vd. "speech") dùng chung một tab, chọn Level bằng nút trong bài.
+     Mỗi bài trong nhóm ghi thêm level:"🌱 Level 1" (tên nút) và levelNote (dòng nhỏ dưới nút). */
+  function sameGroup(r, a, b) { var x = r.tasks[a], y = r.tasks[b]; return a === b || !!(x && y && x.group && x.group === y.group); }
+  function groupOf(r, ti) { var out = []; r.tasks.forEach(function (t, k) { if (sameGroup(r, ti, k)) out.push(k); }); return out; }
+  function nextTi(r, ti) { var j = ti + 1; while (j < r.tasks.length && sameGroup(r, ti, j)) j++; return j < r.tasks.length ? j : -1; }
+  function prevTi(r, ti) { var j = ti - 1; while (j >= 0 && sameGroup(r, ti, j)) j--; if (j < 0) return -1; return groupOf(r, j)[0]; }
+  function levelBar(r, ti) {
+    var g = groupOf(r, ti); if (g.length < 2) return "";
+    return '<div class="sk-lvs" role="group" aria-label="Level">' + g.map(function (k) {
+      var t = r.tasks[k];
+      return '<button class="sk-lv" type="button" data-lv="' + k + '" aria-pressed="' + (k === ti) + '"><b>' + esc(t.level || "Level") + "</b>" + (t.levelNote ? "<small>" + esc(t.levelNote) + "</small>" : "") + "</button>";
+    }).join("") + "</div>";
+  }
+
   function taskView(r, ti) {
-    var t = r.tasks[ti], T = TYPES[t.type], L = lines(t);
+    var t = r.tasks[ti], T = TYPES[t.type], L = lines(t), pi = prevTi(r, ti), ni = nextTi(r, ti);
     return '<div class="block sk-task type-' + t.type + '" id="task">' +
       '<div class="sk-th"><span class="sk-tic" aria-hidden="true">' + (t.ic || T.ic) + '</span><div><div class="sk-tt">' + T.ic + " " + T.en + (t.badge ? ' <span class="sk-badge">' + esc(t.badge) + "</span>" : "") + "</div><h3>" + fill(t.title) + "</h3>" +
       '<div class="sk-use">Words from: ' + usedUnits(r, t).map(function (id) { return '<span class="' + (r.fresh.indexOf(id) >= 0 ? "new" : "") + '">' + esc(unitLabel(id)) + "</span>"; }).join("") + "</div></div></div>" +
-      modeBtns(t) +
+      levelBar(r, ti) + modeBtns(t) +
       '<div class="sk-bar"><label>✏️ My name: <input id="skName" type="text" maxlength="24" placeholder="' + esc(D.kid || "Bin") + '" autocomplete="off" value="' + esc(kidName()) + '"></label>' + speedBar() +
       '<button class="btn" type="button" data-sk="stop" id="skStop" hidden>⏹ Stop</button><span class="sk-status" id="skStatus" aria-live="polite"></span></div>' +
       '<div class="sk-area" id="skArea">' + content(t, L) + "</div>" + extras(t) +
-      '<div class="u-nav">' + (ti > 0 ? '<button class="btn" type="button" data-sk="prevtask">← ' + esc(r.tasks[ti - 1].title.replace(/\{name\}/g, nameOf())) + "</button>" : "<span></span>") +
-      (ti < r.tasks.length - 1 ? '<button class="btn primary" type="button" data-sk="nexttask">' + esc(r.tasks[ti + 1].title.replace(/\{name\}/g, nameOf())) + " →</button>" : "") + "</div></div>";
+      '<div class="u-nav">' + (pi >= 0 ? '<button class="btn" type="button" data-sk="prevtask">← ' + esc(r.tasks[pi].title.replace(/\{name\}/g, nameOf())) + "</button>" : "<span></span>") +
+      (ni >= 0 ? '<button class="btn primary" type="button" data-sk="nexttask">' + esc(r.tasks[ni].title.replace(/\{name\}/g, nameOf())) + " →</button>" : "") + "</div></div>";
   }
 
   function reviewView(r) {
@@ -250,7 +264,8 @@
       /* mục chỉ có từ và trò chơi (tasks rỗng) thì không có phần bài nói */
       (r.tasks.length ? '<div class="sk-tabs" role="tablist">' + r.tasks.map(function (t, k) {
         var T = TYPES[t.type];
-        return '<button class="sk-tab" type="button" role="tab" data-ti="' + k + '" aria-selected="' + (k === cur.ti) + '"><span class="e" aria-hidden="true">' + T.ic + "</span><b>" + esc(T.en) + "</b><small>" + (t.badge ? esc(t.badge) + " · " : "") + fill(t.title) + "</small></button>";
+        if (k > 0 && sameGroup(r, k - 1, k)) return ""; /* nhóm Level: chỉ một tab */
+        return '<button class="sk-tab" type="button" role="tab" data-ti="' + k + '" aria-selected="' + sameGroup(r, k, cur.ti) + '"><span class="e" aria-hidden="true">' + T.ic + "</span><b>" + esc(T.en) + "</b><small>" + (t.badge ? esc(t.badge) + " · " : "") + fill(t.title) + "</small></button>";
       }).join("") + "</div>" +
       '<div id="taskBox">' + taskView(r, cur.ti) + "</div>" : "") +
       '<div class="u-nav">' + (idx > 0 ? '<a class="btn" href="#' + D.reviews[idx - 1].id + '">← ' + esc(D.reviews[idx - 1].n) + "</a>" : '<a class="btn" href="#lo-trinh">← 🗺️</a>') +
@@ -268,7 +283,7 @@
         return '<div class="block sk-notes" id="n-' + r.id + '"><div class="b-head"><h3>' + r.ic + " " + esc(r.n) + ": " + esc(r.title) + '</h3><span class="muted">' + esc(r.when) + " · " + esc(r.span) + "</span></div>" +
           r.tasks.map(function (t) {
             var T = TYPES[t.type];
-            return '<details class="sk-nt"><summary>' + T.ic + " <b>" + T.vi + "</b>: " + fill(t.title) + "</summary>" +
+            return '<details class="sk-nt"><summary>' + T.ic + " <b>" + T.vi + "</b>: " + fill(t.title) + (t.level ? " · " + esc(t.level) + (t.levelNote ? " (" + esc(t.levelNote) + ")" : "") : "") + "</summary>" +
               (t.tip ? '<p class="sk-ntip">👩‍🏫 ' + t.tip + "</p>" : "") +
               "<ul>" + lines(t).map(function (g) {
                 var who = t.type === "talk" ? roleName(t, g.who) + ": " : t.type === "compare" ? (g.who === "B" ? "Cả hai: " : plain(fill((g.who === "L" ? t.left : t.right)[1])) + ": ") : "";
@@ -296,7 +311,7 @@
   function showTask(ti) {
     stop(); cur.ti = ti;
     $("#taskBox").innerHTML = taskView(cur.r, ti);
-    $$(".sk-tab").forEach(function (b) { b.setAttribute("aria-selected", +b.getAttribute("data-ti") === ti ? "true" : "false"); });
+    $$(".sk-tab").forEach(function (b) { b.setAttribute("aria-selected", sameGroup(cur.r, +b.getAttribute("data-ti"), ti) ? "true" : "false"); });
   }
   function curTask() { return cur.r && cur.r.tasks[cur.ti]; }
 
@@ -595,6 +610,7 @@
     var sayB = e.target.closest("[data-say]");
     if (sayB && !b) { speak(sayB.getAttribute("data-say")); sayB.classList.add("on"); setTimeout(function () { sayB.classList.remove("on"); }, 900); return; }
     var tab = e.target.closest(".sk-tab"); if (tab) { showTask(+tab.getAttribute("data-ti")); return; }
+    var lv = e.target.closest(".sk-lv"); if (lv) { showTask(+lv.getAttribute("data-lv")); return; }
     var ln = e.target.closest(".sk-ln");
     if (ln && !b) {
       stop(); var g = lines(curTask())[+ln.getAttribute("data-k")], v = VOICE[g.who] || VOICE.N;
@@ -608,8 +624,8 @@
     if (a === "stop") stop();
     if (a === "self") selfMode(b);
     if (a === "stage") stageOpen();
-    if (a === "prevtask") { showTask(cur.ti - 1); $("#task").scrollIntoView({ behavior: "smooth" }); }
-    if (a === "nexttask") { showTask(cur.ti + 1); $("#task").scrollIntoView({ behavior: "smooth" }); }
+    if (a === "prevtask") { showTask(prevTi(cur.r, cur.ti)); $("#task").scrollIntoView({ behavior: "smooth" }); }
+    if (a === "nexttask") { showTask(nextTi(cur.r, cur.ti)); $("#task").scrollIntoView({ behavior: "smooth" }); }
     if (a === "st-close") closeStage();
     if (a === "st-start") stageStart();
     if (a === "st-again") stageOpen();

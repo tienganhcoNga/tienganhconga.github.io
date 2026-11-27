@@ -284,3 +284,10 @@ html.sk-lock,html.sk-lock body{overflow:hidden}
 .speed button{font:inherit;font-weight:700;font-size:.9rem;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:3px 11px;cursor:pointer}
 .speed button:hover{border-color:var(--ink)}
 .speed button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+/* Nhóm Level (vd. tab Speech lớp 1): nút chọn Level 1 / 2 / 3 trong bài */
+.sk-lvs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.sk-lv{display:grid;justify-items:start;gap:0;cursor:pointer;font:inherit;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:6px 16px;line-height:1.2}
+.sk-lv b{font-family:var(--f-display);font-size:1.05rem}
+.sk-lv small{font-size:.78rem;opacity:.75}
+.sk-lv:hover{border-color:var(--accent)}
+.sk-lv[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px var(--accent-soft)}
