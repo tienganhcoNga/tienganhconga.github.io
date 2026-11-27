@@ -1,4 +1,4 @@
-/* Ôn tập nói: dùng chung cho Mẫu giáo và Lớp 1.
+/* Ôn tập nói: dùng chung cho Mầm non và Lớp 1.
    Dữ liệu nằm trong trang (window.SPEAK):
    - units: { mã: { n, en, ic, w:[[biểu tượng, từ, nghĩa]] } }  ← kho từ của từng Unit
    - reviews: [{ id, n, span (tiếng Anh), when (tiếng Việt), ic, title, units:[mã…], fresh:[mã của 2–3 Unit mới], tasks:[…] }]

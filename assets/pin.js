@@ -9,11 +9,11 @@
   /* Tạm tắt mã PIN của từng khối: các em vào học thẳng, không cần nhập mã.
      Muốn bật lại: bỏ dấu // ở các dòng bên dưới. */
   var GRADE_PINS = {
-  //  "mau-giao": "2022",   // Mẫu giáo
-  //  "lop-1":    "2022",   // Lớp 1 (dùng chung mã với Mẫu giáo)
+  //  "mau-giao": "2022",   // Mầm non
+  //  "lop-1":    "2022",   // Lớp 1 (dùng chung mã với Mầm non)
   //  "lop-4":    "9041"    // Lớp 4
   };
-  var GRADE_NAMES = { "mau-giao": "Mẫu giáo", "lop-1": "Lớp 1", "lop-4": "Lớp 4" };
+  var GRADE_NAMES = { "mau-giao": "Mầm non", "lop-1": "Lớp 1", "lop-4": "Lớp 4" };
 
   var KEY = "lophoc-answers-unlocked", GKEY = "lophoc-grade-";
   var mem = {}, subs = [];
