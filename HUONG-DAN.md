@@ -4,7 +4,7 @@
 
 ```
 lop-hoc/
-├── index.html              ← Trang chủ: cột trái Khối lớp → Chủ đề, bên phải là bài học + tab Đáp án
+├── index.html              ← Trang chủ: cột trái Khối lớp → Chủ đề, bên phải là bài học + tab Đáp án. Trang đầu có mục 📖 Hướng dẫn cho ba mẹ (tab Cách dùng chung · Mầm non · Lớp 1 · Lớp 4; link #huong-dan hoặc #huong-dan/lop-1), viết thẳng trong index.html: thêm phần mới cho bé thì sửa cả ở đây
 ├── .nojekyll               ← File rỗng, giữ nguyên (để GitHub không xử lý lại file)
 ├── assets/
 │   ├── pin.js              ← Khóa phần Đáp án bằng mã PIN (đổi mã PIN ở đây)

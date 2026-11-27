@@ -100,6 +100,23 @@ button{font:inherit;color:inherit}
 .steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:10px;max-width:46em}
 .steps li{counter-increment:s;display:flex;gap:12px;align-items:baseline;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
 .steps li::before{content:counter(s);flex:none;width:30px;height:30px;border-radius:50%;background:var(--jade);color:var(--surface);font-weight:800;display:grid;place-items:center;font-family:var(--f-display)}
+/* Hướng dẫn cho ba mẹ (trang chủ) */
+.guide{scroll-margin-top:12px}
+.g-lead{margin:0 0 12px;max-width:46em;color:var(--muted)}
+.gtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.gt{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 16px;font-weight:800;cursor:pointer}
+.gt:hover{border-color:var(--c,var(--lacquer))}
+.gt[aria-selected="true"]{border-color:var(--c,var(--lacquer));background:var(--c,var(--lacquer));color:var(--surface)}
+.gintro{margin:0 0 12px;max-width:52em;background:var(--surface);border-left:6px solid var(--c,var(--lacquer));border-radius:10px;padding:10px 14px}
+.gcols{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:12px}
+.gbox{background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--c,var(--lacquer));border-radius:14px;padding:14px 16px}
+.gbox h3{font-size:1.15rem;margin-bottom:6px;color:var(--c,var(--ink))}
+.gbox ul{margin:0;padding-left:1.15em}.gbox li+li{margin-top:6px}
+.gbox p{margin:8px 0 0;color:var(--muted);font-size:.95rem}
+.gbox i{color:var(--sky)}
+.gnote{margin:0;max-width:52em;background:var(--gold-soft);border-radius:14px;padding:12px 16px}
+.side-guide{display:block;margin:14px 6px 0;padding:8px 12px;border-radius:10px;background:var(--gold-soft);color:var(--ink);font-weight:700;text-decoration:none;font-size:.92rem}
+.side-guide:hover{outline:2px solid var(--gold)}
 .parents p{margin:0;max-width:46em;background:var(--gold-soft);border-radius:14px;padding:14px 16px}
 .foot-note{margin:30px 0 0;text-align:center;color:var(--muted);font-weight:700;font-family:var(--f-display)}
 .grades{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
@@ -146,6 +163,7 @@ button{font:inherit;color:inherit}
     <h2>📚 Khối lớp</h2>
     <div id="menu"></div>
     <p class="side-note">Bấm khối lớp hoặc tên bài để mở ngay bài đầu tiên. Phần Đáp án cần mã PIN.</p>
+    <a class="side-guide" href="#huong-dan" id="guideLink">📖 Hướng dẫn cho ba mẹ</a>
     <button class="relock" type="button" id="lockAll" hidden style="margin:12px 6px 0">🔐 Khóa đáp án</button>
   </aside>
   <div class="resizer" id="resizer" role="separator" aria-orientation="vertical" aria-controls="side" aria-label="Kéo để đổi độ rộng menu (nhấp đúp để về như cũ)" tabindex="0"></div>
@@ -168,7 +186,7 @@ button{font:inherit;color:inherit}
         <p class="lead">Lớp học tiếng Anh cho các bé từ Mầm non đến Lớp 4. Mỗi bài có hình ảnh, giọng đọc, trò chơi và bài luyện nói, để bé học trên lớp với cô và tự ôn ở nhà cùng bố mẹ.</p>
         <div class="cta">
           <button class="btn primary" type="button" data-scroll="pick">Vào học ngay ↓</button>
-          <button class="btn" type="button" data-scroll="how">Học thế nào?</button>
+          <button class="btn" type="button" data-scroll="huong-dan">📖 Hướng dẫn cho ba mẹ</button>
         </div>
         <ul class="stats" id="stats"></ul>
       </section>
@@ -185,7 +203,7 @@ button{font:inherit;color:inherit}
           <div class="feat"><span class="fi" aria-hidden="true">🔊</span><h3>Nghe giọng đọc</h3><p>Bấm vào thẻ để nghe từ và câu. Nghe đi nghe lại bao nhiêu lần cũng được.</p></div>
           <div class="feat"><span class="fi" aria-hidden="true">🎮</span><h3>Trò chơi ôn từ</h3><p>Nghe chọn hình, lật thẻ, nối từ, điền từ: vừa chơi vừa nhớ.</p></div>
           <div class="feat"><span class="fi" aria-hidden="true">🎤</span><h3>Luyện nói</h3><p>Hội thoại đóng vai, kể chuyện và bài thuyết trình ngắn để bé tự tin nói.</p></div>
-          <div class="feat"><span class="fi" aria-hidden="true">🔢</span><h3>Toán và Khoa học</h3><p>Lớp 1 học thêm Math và Science bằng tiếng Anh theo sách iSMART.</p></div>
+          <div class="feat"><span class="fi" aria-hidden="true">🔢</span><h3>Toán và Khoa học</h3><p>Lớp 1 học thêm Toán (Math) và Khoa học (Science) bằng tiếng Anh.</p></div>
           <div class="feat"><span class="fi" aria-hidden="true">📝</span><h3>Ôn thi IOE</h3><p>Lớp 4 có từ vựng, ngữ pháp, luyện đề và đề thi thử IOE.</p></div>
         </div>
       </section>
@@ -199,9 +217,106 @@ button{font:inherit;color:inherit}
         </ol>
       </section>
 
-      <section class="block parents">
-        <h2>Dành cho bố mẹ</h2>
-        <p>Phần <b>Đáp án</b> và một số khối lớp cần <b>mã PIN</b>, để bé tự làm bài trước khi xem đáp án. Bố mẹ liên hệ cô Ngà để nhận mã.</p>
+      <section class="block guide" id="huong-dan">
+        <h2>📖 Hướng dẫn cho ba mẹ</h2>
+        <p class="g-lead">Ba mẹ không cần giỏi tiếng Anh: mọi từ và câu đều bấm 🔊 để nghe mẫu, và Mầm non, Lớp 1 có nút <b>🇻🇳 Song ngữ</b> để xem nghĩa. Chọn phần cần xem:</p>
+        <div class="gtabs" role="tablist" aria-label="Hướng dẫn theo khối lớp">
+          <button class="gt" type="button" role="tab" data-gt="chung" aria-selected="true">🌟 Cách dùng chung</button>
+          <button class="gt" type="button" role="tab" data-gt="mau-giao" aria-selected="false" style="--c:var(--gold)">🧸 Mầm non</button>
+          <button class="gt" type="button" role="tab" data-gt="lop-1" aria-selected="false" style="--c:var(--sky)">✏️ Lớp 1</button>
+          <button class="gt" type="button" role="tab" data-gt="lop-4" aria-selected="false" style="--c:var(--jade)">📗 Lớp 4</button>
+        </div>
+
+        <div class="gp" data-gp="chung" role="tabpanel">
+          <div class="gcols">
+            <div class="gbox"><h3>1. Vào bài</h3><ul>
+              <li>Bấm <b>khối lớp</b> ở trên hoặc ở menu bên trái (trên điện thoại: nút <b>☰ Chọn bài</b> ở góc trên).</li>
+              <li>Mỗi khối có nhiều <b>phần</b> (Giai đoạn, Giáo án, Ôn tập nói, Bài tập về nhà…), mỗi phần có danh sách bài. Bấm tên bài là mở.</li>
+              <li>Mục <b>🗺️ Lộ trình</b> ở đầu mỗi phần cho biết học bài nào vào tuần nào và cách học. Ba mẹ nên đọc mục này trước.</li>
+              <li>Nút <b>Mở toàn trang ↗</b> (góc trên bên phải) mở bài to hết màn hình, tiện cho máy tính bảng.</li></ul></div>
+            <div class="gbox"><h3>2. Các nút trong bài</h3><ul>
+              <li><b>‹ ›</b>: sang bài trước, bài sau. <b>☰ All</b>: bảng chọn bài bằng hình, bé tự chọn được.</li>
+              <li><b>🇻🇳 Song ngữ</b> (Mầm non, Lớp 1): bật lên để hiện nghĩa tiếng Việt dưới mọi chữ. Mặc định tắt để bé chỉ nhìn tiếng Anh.</li>
+              <li><b>🔊 Voice</b>: chọn giọng đọc. <b>🐌 Very slow · 🐢 Slow · 🐇 Normal</b>: tốc độ đọc; bé mới học nên để Slow.</li>
+              <li><b>🔒</b> trên thanh bài: mục dành cho cô và ba mẹ (Lộ trình, Cẩm nang).</li></ul></div>
+            <div class="gbox"><h3>3. Bài luyện nói</h3><ul>
+              <li>Mỗi bài nói đi 4 bước: <b>👂 Listen</b> (nghe mẫu) → <b>🦜 Repeat</b> hoặc <b>🎭 Be …</b> (nói theo, đóng vai) → <b>🙈 Say it alone</b> (chữ ẩn, bé tự nói) → <b>🌟 On stage</b> (lên sân khấu).</li>
+              <li>Gõ tên bé vào ô <b>✏️ My name</b>: tên bé hiện trong bài nói.</li>
+              <li>Trên sân khấu, tick <b>Record my voice</b> để ghi âm, bé nghe lại giọng mình.</li></ul></div>
+            <div class="gbox"><h3>4. Đáp án và tiến độ</h3><ul>
+              <li>Tab <b>🔒 Đáp án</b> (thanh trên cùng) cần <b>mã PIN</b>, để bé tự làm trước khi xem. Ba mẹ liên hệ cô Ngà để nhận mã. Xem xong bấm <b>🔐 Khóa lại</b>.</li>
+              <li>Trong Đáp án có <b>Cẩm nang</b>: gợi ý cách dạy từng bài và nghĩa tiếng Việt từng câu.</li>
+              <li>Sao ⭐ của bài tập và lựa chọn (Song ngữ, tốc độ, tên bé) <b>lưu trên máy đang dùng</b>. Đổi máy hoặc xóa dữ liệu trình duyệt thì bắt đầu lại.</li>
+              <li>Nút <b>🖨️ Worksheet / Print</b> trong bài tập in phiếu cho bé làm bằng bút chì, trang cuối có đáp án.</li></ul></div>
+          </div>
+          <p class="gnote">💡 Mỗi ngày 10–15 phút là đủ, ngồi cùng con. Web để nghe mẫu và chơi; phần quan trọng nhất là ba mẹ nói chuyện thật với con bằng câu trong bài.</p>
+        </div>
+
+        <div class="gp" data-gp="mau-giao" role="tabpanel" hidden style="--c:var(--gold)">
+          <p class="gintro">Cho bé 4–6 tuổi. Học qua hình, giọng đọc, trò chơi và vận động. Bé chỉ cần nói <b>một từ hoặc cụm 2–3 từ</b>, không bắt nói cả câu.</p>
+          <div class="gcols">
+            <div class="gbox"><h3>Có gì trong Mầm non?</h3><ul>
+              <li><b>🌱 Giai đoạn 1</b> (3 tháng đầu, 8 Unit) → <b>🌳 Giai đoạn 2</b> (8 Unit, nói nhiều hơn) → <b>🌲 Giai đoạn 3</b> (10 Unit: vị trí, so sánh, thời tiết). Học theo thứ tự.</li>
+              <li>Mỗi Unit có 4 phần: <b>1. Tap &amp; Listen</b> (bấm hình nghe từ) · <b>2. Say it!</b> (nói theo hội thoại ngắn) · <b>3. Games</b> (trò chơi) · <b>4. My Speech</b> (bài nói của bé).</li>
+              <li><b>🎤 Ôn tập nói</b>: sau Unit 3, rồi cứ 2 Unit một lần, gom từ của tất cả Unit đã học; có Big Show sau Unit 16 và Big Show 2 cuối năm.</li>
+              <li><b>🏠 Bài tập về nhà (theo Unit)</b>: 26 Unit, nằm ở cuối mỗi bài ôn và ở menu.</li></ul></div>
+            <div class="gbox"><h3>Một tuần ở nhà gợi ý</h3><ul>
+              <li><b>Tối hôm học trên lớp:</b> mở Unit con vừa học, phần <i>Tap &amp; Listen</i>: bé bấm hình, nói to từng từ.</li>
+              <li><b>Các ngày sau:</b> vào <b>Bài tập về nhà</b> của Unit đó, mỗi ngày 2–3 bài: 👂 nghe chọn hình, 👀 nhìn chọn từ, 🔗 nối, 🎴 lật thẻ, 🎤 nói từ.</li>
+              <li><b>Mỗi ngày:</b> bài <b>💬 Talk at home</b>: 4 tình huống nói chuyện với con bằng đúng từ của Unit (câu của con được che, bấm 👀 mới hiện).</li>
+              <li><b>Cuối tuần:</b> bé nói bài <b>My Speech</b> cho cả nhà nghe, ba mẹ quay video. In <b>🖨️ Worksheet</b>: tô chữ, nghe rồi khoanh hình, nối, vẽ.</li></ul></div>
+            <div class="gbox"><h3>4 kỹ thuật vàng</h3><ul>
+              <li><b>Mở rộng câu:</b> bé nói <i>Cow!</i> → ba mẹ: <i>Yes! A big cow. The cow says moo!</i></li>
+              <li><b>Tạo tình huống:</b> đưa bát mà quên thìa, chờ 5 giây: <i>Spoon, please!</i></li>
+              <li><b>Câu hỏi lựa chọn:</b> <i>Red or blue?</i> → <i>Red!</i></li>
+              <li><b>Đọc sách tranh:</b> <i>Where is the duck?</i> → <i>In the water!</i></li></ul>
+              <p>Chi tiết và ví dụ cho từng Unit: mục <b>🗺️ Lộ trình</b> của mỗi Giai đoạn và của Ôn tập nói.</p></div>
+          </div>
+          <button class="btn" type="button" data-go="mau-giao/bai-tap/hw">🏠 Mở Bài tập về nhà Mầm non</button>
+        </div>
+
+        <div class="gp" data-gp="lop-1" role="tabpanel" hidden style="--c:var(--sky)">
+          <p class="gintro">Cho bé lớp 1. Bài học bám theo chủ đề sách trên lớp, thêm Toán và Khoa học bằng tiếng Anh. Mục tiêu: bé nói <b>cả câu</b> và <b>tự mở lời</b>.</p>
+          <div class="gcols">
+            <div class="gbox"><h3>Có gì trong Lớp 1?</h3><ul>
+              <li><b>📚 Giáo án lớp 1</b>: 🗺️ Lộ trình cả năm · 📒 <i>Words I know</i> (từ bé đã biết) · <b>16 Unit</b> theo chủ đề trên lớp · <b>Math 1–5</b> · <b>Science 1–6</b> · chủ đề thêm (ngày tháng, chỉ đường, từ trái nghĩa, các vị, bốn mùa) · <b>Story Time</b> (truyện cổ tích) · <b>Speeches</b> (bài nói về con vật).</li>
+              <li>Mỗi Unit: thẻ từ có câu ví dụ, trò chơi, hội thoại và bài nói.</li>
+              <li><b>🎤 Ôn tập nói</b>: Speaking 1 (sau Unit 3), rồi cứ 2 Unit một lần, Big Show cuối năm. Mỗi bài có 5 kiểu nói (hội thoại, kể chuyện, thuyết trình, so sánh, kể về mình) và tab <b>Speech</b> có 3 mức.</li>
+              <li><b>🏠 Bài tập về nhà (theo Unit)</b>: 16 Unit, ở cuối mỗi bài ôn và ở menu.</li></ul></div>
+            <div class="gbox"><h3>Một tuần ở nhà gợi ý</h3><ul>
+              <li><b>Tối hôm học trên lớp:</b> mở Unit vừa học trong Giáo án, bấm <i>Play all</i> nghe lại từ và câu.</li>
+              <li><b>Các ngày sau:</b> vào <b>Bài tập về nhà</b> của Unit, mỗi ngày 2–3 trong 12 dạng: nghe chọn hình, nối, điền chữ cái, xếp chữ, gõ từ, điền vào câu, xếp câu, lật thẻ, nói… Unit 9, 10, 16 có thêm bài Toán và Khoa học.</li>
+              <li><b>Mỗi ngày:</b> bài <b>💬 Talk at home</b>, nói chuyện với con bằng câu của Unit.</li>
+              <li><b>Cuối tuần:</b> in <b>🖨️ Worksheet</b> 6 phần; bé luyện bài <b>Speech</b> và nói cho cả nhà nghe.</li></ul></div>
+            <div class="gbox"><h3>Mẹo</h3><ul>
+              <li>Bé trả lời một từ thì ba mẹ nói lại cả câu một lần; bé tự nói cả câu thì khen thật to.</li>
+              <li>Ô <b>🔄 Make it yours</b>: cho bé đổi từ in đậm thành chuyện thật của mình (tên bạn, món ăn bé thích…).</li>
+              <li>Ô <b>❓ Teacher asks</b>: ba mẹ hỏi, bé trả lời bằng câu của mình.</li>
+              <li>Hướng dẫn chi tiết: mục <b>🗺️ Cách ôn và lịch ôn</b> của Ôn tập nói lớp 1.</li></ul></div>
+          </div>
+          <button class="btn" type="button" data-go="lop-1/bai-tap/hw">🏠 Mở Bài tập về nhà Lớp 1</button>
+        </div>
+
+        <div class="gp" data-gp="lop-4" role="tabpanel" hidden style="--c:var(--jade)">
+          <p class="gintro">Cho bé lớp 4: học từ vựng theo 20 Unit trên lớp, luyện nói và ôn thi IOE (tiếng Anh, Sử Việt).</p>
+          <div class="gcols">
+            <div class="gbox"><h3>Có gì trong Lớp 4?</h3><ul>
+              <li><b>📗 Từ vựng &amp; Lộ trình</b>: lịch 35 tuần · <b>📒 Tất cả từ vựng</b> (tra từ) · Starter và Unit 1–20: từ, mẫu câu, hội thoại có đóng vai, 3 trò luyện từ.</li>
+              <li><b>🎤 Ôn tập nói</b>: sau Unit 3, rồi cứ 2 Unit một lần, Big Show cuối năm; mỗi lần 5 kiểu bài nói.</li>
+              <li><b>🔤 Tiếng Anh IOE</b>: từ vựng, ngữ pháp, ngày tháng, hội thoại, luyện đề, đề thi thử, tập chép, game ôn thêm.</li>
+              <li><b>🥁 Sử Việt IOE</b>: dòng thời gian, đoán nhân vật, địa danh, ngày lễ, mẹo nhớ, luyện đề 45 câu.</li></ul></div>
+            <div class="gbox"><h3>Một tuần ở nhà gợi ý</h3><ul>
+              <li><b>Sau buổi học trên lớp:</b> mở Unit vừa học, nghe lại từ và hội thoại, chơi 3 trò luyện từ.</li>
+              <li><b>Giữa tuần:</b> luyện hội thoại: bé đóng một vai, ba mẹ hoặc máy đóng vai còn lại.</li>
+              <li><b>Cuối tuần:</b> làm 1 bài <b>Luyện đề</b> hoặc phần <b>Tập chép</b> của IOE; khi gần thi thì làm <b>Đề thi thử</b>.</li>
+              <li>Sau mỗi 2 Unit: làm bài <b>Ôn tập nói</b> tương ứng.</li></ul></div>
+            <div class="gbox"><h3>Mẹo</h3><ul>
+              <li>Cho bé tự làm trước, xong mới mở tab <b>🔒 Đáp án</b> (cần mã PIN) để chữa cùng con.</li>
+              <li>Từ hay sai: ghi vào sổ, hôm sau tra lại ở <b>📒 Tất cả từ vựng</b>.</li>
+              <li>Ôn thi: mỗi ngày 15–20 phút đều đặn tốt hơn học dồn trước ngày thi.</li></ul></div>
+          </div>
+          <button class="btn" type="button" data-go="lop-4/units/lo-trinh">🗺️ Mở Lộ trình Lớp 4</button>
+        </div>
       </section>
 
       <p class="foot-note">Tiếng Anh cô Ngà</p>
@@ -471,7 +586,14 @@ $('#backdrop').addEventListener('click',closeDrawer);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#side').classList.contains('open'))closeDrawer();});
 
 /* Start: #lop-4/tieng-anh/vocab */
-function fromHash(){const [g,l,t]=location.hash.slice(1).split('/');if(g&&GRADES.some(x=>x.id===g))select(g,l,t);else{renderMenu();updateChrome();}}
+/* 📖 Hướng dẫn cho ba mẹ: tab theo khối lớp; #huong-dan hoặc #huong-dan/lop-1 mở thẳng phần đó */
+function guideTab(id){document.querySelectorAll('.gt').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.gt===id)));document.querySelectorAll('.gp').forEach(p=>p.hidden=p.dataset.gp!==id);}
+function openGuide(id){if(cur){cur=null;tab='lesson';frame.removeAttribute('src');renderMenu();updateChrome();}if(id)guideTab(id);closeDrawer();
+  requestAnimationFrame(()=>{const el=document.getElementById('huong-dan');if(el)el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});});}
+document.querySelector('.gtabs').addEventListener('click',e=>{const b=e.target.closest('.gt');if(b){guideTab(b.dataset.gt);history.replaceState(null,'','#huong-dan/'+b.dataset.gt);}});
+document.getElementById('guideLink').addEventListener('click',e=>{e.preventDefault();history.replaceState(null,'','#huong-dan');openGuide(null);});
+document.getElementById('huong-dan').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;const [g,l,t]=b.dataset.go.split('/');select(g,l,t);});
+function fromHash(){const [g,l,t]=location.hash.slice(1).split('/');if(g==='huong-dan'){openGuide(GRADES.some(x=>x.id===l)?l:(l==='chung'?'chung':null));return;}if(g&&GRADES.some(x=>x.id===g))select(g,l,t);else{renderMenu();updateChrome();}}
 window.addEventListener('hashchange',fromHash);
 renderGrades();fromHash();
 })();
