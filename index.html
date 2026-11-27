@@ -38,7 +38,12 @@ button{font:inherit;color:inherit}
 .top{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));background:var(--surface);border-bottom:1px solid var(--line);min-width:0}
 .brand{font-family:var(--f-display);font-weight:800;font-size:1.5rem;color:var(--ink);text-decoration:none;white-space:nowrap}
 .brand span{color:var(--lacquer)}
-.crumb{color:var(--muted);font-weight:600;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.crumb{color:var(--muted);font-weight:600;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 auto}
+/* Desktop: hàng Bài học / Đáp án nằm luôn trên thanh tiêu đề để bài học cao hơn */
+.top .toolbar{flex:none;flex-wrap:nowrap;gap:6px}
+.top .tab{padding:5px 12px}
+.top .relock{padding:4px 10px}
+.top .open-full{margin-left:6px}
 .menu-btn{display:inline-block;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 12px;font-weight:700;cursor:pointer;white-space:nowrap}
 
 /* Sidebar: Parent (khối lớp) -> Child (chủ đề) */
@@ -115,7 +120,8 @@ button{font:inherit;color:inherit}
   .backdrop.show{display:block;position:fixed;inset:0;z-index:40;background:rgba(10,20,25,.4)}
   .main{padding:10px 16px}
   .tab{padding:7px 12px}
-  .open-full{margin-left:0}
+  .toolbar{flex-wrap:nowrap;gap:6px}
+  .open-full{margin-left:auto;font-size:.9rem}
 }
 @media (min-width:821px){ .app.collapsed{grid-template-columns:minmax(0,1fr)} .app.collapsed .side,.app.collapsed .resizer{display:none} }
 /* thanh kéo để đổi độ rộng menu và bài học */
@@ -402,6 +408,13 @@ $('#menuBtn').addEventListener('click',()=>{
   syncMenuBtn();
 });
 mobile.addEventListener('change',syncMenuBtn);
+const toolbarEl=$('#toolbar'),mainEl=document.querySelector('.main'),topEl=document.querySelector('.top');
+function placeToolbar(){
+  if(mobile.matches){if(toolbarEl.parentNode!==mainEl)mainEl.insertBefore(toolbarEl,mainEl.firstChild);}
+  else if(toolbarEl.parentNode!==topEl)topEl.appendChild(toolbarEl);
+}
+mobile.addEventListener('change',placeToolbar);
+placeToolbar();
 
 /* Desktop: kéo thanh dọc giữa menu và bài học để đổi độ rộng (nhớ trên trình duyệt) */
 (function(){
