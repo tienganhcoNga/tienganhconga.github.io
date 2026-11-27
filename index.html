@@ -358,7 +358,8 @@ button{font:inherit;color:inherit}
               <li><b>📚 Giáo án lớp 1</b>: 🗺️ Lộ trình cả năm · 📒 <i>Words I know</i> (từ bé đã biết) · <b>16 Unit</b> theo chủ đề trên lớp · <b>Math 1–5</b> · <b>Science 1–6</b> · chủ đề thêm (ngày tháng, chỉ đường, từ trái nghĩa, các vị, bốn mùa) · <b>Story Time</b> (truyện cổ tích) · <b>Speeches</b> (bài nói về con vật).</li>
               <li>Mỗi Unit: thẻ từ có câu ví dụ, trò chơi, hội thoại và bài nói.</li>
               <li><b>🎤 Ôn tập nói</b>: Speaking 1 (sau Unit 3), rồi cứ 2 Unit một lần, Big Show cuối năm. Mỗi bài có 5 kiểu nói (hội thoại, kể chuyện, thuyết trình, so sánh, kể về mình) và tab <b>Speech</b> có 3 mức.</li>
-              <li><b>🏠 Bài tập về nhà (theo Unit)</b>: 16 Unit, ở cuối mỗi bài ôn và ở menu.</li></ul></div>
+              <li><b>🏠 Bài tập về nhà (theo Unit)</b>: 16 Unit, ở cuối mỗi bài ôn và ở menu.</li>
+              <li><b>🏮 Văn hóa Việt Nam</b>: 28 câu đố (đất nước, thiên nhiên, địa điểm nổi tiếng, văn hóa nghệ thuật, lễ hội) và ⭐ Big quiz. Đáp án và bảng lễ hội ở mục 🔒 Đáp án.</li></ul></div>
             <div class="gbox"><h3>Một tuần ở nhà gợi ý</h3><ul>
               <li><b>Tối hôm học trên lớp:</b> mở Unit vừa học trong Giáo án, bấm <i>Play all</i> nghe lại từ và câu.</li>
               <li><b>Các ngày sau:</b> vào <b>Bài tập về nhà</b> của Unit, mỗi ngày 2–3 trong 12 dạng: nghe chọn hình, nối, điền chữ cái, xếp chữ, gõ từ, điền vào câu, xếp câu, lật thẻ, nói… Unit 9, 10, 16 có thêm bài Toán và Khoa học.</li>
@@ -463,7 +464,11 @@ const GRADES=[
    ['hw-g1','Unit 1: In the school playground','🎠'],['hw-g2','Unit 2: In the dining room','🍽️'],['hw-g3','Unit 3: At the street market','🛒'],['hw-g4','Unit 4: In the bedroom','🛏️'],
    ['hw-g5','Unit 5: At the fish and chip shop','🐟'],['hw-g6','Unit 6: In the classroom','🏫'],['hw-g7','Unit 7: In the garden','🌷'],['hw-g8','Unit 8: In the park','🌳'],
    ['hw-g9','Unit 9: In the shop','🏬'],['hw-g10','Unit 10: At the zoo','🦒'],['hw-g11','Unit 11: At the bus stop','🚏'],['hw-g12','Unit 12: At the lake','🏞️'],
-   ['hw-g13','Unit 13: In the school canteen','🍜'],['hw-g14','Unit 14: In the toy shop','🧸'],['hw-g15','Unit 15: At the football match','⚽'],['hw-g16','Unit 16: At home','🏠']]}]},
+   ['hw-g13','Unit 13: In the school canteen','🍜'],['hw-g14','Unit 14: In the toy shop','🧸'],['hw-g15','Unit 15: At the football match','⚽'],['hw-g16','Unit 16: At home','🏠']]},
+  /* Câu đố Văn hóa Việt Nam: 28 câu chia 5 phần + Big quiz (10 câu ngẫu nhiên) */
+  {id:'van-hoa',ic:'🏮',name:'Văn hóa Việt Nam',en:'Vietnam Quiz',file:'lop-1/van-hoa-viet-nam.html',answers:true,topics:[
+   ['country','Our country: Đất nước & Lịch sử','🗺️'],['nature','Nature: Danh lam & Thiên nhiên','⛰️'],['places','Famous places: Địa điểm nổi tiếng','🏛️'],
+   ['arts','Culture and art: Văn hóa & Nghệ thuật','🎨'],['festivals','Festivals: Lễ hội & Di sản','🏮'],['big','Big quiz: 10 câu ngẫu nhiên','⭐']]}]},
  {id:'lop-4',name:'Lớp 4',c:'jade',note:'Từ vựng 20 Unit · Ôn nói · Ôn thi IOE',lessons:[
   {id:'units',ic:'📗',name:'Từ vựng & Lộ trình',en:'Units',file:'lop-4/units-lop-4.html',answers:false,topics:[
    ['lo-trinh','🗺️ Lộ trình cả năm'],['tu-dien','📒 Tất cả từ vựng','📒'],['s','Starter: Hello again!','👋'],['u1','Unit 1: My friends','🌏'],['u2','Unit 2: Time and daily routines','⏰'],['u3','Unit 3: My week','📅'],
