@@ -25,7 +25,7 @@ lop-hoc/
 └── mau-giao/
     ├── giai-doan-1.html    ← Lộ trình 3 tháng đầu cho bé mới bắt đầu: 8 Unit, 24 buổi (#lo-trinh, #u1…#u8, #answers = cẩm nang)
     ├── giai-doan-2.html    ← Giai đoạn 2 (tháng 4–6): 8 Unit khó hơn, nhiều hội thoại
-    ├── on-tap-noi.html     ← Ôn tập nói: GĐ1 + GĐ2 tính liền 16 Unit, ôn sau Unit 3, 5, 7, 9, 11, 13, 15 và Big Show sau Unit 16
+    ├── on-tap-noi.html     ← Ôn tập nói: GĐ1 + GĐ2 tính liền 16 Unit, ôn sau Unit 3, 5, 7, 9, 11, 13, 15 và Big Show sau Unit 16. Mỗi bài ôn có thêm tab "Speech": bài thuyết trình mẫu có tranh vẽ tay (tranh nằm ở assets/speech-art.js, dùng trong câu bằng DZ.tên_tranh)
     └── english-speeches.html ← Bản bài nói cũ (đã bỏ khỏi menu; bài nói nay nằm trong mục 4 "Bé thuyết trình" của từng Unit)
 
 Mỗi Unit mẫu giáo có mục "4. Bé thuyết trình". Nội dung bài nói nằm ở dòng `speech:{...}` ngay dưới `talk:` của Unit đó: `t` là tên bài, `intro` là câu mở đầu, `lines` là các câu (hình, câu tiếng Anh, nghĩa), `end` là câu kết. Từ nào muốn làm từ khóa (còn hiện khi bé tự nói) thì bọc trong `<b>…</b>`.

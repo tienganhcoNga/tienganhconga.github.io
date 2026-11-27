@@ -10,6 +10,26 @@
 <link rel="stylesheet" href="../assets/course.css?v=20261127d">
 <link rel="stylesheet" href="../assets/speaking.css?v=20261127s">
 <style>:root{--accent:var(--gold);--accent-soft:var(--gold-soft)}</style>
+<style>
+/* Bài Speech: tranh vẽ tay (SVG) và chữ màu */
+.dz-art{display:block;width:112px;height:96px}
+.dz-art.dz-fig{width:120px;height:128px}
+.sk-big .dz-art{width:min(60vw,380px);height:min(36vh,300px);margin:0 auto}
+.dz-fig .lbl text{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:22px;fill:#1d2a44}
+.dz-fig .lbl line,.dz-fig .lbl path{stroke:#4a5878;stroke-width:2.5;stroke-dasharray:5 4;fill:none}
+.dz-fig .lbl rect{fill:#fff1a8;stroke:#1d2a44;stroke-width:2.5}
+.dz-fig.focus .lbl{opacity:.25}.dz-fig.focus .lbl.hl{opacity:1}
+.dz-fig.focus .lbl.hl rect{fill:#ff4f86}.dz-fig.focus .lbl.hl text{fill:#fff}
+b.cw,.sk-txt b.cw,.sk-sline b.cw{display:inline-block;padding:0 .35em;border:3px solid #1d2a44;border-radius:10px;line-height:1.2;color:#1d2a44}
+b.cw.gray,.sk-txt b.cw.gray,.sk-sline b.cw.gray{background:#9aa1ad;color:#fff}
+b.cw.green,.sk-txt b.cw.green,.sk-sline b.cw.green{background:#5cc24c;color:#1d2a44}
+b.cw.pink,.sk-txt b.cw.pink,.sk-sline b.cw.pink{background:#ffb3c7;color:#1d2a44}
+b.cw.yellow,.sk-txt b.cw.yellow,.sk-sline b.cw.yellow{background:#ffd23f;color:#1d2a44}
+b.cw.red,.sk-txt b.cw.red,.sk-sline b.cw.red{background:#ef4b4b;color:#fff}
+b.cw.blue,.sk-txt b.cw.blue,.sk-sline b.cw.blue{background:#2f7de1;color:#fff}
+.dz-can{font-weight:800;color:#2f7de1}.dz-no{font-weight:800;color:#e03a3a}
+@media (max-width:560px){.dz-art{width:84px;height:72px}.dz-art.dz-fig{width:96px;height:104px}}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -23,10 +43,12 @@
 <main class="wrap" id="view"></main>
 <div class="wrap"><footer><a href="../index.html">← Về trang chủ</a></footer></div>
 
+<script src="../assets/speech-art.js?v=20261127a"></script>
 <script>
 /* Ôn tập nói mẫu giáo. Giai đoạn 1 (GĐ1) và giai đoạn 2 (GĐ2) tính liền nhau: 16 Unit.
    Ôn sau Unit 3, rồi cứ 2 Unit một lần (5, 7, 9, 11, 13, 15) và bài cuối sau Unit 16.
    Mỗi bài ôn gom từ của TẤT CẢ các Unit đã học, có 5 kiểu bài nói. Cách ghi dữ liệu: xem đầu file assets/speaking.js. */
+var DZ=window.SPEECH_ART||{}; /* tranh vẽ tay cho các bài Speech */
 window.SPEAK={
  pageName:'Ôn tập nói mẫu giáo',
  title:'Bé <span>nói tiếng Anh</span>',
@@ -61,6 +83,7 @@ window.SPEAK={
   '<li><b>Làm thành bài của bé (7 phút):</b> ô <i>🔄 Make it yours</i>: bé đổi từ in đậm bằng từ khác (màu khác, con vật khác, đồ ăn bé thích). Đây là bước giúp bé <b>nói tự nhiên</b> thay vì đọc thuộc.</li>'+
   '<li><b>Cô hỏi thêm (5 phút):</b> ô <i>❓ Teacher asks</i>: cô hỏi, bé trả lời bằng câu của mình. Bé trả lời một từ cũng được, cô nhắc lại thành câu đủ để bé nói theo.</li></ol>'+
   '<p>3 bài còn lại để buổi sau hoặc cho bé luyện ở nhà với bố mẹ.</p>'+
+  '<p>Mỗi bài ôn có thêm tab <b>🎤 Speech</b>: một bài thuyết trình mẫu có tranh vẽ (con vật ở nông trại, màu sắc, dưới biển, cơ thể, đồ bé thích, cơ thể con vật, việc bé làm được, việc con vật làm được). Bé luyện như các bài khác rồi đổi chi tiết thành của mình.</p>'+
   '<h3>Mẹo để bé nói tự nhiên</h3>'+
   '<ul><li>Gõ tên bé vào ô <b>My name</b>: tên bé hiện trong bài nói, bé thấy bài là “của mình”.</li>'+
   '<li>Không sửa lỗi giữa chừng. Bé nói xong, cô nhắc lại câu đúng một lần với giọng vui.</li>'+
@@ -135,7 +158,23 @@ window.SPEAK={
     ["🦈","Oh no! A <b>shark</b>!","Ôi không! Cá mập!"],
     ["😴","Now I'm <b>sleepy</b>. <b>Bye</b> bye, animals!","Giờ tớ buồn ngủ rồi. Tạm biệt các con vật!"]],
    swap:["<b>cow</b>, <b>pig</b> → duck, chicken","<b>shark</b> → whale / octopus"],
-   ask:["What animals do you see on the farm?","Do you like the sea?"]}]},
+   ask:["What animals do you see on the farm?","Do you like the sea?"]},
+
+  /* Bài thuyết trình mẫu có tranh vẽ tay (tranh ở assets/speech-art.js) */
+  {type:'show',own:true,badge:'Speech',title:'Animals on the Farm',ic:'🐄',
+   tip:'Bài thuyết trình mẫu có tranh vẽ. Bé giơ tranh từng con vật khi nói. Đến “moo”, “oink”, “quack quack” bé kêu thật to, cả lớp kêu theo.',
+   lines:[["👋","Hi, teacher and everyone! My name is {name}.","Chào cô và các bạn! Tớ tên là …"],
+    ["🚜","Today, I will tell you about animals on the farm!","Hôm nay tớ sẽ kể về các con vật ở nông trại!"],
+    [DZ.cow,"This is a <b>cow</b>. It says “moo” and gives us milk.","Đây là con bò. Nó kêu “ò ò” và cho chúng ta sữa."],
+    [DZ.pig,"This is a <b>pig</b>. It is pink and says “oink”.","Đây là con lợn. Nó màu hồng và kêu “ụt ịt”."],
+    [DZ.chicken,"This is a <b>chicken</b>. It lays eggs.","Đây là con gà. Nó đẻ trứng."],
+    [DZ.duck,"This is a <b>duck</b>. It says “quack quack”.","Đây là con vịt. Nó kêu “cạp cạp”."],
+    [DZ.sheep,"This is a <b>sheep</b>. It has soft wool.","Đây là con cừu. Nó có bộ lông mềm."],
+    [DZ.horse,"This is a <b>horse</b>. It runs fast.","Đây là con ngựa. Nó chạy nhanh."],
+    ["❤️","I love farm animals!","Tớ yêu các con vật ở nông trại!"],
+    ["🙇","Thank you for listening!","Cảm ơn mọi người đã lắng nghe!"]],
+   swap:["<b>horse</b> → dog / cat","It runs fast → It says “woof woof”"],
+   ask:["What does a cow say?","Which animal lays eggs?","What's your favorite farm animal?"]}]},
 
  /* ===================== ÔN 2: GĐ1 Unit 1–5 (+ Cơ thể · Màu sắc) ===================== */
  {id:'r2',n:'Review 2',ic:'🌈',title:'Colorful Animals, My Body',span:'Stage 1 · Units 1–5',when:'Học sau Giai đoạn 1, Unit 5',
@@ -206,7 +245,23 @@ window.SPEAK={
     ["👏","I <b>clap</b> my hands. Look at my picture!","Tớ vỗ tay. Nhìn tranh của tớ này!"],
     ["🙋","<b>Bye</b> bye!","Tạm biệt!"]],
    swap:["<b>red</b> fish → orange / purple fish","<b>Green</b> paint → blue / pink paint"],
-   ask:["What do you paint?","What color is your picture?"]}]},
+   ask:["What do you paint?","What color is your picture?"]},
+
+  /* Bài thuyết trình mẫu có tranh vẽ tay (tranh ở assets/speech-art.js) */
+  {type:'show',own:true,badge:'Speech',title:'Animal Colors',ic:'🎨',
+   tip:'Chuẩn bị 6 thẻ màu. Nói đến màu nào bé giơ thẻ màu đó lên. Lần sau cô chỉ vào tranh, bé tự nói màu.',
+   lines:[["👋","Hi, teacher and everyone! My name is {name}.","Chào cô và các bạn! Tớ tên là …"],
+    ["🎨","Today, I will tell you about the colors of animals!","Hôm nay tớ sẽ kể về màu sắc của các con vật!"],
+    [DZ.c_elephant,"The elephant is <b class='cw gray'>gray</b>.","Con voi màu xám."],
+    [DZ.c_frog,"The frog is <b class='cw green'>green</b>.","Con ếch màu xanh lá."],
+    [DZ.c_pig,"The pig is <b class='cw pink'>pink</b>.","Con lợn màu hồng."],
+    [DZ.c_duck,"The duck is <b class='cw yellow'>yellow</b>.","Con vịt màu vàng."],
+    [DZ.c_crab,"The crab is <b class='cw red'>red</b>.","Con cua màu đỏ."],
+    [DZ.c_whale,"The whale is <b class='cw blue'>blue</b>.","Con cá voi màu xanh dương."],
+    ["🌈","Animals have many colors!","Các con vật có rất nhiều màu sắc!"],
+    ["🙇","Thank you for listening!","Cảm ơn mọi người đã lắng nghe!"]],
+   swap:["The <b>frog</b> → The leaf","The <b>crab</b> is red → The apple is red"],
+   ask:["What color is the elephant?","What color is the whale?","What's your favorite color?"]}]},
 
  /* ===================== ÔN 3: GĐ1 Unit 1–7 (+ Số đếm · Vận động) ===================== */
  {id:'r3',n:'Review 3',ic:'🐳',title:'Count, Swim and Move!',span:'Stage 1 · Units 1–7',when:'Học sau Giai đoạn 1, Unit 7',
@@ -273,7 +328,23 @@ window.SPEAK={
     ["😋","I'm <b>hungry</b>. I <b>eat</b>. Yum yum!","Tớ đói. Tớ ăn. Măm măm!"],
     ["😴","Now I'm <b>sleepy</b>. I <b>sleep</b>. Zzz…","Giờ tớ buồn ngủ. Tớ ngủ. Khò khò…"]],
    swap:["<b>red</b> crab → small fish / big turtle","<b>three</b> starfish → two / five"],
-   ask:["Do you like the sea?","What do you see at the sea?","Can you swim?"]}]},
+   ask:["Do you like the sea?","What do you see at the sea?","Can you swim?"]},
+
+  /* Bài thuyết trình mẫu có tranh vẽ tay (tranh ở assets/speech-art.js) */
+  {type:'show',own:true,badge:'Speech',title:'Animals in the Sea',ic:'🌊',
+   tip:'Bé làm động tác theo từng con: cá bơi nhanh, cua bò ngang, rùa bơi chậm, dang tay thật rộng khi nói cá voi “very, very big”.',
+   lines:[["👋","Hi, teacher and everyone! My name is {name}.","Chào cô và các bạn! Tớ tên là …"],
+    ["🌊","Today, I will tell you about animals in the sea!","Hôm nay tớ sẽ kể về các con vật dưới biển!"],
+    [DZ.fish,"This is a <b>fish</b>. It can swim fast!","Đây là con cá. Nó bơi nhanh lắm!"],
+    [DZ.octopus,"This is an <b>octopus</b>. It has eight legs.","Đây là con bạch tuộc. Nó có tám cái chân."],
+    [DZ.crab,"This is a <b>crab</b>. It walks sideways.","Đây là con cua. Nó bò ngang."],
+    [DZ.sea_turtle,"This is a <b>sea turtle</b>. It swims slowly.","Đây là con rùa biển. Nó bơi chậm."],
+    [DZ.whale,"This is a <b>whale</b>. It is very, very big!","Đây là con cá voi. Nó to ơi là to!"],
+    [DZ.starfish,"This is a <b>starfish</b>. It looks like a star.","Đây là con sao biển. Nó trông giống ngôi sao."],
+    ["💙","I love the sea!","Tớ yêu biển!"],
+    ["🙇","Thank you for listening!","Cảm ơn mọi người đã lắng nghe!"]],
+   swap:["<b>whale</b> → shark","It swims slowly → It can swim fast"],
+   ask:["How many legs does an octopus have?","How does a crab walk?","Which animal is very big?"]}]},
 
  /* ===================== ÔN 4: GĐ1 cả 8 Unit + GĐ2 Unit 1 ===================== */
  {id:'r4',n:'Review 4',ic:'🧸',title:'Toys and My Family',span:'Stage 1 + Stage 2 · Unit 1',when:'Học sau Giai đoạn 2, Unit 1 (đã học xong 9 Unit)',
@@ -342,7 +413,22 @@ window.SPEAK={
     ["😋","I'm <b>hungry</b>. I <b>eat</b> with my <b>family</b>.","Tớ đói. Tớ ăn cùng gia đình."],
     ["😴","I'm <b>sleepy</b>. Good night, <b>teddy bear</b>!","Tớ buồn ngủ. Chúc ngủ ngon, gấu bông!"]],
    swap:["<b>grandma</b> → mom / sister","<b>ball</b> → car / doll","<b>cat</b> → dog"],
-   ask:["Who do you play with at home?","Do you have a cat or a dog?"]}]},
+   ask:["Who do you play with at home?","Do you have a cat or a dog?"]},
+
+  /* Bài thuyết trình mẫu có tranh vẽ tay (tranh ở assets/speech-art.js). Ở các câu cơ thể, nhãn trên hình sáng lên đúng bộ phận. */
+  {type:'show',own:true,badge:'Speech',title:'About Me and My Body',ic:'🧒',
+   tip:'Bé vừa nói vừa chỉ vào bộ phận trên người mình; nhãn trên hình sáng lên đúng bộ phận đang nói. Đổi tuổi và nơi ở (Viet Tri) thành của bé.',
+   lines:[["👋","Hi, teacher and everyone! My name is {name}.","Chào cô và các bạn! Tớ tên là …"],
+    [DZ.age,"I'm <b>five years old</b>.","Tớ năm tuổi."],
+    [DZ.house,"I live with my parents in a house. I live in <b>Viet Tri</b>.","Tớ sống cùng bố mẹ trong một ngôi nhà. Tớ sống ở Việt Trì."],
+    [DZ.fig,"Now, I will introduce my body parts!","Bây giờ tớ sẽ giới thiệu các bộ phận cơ thể của tớ!"],
+    [DZ.fig_head,"This is my <b>head</b>, and this is my <b>face</b>.","Đây là cái đầu của tớ, còn đây là khuôn mặt của tớ."],
+    [DZ.fig_eyes,"I have two <b>eyes</b> to see, one <b>nose</b> to smell, and one <b>mouth</b> to smile and eat candy.","Tớ có hai mắt để nhìn, một cái mũi để ngửi và một cái miệng để cười và ăn kẹo."],
+    [DZ.fig_ears,"I have two <b>ears</b> to listen to my teacher.","Tớ có hai cái tai để nghe cô giáo nói."],
+    [DZ.fig_hands,"These are my two <b>hands</b>, and these are my two <b>legs</b> to walk around with my friends.","Đây là hai bàn tay của tớ, còn đây là hai cái chân để tớ đi chơi cùng các bạn."],
+    ["🙇","Thank you for listening!","Cảm ơn mọi người đã lắng nghe!"]],
+   swap:["<b>five years old</b> → your age","<b>Viet Tri</b> → your town","with my parents → with my mom, my dad and my sister"],
+   ask:["How old are you?","Who do you live with?","How many ears do you have?"]}]},
 
  /* ===================== ÔN 5: + GĐ2 Unit 2–3 (11 Unit) ===================== */
  {id:'r5',n:'Review 5',ic:'☀️',title:'Yummy Food and Weather',span:'Stage 1 + Stage 2 · Units 1–3',when:'Học sau Giai đoạn 2, Unit 3 (đã học xong 11 Unit)',
@@ -412,7 +498,22 @@ window.SPEAK={
     ["🍭","Grandma gives me a <b>lollipop</b>. It's <b>pink</b>!","Bà cho tớ một cây kẹo mút. Nó màu hồng!"],
     ["😊","I say: Thank you, Grandma! I <b>love</b> you!","Tớ nói: Cháu cảm ơn bà! Cháu yêu bà!"]],
    swap:["<b>windy</b> and <b>cold</b> → sunny and hot","<b>grandma</b> → grandpa / mom","<b>lollipop</b> → cake / ice cream"],
-   ask:["Who do you go out with?","How's the weather today?"]}]},
+   ask:["Who do you go out with?","How's the weather today?"]},
+
+  /* Bài thuyết trình mẫu có tranh vẽ tay (tranh ở assets/speech-art.js) */
+  {type:'show',own:true,badge:'Speech',title:'My Favorite Things',ic:'⭐',
+   tip:'Bé đổi từng thứ thành thứ bé thích thật. Câu Hulk bé gồng tay khoe cơ bắp; câu “one hundred” bé giơ cả mười ngón tay.',
+   lines:[["👋","Hi, teacher and everyone! My name is {name}.","Chào cô và các bạn! Tớ tên là …"],
+    ["⭐","Today, I will tell you about my favorite things!","Hôm nay tớ sẽ kể về những thứ tớ thích nhất!"],
+    [DZ.fav_colors,"My favorite colors are <b>blue</b>, <b>white</b>, and <b>purple</b>.","Màu tớ thích nhất là xanh dương, trắng và tím."],
+    [DZ.dog,"My favorite animal is a <b>dog</b>.","Con vật tớ thích nhất là con chó."],
+    [DZ.hulk,"My favorite superhero is <b>the Hulk</b>. He is big and strong!","Siêu anh hùng tớ thích nhất là Hulk. Chú ấy to và khỏe!"],
+    [DZ.hundred,"My favorite number is <b>one hundred</b>.","Số tớ thích nhất là một trăm."],
+    [DZ.food,"And I love eating <b>candy</b> and <b>fried chicken</b>!","Và tớ rất thích ăn kẹo và gà rán!"],
+    [DZ.me,"Hi, I am <b>{name}</b>!","Chào mọi người, tớ là …!"],
+    ["🙇","Thank you for listening!","Cảm ơn mọi người đã lắng nghe!"]],
+   swap:["<b>dog</b> → cat / rabbit","<b>the Hulk</b> → Spider-Man","<b>candy</b> → ice cream / cake"],
+   ask:["What's your favorite color?","What's your favorite food?","What's your favorite number?"]}]},
 
  /* ===================== ÔN 6: + GĐ2 Unit 4–5 (13 Unit) ===================== */
  {id:'r6',n:'Review 6',ic:'🔺',title:'School, Friends and Shapes',span:'Stage 1 + Stage 2 · Units 1–5',when:'Học sau Giai đoạn 2, Unit 5 (đã học xong 13 Unit)',
@@ -483,7 +584,23 @@ window.SPEAK={
     ["🎵","We <b>sing</b> and <b>dance</b>.","Chúng tớ hát và nhảy múa."],
     ["😊","Now I'm <b>happy</b>. I love my <b>school</b>!","Giờ tớ vui rồi. Tớ yêu trường mình!"]],
    swap:["Na → your friend's name","<b>heart</b> and <b>star</b> → circle and square"],
-   ask:["What's in your bag?","What do you do at school?","Who is your teacher?"]}]},
+   ask:["What's in your bag?","What do you do at school?","Who is your teacher?"]},
+
+  /* Bài thuyết trình mẫu có tranh vẽ tay (tranh ở assets/speech-art.js) */
+  {type:'show',own:true,badge:'Speech',title:'Animal Bodies',ic:'🦒',
+   tip:'Bé làm động tác: vòi voi (tay đưa dài trước mũi), cổ hươu (vươn cổ), tai thỏ (hai tay trên đầu), cánh chim (dang tay), đuôi khỉ (tay sau lưng), tám chân bạch tuộc (giơ tám ngón tay).',
+   lines:[["👋","Hi, teacher and everyone! My name is {name}.","Chào cô và các bạn! Tớ tên là …"],
+    ["🐾","Today, I will tell you about animal bodies!","Hôm nay tớ sẽ kể về cơ thể của các con vật!"],
+    [DZ.b_elephant,"An elephant has a <b>long nose</b>.","Con voi có cái vòi dài."],
+    [DZ.b_giraffe,"A giraffe has a <b>long neck</b>.","Con hươu cao cổ có cái cổ dài."],
+    [DZ.b_rabbit,"A rabbit has <b>long ears</b>.","Con thỏ có đôi tai dài."],
+    [DZ.b_bird,"A bird has <b>two wings</b>.","Con chim có hai cái cánh."],
+    [DZ.b_monkey,"A monkey has a <b>long tail</b>.","Con khỉ có cái đuôi dài."],
+    [DZ.b_octopus,"An octopus has <b>eight legs</b>.","Con bạch tuộc có tám cái chân."],
+    ["🤩","Animals are amazing!","Các con vật thật tuyệt vời!"],
+    ["🙇","Thank you for listening!","Cảm ơn mọi người đã lắng nghe!"]],
+   swap:["<b>long ears</b> → big ears","A <b>bird</b> → A duck / A chicken"],
+   ask:["Which animal has a long neck?","How many wings does a bird have?","Does a fish have legs?"]}]},
 
  /* ===================== ÔN 7: + GĐ2 Unit 6–7 (15 Unit) ===================== */
  {id:'r7',n:'Review 7',ic:'🦸',title:'Superheroes and My Day',span:'Stage 1 + Stage 2 · Units 1–7',when:'Học sau Giai đoạn 2, Unit 7 (đã học xong 15 Unit)',
@@ -556,7 +673,24 @@ window.SPEAK={
     ["🛁","At <b>night</b>, I <b>take a bath</b> and <b>read a book</b>.","Buổi tối, tớ đi tắm và đọc sách."],
     ["😴","I <b>go to bed</b>. Good night!","Tớ đi ngủ. Chúc ngủ ngon!"]],
    swap:["<b>seven</b> → six / eight","with <b>dad</b> → with mom / grandpa","<b>cake</b> → bread / rice"],
-   ask:["What do you do on Sunday?","What time do you wake up?"]}]},
+   ask:["What do you do on Sunday?","What time do you wake up?"]},
+
+  /* Bài thuyết trình mẫu có tranh vẽ tay (tranh ở assets/speech-art.js) */
+  {type:'show',own:true,badge:'Speech',title:'Things I Can Do',ic:'💪',
+   tip:'Bé làm động tác từng việc (chạy tại chỗ, nhảy, bơi, hát, vẽ, đạp xe). Câu “can’t fly” bé dang tay vẫy rồi lắc đầu cười.',
+   lines:[["👋","Hi, teacher and everyone! My name is {name}.","Chào cô và các bạn! Tớ tên là …"],
+    ["💪","Today, I will tell you what I can do!","Hôm nay tớ sẽ kể những việc tớ làm được!"],
+    [DZ.run,"I <span class='dz-can'>can</span> <b>run</b>.","Tớ biết chạy."],
+    [DZ.jump,"I <span class='dz-can'>can</span> <b>jump</b>.","Tớ biết nhảy."],
+    [DZ.swim,"I <span class='dz-can'>can</span> <b>swim</b>.","Tớ biết bơi."],
+    [DZ.sing,"I <span class='dz-can'>can</span> <b>sing a song</b>.","Tớ biết hát một bài hát."],
+    [DZ.draw,"I <span class='dz-can'>can</span> <b>draw a picture</b>.","Tớ biết vẽ tranh."],
+    [DZ.bike,"I <span class='dz-can'>can</span> <b>ride a bike</b>.","Tớ biết đạp xe."],
+    [DZ.cant_fly,"But I <span class='dz-no'>can't</span> <b>fly</b> like a bird!","Nhưng tớ không bay được như con chim!"],
+    ["🌟","I can do many things!","Tớ làm được nhiều việc lắm!"],
+    ["🙇","Thank you for listening!","Cảm ơn mọi người đã lắng nghe!"]],
+   swap:["<b>ride a bike</b> → dance / climb","<b>fly</b> like a bird → swim like a fish"],
+   ask:["Can you swim?","Can you fly?","What can you do?"]}]},
 
  /* ===================== ÔN 8: cả 16 Unit — Big Show ===================== */
  {id:'r8',n:'Big Show',ic:'🏆',title:'Big Show: Everything I Know!',span:'All 16 units',when:'Học xong Giai đoạn 2 (cả 16 Unit): bài ôn cuối',
@@ -634,7 +768,23 @@ window.SPEAK={
     ["🎵","We <b>sing</b>, <b>dance</b> and play. <b>My turn</b>! <b>Your turn</b>!","Chúng tớ hát, nhảy múa và chơi. Đến lượt tớ! Đến lượt bạn!"],
     ["😴","At <b>night</b>, I'm <b>sleepy</b> but <b>happy</b>. I <b>go to bed</b>.","Buổi tối, tớ buồn ngủ nhưng rất vui. Tớ đi ngủ."]],
    swap:["<b>six</b> → your age","<b>car</b> → doll / ball / teddy bear","<b>T-shirt</b> → dress / hat"],
-   ask:["When is your birthday?","What do you want for your birthday?","Who comes to your birthday?"]}]}
+   ask:["When is your birthday?","What do you want for your birthday?","Who comes to your birthday?"]},
+
+  /* Bài thuyết trình mẫu có tranh vẽ tay (tranh ở assets/speech-art.js) */
+  {type:'show',own:true,badge:'Speech',title:'What Animals Can Do',ic:'🐸',
+   tip:'Bé làm động tác của từng con vật: chim bay, cá bơi, ếch nhảy, khỉ leo, rùa bò, thỏ nhảy lò cò. Cả lớp làm theo.',
+   lines:[["👋","Hi, teacher and everyone! My name is {name}.","Chào cô và các bạn! Tớ tên là …"],
+    ["🐾","Today, I will tell you what animals can do!","Hôm nay tớ sẽ kể các con vật làm được gì!"],
+    [DZ.bird_fly,"A bird <span class='dz-can'>can</span> <b>fly</b>.","Con chim biết bay."],
+    [DZ.fish_swim,"A fish <span class='dz-can'>can</span> <b>swim</b>.","Con cá biết bơi."],
+    [DZ.frog_jump,"A frog <span class='dz-can'>can</span> <b>jump</b>.","Con ếch biết nhảy."],
+    [DZ.monkey_climb,"A monkey <span class='dz-can'>can</span> <b>climb</b>.","Con khỉ biết leo trèo."],
+    [DZ.turtle_crawl,"A turtle <span class='dz-can'>can</span> <b>crawl</b>.","Con rùa biết bò."],
+    [DZ.rabbit_hop,"A rabbit <span class='dz-can'>can</span> <b>hop</b>.","Con thỏ biết nhảy lò cò."],
+    ["🎉","Animals can do many things!","Các con vật làm được nhiều việc lắm!"],
+    ["🙇","Thank you for listening!","Cảm ơn mọi người đã lắng nghe!"]],
+   swap:["A <b>bird</b> can fly → A superhero can fly","A <b>frog</b> → A kangaroo"],
+   ask:["What can a fish do?","Can a turtle fly?","What can you do like a monkey?"]}]}
  ]};
 </script>
 <script src="../assets/pin.js?v=20261127g"></script>
