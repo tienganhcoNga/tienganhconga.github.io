@@ -48,7 +48,8 @@ button{font:inherit;color:inherit}
 .parent:hover{border-color:var(--c)}
 .parent .dot{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
 .parent .cnt{margin-left:auto;font-family:var(--f-body);font-size:.8rem;font-weight:700;color:var(--muted)}
-.parent .chev{transition:transform .2s;color:var(--c)}
+.parent .chev{transition:transform .2s;color:var(--c);padding:4px 8px;margin:-4px -8px -4px 0;border-radius:8px}
+.parent .chev:hover{background:var(--surface)}
 .parent[aria-expanded="true"] .chev{transform:rotate(90deg)}
 .children{list-style:none;margin:4px 0 6px;padding:0 0 0 14px;border-left:3px solid var(--c-soft);margin-left:16px}
 .lesson-h{display:flex;align-items:center;gap:6px;font-weight:800;font-size:.9rem;color:var(--c);margin:10px 0 2px 0;padding:4px 6px;border-radius:8px;text-decoration:none;cursor:pointer}
@@ -310,7 +311,7 @@ function select(gid,lid,tid,opts){
   opts=opts||{};
   const r=find(gid,lid,tid);if(!r)return;
   if(locked(gid)){PIN.unlockGrade(gid,()=>select(gid,lid,tid,opts));return;}
-  cur=r;openGrade=r.g.id;tab='lesson';
+  cur=r;tab='lesson';
   const h=`#${r.g.id}/${r.l.id}/${r.t}`;
   if(location.hash!==h)history.replaceState(null,'',h);
   if(!opts.noFrame)goFrame(r.l.file,r.t);
@@ -332,12 +333,12 @@ $('#menu').addEventListener('click',e=>{
   /* Bấm tên bài: mở luôn chủ đề đầu tiên của bài đó */
   const h=e.target.closest('.lesson-h');
   if(h){if(newTabClick(e))return;e.preventDefault();select(h.dataset.g,h.dataset.l);return;}
-  /* Bấm khối lớp: mở luôn bài đầu tiên của khối (nếu đang ở khối đó thì chỉ đóng/mở danh sách) */
+  /* Bấm mũi tên: đóng/mở danh sách bài. Bấm khối lớp: mở bài đầu tiên, không tự mở danh sách */
   const p=e.target.closest('.parent');
   if(!p)return;
   const id=p.dataset.g;
-  if(cur&&cur.g.id===id){openGrade=openGrade===id?null:id;renderMenu();return;}
-  select(id);
+  if(e.target.closest('.chev')){openGrade=openGrade===id?null:id;renderMenu();return;}
+  if(!(cur&&cur.g.id===id))select(id);
 });
 $('#grades').addEventListener('click',e=>{const g=e.target.closest('.gcard');if(!g)return;select(g.dataset.g);});
 $('#welcome').addEventListener('click',e=>{const b=e.target.closest('[data-scroll]');if(b)document.getElementById(b.dataset.scroll).scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});});
