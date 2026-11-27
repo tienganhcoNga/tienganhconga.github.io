@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="../assets/course.css?v=20261127b">
+<link rel="stylesheet" href="../assets/course.css?v=20261127kit">
 <style>
 :root{--accent:var(--jade);--accent-soft:var(--jade-soft)}
 .nav a.sm{font-size:.85rem}
@@ -87,29 +87,8 @@
 /* Song ngữ: tiếng Việt chỉ hiện khi bật nút 🇻🇳 Song ngữ (assets/bilingual.js) */
 .vi-t{display:none}
 @media print{.nav,.tools,footer,.game-wrap,.sp-link,.dlg-tools{display:none}}
-/* ---------- Cho bé tự dùng: con đường các bước, mỗi lần một bước ---------- */
-.steps{display:flex;align-items:center;margin:6px 0 18px;overflow-x:auto;padding:12px 4px 10px;scrollbar-width:none}
-.steps::-webkit-scrollbar{display:none}
-.stp{position:relative;flex:none;display:flex;flex-direction:column;align-items:center;gap:2px;width:84px;padding:8px 4px;border:3px solid var(--line);background:var(--surface);border-radius:22px;cursor:pointer;font:inherit;color:var(--ink);box-shadow:0 4px 0 var(--line)}
-.stp .e{font-size:2.2rem;line-height:1.1}
-.stp b{font-family:var(--f-display);font-size:.95rem}
-.stp .vi-t{white-space:nowrap;font-size:.68rem}
-.stp[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 4px 0 var(--accent);transform:translateY(-2px)}
-.stp .star{position:absolute;top:-12px;right:-8px;font-style:normal;font-size:1.35rem;display:none}
-.stp.done .star{display:block}
-.stp-line{flex:1 1 14px;min-width:10px;border-top:4px dotted var(--line)}
-#unit [data-step]{display:none}
-#unit [data-step].on{display:block}
-.kstep-say{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 12px;font-family:var(--f-display);font-weight:700;font-size:1.15rem}
-.kstep-say .say{width:46px;height:46px}
-.kstep-say .say svg{width:22px;height:22px}
-.kstep-say .vi-t{flex-basis:100%;font-family:inherit;font-weight:500;font-size:.85rem;color:var(--muted)}
-.step-next{display:flex;justify-content:center;margin:22px 0 6px}
-.go-next{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:800;font-size:1.8rem;padding:10px 36px;border-radius:999px;border:0;background:var(--accent);color:#fff;cursor:pointer;text-decoration:none;box-shadow:0 5px 0 rgba(0,0,0,.2);animation:goNudge 1.8s ease-in-out infinite}
-.go-next span{font-size:2.1rem;line-height:1}
-@keyframes goNudge{50%{transform:translateX(7px)}}
-@media (max-width:560px){ .stp{width:66px;padding:6px 2px;border-radius:16px} .stp .e{font-size:1.8rem} .stp b{font-size:.8rem} .stp-line{min-width:6px} .go-next{font-size:1.5rem;padding:10px 30px} }
-@media (prefers-reduced-motion: reduce){ .go-next{animation:none} .stp[aria-current="true"]{transform:none} }
+/* con đường các bước dùng chung: course.css + assets/steps.js */
+
 </style>
 <script>(function(){try{var g=document.documentElement.getAttribute("data-grade"),k="lophoc-grade-"+g;if(!(sessionStorage.getItem(k)==="1"||localStorage.getItem(k)==="1"))document.documentElement.classList.add("grade-locked")}catch(e){}})()</script><style>html.grade-locked body>*:not(.pin-gate){visibility:hidden}</style>
 </head>
@@ -159,6 +138,7 @@ window.L4_PLAN=[
 ];
 window.L4_SPEAK={r1:'Speaking 1',r2:'Speaking 2',r3:'Speaking 3',r4:'Speaking 4',r5:'Speaking 5',r6:'Speaking 6',r7:'Speaking 7',r8:'Speaking 8',r9:'Speaking 9',r10:'Big Show'};
 </script>
+<script src="../assets/steps.js?v=20261127kit"></script>
 <script src="../assets/lop4-words.js?v=20261127a"></script>
 <script src="../assets/lop4-dialogues.js?v=20261127a"></script>
 <script>
@@ -256,34 +236,22 @@ function filterDict(q){
 var G={id:null,type:"listen",qs:[],i:0,score:0,tries:0};
 /* Cho bé tự dùng: mỗi Unit là con đường các bước 📚 Words → 💬 Say → 🗣️ Talk (nếu có hội thoại) → 🎮 Play.
    Mỗi lần chỉ hiện một bước (data-step), vào bước nào máy đọc lời hướng dẫn, cuối bước có nút ▶ to, xong bước được ⭐ (localStorage). */
-var STEP=null, STEPS=[], STEP_KEY="lophoc.l4.steps";
-var STEP_INFO={words:["📚","Words","Tap a word and listen!","Bấm vào từ để nghe"],pats:["💬","Say","Listen and say the sentences!","Nghe rồi nói theo các mẫu câu"],
-  dlg:["🗣️","Talk","Listen to the dialogue. Then play a role!","Nghe hội thoại rồi đóng vai"],play:["🎮","Play","Let's play with the words!","Cùng chơi với từ"]};
-function stepDone(id){try{return JSON.parse(localStorage.getItem(STEP_KEY)||"{}")[id]||{}}catch(e){return {}}}
-function markStep(key){if(!G.id)return;try{var a=JSON.parse(localStorage.getItem(STEP_KEY)||"{}");a[G.id]=a[G.id]||{};a[G.id][key]=1;localStorage.setItem(STEP_KEY,JSON.stringify(a))}catch(e){}var b=$('.stp[data-step-go="'+key+'"]');if(b)b.classList.add("done")}
-function kstep(key,html,id){
-  var I=STEP_INFO[key],k=STEPS.indexOf(key),n=STEPS[k+1],nu=ORDER[ORDER.indexOf(id)+1];
-  var nx=n?'<button class="go-next" type="button" data-step-go="'+n+'" data-from="'+key+'" aria-label="Next: '+STEP_INFO[n][1]+'"><span aria-hidden="true">'+STEP_INFO[n][0]+'</span> ▶</button>'
-    :nu?'<a class="go-next" href="#'+nu+'" data-from="'+key+'" aria-label="Next: '+esc(label(nu))+'"><span aria-hidden="true">🏆 '+U[nu].ic+'</span> ▶</a>':"";
-  return '<section class="kstep" data-step="'+key+'"><p class="kstep-say"><button class="say" type="button" data-ksay="'+esc(I[2])+'" aria-label="'+esc(I[2])+'">'+SPK+'</button> '+esc(I[2])+viT(I[3])+'</p>'+html+(nx?'<div class="step-next">'+nx+'</div>':"")+'</section>';
-}
-function stepBar(id){var d=stepDone(id);return '<nav class="steps" aria-label="Steps">'+STEPS.map(function(key){var I=STEP_INFO[key];return '<button class="stp'+(d[key]?" done":"")+'" type="button" data-step-go="'+key+'" aria-current="'+(key===STEP)+'"><span class="e" aria-hidden="true">'+I[0]+'</span><b>'+I[1]+'</b><i class="star" aria-hidden="true">⭐</i></button>'}).join('<span class="stp-line" aria-hidden="true"></span>')+'</nav>'}
-function showStep(key,talk){
-  if(STEPS.indexOf(key)<0)key=STEPS[0]; STEP=key; dStop(); if(hasSpeech)speechSynthesis.cancel();
-  $$("#unit [data-step]").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-step")===STEP)});
-  $$(".stp").forEach(function(b){b.setAttribute("aria-current",String(b.getAttribute("data-step-go")===STEP))});
-  if(talk){var bar=$(".steps");if(bar&&bar.getBoundingClientRect().top<0)bar.scrollIntoView({block:"start"});speak(STEP_INFO[STEP][2])}
-}
+var KID=window.KID, STEP=null;
+var STEP_INFO={words:{k:"words",ic:"📚",t:"Words",say:"Tap a word and listen!",vi:"Bấm vào từ để nghe"},pats:{k:"pats",ic:"💬",t:"Say",say:"Listen and say the sentences!",vi:"Nghe rồi nói theo các mẫu câu"},
+  dlg:{k:"dlg",ic:"🗣️",t:"Talk",say:"Listen to the dialogue. Then play a role!",vi:"Nghe hội thoại rồi đóng vai"},play:{k:"play",ic:"🎮",t:"Play",say:"Let's play with the words!",vi:"Cùng chơi với từ"}};
+KID.setup({store:"lophoc.l4.steps",id:function(){return G.id},say:function(t){speak(t)},stop:function(){dStop();if(hasSpeech)speechSynthesis.cancel()},talk:function(st){STEP=st.k;speak(st.say)}});
+function markStep(key){KID.mark(key)}
+function showStep(key,talk){KID.show(key,talk);STEP=KID.cur()}
 function unitView(id){
   var u=U[id], k=ORDER.indexOf(id), sp=speakOf(id), prev=ORDER[k-1], next=ORDER[k+1];
   var dl=dialogs(id);
-  STEPS=["words","pats"].concat(dl?["dlg"]:[]).concat(["play"]); if(STEPS.indexOf(STEP)<0)STEP="words";
+  STEP=KID.use([STEP_INFO.words,STEP_INFO.pats,dl?STEP_INFO.dlg:null,STEP_INFO.play],STEP,next?{href:"#"+next,ic:U[next].ic,label:"Next: "+label(next)}:null);
   return '<div class="u-head"><span class="u-ic" aria-hidden="true">'+u.ic+'</span><div><div class="u-n">'+esc(u.n)+'</div><h2>'+esc(u.en)+viT(u.vi)+'</h2><div class="u-vi">'+u.w.length+' words</div></div></div>'+'<div class="goal">🎯 <b>After this unit, I can say:</b>'+viT('Học xong Unit này con nói được:',1)+' '+u.p.map(function(p){return '<i>'+esc(p[0].split(" – ")[0])+'</i>'}).join(" · ")+'</div>'+
-  stepBar(id)+
-  kstep("words",'<div class="block" id="wordsBlock"><div class="b-head"><h3>📚 Words'+viT('Từ vựng',1)+'</h3><div class="tools"><button class="btn" type="button" id="playWords">🔊 Listen to all</button></div></div>'+'<div class="words">'+u.w.map(function(w){return '<button class="word" type="button" data-t="'+esc(w[1])+'"><span class="ic" aria-hidden="true">'+icon(w[0])+'</span><span class="w">'+esc(w[1])+'</span>'+viT(w[2])+'</button>'}).join("")+'</div></div>',id)+
-  kstep("pats",'<div class="block"><div class="b-head"><h3>💬 Sentence patterns'+viT('Mẫu câu',1)+'</h3><button class="btn" type="button" id="playPat">🔊 Listen to all</button></div><div class="pats">'+u.p.map(function(p){return '<button class="pat" type="button" data-t="'+esc(p[0])+'"><span class="say" aria-hidden="true">'+SPK+'</span><span><span class="q">'+esc(p[0])+'</span>'+viT(p[1])+'</span></button>'}).join("")+'</div></div>',id)+
-  (dl?kstep("dlg",dl,id):"")+
-  kstep("play",'<div class="block game-wrap"><div class="b-head"><h3>🎮 Practice'+viT('Luyện từ',1)+'</h3></div><div class="gtabs" role="tablist">'+[["listen","👂 Listen and choose"],["mean","👀 Look and choose"],["spell","✍️ Write the word"]].map(function(x){return '<button class="chip" type="button" data-game="'+x[0]+'" aria-pressed="'+(G.type===x[0])+'">'+x[1]+'</button>'}).join("")+'</div><div class="game" id="game" aria-live="polite"></div></div>'+(sp?'<div class="sp-link"><span class="e" aria-hidden="true">🎤</span><p><b>Speaking time!</b> After this unit, practise with <b>'+esc(SPK_N[sp])+'</b>: use the words from all the units you have learnt.'+viT('Học xong Unit này, con ôn nói với bài '+SPK_N[sp]+': gom từ của tất cả các Unit đã học.')+'</p><a class="btn primary" href="on-tap-noi.html#'+sp+'">Go to '+esc(SPK_N[sp])+' →</a></div>':''),id)+
+  KID.bar()+
+  KID.panel("words",{id:"wordsBlock",extra:'<button class="btn all" type="button" id="playWords" aria-label="Listen to all">🔊 All</button>',body:'<div class="words">'+u.w.map(function(w){return '<button class="word" type="button" data-t="'+esc(w[1])+'"><span class="ic" aria-hidden="true">'+icon(w[0])+'</span><span class="w">'+esc(w[1])+'</span>'+viT(w[2])+'</button>'}).join("")+'</div>'})+
+  KID.panel("pats",{extra:'<button class="btn all" type="button" id="playPat" aria-label="Listen to all">🔊 All</button>',body:'<div class="pats">'+u.p.map(function(p){return '<button class="pat" type="button" data-t="'+esc(p[0])+'"><span class="say" aria-hidden="true">'+SPK+'</span><span><span class="q">'+esc(p[0])+'</span>'+viT(p[1])+'</span></button>'}).join("")+'</div>'})+
+  KID.panel("dlg",dl?{id:"dlgBlock",body:dl}:null)+
+  KID.panel("play",{cls:"game-wrap",body:'<div class="gtabs" role="tablist">'+[["listen","👂 Listen and choose"],["mean","👀 Look and choose"],["spell","✍️ Write the word"]].map(function(x){var m=/^(\S+)\s+(.*)$/.exec(x[1]);return '<button class="chip gt" type="button" data-game="'+x[0]+'" aria-pressed="'+(G.type===x[0])+'"><span class="e" aria-hidden="true">'+m[1]+'</span><small>'+esc(m[2])+'</small></button>'}).join("")+'</div><div class="game" id="game" aria-live="polite"></div>'+(sp?'<div class="sp-link"><span class="e" aria-hidden="true">🎤</span><p><b>Speaking time!</b> After this unit, practise with <b>'+esc(SPK_N[sp])+'</b>: use the words from all the units you have learnt.'+viT('Học xong Unit này, con ôn nói với bài '+SPK_N[sp]+': gom từ của tất cả các Unit đã học.')+'</p><a class="btn primary" href="on-tap-noi.html#'+sp+'">Go to '+esc(SPK_N[sp])+' →</a></div>':'')})+
   '<div class="u-nav">'+(prev?'<a class="btn" href="#'+prev+'">← '+esc(label(prev))+'</a>':'<a class="btn" href="#lo-trinh">← 🗺️ Lộ trình</a>')+(next?'<a class="btn primary" href="#'+next+'">'+esc(label(next))+' →</a>':'')+'</div>';
 }
 
@@ -292,8 +260,7 @@ var DLG=window.L4_DLG||{}, KIND={book:"📖 Book",listen:"🎧 Listening",chant:
 function speakers(d){var s=[];d.lines.forEach(function(l){if(l[0]&&s.indexOf(l[0])<0)s.push(l[0])});return s}
 function dialogs(id){
   var list=DLG[id]; if(!list||!list.length)return "";
-  return '<div class="block" id="dlgBlock"><div class="b-head"><h3>🗣️ Dialogues'+viT('Hội thoại',1)+'</h3></div>'+
-   '<p class="muted" style="margin:-6px 0 12px">Tap a line to listen. <b>🎭 Role-play</b>: choose a person. The computer reads the other part and waits for you to say yours.'+viT('Bấm từng câu để nghe. Đóng vai: chọn một bạn, máy đọc vai còn lại, đến câu của con thì máy chờ con nói.')+'</p><div class="dlgs">'+
+  return '<p class="muted" style="margin:0 0 12px">Tap a line to listen. <b>🎭 Role-play</b>: choose a person. The computer reads the other part and waits for you to say yours.'+viT('Bấm từng câu để nghe. Đóng vai: chọn một bạn, máy đọc vai còn lại, đến câu của con thì máy chờ con nói.')+'</p><div class="dlgs">'+
    list.map(function(d,di){
      var sp=speakers(d);
      return '<div class="dlg" data-di="'+di+'"><div class="dlg-h"><span class="dlg-k '+esc(d.k)+'">'+(KIND[d.k]||esc(d.k))+'</span><b>'+esc(d.t)+'</b></div>'+
@@ -303,7 +270,7 @@ function dialogs(id){
         var k=sp.indexOf(l[0]), cls=!l[0]?" nar":k%2===1?" alt":"";
         return '<button class="ln'+cls+'" type="button" data-di="'+di+'" data-li="'+li+'"><span class="av" aria-hidden="true">'+(l[0]?esc(l[0].slice(0,2)):"♪")+'</span><span class="tx">'+(l[0]?'<span class="who">'+esc(l[0])+'</span>':'')+'<span class="en">'+esc(l[1])+'</span>'+viT(l[2]||"")+'</span></button>';
       }).join("")+'</div>';
-   }).join("")+'</div></div>';
+   }).join("")+'</div>';
 }
 var DRUN={tok:null,timers:[]};
 function dStop(){DRUN.tok=null;DRUN.timers.forEach(clearTimeout);DRUN.timers=[];if(hasSpeech)speechSynthesis.cancel();
@@ -396,9 +363,7 @@ function route(){
 }
 document.addEventListener("click",function(e){
   var t=e.target;
-  var sg=t.closest("[data-step-go]"); if(sg){var fr=sg.getAttribute("data-from");if(fr)markStep(fr);showStep(sg.getAttribute("data-step-go"),true);return}
-  var nxa=t.closest("a.go-next[data-from]"); if(nxa)markStep(nxa.getAttribute("data-from"));
-  var ks=t.closest("[data-ksay]"); if(ks){speak(ks.getAttribute("data-ksay"));return}
+  if(t.closest("[data-step-go],a.go-next,[data-ksay]"))return; /* nút bước: assets/steps.js */
   var dp=t.closest("[data-dplay]"); if(dp){if(dp.getAttribute("aria-pressed")==="true")dStop();else dRun(+dp.getAttribute("data-dplay"),null,dp);return}
   var dr=t.closest("[data-drole]"); if(dr){if(dr.getAttribute("aria-pressed")==="true")dStop();else dRun(+dr.getAttribute("data-drole"),dr.getAttribute("data-who"),dr);return}
   var ln=t.closest(".ln"); if(ln){dStop();var d=DLG[G.id][+ln.getAttribute("data-di")],l=d.lines[+ln.getAttribute("data-li")],v=voiceOf(d,l[0]);

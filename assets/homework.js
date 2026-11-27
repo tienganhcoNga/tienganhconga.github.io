@@ -44,7 +44,7 @@
 
     /* ---------- CSS riêng ---------- */
     var css = "" +
-      ".hw{border:3px solid var(--accent);scroll-margin-top:70px}" +
+      ".hw{scroll-margin-top:70px}.hw:not(.kstep){border:3px solid var(--accent)}" +
       ".hw .b-head .btn{margin-left:auto}" +
       ".hw-units{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}" +
       ".hw-ut{font:inherit;font-weight:800;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:16px;padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;text-align:left;line-height:1.2}" +
@@ -202,13 +202,21 @@
       var us = (r.fresh && r.fresh.length ? r.fresh : r.units).filter(function (g) { return D.units[g]; });
       if (!us.length) return "";
       var g = sel[r.id] && us.indexOf(sel[r.id]) >= 0 ? sel[r.id] : us[0]; sel[r.id] = g;
-      return '<div class="block hw' + (HD.showVi ? " hw-vi" : "") + '" id="homework"><div class="b-head"><h3>🏠 Homework' + vi("Bài tập về nhà", true) + "</h3>" +
-        '<span class="muted">Choose your unit and play!</span><a class="btn" href="#hw">📚 All units</a></div>' +
+      var p = parts(r); if (!p) return "";
+      return '<div class="block ' + p.cls + '" id="homework"><div class="b-head"><h3>🏠 Homework' + vi("Bài tập về nhà", true) + "</h3>" +
+        '<span class="muted">Choose your unit and play!</span>' + p.extra + "</div>" + p.body + "</div>";
+    }
+    /* phần thân của khối Homework, để trang bài ôn đặt vào khung bước 🏠 Home (assets/steps.js) */
+    function parts(r) {
+      var us = (r.fresh && r.fresh.length ? r.fresh : r.units).filter(function (g) { return D.units[g]; });
+      if (!us.length) return null;
+      var g = sel[r.id] && us.indexOf(sel[r.id]) >= 0 ? sel[r.id] : us[0]; sel[r.id] = g;
+      return { cls: "hw" + (HD.showVi ? " hw-vi" : ""), id: "homework", extra: '<a class="btn" href="#hw">📚 All units</a>', body:
         '<p class="vi-t hw-guide" lang="vi">' + esc(HD.note || "Ba mẹ chọn Unit con vừa học trên lớp. Mỗi ngày làm 2–3 bài (10–15 phút), ngồi cùng con, bấm 🔊 để nghe mẫu. Làm sai cứ cho con chọn lại; mỗi bài có sao để con thi đua. Bài 💬 Talk at home là phần nói chuyện thật với con, nên làm mỗi ngày. Bấm 🖨️ Worksheet để in phiếu cho con làm bằng bút chì.") + "</p>" +
         '<div class="hw-units" role="tablist" aria-label="Units">' + us.map(function (id) {
           var u = D.units[id];
           return '<button class="hw-ut" type="button" role="tab" data-hw="unit" data-u="' + id + '" aria-selected="' + (id === g) + '"><span class="e" aria-hidden="true">' + u.ic + "</span><span>" + esc(u.n) + "<small>" + esc(u.en) + '</small><span class="hw-pg" data-pg="' + id + '">' + pgText(id) + "</span></span></button>";
-        }).join("") + '</div><div id="hwUnit">' + unitView(g) + "</div></div>";
+        }).join("") + '</div><div id="hwUnit">' + unitView(g) + "</div>" };
     }
     function unitView(g) {
       return '<div class="hw-tiles">' + typesFor(g).map(function (t) { return tile(g, t); }).join("") +
@@ -603,6 +611,6 @@
     });
     document.addEventListener("keydown", function (e) { if (e.key === "Enter" && e.target.id === "hwIn" && G) { e.preventDefault(); writeCheck(); } });
 
-    return { block: block, hub: hub, match: match, reset: function () { G = null; } };
+    return { block: block, parts: parts, hub: hub, match: match, reset: function () { G = null; } };
   };
 })();

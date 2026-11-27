@@ -153,69 +153,42 @@
      Bé 4–6 tuổi tự dùng: mỗi Unit là một con đường nhiều bước (👂 Nghe → 🗣️ Nói → 🎵 Hát → 🎮 Chơi → 🎤 Thuyết trình).
      Mỗi lần chỉ hiện một bước; vào bước nào máy đọc lời hướng dẫn của bước đó; xong bước được ⭐ (nhớ trên máy). */
   function stepsOf(u) {
-    var s = [["words", "👂", "Listen", "Tap a picture and listen!", "Bấm vào hình để nghe"], ["talk", "🗣️", "Say", "Listen and say it!", "Nghe rồi nói theo"]];
-    if (u.song) s.push(["song", "🎵", "Sing", "Let's sing and dance!", "Cùng hát và múa"]);
-    s.push(["games", "🎮", "Play", "Let's play a game!", "Cùng chơi"]);
-    if (u.speech) s.push(["speech", "🎤", "Speak", "Let's make a speech!", "Tập thuyết trình"]);
+    var s = [{ k: "words", ic: "👂", t: "Listen", say: "Tap a picture and listen!", vi: "Bấm vào hình để nghe" },
+      { k: "talk", ic: "🗣️", t: "Say", say: "Listen and say it!", vi: "Nghe rồi nói theo" }];
+    if (u.song) s.push({ k: "song", ic: "🎵", t: "Sing", say: "Let's sing and dance!", vi: "Cùng hát và múa" });
+    s.push({ k: "games", ic: "🎮", t: "Play", say: "Let's play a game!", vi: "Cùng chơi" });
+    if (u.speech) s.push({ k: "speech", ic: "🎤", t: "Speak", say: "Let's make a speech!", vi: "Tập thuyết trình" });
     return s;
   }
-  var STEP = null, DONE_KEY = "lophoc.mg.steps";
-  function doneOf(u) { try { return JSON.parse(localStorage.getItem(DONE_KEY) || "{}")[u.id] || {}; } catch (e) { return {}; } }
-  function markStep(key) {
-    if (!cur) return;
-    try { var all = JSON.parse(localStorage.getItem(DONE_KEY) || "{}"); all[cur.id] = all[cur.id] || {}; all[cur.id][key] = 1; localStorage.setItem(DONE_KEY, JSON.stringify(all)); } catch (e) {}
-    var b = $('.stp[data-step-go="' + key + '"]'); if (b) b.classList.add("done");
-  }
-  function stepHead(st, extra) {
-    return '<div class="b-head step-head"><h3><span class="st-ic" aria-hidden="true">' + st[1] + "</span> " + st[2] + "</h3>" + sayBtn(st[3], st[3]) +
-      '<span class="st-say">' + esc(st[3]) + "</span>" + (extra || "") + "</div>";
-  }
-  function stepNext(u, k) {
-    var S = stepsOf(u), n = S[k + 1], i = P.units.indexOf(u), nu = P.units[i + 1];
-    if (n) return '<div class="step-next"><button class="go-next" type="button" data-step-go="' + n[0] + '" data-from="' + S[k][0] + '" aria-label="Next: ' + n[2] + '"><span aria-hidden="true">' + n[1] + "</span> ▶</button></div>";
-    return '<div class="step-next">' + (nu ? '<a class="go-next" href="#' + nu.id + '" data-from="' + S[k][0] + '" aria-label="Next unit: ' + esc(nu.en) + '"><span aria-hidden="true">🏆 ' + nu.ic + "</span> ▶</a>"
-      : P.next ? '<a class="go-next" target="_top" href="' + P.next.href + '" data-from="' + S[k][0] + '" aria-label="' + esc(P.next.label) + '"><span aria-hidden="true">🏆</span> ▶</a>' : "") + "</div>";
-  }
-  function stepBar(u) {
-    var d = doneOf(u);
-    return '<nav class="steps" aria-label="Steps">' + stepsOf(u).map(function (s, k) {
-      return '<button class="stp' + (d[s[0]] ? " done" : "") + '" type="button" data-step-go="' + s[0] + '" aria-current="' + (k === 0) + '"><span class="e" aria-hidden="true">' + s[1] + "</span><b>" + s[2] + '</b><i class="star" aria-hidden="true">⭐</i></button>';
-    }).join('<span class="stp-line" aria-hidden="true"></span>') + "</nav>";
-  }
-  function showStep(key, talk) {
-    if (!cur) return;
-    var S = stepsOf(cur), st = S.filter(function (s) { return s[0] === key; })[0] || S[0];
-    STEP = st[0]; spStop(); if (hasSpeech) speechSynthesis.cancel();
-    $$("#view [data-step]").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-step") === STEP); });
-    $$(".stp").forEach(function (b) { b.setAttribute("aria-current", String(b.getAttribute("data-step-go") === STEP)); });
-    if (talk) {
-      var bar = $(".steps"); if (bar && bar.getBoundingClientRect().top < 0) bar.scrollIntoView({ block: "start" });
-      if (STEP === "games" && G) gameIntro(); else speak(st[3]);
-    }
-  }
+  /* thanh các bước, khung mỗi bước, nút ▶ và ⭐ dùng chung: assets/steps.js (KID) */
+  var KID = window.KID, STEP = null;
+  KID.setup({ store: "lophoc.mg.steps", id: function () { return cur && cur.id; }, say: function (t) { speak(t); },
+    stop: function () { spStop(); if (hasSpeech) speechSynthesis.cancel(); },
+    talk: function (st) { STEP = st.k; if (st.k === "games" && G) gameIntro(); else speak(st.say); } });
+  function markStep(key) { KID.mark(key); }
+  function showStep(key, talk) { if (!cur) return; KID.show(key, talk); STEP = KID.cur(); }
   function unitView(u) {
-    var i = P.units.indexOf(u), prev = P.units[i - 1], next = P.units[i + 1], S = stepsOf(u), k = function (key) { for (var j = 0; j < S.length; j++) if (S[j][0] === key) return j; return -1; };
+    var i = P.units.indexOf(u), prev = P.units[i - 1], next = P.units[i + 1];
+    STEP = KID.use(stepsOf(u), STEP, next ? { href: "#" + next.id, ic: next.ic, label: "Next unit: " + next.en } : P.next ? { href: P.next.href, top: true, label: P.next.label } : null);
     var h = '<div class="v-head"><span class="v-ic" aria-hidden="true">' + u.ic + '</span><div><span class="v-n">' + esc(u.n) + "</span><h2>" + esc(u.en) + "</h2>" + vi(u.vi) + '</div></div>';
     var rv = enOnly(u.review); if (rv) h += '<p class="review">🔁 Review: ' + esc(rv) + vi("Ôn lại: " + u.review) + "</p>";
     else if (u.review) h += '<p class="review vi-t" lang="vi">🔁 Ôn lại: ' + esc(u.review) + "</p>";
-    h += stepBar(u);
-    h += '<div class="block" data-step="words">' + stepHead(S[k("words")], '<button class="btn all" type="button" data-act="all-words" aria-label="Listen to all">🔊 All</button>');
+    h += KID.bar();
     var lastG = null;
-    h += u.words.map(function (w, k) {
+    h += KID.panel("words", { extra: '<button class="btn all" type="button" data-act="all-words" aria-label="Listen to all">🔊 All</button>', body: u.words.map(function (w, k) {
       var o = W(w), g = w[4] || "", head = "";
       if (g !== lastG) { head = (lastG !== null ? "</div>" : "") + (lastG !== null ? '<div class="grp-gap"></div>' : "") + '<div class="cards">'; lastG = g; }
       return head + '<button class="card" type="button" data-w="' + k + '">' + vis(o, true) + '<span class="en">' + esc(o.en) + "</span>" + vi(o.vi) + '<i class="heard" aria-hidden="true">⭐</i></button>';
-    }).join("") + "</div>" + stepNext(u, k("words")) + "</div>";
-    h += '<div class="block" data-step="talk">' + stepHead(S[k("talk")], '<button class="btn all" type="button" data-act="all-talk" aria-label="Listen to all">🔊 All</button>' + speedBar()) + '<div class="talk">' +
+    }).join("") + "</div>" });
+    h += KID.panel("talk", { extra: '<button class="btn all" type="button" data-act="all-talk" aria-label="Listen to all">🔊 All</button>' + speedBar(), body: '<div class="talk">' +
       u.talk.map(function (t, k) {
         var who = P.chars[t[2] || 0];
         return '<div class="bub ' + ((t[2] || 0) === 2 ? "r" : "") + '" data-t="' + k + '"><span class="who" aria-hidden="true">' + who + '</span><button class="bb" type="button" data-t="' + k + '"><span class="en">' + esc(t[0]) + "</span>" + vi(t[1]) + "</button></div>";
-      }).join("") + "</div>" + stepNext(u, k("talk")) + "</div>";
-    if (u.song) h += songBlock(u, S[k("song")]).replace(/<\/div>$/, stepNext(u, k("song")) + "</div>");
+      }).join("") + "</div>" });
+    h += songBlock(u);
     var gs = gamesOf(u);
-    h += '<div class="block" data-step="games">' + stepHead(S[k("games")]) +
-      '<div class="gtabs">' + gs.map(function (g, k) { var m = /^(\S+)\s+(.*)$/.exec(g.name) || [0, "🎮", g.name]; return '<button class="chip gt" type="button" data-g="' + k + '" aria-pressed="' + (k === 0) + '"><span class="e" aria-hidden="true">' + m[1] + "</span><small>" + esc(m[2]) + "</small></button>"; }).join("") + "</div>" +
-      '<div class="gq"><div class="game" id="game" aria-live="polite"></div><aside class="gside" id="gside" hidden></aside></div>' + stepNext(u, k("games")) + "</div>";
+    h += KID.panel("games", { body: '<div class="gtabs">' + gs.map(function (g, k) { var m = /^(\S+)\s+(.*)$/.exec(g.name) || [0, "🎮", g.name]; return '<button class="chip gt" type="button" data-g="' + k + '" aria-pressed="' + (k === 0) + '"><span class="e" aria-hidden="true">' + m[1] + "</span><small>" + esc(m[2]) + "</small></button>"; }).join("") + "</div>" +
+      '<div class="gq"><div class="game" id="game" aria-live="polite"></div><aside class="gside" id="gside" hidden></aside></div>' });
     h += speechBlock(u);
     h += '<div class="u-nav">' + (prev ? '<a class="btn" href="#' + prev.id + '">← ' + esc(prev.n) + "</a>" : '<a class="btn" href="#lo-trinh">← Start</a>') +
       (next ? '<a class="btn primary" href="#' + next.id + '">' + esc(next.n) + ": " + esc(next.en) + " →</a>" : (P.next ? '<a class="btn primary" target="_top" href="' + P.next.href + '">' + esc(P.next.label) + " →</a>" : "")) + "</div>";
@@ -224,15 +197,15 @@
   /* ---------- bài hát ----------
      Unit khai báo song:{t, verses:[{ic, cue:[gợi ý EN, gợi ý VI], lines:[câu (có <b>)], vi:"nghĩa"}]}.
      Trong bài chỉ hiện tiếng Anh; nghĩa và gợi ý động tác tiếng Việt nằm ở cẩm nang. */
-  function songBlock(u, st) {
+  function songBlock(u) {
     if (!u.song) return "";
     var s = u.song;
-    return '<div class="block song" id="song" data-step="song">' + stepHead(st, '<span class="muted">' + esc(s.t) + '</span><button class="btn all" type="button" data-act="all-song" aria-label="Listen to all">🔊 All</button>') +
+    return KID.panel("song", { cls: "song", id: "song", extra: '<span class="muted">' + esc(s.t) + '</span><button class="btn all" type="button" data-act="all-song" aria-label="Listen to all">🔊 All</button>', body:
       '<div class="verses">' +
       s.verses.map(function (v, k) {
         return '<button class="verse c-' + NOTE_C[k % NOTE_C.length] + '" type="button" data-verse="' + k + '"><span class="v-art" aria-hidden="true">' + v.ic + '</span><span class="v-lines">' +
           v.lines.map(function (l) { return '<span class="v-line">' + l + "</span>"; }).join("") + vi(v.vi) + "</span>" + cueTag(v.cue && v.cue[0]) + "</button>";
-      }).join("") + "</div></div>";
+      }).join("") + "</div>" });
   }
   /* đọc lần lượt các dòng của bài hát, tô sáng dòng đang đọc */
   function singLines(els) {
@@ -420,14 +393,12 @@
       return;
     }
     var gt = t.closest(".gtabs .chip"); if (gt) { startGame(+gt.getAttribute("data-g")); gameIntro(); return; }
-    var sg = t.closest("[data-step-go]");
-    if (sg) { var from = sg.getAttribute("data-from"); if (from) markStep(from); showStep(sg.getAttribute("data-step-go"), true); return; }
-    var nu = t.closest("a.go-next[data-from]"); if (nu) markStep(nu.getAttribute("data-from"));
+    if (t.closest("[data-step-go],a.go-next,[data-ksay]")) return; /* nút bước: assets/steps.js */
     var vs = t.closest(".verse"); if (vs) { singLines($$(".v-line", vs)); return; }
     var card = t.closest(".card");
     if (card) {
       card.classList.add("heard");
-      if (!$$(".card:not(.heard)").length && !doneOf(cur).words) { markStep("words"); setTimeout(function () { burst(card); chime(true); }, 700); }
+      if (!$$(".card:not(.heard)").length && !KID.done().words) { markStep("words"); setTimeout(function () { burst(card); chime(true); }, 700); }
       var w = cur.words[+card.getAttribute("data-w")]; card.classList.add("on", "zoom"); speak(w[1].replace(/ \/ /g, ", "), { onend: function () { card.classList.remove("on"); } }); setTimeout(function () { card.classList.remove("zoom"); }, 450); return; }
     var bb = t.closest(".bb"); if (bb) { var x = cur.talk[+bb.getAttribute("data-t")]; speak(x[0], { voice: x[2] || 0 }); return; }
     var fc = t.closest(".fcard");
@@ -507,10 +478,10 @@
   var cueTag = function (c) { return c ? '<span class="sp-cue">' + esc(c) + "</span>" : ""; };
   function speechBlock(u) {
     if (!u.speech) return "";
-    var S = segs(u), L = spList(u), s = spCur(u), ST = stepsOf(u), sk = ST.length - 1;
+    var S = segs(u), L = spList(u), s = spCur(u);
     var modes = [["listen", "👂", "Listen", "Listen and look"], ["repeat", "🦜", "Say after me", "Listen and say it"],
       ["self", "🙈", "By myself", "Look at the pictures"], ["stage", "🌟", "On stage!", "Speak to the class"]];
-    return '<div class="block speech' + (STEP === "speech" ? " on" : "") + '" id="speech" data-step="speech">' + stepHead(ST[sk], '<span class="muted">' + esc(s.t) + "</span>") +
+    return KID.panel("speech", { cls: "speech", id: "speech", extra: '<span class="muted">' + esc(s.t) + "</span>", body:
       (L.length > 1 ? '<div class="sp-pick" role="group" aria-label="Choose a speech">' + L.map(function (x, k) {
         return '<button class="chip" type="button" data-sp="pick" data-k="' + k + '" aria-pressed="' + (x === s) + '">🎤 ' + esc(x.t) + "</button>"; }).join("") + "</div>" : "") +
       '<p class="muted">Speak loud. Look at your friends. Smile! 😊</p>' +
@@ -520,7 +491,7 @@
       '<div class="sp-paper" id="spPaper">' + S.map(function (g, k) {
         return '<button class="sp-note c-' + NOTE_C[k % NOTE_C.length] + (g.wide ? " wide" : "") + '" type="button" data-sp-s="' + k + '"><span class="sp-art" aria-hidden="true">' + g.ic + "</span>" +
           '<span class="sp-body"><span class="sp-txt">' + g.html + "</span>" + vi(g.vi) + cueTag(g.cue) + '<span class="sp-turn" aria-hidden="true">🎤 Your turn!<i></i></span></span></button>';
-      }).join("") + "</div>" + stepNext(u, sk) + "</div>";
+      }).join("") + "</div>" });
   }
   function later(fn, ms) { SP.timers.push(setTimeout(fn, ms)); }
   function spStatus(t) { var s = $("#spStatus"); if (s) s.textContent = t || ""; }

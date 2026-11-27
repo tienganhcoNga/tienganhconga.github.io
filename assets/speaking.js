@@ -282,12 +282,12 @@
   function bank(r) {
     var total = 0; r.units.forEach(function (id) { if (D.units[id]) total += D.units[id].w.length; });
     if (wbParse()) total = bankData(r).n;
-    return '<details class="block sk-bank" id="wbank"><summary class="b-head"><h3>📚 Word bank' + vi("Kho từ", true) + '</h3><span class="muted">' + total + " words · " + esc(r.span) + "</span></summary>" +
+    return { cls: "sk-bank", id: "wbank", extra: '<span class="muted">📚 ' + total + " words</span>", body:
       (WB ? '<div class="wb-views" role="group" aria-label="View">' +
         '<button class="chip" type="button" data-wb="view" data-v="topic" aria-pressed="' + (BK.view !== "unit") + '">🗂️ Topics' + vi("Theo chủ đề", true) + "</button>" +
         '<button class="chip" type="button" data-wb="view" data-v="unit" aria-pressed="' + (BK.view === "unit") + '">📘 Units' + vi("Theo Unit", true) + "</button></div>" : "") +
       '<p class="muted sk-hint">Tap a word to hear it. Use these words in your talk!</p><div id="wbBody">' + bankInner(r) + "</div>" +
-      '<div class="wb-game" id="wbGame" hidden></div></details>';
+      '<div class="wb-game" id="wbGame" hidden></div>' };
   }
   function bankRefresh() {
     var el = $("#wbBody"); if (!el || !cur.r) return;
@@ -302,7 +302,7 @@
     box.hidden = false;
     box.innerHTML = '<div class="wb-gh"><span class="e" aria-hidden="true">' + t.ic + "</span><h4>🎮 " + esc(t.en) + vi(t.vi, true) + '</h4><button class="btn" type="button" data-wb="gclose">✕</button></div>' +
       '<div class="sk-gtabs wb-gtabs">' + GAMES.filter(function (g) { return g[0] !== "fill"; }).map(function (g) {
-        return '<button class="chip" type="button" data-g="start" data-wbp="1" data-gt="' + g[0] + '" aria-pressed="false">' + g[1] + " " + g[2] + "</button>";
+        return '<button class="chip gt" type="button" data-g="start" data-wbp="1" data-gt="' + g[0] + '" aria-pressed="false"><span class="e" aria-hidden="true">' + g[1] + "</span><small>" + g[2] + "</small></button>";
       }).join("") + '</div><div class="sk-gbox" id="wbGameBox"></div>';
     var tc = $("#wb-" + id); if (tc) tc.insertAdjacentElement("afterend", box);
     gameStart("listen", true);
@@ -395,7 +395,7 @@
 
   function taskView(r, ti) {
     var t = r.tasks[ti], T = TYPES[t.type], L = lines(t), pi = prevTi(r, ti), ni = nextTi(r, ti);
-    return '<div class="block sk-task type-' + t.type + '" id="task">' +
+    return '<div class="sk-task type-' + t.type + '" id="task">' +
       '<div class="sk-th"><span class="sk-tic" aria-hidden="true">' + (t.ic || T.ic) + '</span><div><div class="sk-tt">' + T.ic + " " + T.en + vi(T.vi, true) + (t.badge ? ' <span class="sk-badge">' + esc(t.badge) + "</span>" : "") + "</div><h3>" + fill(t.title) + "</h3>" +
       '<div class="sk-use">Words from: ' + usedUnits(r, t).map(function (id) { return '<span class="' + (r.fresh.indexOf(id) >= 0 ? "new" : "") + '">' + esc(unitLabel(id)) + "</span>"; }).join("") + "</div></div></div>" +
       levelBar(r, ti) + modeBtns(t) +
@@ -407,70 +407,48 @@
   }
 
   /* ---------- con đường các bước cho bé tự dùng: 👂 Listen → 🎮 Play → 🗣️ Talk → 🏠 Home ----------
-     Mỗi lần chỉ hiện một bước (data-step), vào bước nào máy đọc lời hướng dẫn, cuối bước có nút ▶ to, xong bước được ⭐ (localStorage). */
-  var STEP = null, STEPS = [], DONE_KEY = "lophoc.sk.steps." + (D.pageName || location.pathname);
+     Thanh các bước, khung mỗi bước, nút ▶ và ⭐ dùng chung với các trang khác: assets/steps.js (KID). */
+  var KID = window.KID, STEP = null;
   var STEP_INFO = {
-    words: ["👂", "Listen", "Tap a card and listen!", "Bấm vào thẻ để nghe"],
-    games: ["🎮", "Play", "Let's play a game!", "Cùng chơi nào"],
-    talk: ["🗣️", "Talk", "Let's talk! Listen first, then say it.", "Cùng nói nào: nghe mẫu trước rồi nói theo"],
-    home: ["🏠", "Home", "Homework time! Choose your unit and play.", "Bài tập về nhà: chọn Unit rồi chơi"]
+    words: { k: "words", ic: "👂", t: "Listen", say: "Tap a card and listen!", vi: "Bấm vào thẻ để nghe" },
+    games: { k: "games", ic: "🎮", t: "Play", say: "Let's play a game!", vi: "Cùng chơi nào" },
+    talk: { k: "talk", ic: "🗣️", t: "Talk", say: "Let's talk! Listen first, then say it.", vi: "Cùng nói nào: nghe mẫu trước rồi nói theo" },
+    home: { k: "home", ic: "🏠", t: "Home", say: "Homework time! Choose your unit and play.", vi: "Bài tập về nhà: chọn Unit rồi chơi" }
   };
-  function doneOf(r) { try { return JSON.parse(localStorage.getItem(DONE_KEY) || "{}")[r.id] || {}; } catch (e) { return {}; } }
-  function markStep(key) {
-    if (!cur.r) return;
-    try { var all = JSON.parse(localStorage.getItem(DONE_KEY) || "{}"); all[cur.r.id] = all[cur.r.id] || {}; all[cur.r.id][key] = 1; localStorage.setItem(DONE_KEY, JSON.stringify(all)); } catch (e) {}
-    var b = $('.stp[data-step-go="' + key + '"]'); if (b) b.classList.add("done");
-  }
-  function stepWrap(key, html, r) {
-    if (!html) return "";
-    var I = STEP_INFO[key], k = STEPS.indexOf(key), n = STEPS[k + 1], idx = D.reviews.indexOf(r), nr = D.reviews[idx + 1];
-    var nx = n ? '<button class="go-next" type="button" data-step-go="' + n + '" data-from="' + key + '" aria-label="Next: ' + STEP_INFO[n][1] + '"><span aria-hidden="true">' + STEP_INFO[n][0] + "</span> ▶</button>"
-      : nr ? '<a class="go-next" href="#' + nr.id + '" data-from="' + key + '" aria-label="Next: ' + esc(nr.n) + '"><span aria-hidden="true">🏆 ' + nr.ic + "</span> ▶</a>" : "";
-    return '<section class="kstep" data-step="' + key + '"><p class="kstep-say"><button class="say" type="button" data-say="' + esc(I[2]) + '" aria-label="' + esc(I[2]) + '">🔊</button> ' + esc(I[2]) + vi(I[3], true) + "</p>" +
-      html + (nx ? '<div class="step-next">' + nx + "</div>" : "") + "</section>";
-  }
-  function stepBar(r) {
-    var d = doneOf(r);
-    return '<nav class="steps" aria-label="Steps">' + STEPS.map(function (key, k) {
-      var I = STEP_INFO[key];
-      return '<button class="stp' + (d[key] ? " done" : "") + '" type="button" data-step-go="' + key + '" aria-current="' + (key === STEP) + '"><span class="e" aria-hidden="true">' + I[0] + "</span><b>" + I[1] + '</b><i class="star" aria-hidden="true">⭐</i></button>';
-    }).join('<span class="stp-line" aria-hidden="true"></span>') + "</nav>";
-  }
-  function showStep(key, talk) {
-    if (STEPS.indexOf(key) < 0) key = STEPS[0];
-    if (!key) return;
-    STEP = key; stop(); if (hasSpeech) speechSynthesis.cancel(); AW++;
-    $$("#view [data-step]").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-step") === STEP); });
-    $$(".stp").forEach(function (b) { b.setAttribute("aria-current", String(b.getAttribute("data-step-go") === STEP)); });
-    if (talk) {
-      var bar = $(".steps"); if (bar && bar.getBoundingClientRect().top < 0) bar.scrollIntoView({ block: "start" });
-      speak(STEP_INFO[STEP][2]);
-    }
+  KID.setup({ store: "lophoc.sk.steps." + (D.pageName || location.pathname), id: function () { return cur.r && cur.r.id; }, say: function (t) { speak(t); },
+    stop: function () { stop(); if (hasSpeech) speechSynthesis.cancel(); AW++; },
+    talk: function (st) { STEP = st.k; speak(st.say); } });
+  function markStep(key) { KID.mark(key); }
+  function showStep(key, talk) { KID.show(key, talk); STEP = KID.cur(); }
+  /* bài liền trước / liền sau trong chuỗi bài của bé: bỏ qua bài teach:true (vd. 📒 Words I know, chỉ cô và ba mẹ mở) */
+  function kidSib(r, dir) {
+    for (var i = D.reviews.indexOf(r) + dir; i >= 0 && i < D.reviews.length; i += dir) if (!D.reviews[i].teach) return D.reviews[i];
+    return null;
   }
   function reviewView(r) {
-    var idx = D.reviews.indexOf(r);
+    var pr = kidSib(r, -1), nr = kidSib(r, 1);
     var parts = {
       words: D.cards && !r.noCards && hasEx(r) ? cardsBlock(r) : bank(r),
-      games: D.games && !r.noGames ? gamesBlock(r) : "",
-      talk: r.tasks.length ? "x" : "",
-      home: HW ? HW.block(r) : ""
+      games: D.games && !r.noGames ? gamesBlock(r) : null,
+      talk: r.tasks.length ? { cls: "sk-talk", body: "" } : null,
+      home: HW ? HW.parts(r) : null
     };
-    STEPS = ["words", "games", "talk", "home"].filter(function (k) { return parts[k]; });
-    if (STEPS.indexOf(STEP) < 0) STEP = STEPS[0];
+    STEP = KID.use(["words", "games", "talk", "home"].filter(function (k) { return parts[k]; }).map(function (k) { return STEP_INFO[k]; }), STEP,
+      nr ? { href: "#" + nr.id, ic: nr.ic, label: "Next: " + nr.n } : null);
     return '<div class="u-head"><span class="u-ic" aria-hidden="true">' + r.ic + '</span><div><div class="u-n">' + esc(r.n) + " · " + esc(r.span) + "</div><h2>" + esc(r.title) + "</h2>" + vi(r.when) + "</div></div>" +
       '<div class="sk-map" aria-label="Units">' + r.units.map(function (id) { var u = D.units[id]; return '<span class="' + (r.fresh.indexOf(id) >= 0 ? "new" : "") + '" title="' + esc(u.n + ": " + u.en) + '">' + u.ic + "</span>"; }).join("") + "</div>" +
-      (STEPS.length > 1 ? stepBar(r) : "") +
-      stepWrap("words", parts.words, r) + stepWrap("games", parts.games, r) +
+      KID.bar() +
+      KID.panel("words", parts.words) + KID.panel("games", parts.games) +
       /* mục chỉ có từ và trò chơi (tasks rỗng) thì không có phần bài nói */
-      stepWrap("talk", r.tasks.length ? '<div class="sk-tabs" role="tablist">' + r.tasks.map(function (t, k) {
+      KID.panel("talk", r.tasks.length ? { cls: "sk-talk", body: '<div class="sk-tabs" role="tablist">' + r.tasks.map(function (t, k) {
         var T = TYPES[t.type];
         if (k > 0 && sameGroup(r, k - 1, k)) return ""; /* nhóm Level: chỉ một tab */
         return '<button class="sk-tab" type="button" role="tab" data-ti="' + k + '" aria-selected="' + sameGroup(r, k, cur.ti) + '"><span class="e" aria-hidden="true">' + T.ic + "</span><b>" + esc(T.en) + "</b>" + vi(T.vi) + "<small>" + (t.badge ? esc(t.badge) + " · " : "") + fill(t.title) + "</small></button>";
       }).join("") + "</div>" +
-      '<div id="taskBox">' + taskView(r, cur.ti) + "</div>" : "", r) +
-      stepWrap("home", parts.home, r) +
-      '<div class="u-nav">' + (idx > 0 ? '<a class="btn" href="#' + D.reviews[idx - 1].id + '">← ' + esc(D.reviews[idx - 1].n) + "</a>" : '<a class="btn" href="#lo-trinh">← 🗺️</a>') +
-      (idx < D.reviews.length - 1 ? '<a class="btn primary" href="#' + D.reviews[idx + 1].id + '">' + esc(D.reviews[idx + 1].n) + " →</a>" : "") + "</div>";
+      '<div id="taskBox">' + taskView(r, cur.ti) + "</div>" } : null) +
+      KID.panel("home", parts.home) +
+      '<div class="u-nav">' + (pr ? '<a class="btn" href="#' + pr.id + '">← ' + esc(pr.n) + "</a>" : '<a class="btn" href="#lo-trinh">← 🗺️</a>') +
+      (nr ? '<a class="btn primary" href="#' + nr.id + '">' + esc(nr.n) + " →</a>" : "") + "</div>";
   }
 
   /* ---------- cẩm nang cho cô và ba mẹ (khóa PIN): gợi ý dạy và nghĩa tiếng Việt từng câu ---------- */
@@ -680,12 +658,11 @@
   function hasEx(r) { return poolOf(r).some(function (x) { return x.ex; }); }
   function cardsBlock(r) {
     var P = poolOf(r);
-    return '<div class="block sk-words" id="words"><div class="b-head"><h3>📚 Words' + vi("Từ vựng", true) + '</h3><span class="muted">' + P.length + ' words · Tap a card to listen</span>' +
-      '<button class="btn" type="button" data-g="allwords">▶ Play all</button></div><div class="sk-wcards">' +
+    return { cls: "sk-words", id: "words", extra: '<button class="btn all" type="button" data-g="allwords" aria-label="Listen to all">🔊 All</button>', body: '<div class="sk-wcards">' +
       P.map(function (x, k) {
         return '<button class="sk-wc" type="button" data-card="' + k + '"><span class="sk-wic" aria-hidden="true">' + icon(x.ic) + '</span><span class="sk-ww">' + esc(x.w) + "</span>" + vi(x.vi) +
           (x.ex ? '<span class="sk-wex">' + fill(x.ex) + "</span>" + vi(x.exVi) : "") + "</button>";
-      }).join("") + "</div></div>";
+      }).join("") + "</div>" };
   }
   function sayCard(x, el, then) {
     if (el) { $$(".sk-wc").forEach(function (c) { c.classList.remove("on"); }); el.classList.add("on"); }
@@ -706,10 +683,9 @@
   function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function gamesBlock(r) {
     var P = poolOf(r), ex = P.some(function (x) { return x.ex; });
-    return '<div class="block sk-games" id="games"><div class="b-head"><h3>🎮 Games' + vi("Trò chơi", true) + '</h3><span class="muted">Play with the words</span></div>' +
-      '<div class="sk-gtabs">' + GAMES.filter(function (g) { return g[0] !== "fill" || ex; }).map(function (g) {
-        return '<button class="chip" type="button" data-g="start" data-gt="' + g[0] + '" aria-pressed="false">' + g[1] + " " + g[2] + "</button>";
-      }).join("") + '</div><div class="sk-gbox" id="gameBox"><p class="muted sk-gstart">Choose a game! 👆</p></div></div>';
+    return { cls: "sk-games", id: "games", body: '<div class="sk-gtabs">' + GAMES.filter(function (g) { return g[0] !== "fill" || ex; }).map(function (g) {
+        return '<button class="chip gt" type="button" data-g="start" data-gt="' + g[0] + '" aria-pressed="false"><span class="e" aria-hidden="true">' + g[1] + "</span><small>" + g[2] + "</small></button>";
+      }).join("") + '</div><div class="sk-gbox" id="gameBox"><p class="muted sk-gstart">Choose a game! 👆</p></div>' };
   }
   function options(item, n, key) {
     /* lựa chọn sai: khác từ, khác hình (để không có hai đáp án giống nhau) */
@@ -831,9 +807,7 @@
 
   /* ---------- sự kiện ---------- */
   document.addEventListener("click", function (e) {
-    var sg = e.target.closest("[data-step-go]");
-    if (sg) { var from = sg.getAttribute("data-from"); if (from) markStep(from); showStep(sg.getAttribute("data-step-go"), true); return; }
-    var nx = e.target.closest("a.go-next[data-from]"); if (nx) markStep(nx.getAttribute("data-from"));
+    if (e.target.closest("[data-step-go],a.go-next,[data-ksay]")) return; /* nút bước: assets/steps.js */
     var b = e.target.closest("[data-sk]");
     var sayB = e.target.closest("[data-say]");
     if (sayB && !b) { speak(sayB.getAttribute("data-say")); sayB.classList.add("on"); setTimeout(function () { sayB.classList.remove("on"); }, 900); return; }

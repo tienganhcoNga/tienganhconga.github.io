@@ -333,31 +333,9 @@ html.sk-lock,html.sk-lock body{overflow:hidden}
 /* Song ngữ: tiếng Việt cho phụ huynh, chỉ hiện khi bật nút 🇻🇳 Song ngữ (assets/bilingual.js) */
 .vi-t{display:none}
 
-/* ---------- Cho bé tự dùng: con đường các bước 👂 Listen → 🎮 Play → 🗣️ Talk → 🏠 Home (mỗi lần một bước) ---------- */
-.steps{display:flex;align-items:center;margin:6px 0 18px;overflow-x:auto;padding:12px 4px 10px;scrollbar-width:none}
-.steps::-webkit-scrollbar{display:none}
-.stp{position:relative;flex:none;display:flex;flex-direction:column;align-items:center;gap:2px;width:84px;padding:8px 4px;border:3px solid var(--line);background:var(--surface);border-radius:22px;cursor:pointer;font:inherit;color:var(--ink);box-shadow:0 4px 0 var(--line)}
-.stp .e{font-size:2.2rem;line-height:1.1}
-.stp b{font-family:var(--f-display);font-size:.95rem}
-.stp .vi-t{white-space:nowrap;font-size:.68rem}
-.stp[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 4px 0 var(--accent);transform:translateY(-2px)}
-.stp .star{position:absolute;top:-12px;right:-8px;font-style:normal;font-size:1.35rem;display:none}
-.stp.done .star{display:block}
-.stp-line{flex:1 1 14px;min-width:10px;border-top:4px dotted var(--line)}
-#view [data-step]{display:none}
-#view [data-step].on{display:block}
-.kstep-say{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 12px;font-family:var(--f-display);font-weight:700;font-size:1.15rem;color:var(--ink)}
-.kstep-say .say{width:46px;height:46px;font-size:1.3rem}
-.kstep-say .vi-t{flex-basis:100%;font-family:var(--f-body,inherit);font-weight:500;font-size:.85rem;color:var(--muted)}
-.step-next{display:flex;justify-content:center;margin:22px 0 6px}
-.go-next{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:800;font-size:1.8rem;padding:10px 36px;border-radius:999px;border:0;background:var(--accent);color:#fff;cursor:pointer;text-decoration:none;box-shadow:0 5px 0 rgba(0,0,0,.2);animation:goNudge 1.8s ease-in-out infinite}
-.go-next span{font-size:2.1rem;line-height:1}
-@keyframes goNudge{50%{transform:translateX(7px)}}
+/* ---------- Cho bé tự dùng (thanh các bước dùng chung nằm trong course.css) ---------- */
 .sk-prog{display:inline-flex;gap:5px;align-items:center;flex-wrap:wrap}
 .sk-prog i{width:12px;height:12px;border-radius:50%;border:2px solid var(--line);background:var(--surface)}
 .sk-prog i.d{background:var(--gold,#E8B931);border-color:var(--gold,#E8B931)}
 .sk-prog i.c{border-color:var(--accent);background:var(--accent-soft);transform:scale(1.3)}
 .sk-opt.bad{border-color:#F4A259;background:#FFE9D2}
-.sk-gtabs .chip{font-size:1.05rem;padding:8px 14px;min-height:46px}
-@media (max-width:560px){ .stp{width:66px;padding:6px 2px;border-radius:16px} .stp .e{font-size:1.8rem} .stp b{font-size:.8rem} .stp-line{min-width:6px} .go-next{font-size:1.5rem;padding:10px 30px} }
-@media (prefers-reduced-motion: reduce){ .go-next{animation:none} .stp[aria-current="true"]{transform:none} }

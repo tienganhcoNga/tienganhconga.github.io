@@ -8,7 +8,8 @@ lop-hoc/
 ├── .nojekyll               ← File rỗng, giữ nguyên (để GitHub không xử lý lại file)
 ├── assets/
 │   ├── pin.js              ← Khóa phần Đáp án bằng mã PIN (đổi mã PIN ở đây)
-│   ├── course.js / course.css       ← Phần chạy chung cho trang "Ôn 10 chủ đề" lớp 1
+│   ├── course.js / course.css       ← course.css: màu, chữ, khung .block, nút, thẻ dùng chung cho mọi trang bài học (kể cả thanh các bước và ô chọn trò chơi). course.js: trang "Ôn 10 chủ đề" lớp 1
+│   ├── steps.js            ← Con đường các bước cho bé tự dùng, MỘT bộ cho mọi trang (Mầm non, Ôn tập nói, Giáo án lớp 1, Từ vựng lớp 4): thanh bước ⭐, khung mỗi bước (icon, tên, 🔊, lời hướng dẫn, nút phụ), nút ▶ to sang bước sau, 🏆 ▶ sang bài sau. Trang chỉ khai báo các bước rồi gọi KID.use / KID.bar / KID.panel; cách dùng ghi ở đầu file. Phải nạp trước preschool.js / speaking.js / script của units-lop-4.html
 │   ├── preschool.js / preschool.css ← Phần chạy chung cho lộ trình mẫu giáo (thẻ hình, hội thoại, trò chơi, cẩm nang). Mỗi Unit là con đường cho bé 4–6 tuổi tự đi: 👂 Listen → 🗣️ Say → 🎵 Sing (nếu có) → 🎮 Play → 🎤 Speak, mỗi lần hiện một bước (`data-step`), máy đọc lời hướng dẫn, nút ▶ to sang bước sau, xong bước được ⭐ (localStorage `lophoc.mg.steps`); trò chơi không ghi điểm số, câu sai hiện 🔁 màu cam. Trang nào có `book:{title,note,rows}` thì Lộ trình hiện bảng đối chiếu với sách học trên lớp
 │   ├── pos-art.js          ← Hình vị trí dùng chung cho Mầm non: POS('in' | 'on' | 'under' | 'next to' | 'behind' | 'in front of' | 'table')
 │   ├── bilingual.js        ← Nút 🇻🇳 Song ngữ cho phụ huynh (Mầm non, Lớp 1, Lớp 4: Từ vựng và Ôn tập nói): mặc định chỉ tiếng Anh; bật lên thì hiện các <span class="vi-t"> (nghĩa tiếng Việt). Nút nằm trên thanh chọn bài (kidnav.js), nạp trước kidnav.js; preschool.js và speaking.js tự ghi nghĩa từ, câu, tiêu đề
