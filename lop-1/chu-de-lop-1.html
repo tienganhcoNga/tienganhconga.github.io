@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="vi" data-grade="lop-1">
+<html lang="en" data-grade="lop-1">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ôn 10 chủ đề lớp 1</title>
+<title>Grade 1 · 10 Topics</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
@@ -13,21 +13,27 @@
 <body>
 <div class="wrap">
   <header class="hero">
-    <div class="eyebrow">Lớp 1 · Tiếng Anh</div>
+    <div class="eyebrow">Grade 1 · English</div>
     <h1 id="cTitle"></h1>
     <p class="lead" id="cSub"></p>
     <p class="note" id="cNote"></p>
   </header>
 </div>
-<nav class="nav" aria-label="Các bài"><div class="wrap" id="units"><a class="home" href="../index.html">← Trang chủ</a></div></nav>
+<nav class="nav" aria-label="Units"><div class="wrap" id="units"><a class="home" href="../index.html">← Trang chủ</a></div></nav>
 <main class="wrap" id="unit"></main>
-<div class="wrap"><footer><a href="../index.html">← Về trang chủ</a></footer></div>
+<section class="wrap" id="answers" lang="vi" style="padding-block:8px 0">
+  <div class="block"><div class="b-head"><h3>Đáp án · Nghĩa tiếng Việt</h3><span class="muted">Dành cho giáo viên và phụ huynh</span></div>
+  <div id="answerBox"></div></div>
+</section>
+<div class="wrap"><footer><a href="../index.html">← Trang chủ</a></footer></div>
 
 <script>
+/* Lesson screens are English only. The Vietnamese (vi, words[i][2], patterns[i][1]) is shown only in the
+   PIN-locked "Đáp án" box at the bottom, for parents. */
 window.COURSE={
- title:'Ôn <span>10 chủ đề</span>',
- sub:'Mỗi bài có từ vựng kèm hình và giọng đọc, mẫu câu, âm của bài và 3 trò chơi: nghe và chọn hình, đọc chữ chọn hình, nhìn hình chọn chữ.',
- note:'Bài ôn do cô soạn, dùng kèm sách học trên lớp.',
+ title:'Review <span>10 topics</span>',
+ sub:'Words, sentences, sounds and games. Tap to listen!',
+ parentNote:'Bài ôn do cô soạn, dùng kèm sách học trên lớp. Trên màn hình bài học chỉ có tiếng Anh để con không bị lẫn; bố mẹ xem nghĩa tiếng Việt ở đây. Bấm vào từng bài để mở.',
  reading:true,
  units:[
  {id:'u0',n:'Starter',en:'Back to school',vi:'Trở lại trường · đồ vật trong lớp',ic:'🏫',
