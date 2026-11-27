@@ -97,7 +97,7 @@ html.bi .btn.primary .vi-t{color:inherit;opacity:.9}
 <div class="wrap"><footer><a href="../index.html">← Trang chủ</a></footer></div>
 
 <script src="../assets/pin.js?v=20261127e"></script>
-<script src="../assets/bilingual.js?v=20261127vi18"></script>
+<script src="../assets/bilingual.js?v=20261127vi19"></script>
 <script src="../assets/voice.js?v=20261127stop"></script>
 <script>
 (function(){
@@ -333,8 +333,9 @@ document.addEventListener('click',e=>{
   const s=e.target.closest('[data-say]');if(s){speak(s.getAttribute('data-say'));return;}
   const o=e.target.closest('#qArea .opt');if(o){pick(+o.getAttribute('data-k'));return;}
   const a=e.target.closest('[data-act]');if(!a)return;
-  if(a.dataset.act==='next'){S.i++;show();const t=$('#qArea');t&&t.scrollIntoView({block:'nearest',behavior:'smooth'});}
-  else if(a.dataset.act==='again')start(S.p);
+  /* bé lớp 1 chưa đọc trôi: sang câu mới máy tự đọc câu hỏi và các đáp án */
+  if(a.dataset.act==='next'){S.i++;show();const t=$('#qArea');t&&t.scrollIntoView({block:'nearest',behavior:'smooth'});if(S.i<S.qs.length)speak(readQ(S.qs[S.i]));}
+  else if(a.dataset.act==='again'){start(S.p);if(S.qs&&S.qs.length)speak(readQ(S.qs[0]));}
 });
 window.addEventListener('hashchange',route);
 route();
