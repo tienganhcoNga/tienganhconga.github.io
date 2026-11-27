@@ -12,6 +12,10 @@ lop-hoc/
 │   ├── steps.js            ← Con đường các bước cho bé tự dùng, MỘT bộ cho mọi trang (Mầm non, Ôn tập nói, Giáo án lớp 1, Từ vựng lớp 4): thanh bước ⭐, khung mỗi bước (icon, tên, 🔊, lời hướng dẫn, nút phụ), nút ▶ to sang bước sau, 🏆 ▶ sang bài sau. Trang chỉ khai báo các bước rồi gọi KID.use / KID.bar / KID.panel; cách dùng ghi ở đầu file. Phải nạp trước preschool.js / speaking.js / script của units-lop-4.html
 │   ├── preschool.js / preschool.css ← Phần chạy chung cho lộ trình mẫu giáo (thẻ hình, hội thoại, trò chơi, cẩm nang). Mỗi Unit là con đường cho bé 4–6 tuổi tự đi: 👂 Listen → 🗣️ Say → 🎵 Sing (nếu có) → 🎮 Play → 🎤 Speak, mỗi lần hiện một bước (`data-step`), máy đọc lời hướng dẫn, nút ▶ to sang bước sau, xong bước được ⭐ (localStorage `lophoc.mg.steps`); trò chơi không ghi điểm số, câu sai hiện 🔁 màu cam. Trang nào có `book:{title,note,rows}` thì Lộ trình hiện bảng đối chiếu với sách học trên lớp
 │   ├── pos-art.js          ← Hình vị trí dùng chung cho Mầm non: POS('in' | 'on' | 'under' | 'next to' | 'behind' | 'in front of' | 'table')
+│   ├── vocab.js            ← 📚 Kho từ vựng dùng chung (LopHocVocab): mỗi khối lớp MỘT file trong assets/vocab/, các trang chỉ trỏ tới Unit, không chép từ. Cách dùng ghi ở đầu file
+│   ├── vocab/mau-giao.js   ← TỪ VỰNG MẦM NON (26 Unit a1–a8, b1–b8, c1–c10). Sửa từ ở đây là trang Giai đoạn 1–3, Ôn tập nói Mầm non và 📒 Words I know của Giáo án lớp 1 cùng đổi
+│   ├── vocab/lop-1.js      ← TỪ VỰNG LỚP 1 (g1–g16, Math, Science, truyện, chủ đề thêm). Sửa ở đây là Giáo án lớp 1 và Ôn tập nói lớp 1 (Word bank, Bài tập về nhà) cùng đổi
+│   ├── img/                ← Hình vẽ tay (SVG) cho từ không có emoji phù hợp; trong kho từ ghi hình là "i:ten-file.svg"
 │   ├── bilingual.js        ← Nút 🇻🇳 Song ngữ cho phụ huynh (Mầm non, Lớp 1, Lớp 4: Từ vựng và Ôn tập nói): mặc định chỉ tiếng Anh; bật lên thì hiện các <span class="vi-t"> (nghĩa tiếng Việt). Nút nằm trên thanh chọn bài (kidnav.js), nạp trước kidnav.js; preschool.js và speaking.js tự ghi nghĩa từ, câu, tiêu đề
 │   ├── vi-dict.js          ← Từ điển Song ngữ (bilingual.js tự nạp): bật Song ngữ thì mọi chữ tiếng Anh trên trang có trong từ điển (nút, tên bài, câu hỏi, lời bài hát, lời nhắc trong trò chơi…) tự hiện thêm nghĩa. Cặp Anh–Việt có sẵn trong dữ liệu trang cũng tự được dùng. Thêm bài mới: mở trang với ?vimiss (vd. on-tap-noi.html?vimiss#r1) để xem chữ còn thiếu nghĩa, rồi thêm vào phần dict
 │   ├── speaking.js / speaking.css   ← Phần chạy chung cho các trang "Ôn tập nói" và "Giáo án lớp 1". Mỗi bài là con đường các bước cho bé tự đi: 👂 Listen (thẻ từ / Word bank) → 🎮 Play (nếu có trò chơi) → 🗣️ Talk (bài nói) → 🏠 Home (bài tập về nhà), mỗi lần hiện một bước (`data-step`), máy đọc lời hướng dẫn, nút ▶ to sang bước sau, xong bước được ⭐; `#hw-<unit>` mở thẳng bước 🏠 Home
@@ -19,7 +23,7 @@ lop-hoc/
 ├── lop-1/
 │   ├── giao-an-lop-1.html  ← Giáo án lớp 1: 16 Unit giao tiếp theo chủ đề sách trên lớp (mỗi Unit một chữ cái, 2 bài nói), Math / Science (tiếng Anh cho Toán – Khoa học), Story Time (5 truyện cổ tích), 8 bài nói về con vật (Easy / Challenge). Đã lọc bỏ mẫu câu vượt lớp 1. Menu Lớp 1 chỉ còn: Giáo án, Ôn tập nói, Bài tập về nhà (theo 16 Unit, mở vào cuối các bài Ôn tập nói)
 │   ├── unit-lop-1.html     ← (đã bỏ khỏi menu, nội dung gom vào Giáo án) Units lớp 1: Starter + 9 Unit (mỗi Unit 4 Lesson: từ → mở rộng mẫu câu → truyện + Value → liên môn; Phonics & Chant; Games) + 4 Review; #lo-trinh = lộ trình và nghĩa tiếng Việt cho cô và phụ huynh. Phần chạy ở assets/units.js
-│   ├── on-tap-noi.html     ← Ôn tập nói lớp 1 theo 16 Unit của Giáo án (danh sách từ g1–g16 chép từ Giáo án; thêm từ vào Giáo án thì chép sang đây): sau Unit 3, 5, 7, 9, 11, 13, 15 và Big Show; mỗi lần gom từ của tất cả Unit đã học, 5 kiểu bài nói; thêm tab "Speech": bài thuyết trình dài có tranh vẽ tay (tranh ở assets/speech-art.js, khóa l1_), có 3 Level trong cùng một tab: Level 1 cho bé khoảng 4 tuổi hoặc chưa học tiếng Anh, Level 2 cho bé 5 tuổi, Level 3 bài đầy đủ (các bài cùng `group:'speech'`, ghi `level` và `levelNote`)
+│   ├── on-tap-noi.html     ← Ôn tập nói lớp 1 theo 16 Unit của Giáo án (từ g1–g16 lấy từ assets/vocab/lop-1.js, dùng chung với Giáo án): sau Unit 3, 5, 7, 9, 11, 13, 15 và Big Show; mỗi lần gom từ của tất cả Unit đã học, 5 kiểu bài nói; thêm tab "Speech": bài thuyết trình dài có tranh vẽ tay (tranh ở assets/speech-art.js, khóa l1_), có 3 Level trong cùng một tab: Level 1 cho bé khoảng 4 tuổi hoặc chưa học tiếng Anh, Level 2 cho bé 5 tuổi, Level 3 bài đầy đủ (các bài cùng `group:'speech'`, ghi `level` và `levelNote`)
 │   ├── van-hoa-viet-nam.html ← 🏮 Câu đố Văn hóa Việt Nam: 23 câu chia 4 phần (#country, #nature, #places, #arts) + #festivals (8 thẻ lễ hội và 5 câu) + #big (10 câu ngẫu nhiên). Câu hỏi tiếng Anh, bật Song ngữ hiện câu gốc tiếng Việt; #answers (khóa PIN) có đáp án và bảng lễ hội. Sửa câu hỏi ở PARTS / FESTS đầu file
 │   ├── bai-tap-ve-nha.html ← (đã bỏ) chỉ còn chuyển link cũ sang Bài tập về nhà mới trong on-tap-noi.html (#numbers → Unit 16, #animals → Unit 10)
 │   ├── tieng-anh-lop-1.html ← (đã bỏ khỏi menu, nội dung gom vào Giáo án) Tiếng Anh lớp 1 (About Me, cơ thể, vị trí, bộ phận của cây, đồ dùng học tập, hình khối, đồ vật trong nhà, ôn tập, các phòng, hoạt động phòng tắm – phòng ngủ)
@@ -33,7 +37,7 @@ lop-hoc/
     ├── giai-doan-1.html    ← Lộ trình 3 tháng đầu cho bé mới bắt đầu: 8 Unit, 24 buổi (#lo-trinh, #u1…#u8, #answers = cẩm nang)
     ├── giai-doan-2.html    ← Giai đoạn 2 (tháng 4–6): 8 Unit khó hơn, nhiều hội thoại
     ├── giai-doan-3.html    ← Giai đoạn 3 (tháng 7–10, 10 Unit): vị trí, chỉ đường, to – nhỏ, dài – ngắn, đẹp – xấu, ngon – dở, các vị, nóng – lạnh và thời tiết, bốn mùa; Unit 10 tìm kho báu ôn cả giai đoạn
-    ├── on-tap-noi.html     ← Ôn tập nói: GĐ1 + GĐ2 + GĐ3 tính liền 26 Unit, ôn sau Unit 3, 5, 7, 9, 11, 13, 15, Big Show sau Unit 16, rồi GĐ3 ôn sau Unit 19, 22, 24 và Big Show 2 sau Unit 26 (bản chép từ GĐ3 là c1–c10; hình vị trí dùng POS() từ assets/pos-art.js). Mỗi bài ôn có thêm tab "Speech": bài thuyết trình mẫu có tranh vẽ tay (tranh nằm ở assets/speech-art.js, dùng trong câu bằng DZ.tên_tranh)
+    ├── on-tap-noi.html     ← Ôn tập nói: GĐ1 + GĐ2 + GĐ3 tính liền 26 Unit, ôn sau Unit 3, 5, 7, 9, 11, 13, 15, Big Show sau Unit 16, rồi GĐ3 ôn sau Unit 19, 22, 24 và Big Show 2 sau Unit 26 (từ của 26 Unit lấy từ assets/vocab/mau-giao.js, dùng chung với 3 trang Giai đoạn; hình vị trí "pos:in" vẽ bằng assets/pos-art.js). Mỗi bài ôn có thêm tab "Speech": bài thuyết trình mẫu có tranh vẽ tay (tranh nằm ở assets/speech-art.js, dùng trong câu bằng DZ.tên_tranh)
     └── english-speeches.html ← Bản bài nói cũ (đã bỏ khỏi menu; bài nói nay nằm trong mục 4 "Bé thuyết trình" của từng Unit)
 
 Cả 3 giai đoạn Mầm non có bảng **Đối chiếu với sách học trên lớp** trong 🗺️ Lộ trình (dòng `book:` trên đầu file trang): mỗi Unit của bé nối với Unit/Lesson tương ứng của sách Level 1 và ghi giới từ lồng vào. Giới từ dạy dần: in, on (GĐ1 Unit 2) → under (Unit 3) → ôn cả ba (Unit 8) → behind, next to, in front of (GĐ2 Unit 1, 4, 5) → đủ 6 giới từ và chỉ đường (GĐ3). Trên trang chỉ ghi "sách học trên lớp", không ghi tên sách.
@@ -42,7 +46,7 @@ Bài tập về nhà cho ba mẹ (Mầm non): Lộ trình mỗi giai đoạn có
 
 Mỗi Unit mẫu giáo có mục "4. Bé thuyết trình". Nội dung bài nói nằm ở dòng `speech:{...}` ngay dưới `talk:` của Unit đó: `t` là tên bài, `intro` là câu mở đầu, `lines` là các câu (hình, câu tiếng Anh, nghĩa), `end` là câu kết. Từ nào muốn làm từ khóa (còn hiện khi bé tự nói) thì bọc trong `<b>…</b>`.
 
-Trang "Ôn tập nói" (`on-tap-noi.html`): mỗi bài ôn có 5 bài nói (hội thoại, kể chuyện, thuyết trình, so sánh, tự sự). Dữ liệu nằm trong `reviews:` của file; cách ghi xem ở đầu `assets/speaking.js`. Kho từ (`units:`) chép từ các trang Unit; khi sửa từ ở trang Unit thì sửa cả ở đây. Nhãn "Words from" tự dò từ trong câu, không cần ghi tay. Riêng lớp 4: kho từ nằm ở một chỗ là `assets/lop4-words.js`, dùng chung cho trang Từ vựng và trang Ôn tập nói, nên sửa từ ở đó là cả hai trang cùng đổi.
+Trang "Ôn tập nói" (`on-tap-noi.html`): mỗi bài ôn có 5 bài nói (hội thoại, kể chuyện, thuyết trình, so sánh, tự sự). Dữ liệu nằm trong `reviews:` của file; cách ghi xem ở đầu `assets/speaking.js`. Kho từ (`units:`) KHÔNG chép tay nữa: Mầm non và Lớp 1 lấy từ `assets/vocab/<khối>.js` (ví dụ `units:LopHocVocab.units("lop-1", { only:/^g[0-9]+$/ })`), Lớp 4 lấy từ `assets/lop4-words.js`. Sửa từ ở file kho từ là mọi trang dùng Unit đó cùng đổi. Nhãn "Words from" tự dò từ trong câu, không cần ghi tay.
 
 Không ghi tên sách giáo khoa hay nhà xuất bản lên trang (vì bản quyền). Bài do cô tự soạn theo chủ đề.
 ```
@@ -92,6 +96,17 @@ Xem thử trên máy: mở thẳng từng file bài học bằng trình duyệt.
    - Cách A: vào repo, bấm **Add file → Upload files**, kéo file mới vào (giữ đúng thư mục), bấm **Commit**.
    - Cách B: `git add . && git commit -m "Them bai moi" && git push`
 4. Khoảng 1 phút sau trang tự cập nhật. Nếu chưa thấy thay đổi, nhấn Ctrl + F5.
+
+## Sửa từ vựng và viết giáo án cho khối lớp mới (Lớp 2, 3, 5…)
+
+**Sửa từ của một Unit:** chỉ sửa trong `assets/vocab/<khối>.js` (Mầm non: `mau-giao.js`, Lớp 1: `lop-1.js`). Mọi trang dùng Unit đó tự đổi theo. Sau đó đổi `?v=` của file đó (tìm `vocab/mau-giao.js?v=` hoặc `vocab/lop-1.js?v=` trong các trang) để máy các em lấy bản mới. Trang Giai đoạn Mầm non có trò chơi chọn từ theo số thứ tự (`only:[2,3,…]`), nên thêm từ mới thì thêm vào cuối Unit.
+
+**Mỗi từ ghi:** `["🐶","dog","con chó","I have a <b>dog</b>.","Tớ có một con chó."]` (hình, từ, nghĩa, câu ví dụ, nghĩa câu). Hình: emoji bản 12 trở xuống; không có emoji phù hợp thì vẽ SVG vào `assets/img/` và ghi `"i:ten-file.svg"`.
+
+**Khối lớp mới (ví dụ Lớp 2):**
+1. Tạo `assets/vocab/lop-2.js`: `LopHocVocab.add("lop-2", { u1:{ n:"Unit 1", en:"My school", vi:"Trường của em", ic:"🏫", w:[ … ] }, u2:{…} });`. Muốn ôn lại từ lớp dưới thì không chép: trang Lớp 2 nạp luôn `vocab/lop-1.js` và dùng `LopHocVocab.units("lop-1", { prefix:"p" })`, giống 📒 Words I know của Lớp 1 dùng từ Mầm non.
+2. Tạo thư mục `lop-2/`, chép `lop-1/giao-an-lop-1.html` thành `lop-2/giao-an-lop-2.html`: đổi `data-grade="lop-2"`, tiêu đề, phần `<script src>` kho từ (`vocab.js` rồi `vocab/lop-2.js`), `units:LopHocVocab.units("lop-2")`, và viết `reviews:` (mỗi bài: `id`, `n`, `ic`, `title`, `units:["u1"]`, `fresh:["u1"]`, `tasks:[…]`; cách ghi bài nói ở đầu `assets/speaking.js`). Ôn tập nói thì chép `lop-1/on-tap-noi.html` theo cùng cách.
+3. Thêm khối vào `GRADES` trong `index.html` (`{id:'lop-2', name:'Lớp 2', c:'sky', note:'…', lessons:[…]}`) và một khung giới thiệu cho ba mẹ, rồi thêm dòng vào bản đồ file ở đầu hướng dẫn này.
 
 ## Mã PIN
 
