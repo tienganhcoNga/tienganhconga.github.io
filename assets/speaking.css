@@ -58,6 +58,45 @@
 .sk-chip .ic{font-size:1.35rem;line-height:1.2}
 .sk-chip small{font-weight:500;color:var(--muted);font-size:.78rem;flex-basis:100%;padding-left:2px}
 .sk-chip:hover,.sk-chip.on{border-color:var(--gold);background:var(--gold-soft)}
+/* kho từ theo chủ đề (assets/wordbank.js) */
+.wb-views{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.wb-views .chip[aria-pressed="true"] .vi-t,.wb-legend .chip[aria-pressed="true"] .vi-t{color:inherit;opacity:.9}
+.wb-secs{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;margin:4px 0 10px}
+.wb-sec{font:inherit;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:14px;padding:8px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;line-height:1.15}
+.wb-sec .e{font-size:1.6rem;line-height:1}
+.wb-sec b{font-size:.88rem}
+.wb-sec small{font-size:.76rem;font-weight:700;color:var(--ok)}
+.wb-sec:hover{border-color:var(--accent)}
+.wb-sec[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 3px 0 var(--accent)}
+@media (max-width:520px){
+  .wb-secs{grid-template-columns:repeat(3,1fr);gap:6px}
+  .wb-sec{padding:6px 3px;border-radius:12px}
+  .wb-sec .e{font-size:1.3rem}
+  .wb-sec b{font-size:.76rem}
+  .wb-sec small{font-size:.7rem}
+}
+.wb-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--pink);vertical-align:middle}
+.wb-legend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:.85rem;font-weight:700;margin-bottom:6px;color:var(--muted)}
+.wb-k.l{color:var(--ok)}
+.wb-k.s{color:var(--lilac)}
+.wb-legend .chip{font-size:.85rem;padding:2px 12px}
+.wb-topic{border-top:1px solid var(--line);padding:10px 0;scroll-margin-top:70px}
+.wb-th{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.wb-th .e{font-size:1.7rem;line-height:1}
+.wb-th>div{flex:1;min-width:150px}
+.wb-th b{font-family:var(--f-display);font-size:1.08rem;color:var(--accent)}
+.wb-th .muted{font-size:.85rem;font-weight:700}
+.wb-play{padding:4px 12px}
+.wb-c.l{border-color:var(--ok);background:var(--ok-soft)}
+.wb-c.s{border-color:var(--lilac);background:var(--lilac-soft)}
+.wb-c.m{border-style:dashed;font-weight:600}
+.wb-c .sk-new{font-size:.62rem;padding:0 6px}
+.wb-empty{margin:8px 0}
+.wb-game{border:3px solid var(--accent);border-radius:18px;padding:10px 12px 12px;margin:4px 0 12px}
+.wb-gh{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.wb-gh .e{font-size:1.6rem}
+.wb-gh h4{flex:1;margin:0;font-family:var(--f-display);font-size:1.1rem}
+.wb-gh .btn{padding:2px 12px}
 
 /* thẻ chọn bài nói */
 .sk-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:10px;margin-bottom:16px}
