@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="vi" data-grade="mau-giao">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tiếng Anh mẫu giáo: giai đoạn 4 (tiền tiểu học)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/course.css?v=20261127tight">
+<link rel="stylesheet" href="../assets/preschool.css?v=20261128gd4b">
+<style>:root{--accent:var(--sky);--accent-soft:var(--sky-soft)}</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Mầm non · Giai đoạn 4 · Tiền tiểu học: sẵn sàng vào lớp 1</div>
+    <h1 id="pTitle"></h1>
+    <p class="lead" id="pLead"></p>
+    <div class="stats" id="pStats"></div>
+  </header>
+</div>
+<nav class="nav" aria-label="Các phần"><div class="wrap" id="units"><a class="home" href="../index.html">← Trang chủ</a></div></nav>
+<main class="wrap" id="view"></main>
+<div class="wrap"><footer><a href="../index.html">← Về trang chủ</a></footer></div>
+
+<script src="../assets/pos-art.js?v=20261127b"></script>
+<script src="../assets/vocab.js?v=20261128voc"></script>
+<script src="../assets/vocab/mau-giao.js?v=20261128gd4b"></script>
+<script>
+/* Giai đoạn 4: Tiền tiểu học (5–6 tuổi). Màn hình của bé chỉ có tiếng Anh như các giai đoạn trước.
+   Mỗi Unit có thêm pre: giáo án tích hợp 30 phút tại nhà (Khoa học → Toán → Âm và nét chữ → Tổng kết), hiện trong 🗺️ Lộ trình.
+   Từ vựng: assets/vocab/mau-giao.js (d1–d10). Kiến thức cốt lõi cần chuẩn bị: index.html, Hướng dẫn cho ba mẹ → Mầm non → Phụ trợ. */
+window.PRESCHOOL={
+ title:'Tiếng Anh cho bé <span>giai đoạn 4</span>',
+ lead:'Tiền tiểu học (5–6 tuổi): chuẩn bị vào lớp 1. Mỗi Unit gắn với Toán, Khoa học và tiền đọc – tiền viết: bé giới thiệu bản thân, năm giác quan, cây lớn lên, nhóm con vật, đếm đến 20, thêm – bớt, hình và quy luật, nặng – nhẹ, ngày – đêm, an toàn giao thông.',
+ phase:'Giai đoạn 4', span:'tháng 11 đến tháng 14', monthStart:11,
+ stats:[['10','bài'],['30','buổi'],['4','tháng'],['~85','từ mới']],
+ chars:['👩‍🏫','👧','🧒'],
+ goals:[
+  'Giới thiệu bản thân bằng câu trọn vẹn: My name is Bin. I\'m six years old. I live in Ha Noi.',
+  'Nói về năm giác quan và giữ vệ sinh: I see with my eyes. I wash my hands before I eat.',
+  'Kể cây lớn lên từ hạt: A seed needs water and sun. Look! A sprout!',
+  'Phân loại con vật: A dog is a pet. A tiger is a wild animal. A bee is an insect.',
+  'Đếm từ 1 đến 20, đếm ngược từ 10, nói nhiều hơn – ít hơn: I have more!',
+  'Thêm và bớt trong phạm vi 10 bằng đồ thật: Three plus two is five. Five take away one is four.',
+  'Gọi tên hình tròn, vuông, tam giác, chữ nhật; nói tiếp quy luật: Red, yellow, red… What comes next?',
+  'So sánh nặng – nhẹ, dài – ngắn, cao – thấp; nói ngày – đêm, thời tiết, tiết kiệm nước, tái chế.',
+  'Biết an toàn giao thông và vật nguy hiểm: Red light! Stop! Fire is hot. Don\'t touch!',
+  'Thêm khoảng 85 từ mới, cả bốn giai đoạn khoảng 320 từ.'],
+ lessonPlan:[
+  [4,'Chào và chuyện đầu giờ','Hello! Bé nói tên, tuổi và hôm nay thấy thế nào bằng cả câu.'],
+  [5,'Hát và vận động','Bài hát của bài hoặc trò "Teacher says" (Stop! Go! Turn left!).',true],
+  [4,'Ôn bài cũ','Hỏi nhanh từ và câu của bài trước, bé trả lời cả câu.'],
+  [8,'Từ mới bằng đồ thật','8–10 từ: hạt đậu, que tính, hình cắt giấy, cái cân… Bé cầm, đếm, so sánh rồi mới nói.'],
+  [6,'Toán và Khoa học bằng tiếng Anh','Một hoạt động nhỏ của bài: đếm, thêm – bớt, xếp hình, phân loại. Cô hỏi bằng tiếng Anh, bé trả lời bằng số hoặc câu ngắn.'],
+  [6,'Trò chơi trên web','Trò chơi của bài.'],
+  [10,'Bé thuyết trình','Bước 🎤 Speak: nghe mẫu, nói theo, tự nói nhìn hình, rồi từng bé lên sân khấu nói cả bài.',true],
+  [2,'Tạm biệt','See you next time! Bé nhận sao thưởng ⭐.']],
+ sessionParts:[
+  ['Từ mới bằng đồ thật','8–10 từ, bé cầm nắm, đếm, so sánh, làm động tác.'],
+  ['Hội thoại, Toán và Khoa học','Nghe hội thoại, chia vai nói lại; làm hoạt động Toán hoặc Khoa học của bài bằng tiếng Anh; chơi trò chơi.'],
+  ['Thuyết trình','Tập bài nói ở bước 🎤 Speak rồi từng bé lên sân khấu nói cả bài.']],
+ preNote:'Ngoài giờ học tiếng Anh với cô, mỗi Unit có một giáo án 30 phút để ba mẹ làm cùng con ở nhà, gom 3 môn vào một chủ đề: <b>Khoa học</b> (khám phá, 8 phút) → <b>Toán</b> (trò chơi số lượng, 10 phút) → <b>Âm và nét chữ</b> (10 phút) → <b>Tổng kết</b> (2 phút). Làm 2–3 lần trong 1,5 tuần học Unit đó, mỗi lần đổi đồ vật và con số. Phần chữ dùng chữ cái tiếng Anh: học <b>âm</b> trước, <b>tên chữ</b> sau (chữ <i>s</i> đọc là /s/ như trong <i>sun</i>); nét cơ bản thì giống hệt khi viết chữ tiếng Việt ở lớp 1.',
+ preRules:[
+  '<b>Không ép viết nhiều:</b> mỗi buổi chỉ 1–2 dòng nét cơ bản hoặc chữ cái (khoảng 10 phút), tránh mỏi tay và sợ học trước khi vào lớp 1.',
+  '<b>Học qua vật thật:</b> cụ thể trước, trừu tượng sau. Môn Toán luôn cho bé cầm, đếm đồ thật trước khi làm bài trên giấy.',
+  '<b>Âm trước, tên chữ sau:</b> dạy <i>s</i> là /s/ (<i>sun, seed</i>), chưa cần đọc tên chữ "es". Không bắt học vẹt bài hát ABC.',
+  '<b>Nói trọn câu:</b> khuyến khích bé trả lời cả câu, bằng tiếng Việt hay tiếng Anh đều được, không chỉ một từ.',
+  '<b>Đồng bộ với tiếng Anh:</b> mỗi giáo án có sẵn từ tiếng Anh của Unit; ba mẹ nói từ đó đúng lúc bé đang cầm đồ vật.'],
+ preLink:'Kiến thức cốt lõi cần chuẩn bị cho bé 5–6 tuổi (Ngôn ngữ, Toán, Khoa học): <a target="_top" href="../index.html#huong-dan/mau-giao">📖 Hướng dẫn cho ba mẹ → Mầm non → Phụ trợ</a>.',
+ classNote:'Giáo án cho buổi học tiếng Anh với cô (tại lớp hoặc trực tuyến qua camera), dạy bằng vận động toàn thân (TPR) và đồ thật. Mỗi giáo án gom 1–2 Unit; sau buổi học bé ôn lại trên web ở Unit tương ứng.',
+ classPlans:[
+  {units:['u7','u8'],t:'Giáo án 1: Toán hình học và đo lường (Shapes & Measurement)',
+   goal:'Bé nhận diện 4 hình cơ bản, biết so sánh độ dài, chiều cao và luyện âm đầu (phonics) qua vận động.',
+   cu:'1 chiếc đĩa tròn, 1 quyển sách hình chữ nhật, 1 chiếc khăn ăn gấp hình tam giác, 2 cây bút chì (hoặc 2 chiếc đũa) dài ngắn khác nhau, 1 sợi dây hoặc thước dây, thẻ chữ <b>C</b> và <b>T</b>.',
+   vocab:[['Hình học (Shapes)','<i>circle</i> (hình tròn), <i>square</i> (hình vuông), <i>triangle</i> (hình tam giác), <i>rectangle</i> (hình chữ nhật), <i>side</i> (cạnh), <i>corner</i> (góc)'],
+    ['Đo lường (Measurement)','<i>long – short</i> (dài – ngắn), <i>tall – short</i> (cao – thấp), <i>big – small</i> (to – nhỏ), <i>measure</i> (đo)']],
+   say:["<i>What shape is it?</i> → <i>It's a circle.</i>",'<i>Which one is longer / shorter?</i> → <i>The blue pencil is longer.</i>'],
+   parts:[['1. Khởi động và vẽ hình trên không',5,'Toán (hình) và TPR',['Hát bài về hình (Shape Song).','Tạo hình bằng cơ thể (Body Shapes), cô hô và làm mẫu: <i>Make a circle with your arms!</i> (vòng hai tay qua đầu); <i>Make a triangle with your fingers!</i> (chụm ngón cái và ngón trỏ); <i>Draw a big square in the air!</i>'],['Bắt chước động tác và hô to tên hình: <i>Circle! Triangle! Square!</i>']],
+    ['2. Săn tìm hình trong nhà',10,'Toán và nói',['Shape Scavenger Hunt: cô giơ vật mẫu lên (hoặc lên camera) và ra lệnh trong 10 giây: <i>Go find something that is a circle!</i> (cái đĩa, nắp hộp); <i>Go find a rectangle!</i> (quyển sách, hộp bút).','Bé mang đồ về, cô hỏi: <i>What did you find? What shape is it? How many corners does it have?</i>'],['Chạy đi tìm đồ vật thật trong phòng.',"Giơ lên và trả lời: <i>It's a book. It's a rectangle!</i>"]],
+    ['3. Thử thách đo lường',10,'Toán (đo lường)',['Giơ 2 cây bút chì dài ngắn khác nhau: <i>Look! This pencil is long</i> (dang rộng hai tay). <i>This pencil is short</i> (thu hai tay lại). <i>Which one is longer?</i>','Đo không chuẩn: bé dùng gang tay hoặc cây bút chì đo xem quyển sách dài bằng mấy cây bút chì.'],['Dang tay, thu tay theo cô.','Chỉ đúng vật dài hơn: <i>This one is longer!</i>','Tự đếm số lần đo: <i>One, two… Two pencils long!</i>']],
+    ['4. Âm đầu (phonics) và chào kết',5,'Tiền đọc',['Đưa thẻ chữ <b>C</b> và <b>T</b>, luyện âm đầu: <i>/k/ /k/ corner!</i> (chạm vào góc bàn); <i>/t/ /t/ triangle!</i> (vẽ 3 nét thẳng nối nhau).','Lưu ý: chữ C trong <i>circle</i> đọc là /s/ (sơ-cồ), không phải /k/; luyện âm /k/ bằng <i>corner, car, cat</i>.','Khen ngợi và đập tay chào kết (High-five! Học trực tuyến thì giơ tay lên camera).'],['Phát âm đúng âm /k/ và /t/.','Nhận ra mặt chữ C và T khi cô giơ thẻ bất kỳ.']]],
+   tips:['Bé 5 tuổi phụ trách chạy đi tìm đồ vật theo hình (Scavenger Hunt).','Bé 7 tuổi phụ trách đếm cạnh và góc (<i>4 sides, 4 corners</i>) và đọc kết quả đo bằng tiếng Anh (<i>The book is three pencils long.</i>).']},
+  {units:['u10'],t:'Giáo án 2: Khoa học an toàn và giao thông (Safety & Traffic)',
+   goal:'Bé nhận biết phương tiện, hiểu quy tắc đèn tín hiệu, phân biệt hành vi an toàn và nguy hiểm, đọc hiểu biển báo cơ bản.',
+   cu:'3 tờ giấy màu (hoặc 3 quả bóng) đỏ, vàng, xanh lá; 1 chiếc xe đồ chơi; 1 chiếc mũ bảo hiểm; 1 tấm bìa chữ <b>STOP</b> (hình bát giác màu đỏ) và 1 tấm bìa chữ <b>GO</b> (màu xanh).',
+   vocab:[['Giao thông (Traffic)','<i>traffic light</i> (đèn giao thông), <i>crosswalk / zebra crossing</i> (vạch qua đường), <i>helmet</i> (mũ bảo hiểm), <i>sidewalk</i> (vỉa hè), <i>car, motorbike, bicycle</i>'],
+    ['Hành động và quy tắc (Safety rules)','<i>stop</i> (dừng lại), <i>slow down / wait</i> (đi chậm / chờ), <i>go</i> (đi), <i>look left, look right</i> (nhìn trái, nhìn phải), <i>safe</i> (an toàn), <i>dangerous</i> (nguy hiểm)']],
+   say:['<i>What does the red light mean?</i> → <i>Red light means stop!</i>','<i>Is it safe or dangerous?</i> → <i>It is safe! / It is dangerous!</i>'],
+   parts:[['1. Khởi động: trò chơi đèn giao thông',7,'Khoa học (giao thông) và TPR',['Luật chơi "Red Light, Green Light": bé giả vờ lái ô tô, xe máy tại chỗ.','Cô giơ lần lượt 3 màu: xanh → <i>Green light! Go!</i> (chạy bước nhỏ tại chỗ); vàng → <i>Yellow light! Slow down!</i> (chạy thật chậm); đỏ → <i>Red light! Stop!</i> (đứng im như tượng).'],['Phản xạ đúng theo màu và hô to: <i>Go! Slow down! Stop!</i>']],
+    ['2. Sang đường và mũ bảo hiểm',8,'Kỹ năng sống và nói',['Giơ mũ bảo hiểm: <i>What is this? When we ride a motorbike, we must put on a helmet to be safe.</i> Bé giả vờ đội mũ và cài quai: <i>Click!</i>',"Ba bước qua vạch kẻ đường: 1. <i>Stop at the sidewalk!</i> 2. <i>Look left, look right, look left again!</i> 3. <i>Hold Mommy's hand and walk!</i>"],['Làm động tác đội mũ, quay đầu nhìn trái – phải.','Nói trọn cụm: <i>Put on a helmet! Look left, look right!</i>']],
+    ['3. Thử thách: an toàn hay nguy hiểm?',10,'Tư duy phản biện',['Cô diễn các tình huống, bé giơ ngón cái lên (<i>Safe</i>) hoặc chúc xuống (<i>Dangerous</i>): chạy vụt qua đường không nhìn xe; ngồi ô tô thắt dây an toàn (<i>seatbelt</i>); thò tay gần ổ điện hoặc cầm kéo nhọn chạy nhảy.','Hỏi bé lớn: <i>Why is it dangerous?</i> (gợi ý: <i>Cars are fast. You can get hurt.</i>)'],['Phản xạ nhanh: <i>Dangerous!</i> hoặc <i>Safe!</i>','Giải thích đơn giản: <i>Because cars are very fast!</i>']],
+    ['4. Đọc biển báo và chào kết',5,'Tiền đọc',['Giơ tấm bìa chữ <b>STOP</b> (đỏ) và <b>GO</b> (xanh). Giải thích: ra đường thấy chữ S-T-O-P màu đỏ là phải dừng lại ngay.','Bé đọc to STOP – GO 3 lần rồi đập tay chào kết.'],['Nhận ra và đọc đúng STOP, GO như đọc một bức tranh, không cần đánh vần.']]],
+   tips:['Bé 7 tuổi đóng vai cảnh sát giao thông (<i>Traffic Police</i>), cầm thẻ đỏ – vàng – xanh điều khiển cho em 5 tuổi chạy, dừng trong trò khởi động.','Ở phần an toàn hay nguy hiểm, bé 5 tuổi giơ ngón cái; bé 7 tuổi giải thích <i>Why?</i> bằng một câu.']}],
+ next:{text:'Học xong tiền tiểu học? Bé đã sẵn sàng vào lớp 1: sang Giáo án lớp 1.',href:'../index.html#lop-1/giao-an/lo-trinh',label:'Sang Lớp 1'},
+ units:[
+
+ /* ===================== Unit 1: bản thân ===================== */
+ {id:'u1',n:'Unit 1',en:'All About Me: My Name Is…',vi:'Bản thân: tên, tuổi, nhà, số điện thoại',ic:'🧒',review:'ôn Giai đoạn 3: Where is it? It\'s in the box.',
+  words:LopHocVocab.w("mau-giao/d1"),
+  talk:[["What's your name?",'Con tên là gì?',0],['My name is Bin.','Tớ tên là Bin.',2],['How old are you?','Con mấy tuổi?',0],["I'm six years old.",'Tớ sáu tuổi.',2],['Where do you live?','Con sống ở đâu?',1],["I live in Ha Noi. It's a big city.",'Tớ sống ở Hà Nội. Đó là một thành phố lớn.',2]],
+  speech:{t:"All About Me",intro:["Today, I will tell you about me!","Hôm nay tớ sẽ kể về bản thân tớ!"],lines:[["🎂","I am <b>six years old</b>.","Tớ sáu tuổi."],["🏙️","I live in Ha Noi. It's a big <b>city</b>.","Tớ sống ở Hà Nội. Đó là một thành phố lớn."],["🏠","My <b>house</b> is on Hoa Sen <b>Street</b>.","Nhà tớ ở đường Hoa Sen."],["👪","There are four people in my <b>family</b>.","Nhà tớ có bốn người."],["📞","I know my mom's <b>phone number</b>!","Tớ thuộc số điện thoại của mẹ!"]],end:["Nice to meet you!","Rất vui được gặp mọi người!"]},
+  games:[{type:'phrase',name:"💬 About me",items:[
+    {pic:'👩‍🏫❓',vi:'Cô hỏi tên bé.',en:"Your teacher asks you.",say:"What's your name?",o:[['🏷️','My name is Bin.'],['🎂',"I'm six."],['👋','Bye bye!']],a:0},
+    {pic:'🎂🎈',vi:'Cô hỏi bé mấy tuổi.',en:"Your teacher asks you.",say:'How old are you?',o:[['🎂',"I'm six years old."],['🏙️','I live in Ha Noi.'],['😋',"I'm hungry."]],a:0},
+    {pic:'🏠❓',vi:'Bạn mới hỏi bé sống ở đâu.',en:"A new friend asks you.",say:'Where do you live?',o:[['🏙️','I live in Ha Noi.'],['🐶','I have a dog.'],['😴',"I'm sleepy."]],a:0},
+    {pic:'😢📞',vi:'Bé bị lạc mẹ ở siêu thị. Chú bảo vệ hỏi số điện thoại của mẹ.',en:"You can't find your mom. A guard asks you.",say:"What's your mom's phone number?",o:[['📞',"My mom's phone number is…"],['🍬','I want candy.'],['🙈','No!']],a:0},
+    {pic:'👪❓',vi:'Cô hỏi nhà bé có mấy người.',en:"Your teacher asks you.",say:'How many people are in your family?',o:[['👪','Four people!'],['🏠','A big house!'],['🐱','A cat!']],a:0}]},
+   {type:'pick',name:"🎧 Listen and tap",prompt:'{w}',options:3,after:'{w}!'}],
+  hw:{"e":["Six!","Yes! You're six years old. Next year, you'll be seven!"],"s":["Mẹ giả vờ quên tên đường nhà mình, hỏi bé.","Hoa Sen Street!"],"c":["A house or a flat?","A house!"],"b":["Who is in the family picture?","Mom, Dad, my sister and me!"],"x":"flat, road, village, grandma, call"},
+  guide:{answers:['Về bản thân: tên → <i>My name is Bin.</i>; tuổi → <i>I\'m six years old.</i>; sống ở đâu → <i>I live in Ha Noi.</i>; lạc mẹ → <i>My mom\'s phone number is…</i> (bé đọc số thật); nhà mấy người → <i>Four people!</i>','Nghe và chọn: name 🏷️, years old 🎂, house 🏠, street 🛣️, city 🏙️, phone number 📞, family 👪, number 🔢.'],
+   home:["Tập cho bé nói trọn câu bằng tiếng Việt <b>và</b> tiếng Anh: họ tên đầy đủ, tuổi, tên đường, thành phố.","Viết số điện thoại của ba hoặc mẹ to lên giấy. Mỗi tối bé đọc một lần bằng tiếng Việt, rồi tập đọc từng số bằng tiếng Anh: <i>zero, nine, one…</i>","Đóng vai bị lạc: ba mẹ làm chú bảo vệ hỏi <i>What's your name? What's your mom's phone number?</i>"],
+   tips:["<i>Years old</i>: \"dia-zâu\", âm /z/ cuối <i>years</i> nối sang <i>old</i>.","<i>Street</i>: ba phụ âm /str/ đọc liền, cuối có /t/ nhẹ.","<i>Phone</i>: \"phôn\", âm /f/ răng trên chạm môi dưới, không đọc \"pôn\"."]},
+  pre:{sum:['Họ tên, tuổi, địa chỉ, số điện thoại người thân; các thành viên trong gia đình','Chữ số 0–9 qua số điện thoại; đếm và so sánh số người trong nhà','Âm /n/ (<i>name</i>), /m/ (<i>my, mom</i>); tư thế ngồi, cầm bút 3 ngón; nét thẳng, nét ngang'],
+   cu:'Ảnh gia đình, thẻ số 0–9 (hoặc giấy viết số), giấy 4 dòng kẻ hoặc vở ô ly, bút chì, một tờ giấy ghi to số điện thoại của ba mẹ.',
+   parts:[['1. Khởi động và khám phá',8,'Khoa học<br>(bản thân)',['Cùng bé xem ảnh gia đình. Hỏi: "Đây là ai? Nhà mình có mấy người?"','Hỏi tư duy: "Nếu con bị lạc, con cần nói gì với chú bảo vệ?" (họ tên, tên ba mẹ, số điện thoại).','Tập nói trọn câu: "Con tên là… Con … tuổi. Nhà con ở đường…"'],['Nói trọn câu họ tên, tuổi, địa chỉ.','Biết nhờ người lớn đáng tin (chú bảo vệ, cô giáo) khi bị lạc.']],
+    ['2. Trò chơi số lượng',10,'Toán',['Đặt thẻ số 0–9 lên bàn. Ba mẹ đọc chậm số điện thoại, bé tìm thẻ và xếp thành hàng.','Đếm người trong ảnh: "Có mấy người lớn? Mấy bạn nhỏ? Bên nào nhiều hơn?"','Hỏi: "Nhà mình thêm một em bé thì có mấy người?"'],['Nhận biết đúng chữ số 0–9.','Đếm, so sánh nhiều hơn – ít hơn trong phạm vi 10.']],
+    ['3. Luyện âm và nét chữ',10,'Tiền đọc<br>tiền viết',['Âm: nói "<i>name</i>: /n/ /n/ <i>name</i>" và "<i>mom</i>: /m/ /m/ <i>mom</i>". Bé tìm đồ trong nhà bắt đầu bằng âm /m/ (<i>milk, mango</i>).','Tư thế: ngồi thẳng, hai chân chạm sàn, tay trái giữ giấy; cầm bút bằng 3 ngón (cái, trỏ, giữa).','Nét: tô 1 dòng nét thẳng đứng và 1 dòng nét ngang (nét của số 1 và chữ <i>l, t</i>).'],['Nghe ra âm /n/, /m/ ở đầu từ.','Ngồi đúng, cầm bút đúng, kẻ nét thẳng không run.']],
+    ['4. Tổng kết và giao nhiệm vụ',2,'Kỹ năng sống',['Khen sự tập trung của bé.','Cùng bé dán số điện thoại của ba mẹ lên tủ lạnh.'],['Hào hứng khoe với cả nhà: "Con thuộc số của mẹ rồi!"']]],
+   task:'Mỗi tối đọc to số điện thoại của ba hoặc mẹ một lần. Cuối tuần bé tự nói được không cần nhìn giấy.',
+   en:'name, years old, house, street, city, phone number, family'}},
+
+ /* ===================== Unit 2: năm giác quan ===================== */
+ {id:'u2',n:'Unit 2',en:'My Five Senses: I Can See!',vi:'Năm giác quan và giữ vệ sinh',ic:'👀',review:'bản thân: My name is Bin. I\'m six years old.',
+  words:LopHocVocab.w("mau-giao/d2"),
+  talk:[['What can you see?','Con nhìn thấy gì?',0],['I can see a bird!','Tớ thấy một con chim!',2],['What can you hear?','Con nghe thấy gì?',0],['I can hear a dog. Woof woof!','Tớ nghe thấy tiếng chó. Gâu gâu!',2],['Wash your hands, please.','Con đi rửa tay nhé.',1],['OK! Now my hands are clean.','Vâng! Giờ tay tớ sạch rồi.',2]],
+  song:{t:"This Is the Way We Wash Our Hands",verses:[
+   {ic:'🧼🙌',cue:['🙌 Rub your hands!','Xoa hai tay vào nhau'],lines:['This is the way we <b>wash our hands</b>,','<b>wash our hands</b>, <b>wash our hands</b>.','This is the way we <b>wash our hands</b>, before we eat our lunch!'],vi:'Mình rửa tay thế này, trước khi ăn trưa!'},
+   {ic:'🦷😁',cue:['😁 Brush, brush!','Làm động tác đánh răng'],lines:['This is the way we <b>brush our teeth</b>,','<b>brush our teeth</b>, <b>brush our teeth</b>.','This is the way we <b>brush our teeth</b>, early in the morning!'],vi:'Mình đánh răng thế này, mỗi sáng sớm!'},
+   {ic:'🛁🧽',cue:['🛁 Splash, splash!','Làm động tác té nước'],lines:['This is the way we <b>take a bath</b>,','<b>take a bath</b>, <b>take a bath</b>.','This is the way we <b>take a bath</b>, before we go to bed!'],vi:'Mình tắm thế này, trước khi đi ngủ!'}]},
+  speech:{t:"My Five Senses",intro:["Today, I will tell you about my five senses!","Hôm nay tớ sẽ kể về năm giác quan của tớ!"],lines:[["👀","I <b>see</b> with my eyes.","Tớ nhìn bằng mắt."],["👂","I <b>hear</b> with my ears.","Tớ nghe bằng tai."],["👃","I <b>smell</b> with my nose.","Tớ ngửi bằng mũi."],["👅","I <b>taste</b> with my tongue.","Tớ nếm bằng lưỡi."],["✋","I <b>touch</b> with my hands.","Tớ sờ bằng tay."],["🧼","I <b>wash my hands</b> before I eat.","Tớ rửa tay trước khi ăn."]],end:["I keep my body clean!","Tớ giữ cơ thể sạch sẽ!"]},
+  games:[{type:'phrase',name:"👀 Which sense?",items:[
+    {pic:'🌸',vi:'Bé ngửi một bông hoa.',en:"Smell the flower.",say:'What do you use?',o:[['👃','My nose!'],['👂','My ears!'],['✋','My hands!']],a:0},
+    {pic:'🎵',vi:'Bé nghe một bài hát.',en:"Listen to the music.",say:'What do you use?',o:[['👂','My ears!'],['👀','My eyes!'],['👅','My tongue!']],a:0},
+    {pic:'🍭',vi:'Bé nếm cây kẹo mút.',en:"Taste the lollipop.",say:'What do you use?',o:[['👅','My tongue!'],['👃','My nose!'],['👀','My eyes!']],a:0},
+    {pic:'🌈',vi:'Bé ngắm cầu vồng.',en:"Look at the rainbow.",say:'What do you use?',o:[['👀','My eyes!'],['✋','My hands!'],['👂','My ears!']],a:0},
+    {pic:'🧸',vi:'Bé sờ con gấu bông mềm mại.',en:"Touch the teddy bear. It's soft.",say:'What do you use?',o:[['✋','My hands!'],['👅','My tongue!'],['👃','My nose!']],a:0}]},
+   {type:'phrase',name:"🧼 Keep clean",items:[
+    {pic:'🍚🍽️',vi:'Sắp đến giờ ăn cơm.',en:"It's time to eat.",say:'What do you do first?',o:[['🧼','I wash my hands.'],['🛌','I go to bed.'],['⚽','I play ball.']],a:0},
+    {pic:'🌅🦷',vi:'Buổi sáng, bé vừa ngủ dậy.',en:"Good morning! You wake up.",o:[['🦷','I brush my teeth.'],['🍦','I eat ice cream.'],['🛁','I play in the mud.']],a:0},
+    {pic:'🌙🛁',vi:'Buổi tối trước khi đi ngủ.',en:"It's night. You are dirty.",o:[['🛁','I take a bath.'],['🏃','I run to the park.'],['📺','I watch TV.']],a:0}]}],
+  hw:{"e":["Nose!","Yes! I smell with my nose. Mmm, it smells good!"],"s":["Bày bát cơm nhưng tay bé còn bẩn, mẹ chờ bé tự nhớ.","I wash my hands first!"],"c":["Eyes or ears?","Ears!"],"b":["What can the bunny hear?","A bird! Tweet tweet!"],"x":"soap, towel, toothbrush, clean, dirty"},
+  guide:{answers:['Giác quan nào: hoa → <i>My nose!</i>; nhạc → <i>My ears!</i>; kẹo → <i>My tongue!</i>; cầu vồng → <i>My eyes!</i>; gấu bông → <i>My hands!</i>','Giữ sạch: trước khi ăn → <i>I wash my hands.</i>; sáng ngủ dậy → <i>I brush my teeth.</i>; tối người bẩn → <i>I take a bath.</i>'],
+   home:["Hộp bí mật: bỏ vài đồ vào hộp, bé nhắm mắt sờ rồi đoán; ngửi chanh, nếm muối – đường để nói <i>I smell… I taste…</i>","Mỗi lần rửa tay hát bài <i>This Is the Way We Wash Our Hands</i> đủ 20 giây.","Đi dạo, hỏi bé: <i>What can you see? What can you hear?</i>"],
+   tips:["<i>See / smell</i>: âm /s/ rõ ở đầu, không đọc \"xi\" quá nhẹ.","<i>Taste</i>: cuối có /st/, đọc \"tây-st\".","<i>Teeth</i>: âm /θ/ cuối: đặt đầu lưỡi giữa hai hàm răng rồi thổi hơi."]},
+  pre:{sum:['Năm giác quan, bộ phận cơ thể; rửa tay, đánh răng, tự phục vụ','Đếm ngón tay 1–10; bằng nhau (2 mắt = 2 tai), dấu =','Âm /s/ (<i>see, smell</i>), /t/ (<i>taste, touch</i>); nét xiên trái, nét xiên phải'],
+   cu:'Một hộp giấy có khoét lỗ, khăn bịt mắt, vài đồ vật (quả chanh, viên đường, cục bông, cái chuông), xà phòng, khăn lau tay, giấy và bút chì.',
+   parts:[['1. Khởi động và khám phá',8,'Khoa học<br>(cơ thể)',['Chơi hộp bí mật: bé thò tay sờ đoán đồ vật; bịt mắt ngửi chanh; lắc chuông cho bé nghe.','Hỏi tư duy: "Con biết đó là quả chanh nhờ bộ phận nào?"','Cùng rửa tay đúng 6 bước, vừa rửa vừa hát.'],['Nói trọn câu: "Con ngửi bằng mũi ạ."','Gọi đúng 5 giác quan và bộ phận tương ứng; rửa tay đủ 6 bước.']],
+    ['2. Trò chơi số lượng',10,'Toán',['Đếm ngón tay một bàn (5), hai bàn (10). Giơ 3 ngón, hỏi "cần thêm mấy ngón nữa thì được 5?"','So sánh bằng nhau: 2 mắt – 2 tai – 2 tay. Giới thiệu dấu = ("bằng nhau").','Đặt 4 cục bông và 4 viên đường: "Hai bên thế nào?"'],['Đếm đúng đến 10 trên ngón tay.','Nhận ra hai nhóm bằng nhau và dùng dấu =.']],
+    ['3. Luyện âm và nét chữ',10,'Tiền đọc<br>tiền viết',['Âm: "<i>see</i>: /s/ /s/, <i>smell</i>: /s/". Bé làm tiếng rắn "sssss" khi nghe từ bắt đầu bằng /s/.','Nét: dùng ngón trỏ vẽ nét xiên trên không như cầu trượt, rồi tô 1 dòng nét xiên trái và 1 dòng nét xiên phải (nét của chữ <i>v, w</i>).'],['Nghe ra âm /s/ ở đầu từ.','Tô nét xiên đúng chiều, đều tay.']],
+    ['4. Tổng kết và giao nhiệm vụ',2,'Kỹ năng sống',['Khen bé rửa tay sạch.','Giao nhiệm vụ: tự rửa tay trước mỗi bữa ăn, tự đánh răng sáng và tối.'],['Tự giác rửa tay, đánh răng.']]],
+   task:'Trước mỗi bữa ăn bé tự rửa tay và nói <i>I wash my hands!</i>; tối kể một thứ con nhìn thấy và một thứ con nghe thấy trong ngày.',
+   en:'see, hear, smell, taste, touch, wash my hands, brush my teeth, take a bath'}},
+
+ /* ===================== Unit 3: khu vườn bí mật ===================== */
+ {id:'u3',n:'Unit 3',en:'The Secret Garden: Seeds Grow!',vi:'Khu vườn bí mật: hạt nảy mầm',ic:'🌱',review:'giác quan: I see with my eyes.',
+  words:LopHocVocab.w("mau-giao/d3"),
+  talk:[['Look! A seed.','Nhìn này! Một hạt giống.',0],["It's small and brown.",'Nó nhỏ và màu nâu.',2],['What does it need?','Nó cần gì?',1],['Water and sun!','Nước và nắng!',2],['Look! A sprout!','Nhìn kìa! Một mầm cây!',0],["Hooray! It's growing!",'Hoan hô! Nó đang lớn!',2]],
+  song:{t:"Plant a Little Seed",verses:[
+   {ic:'🌰🟫',cue:['👇 Dig, dig, dig!','Làm động tác đào đất'],lines:['Dig, dig, dig in the <b>soil</b>,','put a little <b>seed</b> in!'],vi:'Đào, đào, đào đất, bỏ một hạt giống nhỏ vào!'},
+   {ic:'💧☀️',cue:['💧 Rain on your head!','Ngón tay làm mưa rơi'],lines:['Drip, drop, give it <b>water</b>,','shine, shine, says the <b>sun</b>!'],vi:'Tí tách, tưới nước cho hạt; ông mặt trời chiếu sáng!'},
+   {ic:'🌱🌻',cue:['🙌 Grow up tall!','Ngồi xổm rồi đứng lên vươn tay'],lines:['Up comes a <b>sprout</b>, a <b>leaf</b>, a <b>plant</b>,','and a big yellow <b>flower</b>!'],vi:'Mọc lên một mầm, một chiếc lá, một cái cây, và một bông hoa vàng to!'}]},
+  speech:{t:"My Bean Plant",intro:["Today, I will tell you about my bean plant!","Hôm nay tớ sẽ kể về cây đậu của tớ!"],lines:[["🌰","This is my <b>seed</b>. It's small.","Đây là hạt giống của tớ. Nó nhỏ xíu."],["🟫","I put it in the <b>soil</b>.","Tớ đặt nó vào đất."],["💧","I give it <b>water</b> every day.","Ngày nào tớ cũng tưới nước."],["☀️","It needs the <b>sun</b>, too.","Nó cũng cần nắng nữa."],["🌱","Look! A <b>sprout</b>! It has two <b>leaves</b>.","Nhìn này! Một mầm cây! Nó có hai chiếc lá."],["🌻","One day, it will be a big <b>plant</b>!","Một ngày nào đó nó sẽ thành một cái cây to!"]],end:["I love my garden!","Tớ yêu khu vườn của tớ!"]},
+  games:[{type:'basket',name:"🌱 Plant it!",prompt:'Give me the {w}.',only:[0,1,2,3],bin:'🧺',after:'{w}! Thank you!'},
+   {type:'count',name:"🌰 How many seeds?",max:10,rounds:6,items:['🌰','🌱','🍃','🌻','💧','🐞']},
+   {type:'phrase',name:"🌱 What does it need?",items:[
+    {pic:'🌰',vi:'Bé có một hạt giống. Cô hỏi hạt cần gì để lớn.',en:"A seed is small.",say:'What does it need?',o:[['💧','Water and sun!'],['🍬','Candy!'],['📺','TV!']],a:0},
+    {pic:'🥀',vi:'Cây bị héo vì lâu không tưới.',en:"Oh no! The plant is sad.",say:'What does it need?',o:[['💧','Water, please!'],['🧊','Ice cream!'],['🌙','Night!']],a:0},
+    {pic:'🌱🌻',vi:'Mầm cây lớn dần thành bông hoa.',en:"First a sprout, then…",o:[['🌻','A flower!'],['🐟','A fish!'],['🚗','A car!']],a:0}]}],
+  hw:{"e":["Seed!","Yes! A small brown seed. It needs water!"],"s":["Để cốc đậu cạnh bình nước nhưng không tưới, chờ bé nhắc.","Mom, water the seed!"],"c":["Water or juice for the plant?","Water!"],"b":["What is the girl doing?","She waters the flowers!"],"x":"bean, cotton, cup, grow, root"},
+  guide:{answers:['Trồng cây: nghe → bấm seed 🌰, soil 🟫, water 💧, sun ☀️ để bỏ vào xô.','Đếm hạt: đếm hình, chọn số đúng (1–10).','Cây cần gì: hạt → <i>Water and sun!</i>; cây héo → <i>Water, please!</i>; mầm thành → <i>A flower!</i>'],
+   home:["Gieo hạt đậu vào cốc bông ẩm (theo giáo án), đặt cạnh cửa sổ. Mỗi sáng hỏi: <i>Is it big or small? Can you see a sprout?</i>","Chụp ảnh cốc đậu mỗi ngày, cuối tuần xếp ảnh theo thứ tự và kể lại.","Hát bài <i>Plant a Little Seed</i> kèm động tác."],
+   tips:["<i>Seed</i>: âm /iː/ kéo dài, cuối có /d/ nhẹ: \"xii-đ\".","<i>Sprout</i>: /spr/ đọc liền, \"sprao-t\".","<i>Leaf / leaves</i>: số nhiều đổi f thành v: <i>leaves</i>."]},
+  pre:{sum:['Hạt cần nước, đất, nắng để nảy mầm; quan sát cây lớn lên','Đếm hạt, tách – gộp trong phạm vi 7; trái – phải','Âm /s/ (<i>seed, sun, soil</i>), /w/ (<i>water</i>); nét cong hở phải (chữ <i>c</i>)'],
+   cu:'10 hạt đậu (hoặc hạt ngô, sỏi), 1 cốc nhựa trong, bông gòn, 2 cái đĩa, 1 chiếc thìa, giấy 4 dòng kẻ hoặc vở ô ly, bút chì, thẻ chữ <b>s</b>, <b>w</b>.',
+   parts:[['1. Khởi động và khám phá',8,'Khoa học',['Cho bé quan sát hạt đậu thật, sờ và tả hình dáng, màu sắc.','Hỏi tư duy: "Theo con, hạt đậu nhỏ xíu này cần gì để lớn lên thành cây?" (nước, đất, ánh nắng).','Cùng bé gieo hạt đậu vào cốc bông ẩm. Nói từ tiếng Anh đúng lúc: <i>seed, water, sun</i>.'],['Nói trọn câu: "Hạt đậu màu nâu, hình bầu dục ạ."','Nêu được cây cần nước và nắng để sống.']],
+    ['2. Trò chơi số lượng',10,'Toán',['Đếm và tách gộp: đặt 7 hạt đậu lên bàn, bé đếm to, rồi chia vào 2 đĩa (ví dụ 4 bên trái, 3 bên phải).','Hỏi: "Bên nào nhiều hơn? Làm sao để hai bên bằng nhau?"','Định hướng: "Con đặt cốc hạt đậu ở bên phải quyển vở, đặt chiếc thìa ở bên trái nhé."'],['Đếm đúng, biết tách – gộp trong phạm vi 7.','Xác định đúng tay trái – tay phải và vị trí đồ vật.']],
+    ['3. Luyện âm và nét chữ',10,'Tiền đọc<br>tiền viết',['Nhận diện chữ: đưa thẻ <b>s</b> (<i>seed, sun</i>) và <b>w</b> (<i>water</i>). Ba mẹ đọc âm /s/, /w/ (không đọc tên chữ), bé tìm thẻ đúng.','Nét cơ bản: bé dùng ngón trỏ "viết" nét cong hở phải (chữ <i>c</i>) lên không trung, rồi tô 1 dòng nét cong hở phải vào vở.'],['Phát âm đúng âm /s/, /w/.','Ngồi thẳng lưng, cầm bút đúng, tô tròn đều nét cong theo đường kẻ.']],
+    ['4. Tổng kết và giao nhiệm vụ',2,'Kỹ năng sống',['Khen ngợi sự tập trung của bé.','Giao nhiệm vụ: mỗi sáng tưới 1 thìa nước cho cốc đậu và quan sát sự thay đổi.'],['Hào hứng nhận nhiệm vụ, hình thành thói quen quan sát khoa học.']]],
+   task:'Mỗi sáng tưới 1 thìa nước cho cốc đậu, nhìn xem hạt thay đổi thế nào và nói một câu: <i>I can see a sprout!</i>',
+   en:'seed, soil, water, sun, sprout, leaf, plant, flower, left, right'}},
+
+ /* ===================== Unit 4: nhóm con vật ===================== */
+ {id:'u4',n:'Unit 4',en:'Pets, Wild Animals and Bugs',vi:'Vật nuôi, động vật hoang dã, côn trùng',ic:'🐞',review:'cây: A seed needs water and sun.',
+  words:LopHocVocab.w("mau-giao/d4"),
+  talk:[['Is a dog a pet?','Chó có phải vật nuôi không?',0],['Yes! A dog is a pet.','Có! Chó là vật nuôi.',2],['Is a tiger a pet?','Hổ có phải vật nuôi không?',0],['No! A tiger is a wild animal.','Không! Hổ là động vật hoang dã.',2],['How many legs does a bee have?','Con ong có mấy chân?',1],['Six legs! A bee is an insect.','Sáu chân! Ong là côn trùng.',2]],
+  speech:{t:"Animals I Know",intro:["Today, I will tell you about animals!","Hôm nay tớ sẽ kể về các con vật!"],lines:[["🐶","A <b>dog</b> is a pet. It lives with me.","Chó là vật nuôi. Nó sống cùng tớ."],["🐯","A <b>tiger</b> is a wild animal. It lives in the forest.","Hổ là động vật hoang dã. Nó sống trong rừng."],["🐒","A <b>monkey</b> is a wild animal, too.","Khỉ cũng là động vật hoang dã."],["🐝","A <b>bee</b> is an insect. It has six legs.","Ong là côn trùng. Nó có sáu chân."],["🦋","A <b>butterfly</b> is an insect, too.","Bướm cũng là côn trùng."],["🐰","I want a <b>rabbit</b>! It's soft.","Tớ muốn nuôi một con thỏ! Nó mềm lắm."]],end:["I love animals!","Tớ yêu các con vật!"]},
+  games:[{type:'phrase',name:"🐾 Pet, wild or insect?",items:[
+    {pic:'🐶',vi:'Con chó.',en:"Look at the dog.",say:'Is it a pet, a wild animal or an insect?',o:[['🏠','A pet!'],['🌳','A wild animal!'],['🐜','An insect!']],a:0},
+    {pic:'🐯',vi:'Con hổ.',en:"Look at the tiger.",say:'Is it a pet, a wild animal or an insect?',o:[['🌳','A wild animal!'],['🏠','A pet!'],['🐜','An insect!']],a:0},
+    {pic:'🐞',vi:'Con bọ rùa.',en:"Look at the ladybug.",say:'Is it a pet, a wild animal or an insect?',o:[['🐜','An insect!'],['🏠','A pet!'],['🌳','A wild animal!']],a:0},
+    {pic:'🐰',vi:'Con thỏ.',en:"Look at the rabbit.",say:'Is it a pet, a wild animal or an insect?',o:[['🏠','A pet!'],['🐜','An insect!'],['🌳','A wild animal!']],a:0},
+    {pic:'🐻',vi:'Con gấu.',en:"Look at the bear.",say:'Is it a pet, a wild animal or an insect?',o:[['🌳','A wild animal!'],['🐜','An insect!'],['🏠','A pet!']],a:0},
+    {pic:'🐜',vi:'Cô hỏi con kiến có mấy chân.',en:"Look at the ant.",say:'How many legs does it have?',o:[['6️⃣','Six legs!'],['4️⃣','Four legs!'],['2️⃣','Two legs!']],a:0}]},
+   {type:'scene',name:"🌳 Find it in the park",prompt:'Find the {w}!',only:[0,1,6,7,8,9],after:"Here's the {w}!",deco:[['🌳',8,30],['🌳',90,26],['🌼',30,92],['🌷',70,90],['☁️',40,8]]}],
+  hw:{"e":["Tiger!","Yes! A tiger is a wild animal. It lives in the forest!"],"s":["Chỉ vào con kiến trên sân, mẹ giả vờ gọi nó là con chó.","No! It's an ant! It's an insect!"],"c":["A pet or a wild animal?","A wild animal!"],"b":["Where does the monkey live?","In the forest!"],"x":"forest, farm, zoo, wing, legs"},
+  guide:{answers:['Nhóm nào: chó, thỏ, cá vàng → <i>A pet!</i>; hổ, khỉ, gấu → <i>A wild animal!</i>; ong, bướm, kiến, bọ rùa → <i>An insect!</i>; kiến có <i>six legs</i>.','Tìm trong công viên: nghe → bấm dog 🐶, rabbit 🐰, bee 🐝, butterfly 🦋, ant 🐜, ladybug 🐞.'],
+   home:["Cắt hình con vật từ báo cũ, bé xếp vào 3 hộp: <i>pets, wild animals, insects</i>.","Ra vườn tìm côn trùng, đếm chân: <i>One, two… six legs! It's an insect!</i>","Xem phim tài liệu ngắn về động vật hoang dã, hỏi <i>Is it a pet?</i>"],
+   tips:["<i>Insect</i>: nhấn âm đầu IN-sect, cuối có /kt/.","<i>Wild</i>: \"oai-ld\", âm /l/ cuối.","<i>Butterfly</i>: BƠ-tơ-phlai, âm /t/ giữa đọc nhẹ như /đ/."]},
+  pre:{sum:['Phân biệt vật nuôi, động vật hoang dã, côn trùng; côn trùng có 6 chân','Phân loại thành nhóm, đếm mỗi nhóm, so sánh bằng dấu &gt;, &lt;, =','Âm /b/ (<i>bee, bear, butterfly</i>), /p/ (<i>pet</i>); nét móc xuôi, nét móc ngược'],
+   cu:'Thẻ hình hoặc đồ chơi con vật (khoảng 12 con), 3 cái hộp có dán chữ <i>pets / wild / insects</i>, thẻ dấu &gt; &lt; =, giấy và bút chì.',
+   parts:[['1. Khởi động và khám phá',8,'Khoa học<br>(động vật)',['Cho bé xem từng thẻ hình, hỏi: "Con này sống ở đâu? Ở nhà mình hay trong rừng?"','Hỏi tư duy: "Vì sao con hổ không nuôi trong nhà được?"','Đếm chân con kiến, con ong trong tranh: côn trùng có 6 chân.'],['Nói trọn câu: "Con chó là vật nuôi, nó sống ở nhà."','Nêu được côn trùng có 6 chân.']],
+    ['2. Trò chơi số lượng',10,'Toán',['Bé xếp thẻ vào 3 hộp: vật nuôi, hoang dã, côn trùng.','Đếm mỗi hộp, đặt thẻ dấu giữa hai nhóm: "4 vật nuôi &gt; 3 côn trùng". Mẹo: miệng cá sấu (&gt; &lt;) luôn há về phía nhiều hơn.','Thêm 1 con vào nhóm ít hơn: "Giờ hai nhóm thế nào?" (=).'],['Phân loại đúng theo nhóm.','So sánh hai nhóm, đặt đúng dấu &gt;, &lt;, =.']],
+    ['3. Luyện âm và nét chữ',10,'Tiền đọc<br>tiền viết',['Âm: "<i>bee</i>: /b/ /b/". Bé vỗ tay mỗi khi nghe từ bắt đầu bằng /b/: <i>bee, bear, ball, dog, butterfly</i>.','Nét: tô 1 dòng nét móc xuôi và 1 dòng nét móc ngược (nét của chữ <i>n, u, h</i>).'],['Nghe ra âm /b/ và tách được từ không bắt đầu bằng /b/.','Tô nét móc đúng điểm đặt bút, đều nét.']],
+    ['4. Tổng kết và giao nhiệm vụ',2,'Kỹ năng sống',['Khen bé phân loại giỏi.','Giao nhiệm vụ: ra vườn hoặc công viên tìm một côn trùng và đếm chân của nó.'],['Biết quan sát, không bắt hay làm hại côn trùng có ích.']]],
+   task:'Mỗi ngày tìm một con vật (ngoài đường, trong sách, trên TV) và nói nó thuộc nhóm nào: <i>It\'s a pet! It\'s an insect!</i>',
+   en:'pet, wild animal, insect, dog, rabbit, tiger, monkey, bee, butterfly, ant'}},
+
+ /* ===================== Unit 5: đếm đến 20 ===================== */
+ {id:'u5',n:'Unit 5',en:'Count to Twenty!',vi:'Đếm đến 20, đếm ngược, nhiều hơn – ít hơn',ic:'🔢',review:'con vật: A bee is an insect.',
+  words:LopHocVocab.w("mau-giao/d5"),
+  talk:[["Let's count to twenty!",'Cùng đếm đến hai mươi nào!',0],['Eleven, twelve, thirteen…','Mười một, mười hai, mười ba…',2],['Now count down. Ten, nine, eight…','Giờ đếm ngược. Mười, chín, tám…',1],['…three, two, one. Blast off!','…ba, hai, một. Phóng!',2],['Who has more candies?','Ai có nhiều kẹo hơn?',0],['I have more! I have twelve.','Tớ nhiều hơn! Tớ có mười hai cái.',2]],
+  song:{t:"Count to Twenty",verses:[
+   {ic:'✋✋',cue:['👏 Clap and count!','Vỗ tay theo mỗi số'],lines:['One, two, three, four, five, six, seven, eight, nine, ten!','<b>Eleven</b>, <b>twelve</b>, <b>thirteen</b>, <b>fourteen</b>, <b>fifteen</b>!'],vi:'Một đến mười, rồi mười một đến mười lăm!'},
+   {ic:'🦶🦶',cue:['🦶 Stamp and count!','Dậm chân theo mỗi số'],lines:['<b>Sixteen</b>, <b>seventeen</b>, <b>eighteen</b>, <b>nineteen</b>,','<b>twenty</b>! Hooray!'],vi:'Mười sáu đến hai mươi! Hoan hô!'},
+   {ic:'🚀',cue:['🚀 Crouch down, then jump!','Ngồi xổm rồi bật nhảy'],lines:['Ten, nine, eight, seven, six,','five, four, three, two, one… Blast off!'],vi:'Đếm ngược từ mười… Phóng!'}]},
+  speech:{t:"Count With Me",intro:["Today, I will count for you!","Hôm nay tớ sẽ đếm cho mọi người nghe!"],lines:[["🔢","I can count to <b>twenty</b>!","Tớ đếm được đến hai mươi!"],["✋","<b>Eleven</b>, <b>twelve</b>, <b>thirteen</b>, <b>fourteen</b>, <b>fifteen</b>!","Mười một, mười hai, mười ba, mười bốn, mười lăm!"],["🦶","<b>Sixteen</b>, <b>seventeen</b>, <b>eighteen</b>, <b>nineteen</b>, <b>twenty</b>!","Mười sáu, mười bảy, mười tám, mười chín, hai mươi!"],["🚀","Ten, nine, eight… two, one. Blast off!","Mười, chín, tám… hai, một. Phóng!"],["🍬","I have <b>more</b> candies than my sister.","Tớ có nhiều kẹo hơn em gái."]],end:["Counting is fun!","Đếm số vui lắm!"]},
+  games:[{type:'pick',name:"🎧 Which number?",prompt:'{w}',options:3,after:'{w}!'},
+   {type:'phrase',name:"🍬 More or less?",items:[
+    {pic:'🍬🍬🍬 | 🍬',vi:'Bên trái có 3 kẹo, bên phải có 1 kẹo.',en:"Three candies and one candy.",say:'Which side has more?',o:[['⬅️','The left side has more!'],['➡️','The right side has more!'],['⚖️','They are the same.']],a:0},
+    {pic:'🍎 | 🍎🍎🍎🍎',vi:'Bên trái 1 quả táo, bên phải 4 quả.',en:"One apple and four apples.",say:'Which side has more?',o:[['➡️','The right side has more!'],['⬅️','The left side has more!'],['⚖️','They are the same.']],a:0},
+    {pic:'🎈🎈 | 🎈🎈',vi:'Mỗi bên có 2 quả bóng bay.',en:"Two balloons and two balloons.",say:'Which side has more?',o:[['⚖️','They are the same!'],['⬅️','The left side has more!'],['➡️','The right side has more!']],a:0},
+    {pic:'🚀🔟',vi:'Tên lửa sắp phóng. Cô đếm ngược: ten, nine, eight…',en:"Ten, nine, eight…",say:'What comes next?',o:[['7️⃣','Seven!'],['9️⃣','Nine!'],['🔟','Ten!']],a:0},
+    {pic:'1️⃣9️⃣',vi:'Đếm: seventeen, eighteen, nineteen…',en:"Seventeen, eighteen, nineteen…",say:'What comes next?',o:[['2️⃣0️⃣','Twenty!'],['1️⃣1️⃣','Eleven!'],['1️⃣5️⃣','Fifteen!']],a:0}]}],
+  hw:{"e":["Twelve!","Yes! Twelve cars. Let's count again: ten, eleven, twelve!"],"s":["Chia kẹo: mẹ cố tình đưa bé ít hơn em, chờ bé phản đối.","I have less! I want more, please!"],"c":["Eleven or twelve?","Twelve!"],"b":["How many birds are there?","Fifteen birds!"],"x":"count down, blast off, rocket, stairs"},
+  guide:{answers:['Số nào: nghe → bấm số 11–20.','Nhiều hay ít: 3 kẹo và 1 kẹo → <i>The left side has more!</i>; 1 táo và 4 táo → <i>The right side has more!</i>; 2 và 2 → <i>They are the same!</i>; đếm ngược ten, nine, eight → <i>Seven!</i>; seventeen, eighteen, nineteen → <i>Twenty!</i>'],
+   home:["Đếm bậc cầu thang mỗi lần lên xuống: lên đếm xuôi, xuống đếm ngược.","Bó que tính thành bó 10 bằng dây chun: 12 = một bó và 2 que. Bé đếm <i>ten, eleven, twelve</i>.","Trước khi bé chạy đi chơi: đếm ngược <i>Ten… one, blast off!</i>"],
+   tips:["Số -<i>teen</i> nhấn âm sau: thir-TEEN, four-TEEN; số -<i>ty</i> nhấn âm đầu: TWEN-ty. Phân biệt <i>thirteen</i> và <i>thirty</i>.","<i>Twelve</i>: âm /lv/ cuối, đọc \"tuel-v\".","<i>Eleven</i>: i-LE-vừn, nhấn âm giữa."]},
+  pre:{sum:['Lịch tháng: đếm ngày đến sinh nhật; thời gian (đếm ngược)','Đếm 1–20 bằng bó chục; đếm ngược 10 → 0; so sánh &gt;, &lt;, =','Âm /t/ (<i>ten, twelve, twenty</i>), /f/ (<i>four, five</i>); tô chữ số 0–9'],
+   cu:'20 que tính (hoặc ống hút), dây chun, tờ lịch tháng, kẹo hoặc nắp chai, thẻ số 0–20, giấy và bút chì.',
+   parts:[['1. Khởi động và khám phá',8,'Khoa học<br>(thời gian)',['Xem lịch tháng, khoanh ngày hôm nay và ngày sinh nhật (hoặc ngày lễ sắp tới).','Hỏi tư duy: "Còn bao nhiêu ngày nữa đến sinh nhật con?" Cùng đếm từng ô.','Chơi tên lửa: ngồi xổm đếm ngược 10 → 1 rồi bật nhảy.'],['Biết lịch dùng để xem ngày.','Đếm ngược từ 10 không sai.']],
+    ['2. Trò chơi số lượng',10,'Toán',['Bó 10 que tính bằng dây chun. Thêm từng que: "Một bó và 1 que là mười một."','Bày 12 kẹo và 15 kẹo thành hai hàng thẳng, ghép từng đôi: "Hàng nào thừa ra là nhiều hơn."','Đặt thẻ dấu &gt; &lt; = giữa hai nhóm.'],['Đếm đúng đến 20, hiểu 11–20 là "một chục và mấy".','So sánh hai nhóm bằng cách ghép đôi.']],
+    ['3. Luyện âm và nét chữ',10,'Tiền đọc<br>tiền viết',['Âm: "<i>ten</i>: /t/ /t/, <i>twelve</i>: /t/". Bé đếm số từ bắt đầu bằng /t/: <i>two, three, ten, twelve, twenty</i>.','Viết số: tô 1 dòng chữ số 0 (nét cong kín) và 1 dòng chữ số 1 (nét thẳng); hôm sau tô 2, 3.'],['Nghe ra âm /t/ ở đầu từ.','Tô chữ số đúng chiều, đúng điểm đặt bút.']],
+    ['4. Tổng kết và giao nhiệm vụ',2,'Kỹ năng sống',['Khen bé đếm giỏi.','Giao nhiệm vụ: mỗi tối gạch một ô trên lịch và nói còn mấy ngày nữa đến sinh nhật.'],['Hình thành thói quen xem lịch, đếm ngày.']]],
+   task:'Mỗi lần lên cầu thang đếm xuôi bằng tiếng Anh, xuống cầu thang đếm ngược.',
+   en:'eleven … twenty, count, count down, more, less, the same'}},
+
+ /* ===================== Unit 6: thêm và bớt ===================== */
+ {id:'u6',n:'Unit 6',en:'Add and Take Away',vi:'Thêm vào và bớt đi trong phạm vi 10',ic:'➕',review:'số: eleven, twelve… twenty!',
+  words:LopHocVocab.w("mau-giao/d6"),
+  talk:[['I have three apples.','Tớ có ba quả táo.',1],['I give you two more.','Tớ cho cậu thêm hai quả.',0],['How many altogether?','Tất cả có bao nhiêu?',0],['Three plus two is five!','Ba cộng hai bằng năm!',2],['I eat one. Yummy!','Tớ ăn một quả. Ngon quá!',1],['Five take away one is four.','Năm bớt một còn bốn.',2]],
+  speech:{t:"Apple Math",intro:["Today, I will tell you an apple story!","Hôm nay tớ sẽ kể một câu chuyện về quả táo!"],lines:[["🍎","I have <b>three</b> apples.","Tớ có ba quả táo."],["➕","Mom gives me <b>two more</b>.","Mẹ cho tớ thêm hai quả."],["🤲","Now I have <b>five</b> apples <b>altogether</b>!","Giờ tớ có tất cả năm quả táo!"],["➖","I eat <b>one</b>. Yummy!","Tớ ăn một quả. Ngon quá!"],["4️⃣","Five <b>take away</b> one is <b>four</b>.","Năm bớt một còn bốn."]],end:["Math is yummy!","Toán học ngon thật đấy!"]},
+  games:[{type:'phrase',name:"➕ Add it up!",items:[
+    {pic:'🍎🍎 ➕ 🍎',vi:'2 quả táo thêm 1 quả táo.',en:"Two apples plus one apple.",say:'How many altogether?',o:[['3️⃣','Three!'],['2️⃣','Two!'],['4️⃣','Four!']],a:0},
+    {pic:'🍌🍌🍌 ➕ 🍌🍌',vi:'3 quả chuối thêm 2 quả chuối.',en:"Three bananas plus two bananas.",say:'How many altogether?',o:[['5️⃣','Five!'],['4️⃣','Four!'],['6️⃣','Six!']],a:0},
+    {pic:'🎈🎈🎈🎈 ➕ 🎈🎈',vi:'4 quả bóng thêm 2 quả bóng.',en:"Four balloons plus two balloons.",say:'How many altogether?',o:[['6️⃣','Six!'],['5️⃣','Five!'],['7️⃣','Seven!']],a:0},
+    {pic:'🐟🐟🐟🐟🐟 ➕ 🐟🐟🐟',vi:'5 con cá thêm 3 con cá.',en:"Five fish plus three fish.",say:'How many altogether?',o:[['8️⃣','Eight!'],['7️⃣','Seven!'],['9️⃣','Nine!']],a:0}]},
+   {type:'phrase',name:"➖ Take away!",items:[
+    {pic:'🍪🍪🍪🍪 ➖ 🍪',vi:'Có 4 cái bánh, bé ăn 1 cái.',en:"Four cookies. You eat one.",say:'How many are left?',o:[['3️⃣','Three!'],['4️⃣','Four!'],['5️⃣','Five!']],a:0},
+    {pic:'🎈🎈🎈🎈🎈 ➖ 🎈🎈',vi:'Có 5 quả bóng, bay mất 2 quả.',en:"Five balloons. Two fly away.",say:'How many are left?',o:[['3️⃣','Three!'],['2️⃣','Two!'],['7️⃣','Seven!']],a:0},
+    {pic:'🐦🐦🐦 ➖ 🐦🐦🐦',vi:'Có 3 con chim, bay đi cả 3 con.',en:"Three birds. Three fly away.",say:'How many are left?',o:[['0️⃣','Zero!'],['3️⃣','Three!'],['1️⃣','One!']],a:0},
+    {pic:'🍬🍬🍬🍬🍬🍬 ➖ 🍬🍬',vi:'Có 6 viên kẹo, bé cho bạn 2 viên.',en:"Six candies. You give two to your friend.",say:'How many are left?',o:[['4️⃣','Four!'],['6️⃣','Six!'],['8️⃣','Eight!']],a:0}]},
+   {type:'count',name:"🔢 How many?",max:10,rounds:6,items:['🍎','🍌','🍪','🎈','🐟','🍬']}],
+  hw:{"e":["Five!","Yes! Three plus two is five. Five apples altogether!"],"s":["Chia bánh cho cả nhà nhưng thiếu một cái, chờ bé phát hiện.","One more, please! Daddy has zero!"],"c":["One more or one less?","One more!"],"b":["The bird eats one cherry. How many are left?","Two cherries!"],"x":"left, give, eat, share, plate"},
+  guide:{answers:['Cộng: 2+1 → <i>Three!</i>; 3+2 → <i>Five!</i>; 4+2 → <i>Six!</i>; 5+3 → <i>Eight!</i>','Bớt: 4−1 → <i>Three!</i>; 5−2 → <i>Three!</i>; 3−3 → <i>Zero!</i>; 6−2 → <i>Four!</i>','Đếm: đếm hình, chọn số đúng.'],
+   home:["Giờ ăn trái cây: <i>You have three. I give you one more. How many altogether?</i>","Kể chuyện toán với đồ chơi: 5 chú gấu đi chơi, 2 chú về nhà, còn mấy chú?","Không bắt bé viết phép tính; chỉ nói và làm với đồ thật."],
+   tips:["<i>Plus</i>: \"plắt-s\", âm /pl/ đọc liền.","<i>Altogether</i>: ôl-tu-GE-đơ, nhấn âm thứ ba.","<i>Take away</i>: nối âm: \"tây-kơ-uây\"."]},
+  pre:{sum:['Chia đồ ăn cho cả nhà; ăn uống lành mạnh (trái cây)','Tách – gộp 5, 6, 7 bằng vật thật; thêm vào (cộng), bớt đi (trừ) trong phạm vi 10; dấu +, −, =','Âm /a/ (<i>apple, add</i>); ghép âm đầu tiên: <i>a-t = at</i>; nét cong kín (chữ <i>o, a</i>)'],
+   cu:'10 quả nhỏ hoặc kẹo, 10 que tính, 2 cái đĩa, thẻ dấu + − =, thẻ số 0–10, giấy và bút chì.',
+   parts:[['1. Khởi động và khám phá',8,'Khoa học<br>(ăn uống)',['Bày trái cây, hỏi: "Ăn trái cây giúp gì cho cơ thể?" (khỏe, đẹp da, không ốm).','Cùng bé chia trái cây cho cả nhà: mỗi người một quả, thiếu thì làm sao?'],['Nói trọn câu: "Ăn trái cây giúp con khỏe mạnh."','Biết chia đều cho mọi người.']],
+    ['2. Trò chơi số lượng',10,'Toán',['Gộp: đĩa trái 3 que, đĩa phải 2 que. Dồn vào một đĩa: "Tất cả có mấy que?" Đặt thẻ 3 + 2 = 5 bên cạnh.','Tách: 6 viên kẹo chia hai đĩa theo nhiều cách (1 và 5, 2 và 4, 3 và 3).','Bớt: có 5 quả, "ăn" 1 quả: "Còn lại mấy quả?" Đặt thẻ 5 − 1 = 4.'],['Hiểu thêm vào là nhiều lên, bớt đi là ít đi.','Tách – gộp đúng trong phạm vi 7, tính nhẩm với đồ thật trong phạm vi 10.']],
+    ['3. Luyện âm và nét chữ',10,'Tiền đọc<br>tiền viết',['Âm: "<i>apple</i>: /æ/ /æ/" (miệng mở rộng như "e" và "a"). Ghép âm đầu tiên: /æ/ + /t/ = <i>at</i>.','Nét: tô 1 dòng nét cong kín (chữ <i>o</i>), rồi 1 dòng chữ <i>a</i> (nét cong kín và nét móc).'],['Phát âm âm /æ/, ghép được <i>at</i>.','Tô nét cong kín tròn đều, khép kín.']],
+    ['4. Tổng kết và giao nhiệm vụ',2,'Kỹ năng sống',['Khen bé chia đều.','Giao nhiệm vụ: giờ ăn trái cây, bé tự chia cho mọi người và nói còn lại mấy quả.'],['Biết chia sẻ, đếm và nói phép tính bằng lời.']]],
+   task:'Mỗi bữa trái cây, ba mẹ đặt một câu đố thêm – bớt bằng đồ thật: <i>You have four. You eat one. How many are left?</i>',
+   en:'plus, one more, altogether, take away, one less, zero, equals, how many'}},
+
+ /* ===================== Unit 7: hình và quy luật ===================== */
+ {id:'u7',n:'Unit 7',en:'Shapes and Patterns',vi:'Hình phẳng và quy luật lặp lại',ic:'🔺',review:'cộng trừ: Three plus two is five.',
+  words:LopHocVocab.w("mau-giao/d7"),
+  talk:[['What shape is it?','Đây là hình gì?',0],["It's a triangle. It has three sides.",'Hình tam giác. Nó có ba cạnh.',2],['And this one?','Còn hình này?',0],["It's a rectangle. It has four corners.",'Hình chữ nhật. Nó có bốn góc.',2],['Look! Red, yellow, red, yellow…','Nhìn này! Đỏ, vàng, đỏ, vàng…',1],["Red comes next! It's a pattern!",'Tiếp theo là màu đỏ! Đó là quy luật!',2]],
+  speech:{t:"Shapes Everywhere",intro:["Today, I will show you shapes in my house!","Hôm nay tớ sẽ chỉ cho mọi người các hình trong nhà tớ!"],lines:[["🕒","The clock is a <b>circle</b>.","Cái đồng hồ là hình tròn."],["🖼️","The picture is a <b>square</b>.","Bức tranh là hình vuông."],["🍕","My pizza is a <b>triangle</b>. Yummy!","Miếng pizza của tớ là hình tam giác. Ngon quá!"],["🚪","The door is a <b>rectangle</b>.","Cái cửa là hình chữ nhật."],["🔴🟡","Red, yellow, red, yellow. It's a <b>pattern</b>!","Đỏ, vàng, đỏ, vàng. Đó là quy luật!"]],end:["I see shapes everywhere!","Tớ thấy hình ở khắp mọi nơi!"]},
+  games:[{type:'pick',name:"🎧 Find the shape",prompt:'Find the {w}.',only:[0,1,2,3],options:4,after:"It's a {w}!"},
+   {type:'phrase',name:"➡️ What comes next?",items:[
+    {pic:'🔴🟡🔴🟡❓',vi:'Đỏ, vàng, đỏ, vàng… tiếp theo là màu gì?',en:"Red, yellow, red, yellow…",say:'What comes next?',o:[['🔴','Red!'],['🟡','Yellow!'],['🔵','Blue!']],a:0},
+    {pic:'⭕🔺⭕🔺❓',vi:'Tròn, tam giác, tròn, tam giác…',en:"Circle, triangle, circle, triangle…",say:'What comes next?',o:[['⭕','A circle!'],['🔺','A triangle!'],['🟥','A square!']],a:0},
+    {pic:'🐶🐱🐱🐶🐱🐱🐶❓',vi:'Chó, mèo, mèo, chó, mèo, mèo, chó…',en:"Dog, cat, cat, dog, cat, cat, dog…",say:'What comes next?',o:[['🐱','A cat!'],['🐶','A dog!'],['🐰','A rabbit!']],a:0},
+    {pic:'👏🦶👏🦶❓',vi:'Vỗ tay, dậm chân, vỗ tay, dậm chân…',en:"Clap, stamp, clap, stamp…",say:'What comes next?',o:[['👏','Clap!'],['🦶','Stamp!'],['🙌','Jump!']],a:0}]},
+   {type:'simon',name:"🙆 Body shapes",says:'Teacher says',cmds:[['⭕','Make a circle with your arms!','Vòng hai tay qua đầu thành hình tròn'],['🔺','Make a triangle with your fingers!','Chụm ngón cái và ngón trỏ hai tay thành hình tam giác'],['🟥','Draw a big square in the air!','Vẽ hình vuông thật to trên không'],['🚪','Draw a rectangle in the air!','Vẽ hình chữ nhật trên không'],['📐','Touch a corner of the table!','Chạm vào một góc bàn'],['🍽️','Go find a circle!','Chạy đi tìm một đồ vật hình tròn'],['📕','Go find a rectangle!','Chạy đi tìm một đồ vật hình chữ nhật']]},
+   {type:'phrase',name:"🔎 Shape hunt",items:[
+    {pic:'🍽️',vi:'Bé tìm được cái đĩa.',en:"You find a plate.",say:'What shape is it?',o:[['⭕',"It's a circle!"],['🔺',"It's a triangle!"],['🟥',"It's a square!"]],a:0},
+    {pic:'📕',vi:'Bé tìm được quyển sách.',en:"You find a book.",say:'What shape is it?',o:[['📕',"It's a rectangle!"],['⭕',"It's a circle!"],['🔺',"It's a triangle!"]],a:0},
+    {pic:'🍕',vi:'Bé tìm được miếng pizza.',en:"You find a slice of pizza.",say:'What shape is it?',o:[['🔺',"It's a triangle!"],['🟥',"It's a square!"],['⭕',"It's a circle!"]],a:0},
+    {pic:'🖼️',vi:'Bé tìm được khung ảnh vuông.',en:"You find a picture frame.",say:'What shape is it?',o:[['🟥',"It's a square!"],['🔺',"It's a triangle!"],['⭕',"It's a circle!"]],a:0},
+    {pic:'📕',vi:'Cô hỏi quyển sách có mấy góc.',en:"Look at the book.",say:'How many corners does it have?',o:[['4️⃣','Four corners!'],['3️⃣','Three corners!'],['0️⃣','Zero!']],a:0}]},
+   {type:'phrase',name:"📐 How many sides?",items:[
+    {pic:'🔺',vi:'Hình tam giác.',en:"Look at the triangle.",say:'How many sides does it have?',o:[['3️⃣','Three sides!'],['4️⃣','Four sides!'],['0️⃣','Zero!']],a:0},
+    {pic:'🟥',vi:'Hình vuông.',en:"Look at the square.",say:'How many corners does it have?',o:[['4️⃣','Four corners!'],['3️⃣','Three corners!'],['5️⃣','Five corners!']],a:0},
+    {pic:'⭕',vi:'Hình tròn.',en:"Look at the circle.",say:'How many corners does it have?',o:[['0️⃣','Zero! It has no corners.'],['4️⃣','Four corners!'],['3️⃣','Three corners!']],a:0}]}],
+  hw:{"e":["Circle!","Yes! The plate is a circle. It's round!"],"s":["Xếp hạt vòng đỏ – vàng – đỏ rồi dừng, đưa bé hạt màu xanh.","No! Yellow comes next!"],"c":["A square or a rectangle?","A rectangle!"],"b":["What shape is the window?","A square!"],"x":"round, plate, window, door, bead"},
+  guide:{answers:['Tìm hình: nghe → bấm circle ⭕, square 🟥, triangle 🔺, rectangle (hình chữ nhật xanh).','Tiếp theo là gì: đỏ vàng đỏ vàng → <i>Red!</i>; tròn tam giác → <i>A circle!</i>; chó mèo mèo chó mèo mèo chó → <i>A cat!</i>; vỗ tay dậm chân → <i>Clap!</i>','Mấy cạnh: tam giác → <i>Three sides!</i>; hình vuông → <i>Four corners!</i>; hình tròn → <i>Zero! It has no corners.</i>','Body shapes: không có đáp án. Bé làm động tác khi máy nói "Teacher says…".','Săn tìm hình: đĩa → <i>It\'s a circle!</i>; sách → <i>It\'s a rectangle!</i>; pizza → <i>It\'s a triangle!</i>; khung ảnh → <i>It\'s a square!</i>; sách có mấy góc → <i>Four corners!</i>'],
+   home:["Đi \"săn hình\" trong nhà: đồng hồ, đĩa (circle), cửa, tủ lạnh (rectangle), gạch lát (square).","Xếp quy luật bằng đồ chơi, bút màu, hạt; ba mẹ xếp, bé nói <i>What comes next?</i> rồi đổi vai.","Dùng que tính xếp hình: 3 que thành tam giác, 4 que thành hình vuông."],
+   tips:["<i>Triangle</i>: TRAI-en-gồ, nhấn âm đầu.","<i>Rectangle</i>: REC-ten-gồ, nhấn âm đầu.","<i>Pattern</i>: PAT-tơn, âm /t/ giữa đọc nhẹ."]},
+  pre:{sum:['Tìm hình trong nhà (đồng hồ, cửa, gạch lát); đồ vật lăn được và không lăn được','Hình tròn, vuông, tam giác, chữ nhật; đếm cạnh và góc; quy luật AB, ABB','Âm /p/ (<i>pattern, pizza</i>), /r/ (<i>red, rectangle</i>); nét cong hở trái'],
+   cu:'Hình tròn, vuông, tam giác, chữ nhật cắt từ bìa màu; 12 que tính; hạt hoặc nắp chai hai màu; giấy và bút chì.',
+   parts:[['1. Khởi động và khám phá',8,'Khoa học<br>(đồ vật quanh em)',['Đi một vòng quanh nhà tìm hình: mặt đồng hồ, cửa sổ, cửa ra vào, gạch lát.','Hỏi tư duy: "Vì sao bánh xe là hình tròn mà không phải hình vuông?" Thử lăn nắp chai và cục tẩy vuông.'],['Chỉ đúng đồ vật có hình tròn, vuông, chữ nhật.','Nói được: "Hình tròn lăn được."']],
+    ['2. Trò chơi số lượng',10,'Toán',['Phân loại hình bìa thành 4 nhóm, đếm mỗi nhóm.','Xếp que tính: 3 que thành tam giác, 4 que thành hình vuông. Đếm cạnh, đếm góc.','Quy luật: ba mẹ xếp đỏ – vàng – đỏ – vàng, bé xếp tiếp; nâng lên đỏ – vàng – vàng.'],['Gọi tên và phân loại đúng 4 hình phẳng.','Nhận ra và xếp tiếp quy luật lặp lại.']],
+    ['3. Luyện âm và nét chữ',10,'Tiền đọc<br>tiền viết',['Âm: "<i>pizza</i>: /p/ /p/" (đặt tờ giấy trước miệng, nói /p/ thấy giấy rung).','Nét: tô 1 dòng nét cong hở trái (ngược chiều chữ <i>c</i>), rồi xen kẽ nét cong hở phải và hở trái thành quy luật.'],['Phát âm /p/ bật hơi rõ.','Phân biệt nét cong hở trái và hở phải.']],
+    ['4. Tổng kết và giao nhiệm vụ',2,'Kỹ năng sống',['Khen bé tìm hình giỏi.','Giao nhiệm vụ: mỗi ngày tìm một đồ vật hình mới trong nhà và nói tên hình bằng tiếng Anh.'],['Quan sát đồ vật xung quanh bằng con mắt "toán học".']]],
+   task:'Mỗi ngày ba mẹ xếp một quy luật (đồ chơi, bút màu, hạt), bé nói và xếp tiếp: <i>Red, yellow, red… yellow comes next!</i>',
+   en:'circle, square, triangle, rectangle, side, corner, pattern, next'}},
+
+ /* ===================== Unit 8: đo lường ===================== */
+ {id:'u8',n:'Unit 8',en:'Measure It: Heavy or Light?',vi:'Đo lường: nặng – nhẹ, dài – ngắn, cao – thấp',ic:'⚖️',review:'hình: The clock is a circle.',
+  words:LopHocVocab.w("mau-giao/d8"),
+  talk:[['Which is heavy?','Cái nào nặng?',0],['The brick is heavy. Ugh!','Viên gạch nặng quá. Ui!',2],['Which is light?','Cái nào nhẹ?',0],['The balloon is light. Whee!','Quả bóng bay nhẹ tênh. Bay nè!',2],["Let's measure! My pencil is long.",'Cùng đo nào! Bút chì của tớ dài.',1],['Mine is short.','Bút của tớ ngắn.',2]],
+  speech:{t:"Heavy and Light",intro:["Today, I will measure things for you!","Hôm nay tớ sẽ đo các đồ vật cho mọi người xem!"],lines:[["⚖️","I have a <b>scale</b>.","Tớ có một cái cân."],["🧱","The brick is <b>heavy</b>.","Viên gạch thì nặng."],["🎈","The balloon is <b>light</b>.","Quả bóng bay thì nhẹ."],["🦒","The giraffe is <b>tall</b>. I am short.","Hươu cao cổ thì cao. Tớ thì thấp."],["📏","I <b>measure</b> my pencil. It's <b>long</b>!","Tớ đo bút chì. Nó dài!"]],end:["I can measure!","Tớ biết đo rồi!"]},
+  games:[{type:'phrase',name:"⚖️ Heavy or light?",items:[
+    {pic:'🧱',vi:'Viên gạch.',en:"Look at the brick.",say:'Is it heavy or light?',o:[['🧱',"It's heavy!"],['🎈',"It's light!"],['🔴',"It's red!"]],a:0},
+    {pic:'🎈',vi:'Quả bóng bay.',en:"Look at the balloon.",say:'Is it heavy or light?',o:[['🎈',"It's light!"],['🧱',"It's heavy!"],['😢',"It's sad!"]],a:0},
+    {pic:'🐘',vi:'Con voi.',en:"Look at the elephant.",say:'Is it heavy or light?',o:[['🐘',"It's heavy!"],['🎈',"It's light!"],['🌙',"It's night!"]],a:0},
+    {pic:'🍃',vi:'Chiếc lá.',en:"Look at the leaf.",say:'Is it heavy or light?',o:[['🍃',"It's light!"],['🧱',"It's heavy!"],['🔢','Twenty!']],a:0}]},
+   {type:'phrase',name:"📏 Long, short or tall?",items:[
+    {pic:'🚂',vi:'Đoàn tàu rất nhiều toa.',en:"Look at the train.",say:'Is it long or short?',o:[['🚂',"It's long!"],['🐛',"It's short!"],['💧','Water!']],a:0},
+    {pic:'🐛',vi:'Con sâu nhỏ.',en:"Look at the worm.",say:'Is it long or short?',o:[['🐛',"It's short!"],['🚂',"It's long!"],['🌞',"It's day!"]],a:0},
+    {pic:'🦒🐧',vi:'Hươu cao cổ đứng cạnh chim cánh cụt.',en:"A giraffe and a penguin.",say:'Which one is tall?',o:[['🦒','The giraffe is tall!'],['🐧','The penguin is tall!'],['👯',"They're the same."]],a:0},
+    {pic:'✏️✏️',vi:'Hai cây bút chì dài bằng nhau.',en:"Two pencils.",say:'Which one is long?',o:[['👯',"They're the same!"],['⬅️','The left one!'],['➡️','The right one!']],a:0},
+    {pic:'✏️🖍️',vi:'Bút chì xanh dài, bút sáp đỏ ngắn.',en:"A blue pencil and a red crayon.",say:'Which one is longer?',o:[['✏️','The blue pencil is longer.'],['🖍️','The red crayon is longer.'],['👯',"They're the same."]],a:0},
+    {pic:'🥢🥄',vi:'Đôi đũa dài, cái thìa ngắn.',en:"Chopsticks and a spoon.",say:'Which one is shorter?',o:[['🥄','The spoon is shorter.'],['🥢','The chopsticks are shorter.'],['👯',"They're the same."]],a:0},
+    {pic:'📕✏️✏️',vi:'Quyển sách dài bằng 2 cây bút chì.',en:"Measure the book with pencils.",say:'How long is the book?',o:[['2️⃣','Two pencils long!'],['5️⃣','Five pencils long!'],['🔟','Ten pencils long!']],a:0}]},
+   {type:'simon',name:"🙆 Be long, be short!",says:'Teacher says',cmds:[['↔️','Long! Open your arms wide!','Dang rộng hai tay'],['🤏','Short! Hands close together!','Thu hai tay lại gần nhau'],['🦒','Be tall! Stand on your toes!','Kiễng chân, vươn người thật cao'],['🐭','Be small! Sit down!','Ngồi xổm thật nhỏ'],['🧱','Heavy! Carry a heavy box!','Giả vờ bê một thùng thật nặng'],['🎈','Light! Float like a balloon!','Nhẹ nhàng bay như quả bóng bay']]},
+   {type:'pick',name:"🎧 Listen and tap",prompt:'{w}',options:3,after:'{w}!'}],
+  hw:{"e":["Heavy!","Yes! The rice bag is heavy. Help me, please!"],"s":["Nhờ bé xách túi gạo rồi túi bông, chờ bé so sánh.","This one is heavy! That one is light!"],"c":["Heavy or light?","Light!"],"b":["Who is tall in the picture?","Daddy is tall!"],"x":"rice bag, feather, ruler, hand span, kilo"},
+  guide:{answers:['Nặng hay nhẹ: gạch, voi → <i>It\'s heavy!</i>; bóng bay, chiếc lá → <i>It\'s light!</i>','Dài, ngắn, cao: tàu → <i>It\'s long!</i>; sâu → <i>It\'s short!</i>; hươu và cánh cụt → <i>The giraffe is tall!</i>; hai bút bằng nhau → <i>They\'re the same!</i>; bút chì và bút sáp → <i>The blue pencil is longer.</i>; đũa và thìa → <i>The spoon is shorter.</i>; đo sách → <i>Two pencils long!</i>','Be long, be short: không có đáp án. Bé làm động tác theo lệnh.','Nghe và chọn: heavy 🧱, light 🎈, scale ⚖️, long 🚂, short 🐛, tall 🦒, measure 📏, the same 👯.'],
+   home:["Bé cầm hai đồ, mỗi tay một thứ, đoán <i>heavy</i> hay <i>light</i>; kiểm tra bằng cân treo làm từ móc áo và hai túi ni lông.","Đo bàn, ghế bằng gang tay hoặc que tính: <i>The table is ten hands long!</i>","Đứng cạnh tường đánh dấu chiều cao cả nhà: <i>Daddy is tall. I am short.</i>"],
+   tips:["<i>Heavy</i>: HE-vi, âm /v/ răng trên chạm môi dưới.","<i>Light</i>: \"lai-t\", không đọc \"lai\".","<i>Measure</i>: ME-giơ, âm /ʒ/ giữa."]},
+  pre:{sum:['Vật nổi – vật chìm; đồ nặng, đồ nhẹ trong nhà','So sánh nặng – nhẹ, dài – ngắn, cao – thấp; đo bằng gang tay, que tính; xếp theo thứ tự','Âm /h/ (<i>heavy</i>), /l/ (<i>light, long</i>); nét khuyết trên (chữ <i>l, h, b</i>)'],
+   cu:'Móc áo và 2 túi ni lông (làm cân), vài đồ vật (quả cam, cục bông, viên sỏi, chiếc thìa), chậu nước, que tính, giấy và bút chì.',
+   parts:[['1. Khởi động và khám phá',8,'Khoa học<br>(nổi – chìm)',['Bé thả từng đồ vật vào chậu nước, đoán trước: "Nổi hay chìm?"','Hỏi tư duy: "Viên sỏi nhỏ mà chìm, quả cam to mà lại nổi. Vì sao nhỉ?" (không cần đáp án đúng, khen bé dám đoán).'],['Dự đoán rồi kiểm tra, nói trọn câu: "Viên sỏi chìm ạ."','Biết không phải cứ to là nặng.']],
+    ['2. Trò chơi số lượng',10,'Toán',['Làm cân móc áo: bỏ hai đồ vào hai túi, bên nào trĩu xuống là nặng hơn.','Đo cái bàn bằng gang tay, đo bút chì bằng que tính, đếm số gang, số que.','Xếp 3–4 đồ chơi từ thấp đến cao.'],['So sánh đúng nặng – nhẹ, dài – ngắn, cao – thấp.','Đo bằng đơn vị tự chọn và đếm được kết quả.']],
+    ['3. Luyện âm và nét chữ',10,'Tiền đọc<br>tiền viết',['Âm: "<i>heavy</i>: /h/ /h/" (hà hơi vào lòng bàn tay), "<i>light</i>: /l/ /l/" (đầu lưỡi chạm chân răng trên).','Nét: tô 1 dòng nét khuyết trên (nét của chữ <i>l, h, b</i>), viết từ dòng kẻ dưới lên dòng kẻ trên.'],['Phân biệt âm /h/ và /l/.','Tô nét khuyết cao đúng 2,5 ô, không bị nghiêng.']],
+    ['4. Tổng kết và giao nhiệm vụ',2,'Kỹ năng sống',['Khen bé là "nhà khoa học nhí".','Giao nhiệm vụ: giúp ba mẹ xách đồ nhẹ khi đi chợ và nói <i>heavy</i> hoặc <i>light</i>.'],['Thích làm thí nghiệm nhỏ, biết giúp việc nhà vừa sức.']]],
+   task:'Mỗi ngày so sánh một cặp đồ vật trong nhà: <i>The bag is heavy. The hat is light.</i>',
+   en:'heavy, light, scale, long, short, tall, measure, the same'}},
+
+ /* ===================== Unit 9: ngày đêm, môi trường ===================== */
+ {id:'u9',n:'Unit 9',en:'Day and Night: Love Our Earth',vi:'Ngày và đêm, thời tiết, bảo vệ môi trường',ic:'🌍',review:'đo lường: The brick is heavy.',
+  words:LopHocVocab.w("mau-giao/d9"),
+  talk:[['Is it day or night?','Bây giờ là ban ngày hay ban đêm?',0],['It\'s night. I see the moon and stars.','Ban đêm. Tớ thấy mặt trăng và các vì sao.',2],['Turn off the water, please.','Con khóa vòi nước lại nhé.',1],['OK! Save water!','Vâng! Tiết kiệm nước!',2],['Where does the bottle go?','Cái chai bỏ vào đâu?',0],['In the recycling bin!','Vào thùng tái chế!',2]],
+  speech:{t:"I Love Our Earth",intro:["Today, I will tell you how I help our Earth!","Hôm nay tớ sẽ kể tớ giúp Trái Đất thế nào!"],lines:[["🌞","In the <b>day</b>, the sun is up.","Ban ngày, mặt trời mọc."],["🌙","At <b>night</b>, I see the moon and <b>stars</b>.","Ban đêm, tớ thấy mặt trăng và các vì sao."],["⛈️","In a <b>storm</b>, I stay inside.","Khi có bão, tớ ở trong nhà."],["🚰","I turn off the tap. I <b>save water</b>.","Tớ khóa vòi nước. Tớ tiết kiệm nước."],["♻️","I <b>recycle</b> bottles and paper.","Tớ tái chế chai và giấy."],["🗑️","I put <b>trash</b> in the bin.","Tớ bỏ rác vào thùng."]],end:["Let's keep our Earth clean!","Cùng giữ Trái Đất sạch đẹp nhé!"]},
+  games:[{type:'phrase',name:"♻️ Where does it go?",items:[
+    {pic:'🧴',vi:'Chai nhựa đã dùng hết.',en:"An empty plastic bottle.",say:'Where does it go?',o:[['♻️','In the recycling bin!'],['🗑️','In the trash bin!'],['🌊','In the river!']],a:0},
+    {pic:'📰',vi:'Tờ báo cũ.',en:"Old paper.",say:'Where does it go?',o:[['♻️','In the recycling bin!'],['🗑️','In the trash bin!'],['🌳','Under the tree!']],a:0},
+    {pic:'🍌',vi:'Vỏ chuối.',en:"A banana peel.",say:'Where does it go?',o:[['🗑️','In the trash bin!'],['♻️','In the recycling bin!'],['🛏️','Under the bed!']],a:0},
+    {pic:'🚿💧',vi:'Bé đánh răng xong nhưng vòi nước vẫn chảy.',en:"The water is on.",o:[['🚰','Turn off the water! Save water!'],['🎉','Hooray!'],['😴',"I'm sleepy."]],a:0}]},
+   {type:'phrase',name:"🌞 Day or night?",items:[
+    {pic:'🌞🏫',vi:'Mặt trời chiếu, bé đi học.',en:"The sun is up. You go to school.",say:'Is it day or night?',o:[['🌞',"It's day!"],['🌙',"It's night!"],['⛈️',"It's a storm!"]],a:0},
+    {pic:'🌙⭐',vi:'Trên trời có mặt trăng và sao.',en:"I see the moon and stars.",say:'Is it day or night?',o:[['🌙',"It's night!"],['🌞',"It's day!"],['🌬️',"It's windy!"]],a:0},
+    {pic:'⛈️🏠',vi:'Trời có bão, sấm chớp.',en:"There is a storm.",say:'What do you do?',o:[['🏠','I stay inside.'],['🏊','I go swimming.'],['🪁','I fly a kite.']],a:0},
+    {pic:'🌬️🍃',vi:'Gió thổi lá bay.',en:"The leaves fly.",say:'What is the weather like?',o:[['🌬️',"It's windy!"],['☀️',"It's sunny!"],['❄️',"It's snowy!"]],a:0}]}],
+  hw:{"e":["Night!","Yes! It's night. Look at the moon and stars!"],"s":["Mẹ để vòi nước chảy khi rửa rau, chờ bé nhắc.","Mom! Save water! Turn off the tap!"],"c":["Recycling bin or trash bin?","Recycling bin!"],"b":["What is the boy doing?","He's picking up trash!"],"x":"moon, tap, bottle, paper, plastic"},
+  guide:{answers:['Bỏ vào đâu: chai nhựa, giấy → <i>In the recycling bin!</i>; vỏ chuối → <i>In the trash bin!</i>; vòi nước chảy → <i>Turn off the water! Save water!</i>','Ngày hay đêm: mặt trời, đi học → <i>It\'s day!</i>; trăng sao → <i>It\'s night!</i>; bão → <i>I stay inside.</i>; gió thổi → <i>It\'s windy!</i>'],
+   home:["Làm 2 thùng rác ở nhà (tái chế và rác thường), bé là \"đội trưởng phân loại\".","Tối ra ban công ngắm trăng sao: <i>Is it day or night?</i>","Thí nghiệm ngày – đêm: soi đèn pin vào quả cam (Trái Đất), xoay quả cam: phía được chiếu sáng là ngày."],
+   tips:["<i>Night</i>: \"nai-t\", có /t/ nhẹ cuối; <i>day</i>: \"đây\".","<i>Recycle</i>: ri-SAI-cồ, nhấn âm giữa.","<i>Earth</i>: âm /ɜː/ và /θ/ cuối: \"ơ-th\"."]},
+  pre:{sum:['Ngày và đêm; thời tiết nắng, mưa, gió, bão; tiết kiệm nước, phân loại rác','Thứ tự sáng – trưa – chiều – tối; đếm và so sánh số rác mỗi thùng','Âm /d/ (<i>day</i>), /n/ (<i>night</i>); ghép âm <i>s-u-n = sun</i>; nét khuyết dưới (chữ <i>g, y</i>)'],
+   cu:'Đèn pin, quả cam (làm Trái Đất), 2 thùng hoặc hộp có dán chữ <i>recycle / trash</i>, vài món "rác sạch" (chai nhựa, giấy, vỏ hộp), tranh 4 buổi trong ngày, giấy và bút chì.',
+   parts:[['1. Khởi động và khám phá',8,'Khoa học<br>(tự nhiên, môi trường)',['Tắt đèn, soi đèn pin vào quả cam rồi xoay chậm: "Phía sáng là ban ngày, phía tối là ban đêm."','Hỏi tư duy: "Nếu ai cũng vứt rác xuống sông thì cá sẽ thế nào?"','Phân loại rác sạch vào 2 thùng.'],['Nói trọn câu: "Mặt trời chiếu sáng thì là ban ngày."','Phân loại đúng rác tái chế và rác thường.']],
+    ['2. Trò chơi số lượng',10,'Toán',['Xếp 4 tranh theo thứ tự: sáng (thức dậy) → trưa (ăn trưa) → chiều (đi chơi) → tối (đi ngủ).','Đếm số rác ở mỗi thùng, so sánh &gt;, &lt;, =.','Hỏi: "Thêm 2 chai nữa thì thùng tái chế có mấy món?"'],['Sắp xếp đúng thứ tự thời gian trong ngày.','Đếm, so sánh và thêm trong phạm vi 10.']],
+    ['3. Luyện âm và nét chữ',10,'Tiền đọc<br>tiền viết',['Âm: "<i>day</i>: /d/", "<i>night</i>: /n/". Ghép âm: /s/ + /ʌ/ + /n/ = <i>sun</i>, kéo từng âm như kéo dây chun rồi đọc liền.','Nét: tô 1 dòng nét khuyết dưới (nét của chữ <i>g, y</i>), xuống dưới dòng kẻ rồi vòng lên.'],['Ghép được 3 âm thành từ <i>sun</i>.','Tô nét khuyết dưới đúng độ dài.']],
+    ['4. Tổng kết và giao nhiệm vụ',2,'Kỹ năng sống',['Khen bé là "người bảo vệ Trái Đất".','Giao nhiệm vụ: mỗi ngày phân loại rác của cả nhà và nhắc mọi người khóa vòi nước.'],['Có ý thức tiết kiệm nước, bỏ rác đúng chỗ.']]],
+   task:'Bé làm "đội trưởng phân loại rác" của nhà; tối nói một câu về thời tiết hôm nay: <i>It was sunny. It was windy.</i>',
+   en:'day, night, star, windy, storm, save water, recycle, trash'}},
+
+ /* ===================== Unit 10: an toàn, sẵn sàng vào lớp 1 ===================== */
+ {id:'u10',n:'Unit 10',en:'Safe on the Road: Ready for School!',vi:'An toàn giao thông, phòng tránh nguy hiểm, sẵn sàng vào lớp 1',ic:'🚦',review:'ôn cả giai đoạn 4.',
+  words:LopHocVocab.w("mau-giao/d10"),
+  talk:[['The light is red.','Đèn đỏ rồi.',0],['Stop! Wait!','Dừng lại! Chờ đã!',2],["Now it's green.",'Giờ đèn xanh rồi.',0],["Look left, look right. Let's go!",'Nhìn trái, nhìn phải. Đi thôi!',2],["Don't touch the knife!",'Đừng chạm vào con dao!',1],["OK! It's sharp.",'Vâng! Nó sắc lắm.',2]],
+  song:{t:"Red Light, Stop!",verses:[
+   {ic:'🔴🛑',cue:['🛑 Hands up: stop!','Giơ bàn tay ra trước: dừng'],lines:['Red light, red light, <b>stop</b>, <b>stop</b>, <b>stop</b>!','<b>Wait</b> on the sidewalk, don\'t you hop!'],vi:'Đèn đỏ, dừng lại! Đứng chờ trên vỉa hè, đừng nhảy!'},
+   {ic:'🟡🐢',cue:['🐢 Walk slowly!','Đi chậm tại chỗ'],lines:['Yellow light, yellow light, slow, slow, slow,','get ready, get ready, ready to <b>go</b>!'],vi:'Đèn vàng, đi chậm lại, chuẩn bị đi!'},
+   {ic:'🟢🚶',cue:['👀 Look left and right!','Quay đầu nhìn trái, nhìn phải'],lines:['Green light, green light, look left and right,','walk on the <b>crosswalk</b>, hold my hand tight!'],vi:'Đèn xanh, nhìn trái nhìn phải, đi trên vạch qua đường, nắm chặt tay ba mẹ!'}]},
+  speech:{t:"I'm Ready for School!",intro:["Today, I will tell you how I stay safe!","Hôm nay tớ sẽ kể tớ giữ an toàn thế nào!"],lines:[["🚦","Red light: I <b>stop</b> and <b>wait</b>.","Đèn đỏ: tớ dừng lại và chờ."],["🟢","Green light: I look left, look right, and <b>go</b>.","Đèn xanh: tớ nhìn trái, nhìn phải rồi đi."],["🚸","I walk on the <b>crosswalk</b>.","Tớ đi trên vạch qua đường."],["⛑️","On a motorbike, I wear a <b>helmet</b>.","Đi xe máy, tớ đội mũ bảo hiểm."],["🔥","Fire is <b>hot</b>. Knives are <b>sharp</b>. I don't touch them.","Lửa thì nóng. Dao thì sắc. Tớ không chạm vào."],["🎒","I have my <b>school bag</b>. I'm ready for Grade 1!","Tớ có cặp sách rồi. Tớ sẵn sàng vào lớp 1!"]],end:["Be safe, everyone!","Mọi người nhớ giữ an toàn nhé!"]},
+  games:[{type:'simon',name:"🚦 Traffic light says!",says:'Traffic light says',cmds:[['🔴','Red light! Stop!','Đèn đỏ: đứng yên'],['🟢','Green light! Go!','Đèn xanh: đi tại chỗ'],['🟡','Yellow light! Slow down!','Đèn vàng: đi thật chậm'],['👀','Look left! Look right!','Quay đầu nhìn trái, nhìn phải'],['🤝','Hold my hand!','Nắm tay bạn bên cạnh'],['⛑️','Put on your helmet!','Làm động tác đội mũ bảo hiểm'],['🎒','Put on your school bag!','Làm động tác đeo cặp'],['🛑','Stop at the sidewalk!','Dừng lại ở mép vỉa hè']]},
+   {type:'phrase',name:"✅ Safe or dangerous?",items:[
+    {pic:'🏃🚗',vi:'Một bạn chạy vụt qua đường, không nhìn xe.',en:"A boy runs across the road. He doesn't look.",say:'Is it safe or dangerous?',o:[['⚠️','Dangerous! Cars are fast!'],['✅','Safe!'],['🎉','Hooray!']],a:0},
+    {pic:'🚗💺',vi:'Bé ngồi ô tô và thắt dây an toàn.',en:"You sit in the car. You put on your seatbelt.",say:'Is it safe or dangerous?',o:[['✅','Safe!'],['⚠️','Dangerous!'],['😴',"I'm sleepy."]],a:0},
+    {pic:'✂️🏃',vi:'Một bạn cầm kéo nhọn chạy nhảy.',en:"A girl runs with scissors.",say:'Is it safe or dangerous?',o:[['⚠️','Dangerous! You can get hurt!'],['✅','Safe!'],['🍦','Ice cream!']],a:0},
+    {pic:'👩🚸',vi:'Bé nắm tay mẹ đi trên vạch qua đường khi đèn xanh.',en:"You hold Mommy's hand on the crosswalk.",say:'Is it safe or dangerous?',o:[['✅','Safe!'],['⚠️','Dangerous!'],['🌙',"It's night!"]],a:0},
+    {pic:'🔌👆',vi:'Một bạn thò ngón tay vào ổ điện.',en:"A boy puts his finger in the socket.",say:'Is it safe or dangerous?',o:[['⚠️','Dangerous!'],['✅','Safe!'],['🎵',"Let's sing!"]],a:0}]},
+   {type:'phrase',name:"🛑 Read the sign!",items:[
+    {pic:'<b class="sign">STOP</b>',vi:'Tấm biển đỏ có chữ STOP.',en:"Look at the red sign.",say:'What does it say?',o:[['🛑','Stop!'],['🟢','Go!'],['🔢','Ten!']],a:0},
+    {pic:'<b class="sign go">GO</b>',vi:'Tấm biển xanh có chữ GO.',en:"Look at the green sign.",say:'What does it say?',o:[['🟢','Go!'],['🛑','Stop!'],['🎒','School bag!']],a:0},
+    {pic:'🔴🚦',vi:'Đèn đỏ đang sáng.',en:"The red light is on.",say:'What does the red light mean?',o:[['🛑','Red light means stop!'],['🟢','Red light means go!'],['🎈','Red light means play!']],a:0},
+    {pic:'🟡🚦',vi:'Đèn vàng đang sáng.',en:"The yellow light is on.",say:'What does the yellow light mean?',o:[['🐢','Yellow light means slow down!'],['🏃','Yellow light means run!'],['🛌','Yellow light means sleep!']],a:0},
+    {pic:'🟢🚦',vi:'Đèn xanh đang sáng.',en:"The green light is on.",say:'What does the green light mean?',o:[['🚶','Green light means go!'],['🛑','Green light means stop!'],['🍕','Green light means eat!']],a:0}]},
+   {type:'phrase',name:"🔥 Danger at home",items:[
+    {pic:'🔴🚗',vi:'Đèn đỏ cho người đi bộ, xe đang chạy.',en:"The light is red. Cars are going.",say:'What do you do?',o:[['🛑','I stop and wait.'],['🏃','I run across.'],['⚽','I play ball.']],a:0},
+    {pic:'🔥🍳',vi:'Bếp đang nấu, lửa đang cháy.',en:"Mom is cooking.",say:'Can you touch it?',o:[['🔥',"No! It's hot!"],['✋','Yes!'],['😋',"It's yummy!"]],a:0},
+    {pic:'🔪',vi:'Con dao để trên bàn.',en:"A knife on the table.",say:'Can you play with it?',o:[['🔪',"No! It's sharp!"],['✋','Yes!'],['🎉','Hooray!']],a:0},
+    {pic:'🔌⚡',vi:'Ổ điện trên tường.',en:"A socket on the wall.",o:[['🚫',"Don't touch! Danger!"],['👆','I touch it.'],['🎵','Let\'s sing!']],a:0},
+    {pic:'🏍️',vi:'Bé chuẩn bị ngồi lên xe máy của bố.',en:"You go on Dad's motorbike.",o:[['⛑️','I wear my helmet.'],['😴',"I'm sleepy."],['🍦','Ice cream, please!']],a:0}]},
+   {type:'pick',name:"🎧 Listen and tap",prompt:'{w}',options:3,after:'{w}!'}],
+  hw:{"e":["Red!","Yes! Red light. Stop and wait!"],"s":["Trước khi lên xe máy, bố giả vờ quên mũ bảo hiểm của bé.","Daddy! My helmet, please!"],"c":["Stop or go? The light is red.","Stop!"],"b":["Is the boy safe?","No! He runs on the road!"],"x":"road, sidewalk, car, motorbike, socket"},
+  guide:{answers:['Traffic light says: không có đáp án. Bé làm động tác khi máy nói "Traffic light says…".','An toàn hay không: đèn đỏ → <i>I stop and wait.</i>; bếp lửa → <i>No! It\'s hot!</i>; dao → <i>No! It\'s sharp!</i>; ổ điện → <i>Don\'t touch! Danger!</i>; lên xe máy → <i>I wear my helmet.</i>','An toàn hay nguy hiểm: chạy qua đường → <i>Dangerous! Cars are fast!</i>; thắt dây an toàn → <i>Safe!</i>; cầm kéo chạy → <i>Dangerous! You can get hurt!</i>; nắm tay mẹ qua đường → <i>Safe!</i>; ổ điện → <i>Dangerous!</i>','Đọc biển: STOP → <i>Stop!</i>; GO → <i>Go!</i>; đèn đỏ → <i>Red light means stop!</i>; đèn vàng → <i>Yellow light means slow down!</i>; đèn xanh → <i>Green light means go!</i>','Nghe và chọn: traffic light 🚦, stop 🛑, go 🟢, wait ⏳, crosswalk 🚸, helmet ⛑️, hot 🔥, sharp 🔪, school bag 🎒, safe ✅, dangerous ⚠️, seatbelt 💺.'],
+   home:["Mỗi lần ra đường, đến ngã tư hỏi bé: <i>Red or green? Stop or go?</i>","Đi một vòng quanh nhà chỉ đồ nguy hiểm: ổ điện, bếp, dao, kéo, phích nước nóng; bé nói <i>Hot! Sharp! Danger!</i>","Cùng bé chuẩn bị cặp sách: đếm bút, gọi tên đồ dùng, tập tự đeo cặp và tự cất đồ."],
+   tips:["<i>Traffic light</i>: TRA-fic lai-t.","<i>Helmet</i>: HEL-mít, âm /l/ rõ.","<i>Danger</i>: ĐÂY-giơ, âm /dʒ/ ở giữa."]},
+  pre:{sum:['Đèn tín hiệu, biển báo cơ bản, đi bộ qua đường; tránh điện, lửa, vật sắc nhọn; chuẩn bị cặp sách','Trái – phải, trước – sau; đếm xe và đồ dùng học tập; ôn đếm, thêm – bớt','Âm /g/ (<i>go, green</i>), /r/ (<i>red, road</i>); ghép <i>r-e-d = red</i>; ôn các nét, tập viết tên mình'],
+   cu:'Tấm bìa 3 màu đỏ – vàng – xanh (làm đèn), tranh vài biển báo, băng dính trắng dán vạch qua đường trên sàn, cặp sách và đồ dùng học tập, giấy và bút chì.',
+   parts:[['1. Khởi động và khám phá',8,'Khoa học<br>(an toàn)',['Chơi đèn giao thông: ba mẹ giơ màu, bé đi – dừng – đi chậm trên "vạch qua đường" dán ở sàn.','Xem tranh biển báo: đường dành cho người đi bộ, cấm đi ngược chiều, trường học.','Hỏi tư duy: "Vì sao không được chạm vào ổ điện, bếp lửa, dao kéo?"'],['Nói trọn câu: "Đèn đỏ con dừng lại."','Biết 3 màu đèn và 3 thứ nguy hiểm trong nhà.']],
+    ['2. Trò chơi số lượng',10,'Toán',['Qua đường: "Nhìn bên trái, nhìn bên phải, nhìn lại bên trái." Bé giơ đúng tay trái, tay phải.','Xếp hàng đồ chơi: "Ai đứng trước con gấu? Ai đứng sau?"','Soạn cặp: đếm bút, đếm vở; "Có 3 bút, thêm 2 bút là mấy bút?"'],['Phân biệt đúng trái – phải, trước – sau.','Đếm và thêm – bớt đồ dùng trong phạm vi 10.']],
+    ['3. Luyện âm và nét chữ',10,'Tiền đọc<br>tiền viết',['Âm: "<i>go</i>: /g/", "<i>red</i>: /r/". Ghép âm: /r/ + /e/ + /d/ = <i>red</i>.','Ôn các nét đã học; tập viết tên của bé bằng chữ in hoa, mỗi chữ một ô.'],['Ghép được <i>red</i>, đọc được vài từ 3 âm.','Viết được tên mình.']],
+    ['4. Tổng kết và giao nhiệm vụ',2,'Kỹ năng sống',['Khen bé đã sẵn sàng vào lớp 1.','Giao nhiệm vụ: mỗi tối tự soạn cặp sách cho ngày hôm sau.'],['Tự tin, tự lập, biết giữ an toàn khi ra đường.']]],
+   task:'Mỗi lần qua đường bé nhắc ba mẹ: <i>Look left, look right!</i>; mỗi tối tự soạn cặp sách và đếm đồ dùng.',
+   en:'traffic light, stop, go, wait, crosswalk, helmet, hot, sharp, school bag'}}
+ ]};
+</script>
+<script src="../assets/pin.js?v=20261127g"></script>
+<script src="../assets/bilingual.js?v=20261128vi21"></script>
+<script src="../assets/voice.js?v=20261127stop"></script>
+<script src="../assets/steps.js?v=20261127kit"></script>
+<script src="../assets/preschool.js?v=20261128gd4b"></script>
+<script src="../assets/kidnav.js?v=20261128hero"></script>
+</body>
+</html>

@@ -80,6 +80,8 @@
     var S = P.sessionParts, total = P.units.length * S.length, perWeek = 2, weeks = total / perWeek;
     var h = '<div class="v-head"><span class="v-ic" aria-hidden="true">🗺️</span><div><span class="v-n">' + esc(P.phase) + "</span><h2>Lộ trình " + esc(P.span) + '</h2><span class="v-vi">' + weeks + " tuần · " + total + " buổi · mỗi tuần 2 buổi · mỗi buổi 30–45 phút</span></div></div>";
     h += '<div class="block"><h3>Mục tiêu sau giai đoạn này</h3><ul class="goals">' + P.goals.map(function (g) { return "<li>" + esc(g) + "</li>"; }).join("") + "</ul></div>";
+    if (P.units.some(function (u) { return u.pre; })) h += prePlans();
+    if (P.classPlans) h += classPlans();
     /* Đối chiếu với sách học trên lớp (nếu trang có P.book): mỗi dòng [mã Unit, phần sách tương ứng, giới từ và mẫu câu lồng vào] */
     if (P.book) h += '<div class="block book"><h3>📘 ' + esc(P.book.title) + "</h3>" + (P.book.note ? '<p class="muted">' + P.book.note + "</p>" : "") +
       '<div class="bk-wrap"><table class="bk-tbl"><thead><tr><th>Unit của bé</th><th>Sách học trên lớp</th><th>📍 Giới từ và mẫu câu lồng vào</th></tr></thead><tbody>' +
@@ -110,6 +112,50 @@
     }
     if (P.next) h += '<div class="block next"><b>' + esc(P.next.text) + '</b> <a class="btn primary" target="_top" href="' + P.next.href + '">' + esc(P.next.label) + "</a></div>";
     return h;
+  }
+
+  /* ---------- Tiền tiểu học (Giai đoạn 4): giáo án tích hợp tại nhà 30 phút, mỗi Unit một giáo án ----------
+     Unit ghi pre:{ sum:[khoa học, toán, âm và nét chữ] (một dòng trong bảng tổng quan), cu:"học cụ",
+       parts:[[giai đoạn, số phút, môn, [ba mẹ / cô làm gì], [bé làm được]]], task:"nhiệm vụ mỗi ngày", en:"từ tiếng Anh lồng vào" }.
+     Trang ghi thêm P.preNote (lời dẫn), P.preRules (nguyên tắc vàng), P.preLink (dòng cuối, vd. link tới phần kiến thức cốt lõi). */
+  function prePlans() {
+    var U = P.units.filter(function (u) { return u.pre; });
+    var li = function (a) { return "<ul>" + a.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>"; };
+    return '<div class="block pre" id="giao-an"><h3>📋 Giáo án tích hợp tại nhà (30 phút mỗi buổi)</h3>' + (P.preNote ? "<p>" + P.preNote + "</p>" : "") +
+      '<div class="bk-wrap"><table class="bk-tbl"><thead><tr><th>Unit</th><th>🔬 Khoa học</th><th>🔢 Toán</th><th>✏️ Âm và nét chữ</th></tr></thead><tbody>' +
+      U.map(function (u) { var m = u.pre.sum; return '<tr><td><a href="#' + u.id + '">' + u.ic + " " + esc(u.n) + "</a></td><td>" + m[0] + "</td><td>" + m[1] + "</td><td>" + m[2] + "</td></tr>"; }).join("") +
+      "</tbody></table></div><h4>Giáo án từng Unit</h4>" +
+      U.map(function (u) {
+        var p = u.pre;
+        return '<details class="hw-unit pre-unit"><summary>' + u.ic + " " + esc(u.n) + ": " + esc(u.vi || u.en) + "</summary>" +
+          '<p><b>🧺 Học cụ:</b> ' + p.cu + "</p>" +
+          '<div class="bk-wrap"><table class="bk-tbl pre-tbl"><thead><tr><th>Giai đoạn</th><th>Môn</th><th>Ba mẹ (cô) làm gì</th><th>Bé làm được</th></tr></thead><tbody>' +
+          p.parts.map(function (r) { return "<tr><td>" + r[0] + "<small>" + r[1] + " phút</small></td><td>" + r[2] + "</td><td>" + li(r[3]) + "</td><td>" + li(r[4]) + "</td></tr>"; }).join("") +
+          "</tbody></table></div>" +
+          (p.task ? "<p><b>📌 Nhiệm vụ mỗi ngày:</b> " + p.task + "</p>" : "") +
+          (p.en ? '<p><b>🔤 Từ tiếng Anh lồng vào:</b> <i>' + p.en + '</i> · <a href="#' + u.id + '">mở Unit để bé nghe và chơi</a></p>' : "") + "</details>";
+      }).join("") +
+      (P.preRules ? "<h4>⭐ Nguyên tắc vàng khi dạy bé tại nhà</h4>" + li(P.preRules) : "") +
+      (P.preLink ? '<p class="muted">' + P.preLink + "</p>" : "") + "</div>";
+  }
+
+  /* ---------- Giáo án dạy tiếng Anh 30 phút với cô (P.classPlans): TPR, đồ thật, dạy tại lớp hoặc trực tuyến ----------
+     Mỗi giáo án: { units:["u7","u8"], t:"tên", goal:"mục tiêu", cu:"học cụ", vocab:[[nhóm, "từ (nghĩa), …"]], say:["mẫu câu"],
+       parts:[[giai đoạn, số phút, lĩnh vực, [cô làm gì], [bé phản hồi]]], tips:["mẹo"] }. P.classNote: lời dẫn. */
+  function classPlans() {
+    var li = function (a) { return "<ul>" + a.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>"; };
+    return '<div class="block pre" id="giao-an-lop"><h3>🎓 Giáo án dạy tiếng Anh với cô (30 phút)</h3>' + (P.classNote ? "<p>" + P.classNote + "</p>" : "") +
+      P.classPlans.map(function (c) {
+        var us = c.units.map(unitById).filter(Boolean);
+        return '<details class="hw-unit pre-unit"><summary>' + us.map(function (u) { return u.ic; }).join("") + " " + esc(c.t) + ' <span class="muted">(' + us.map(function (u) { return esc(u.n); }).join(" + ") + ")</span></summary>" +
+          "<p><b>🎯 Mục tiêu:</b> " + c.goal + "</p><p><b>🧺 Học cụ (đồ thật):</b> " + c.cu + "</p>" +
+          "<p><b>🔤 Từ vựng trọng tâm:</b></p>" + li(c.vocab.map(function (v) { return "<b>" + v[0] + ":</b> " + v[1]; })) +
+          "<p><b>💬 Mẫu câu:</b></p>" + li(c.say) +
+          '<div class="bk-wrap"><table class="bk-tbl pre-tbl"><thead><tr><th>Giai đoạn</th><th>Lĩnh vực</th><th>Cô làm gì (TPR, tương tác)</th><th>Bé phản hồi</th></tr></thead><tbody>' +
+          c.parts.map(function (r) { return "<tr><td>" + r[0] + "<small>" + r[1] + " phút</small></td><td>" + r[2] + "</td><td>" + li(r[3]) + "</td><td>" + li(r[4]) + "</td></tr>"; }).join("") +
+          "</tbody></table></div>" + (c.tips ? "<h4>👧🧒 Dạy hai bé cùng lúc (5 tuổi và 7 tuổi)</h4>" + li(c.tips) : "") +
+          '<p class="muted">Ôn lại ở nhà: ' + us.map(function (u) { return '<a href="#' + u.id + '">' + u.ic + " " + esc(u.n) + ": " + esc(u.en) + "</a>"; }).join(" · ") + "</p></details>";
+      }).join("") + "</div>";
   }
 
   /* ---------- bài tập về nhà: kỹ thuật giúp bé nói sõi (ba mẹ làm cùng con) ----------
@@ -372,7 +418,9 @@
     if (G.i >= G.order.length) return done(box);
     var it = G.cfg.items[G.order[G.i]]; G.ans = it.a; G.miss = false; G.say = it.say || it.en || "";
     var opts = shuffle(it.o.map(function (_, j) { return j; }));
-    box.innerHTML = top() + '<div class="situ"><span class="big" aria-hidden="true">' + it.pic + '</span><span class="sv">' + esc(it.en || "") + "</span>" + (it.say ? '<span class="sv said">“' + esc(it.say) + "”</span>" : "") + '<button class="btn primary" type="button" data-act="hear">🔊 Listen</button></div>' +
+    /* dãy hình dài (quy luật, phép cộng trừ) thu nhỏ để nằm trên một dòng */
+    var n = Array.from(String(it.pic).replace(/[\s️‍]/g, "")).length;
+    box.innerHTML = top() + '<div class="situ"><span class="big' + (n > 8 ? " xl" : n > 3 ? " lg" : "") + '" aria-hidden="true">' + it.pic + '</span><span class="sv">' + esc(it.en || "") + "</span>" + (it.say ? '<span class="sv said">“' + esc(it.say) + "”</span>" : "") + '<button class="btn primary" type="button" data-act="hear">🔊 Listen</button></div>' +
       '<p class="muted center">What do you say? Tap to listen.</p><div class="phr">' + opts.map(function (j) { return '<button class="opt ph" type="button" data-p="' + j + '"><span class="ic" aria-hidden="true">' + it.o[j][0] + "</span>" + esc(it.o[j][1]) + "</button>"; }).join("") + "</div>";
   }
 

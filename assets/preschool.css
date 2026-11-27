@@ -344,3 +344,17 @@ html.sp-lock,html.sp-lock body{overflow:hidden}
 .feedback.bad{background:var(--gold-soft)}
 .speed button{font-size:1.4rem;line-height:1;padding:4px 10px;min-height:42px;min-width:46px}
 .sp-mode .e{font-size:2.4rem}
+/* Giai đoạn 4 (Tiền tiểu học): giáo án tích hợp tại nhà trong Lộ trình (preschool.js prePlans) */
+.pre h4{margin:16px 0 6px}
+.pre-unit summary{padding:2px 0}
+.pre-unit[open]{background:var(--bg)}
+.pre-unit p{margin:8px 0}
+.pre-tbl ul{margin:0;padding-left:1.1em}.pre-tbl li+li{margin-top:4px}
+.pre-tbl td:first-child{white-space:normal;min-width:110px}
+.pre-tbl td:first-child small{display:block;font-weight:600;color:var(--muted)}
+.pre-tbl td:nth-child(2){white-space:nowrap}
+.situ .big.lg{font-size:2.6rem;white-space:nowrap;letter-spacing:.02em}
+.situ .big.xl{font-size:clamp(1.3rem,6.4vw,2rem);white-space:nowrap}
+/* biển báo chữ (Giai đoạn 4, trò Read the sign!): STOP đỏ hình bát giác, GO xanh */
+.sign{display:inline-grid;place-items:center;min-width:3.2em;height:3.2em;padding:0 .3em;font-family:var(--f-display);font-weight:800;font-style:normal;color:#fff;background:#D32F2F;letter-spacing:.04em;clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%)}
+.sign.go{background:#2E7D32;clip-path:none;border-radius:.4em}

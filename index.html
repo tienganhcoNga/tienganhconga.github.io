@@ -167,6 +167,10 @@ button{font:inherit;color:inherit}
 .gbox ul{margin:0;padding-left:1.15em}.gbox li+li{margin-top:6px}
 .gbox p{margin:8px 0 0;color:var(--muted);font-size:.95rem}
 .gbox i{color:var(--sky)}
+.gaux{margin-top:18px;border:1px dashed var(--line);border-radius:14px;padding:10px 14px;background:var(--bg)}
+.gaux>summary{cursor:pointer;font-weight:800;font-family:var(--f-display,inherit);font-size:1.1rem}
+.gaux[open]>summary{margin-bottom:10px}
+.gaux .gcols{margin-bottom:12px}
 .gnote{margin:0;max-width:52em;background:var(--gold-soft);border-radius:14px;padding:12px 16px}
 .side-guide{display:block;margin:14px 6px 0;padding:8px 12px;border-radius:10px;background:var(--gold-soft);color:var(--ink);font-weight:700;text-decoration:none;font-size:.92rem}
 .side-guide:hover{outline:2px solid var(--gold)}
@@ -332,7 +336,7 @@ button{font:inherit;color:inherit}
           <p class="gintro">Cho bé 4–6 tuổi. Học qua hình, giọng đọc, trò chơi và vận động. Bé chỉ cần nói <b>một từ hoặc cụm 2–3 từ</b>, không bắt nói cả câu.</p>
           <div class="gcols">
             <div class="gbox"><h3>Có gì trong Mầm non?</h3><ul>
-              <li><b>🌱 Giai đoạn 1</b> (3 tháng đầu, 8 Unit) → <b>🌳 Giai đoạn 2</b> (8 Unit, nói nhiều hơn) → <b>🌲 Giai đoạn 3</b> (10 Unit: vị trí, so sánh, thời tiết). Học theo thứ tự.</li>
+              <li><b>🌱 Giai đoạn 1</b> (3 tháng đầu, 8 Unit) → <b>🌳 Giai đoạn 2</b> (8 Unit, nói nhiều hơn) → <b>🌲 Giai đoạn 3</b> (10 Unit: vị trí, so sánh, thời tiết) → <b>🎒 Giai đoạn 4: Tiền tiểu học</b> (10 Unit cho bé 5–6 tuổi, gắn Toán, Khoa học, âm và nét chữ; mỗi Unit có giáo án tích hợp 30 phút ở nhà trong 🗺️ Lộ trình). Học theo thứ tự.</li>
               <li>Mỗi Unit là một con đường nhiều bước, bé tự đi được: <b>👂 Listen</b> (bấm hình nghe từ) → <b>🗣️ Say</b> (nói theo) → <b>🎵 Sing</b> (nếu có bài hát) → <b>🎮 Play</b> (trò chơi) → <b>🎤 Speak</b> (bài nói của bé). Mỗi lần chỉ hiện một bước, máy đọc lời hướng dẫn, bé bấm nút <b>▶</b> to để sang bước sau. Xong bước nào được ⭐ ở bước đó.</li>
               <li><b>🎤 Ôn tập nói</b>: sau Unit 3, rồi cứ 2 Unit một lần, gom từ của tất cả Unit đã học; có Big Show sau Unit 16 và Big Show 2 cuối năm.</li>
               <li><b>🏠 Bài tập về nhà (theo Unit)</b>: 26 Unit, nằm ở cuối mỗi bài ôn và ở menu.</li></ul></div>
@@ -349,6 +353,36 @@ button{font:inherit;color:inherit}
               <p>Chi tiết và ví dụ cho từng Unit: mục <b>🗺️ Lộ trình</b> của mỗi Giai đoạn và của Ôn tập nói.</p></div>
           </div>
           <button class="btn" type="button" data-go="mau-giao/bai-tap/hw">🏠 Mở Bài tập về nhà Mầm non</button>
+
+          <!-- Phụ trợ: kiến thức cốt lõi cho bé tiền tiểu học (đi kèm Giai đoạn 4, mau-giao/giai-doan-4.html) -->
+          <details class="gaux" id="tien-tieu-hoc">
+            <summary>📎 Phụ trợ: bé 5–6 tuổi cần chuẩn bị gì trước khi vào lớp 1?</summary>
+            <p class="gintro">Theo chương trình Giáo dục Mầm non (mẫu giáo lớn 5–6 tuổi) và định hướng Chương trình Giáo dục Phổ thông 2018 (lớp 1), giai đoạn tiền tiểu học <b>xây nền tảng tư duy, kỹ năng học tập và tâm thế sẵn sàng</b>, không dạy trước chương trình lớp 1 một cách nhồi nhét. Phần chữ cái dưới đây theo nguyên lý của tiếng Anh, khớp với các Unit trên web.</p>
+            <div class="gcols">
+              <div class="gbox"><h3>🔤 Ngôn ngữ: Nghe – Nói – Tiền đọc – Tiền viết</h3><ul>
+                <li><b>Phát triển ngôn ngữ nói:</b> kể lại câu chuyện ngắn theo tranh, nói trọn câu rõ ràng (có chủ ngữ – vị ngữ: <i>The cat is under the table.</i>), biết đặt câu hỏi và trả lời lễ phép.</li>
+                <li><b>Tiền đọc (chữ cái và âm):</b> nhận mặt chữ và phát âm chuẩn <b>26 chữ cái tiếng Anh</b>, cả chữ hoa và chữ thường. Dạy <b>âm trước, tên chữ sau</b> (phonics): <i>s</i> đọc là /s/ như <i>sun</i>, chưa cần đọc tên chữ "es"; không bắt học vẹt bài hát ABC.</li>
+                <li><b>Nghe ra âm đầu và vần:</b> <i>ball</i> bắt đầu bằng /b/; <i>cat – hat – bat</i> cùng vần. Tiếng Anh không có dấu thanh như tiếng Việt; thay vào đó bé tập nghe <b>trọng âm</b> (âm được nhấn: TI-ger, ba-NA-na) và âm cuối từ (<i>cat</i> có /t/, <i>bus</i> có /s/).</li>
+                <li><b>Ghép âm thành từ đơn giản</b> (3 âm): <i>c-a-t = cat</i>, <i>s-u-n = sun</i>, <i>r-e-d = red</i>. Kéo từng âm như kéo dây chun rồi đọc liền.</li>
+                <li><b>Tiền viết (vận động tinh và nét cơ bản):</b> ngồi thẳng lưng, cầm bút bằng 3 ngón tay; nhận biết dòng kẻ (vở ô ly của lớp 1, giấy 4 dòng kẻ tiếng Anh); tô và viết thành thạo các nét cơ bản: nét thẳng, nét ngang, nét xiên, nét móc (xuôi, ngược, hai đầu), nét cong (kín, hở trái, hở phải), nét khuyết (trên, dưới). Các nét này dùng chung cho chữ tiếng Anh và chữ tiếng Việt.</li></ul></div>
+              <div class="gbox"><h3>🔢 Toán: tư duy logic và số lượng</h3><ul>
+                <li><b>Số đếm và số lượng:</b> đếm thành thạo trong phạm vi 10 – 20, nhận biết chữ số 0 – 10; đếm xuôi, đếm ngược; so sánh nhiều hơn – ít hơn – bằng nhau, dùng dấu &gt;, &lt;, =.</li>
+                <li><b>Tách – gộp số (nền tảng cộng trừ):</b> hiểu bản chất <i>thêm vào</i> (cộng) và <i>bớt đi</i> (trừ) trong phạm vi 10 qua vật thật (que tính, kẹo, đồ chơi).</li>
+                <li><b>Hình học và định hướng không gian:</b> nhận biết, phân loại hình tròn, hình vuông, hình tam giác, hình chữ nhật; xác định vị trí trên – dưới, trước – sau, trái – phải, trong – ngoài.</li>
+                <li><b>Đo lường và quy luật:</b> so sánh dài – ngắn, cao – thấp, to – nhỏ, nặng – nhẹ; nhận biết và sắp xếp theo quy luật lặp lại (đỏ – vàng – đỏ – vàng).</li></ul></div>
+              <div class="gbox"><h3>🔬 Khoa học: tự nhiên và xã hội</h3><ul>
+                <li><b>Bản thân và sức khỏe:</b> biết họ tên, tuổi, địa chỉ nhà, số điện thoại người thân; nhận biết các giác quan, bộ phận cơ thể; kỹ năng tự phục vụ, giữ vệ sinh cá nhân.</li>
+                <li><b>Động vật và thực vật:</b> phân biệt động vật nuôi, động vật hoang dã, côn trùng; hiểu quá trình phát triển cơ bản của cây (hạt nảy mầm) và vật nuôi.</li>
+                <li><b>Hiện tượng tự nhiên và môi trường:</b> thời tiết (nắng, mưa, gió, bão), các mùa, ngày và đêm; bảo vệ môi trường, tiết kiệm nước, phân loại rác cơ bản.</li>
+                <li><b>An toàn và giao thông:</b> biển báo cơ bản, đèn tín hiệu, đi bộ an toàn; phòng tránh vật dụng nguy hiểm (điện, lửa, vật sắc nhọn).</li></ul></div>
+              <div class="gbox"><h3>⭐ Nguyên tắc vàng khi dạy ở nhà</h3><ul>
+                <li><b>Không ép viết nhiều:</b> mỗi buổi tối đa 1–2 dòng nét cơ bản hoặc chữ cái (khoảng 10 phút), tránh mỏi tay và tâm lý sợ học trước khi vào lớp 1.</li>
+                <li><b>Học qua vật thật:</b> cụ thể trước, trừu tượng sau. Môn Toán luôn cho bé cầm, đếm đồ vật thật trước khi làm bài trên giấy.</li>
+                <li><b>Đồng bộ với tiếng Anh:</b> lồng từ khóa bé đã quen vào giờ học (<i>seed</i> – hạt, <i>water</i> – nước, <i>left/right</i> – trái/phải, <i>circle</i> – hình tròn).</li></ul>
+                <p>Mỗi nội dung trên đã có trong 10 Unit của <b>🎒 Giai đoạn 4</b>, kèm giáo án tích hợp 30 phút cho từng Unit.</p></div>
+            </div>
+            <button class="btn" type="button" data-go="mau-giao/gd4/lo-trinh">🎒 Mở Giai đoạn 4: Lộ trình và giáo án</button>
+          </details>
         </div>
 
         <div class="gp" data-gp="lop-1" role="tabpanel" hidden style="--c:var(--sky)">
@@ -430,6 +464,10 @@ const GRADES=[
    ['lo-trinh','🗺️ Lộ trình 24 buổi'],['u1','Unit 1: Where Is It? In, On, Under, Behind','📦'],['u2','Unit 2: Directions: Turn Left! Turn Right!','🧭'],['u3','Unit 3: Big and Small: The Elephant Is Big','🐘'],['u4','Unit 4: Animal Bodies: Long Tail, Short Legs','🐍'],
    ['u5','Unit 5: Pretty, Clean and New','🌸'],['u6','Unit 6: Yummy or Yucky? I Like It!','😋'],['u7','Unit 7: Tastes: Sweet, Sour, Spicy!','🌶️'],
    ['u8','Unit 8: Weather: Is It Hot or Cold?','🌡️'],['u9','Unit 9: Four Seasons: I Like Summer!','🍂'],['u10','Unit 10: Treasure Hunt: Go Straight!','🗺️']]},
+  {id:'gd4',ic:'🎒',name:'Giai đoạn 4: tiền tiểu học',en:'Stage 4',file:'mau-giao/giai-doan-4.html',answers:true,topics:[
+   ['lo-trinh','🗺️ Lộ trình và giáo án tích hợp'],['u1','Unit 1: All About Me: My Name Is…','🧒'],['u2','Unit 2: My Five Senses: I Can See!','👀'],['u3','Unit 3: The Secret Garden: Seeds Grow!','🌱'],['u4','Unit 4: Pets, Wild Animals and Bugs','🐞'],
+   ['u5','Unit 5: Count to Twenty!','🔢'],['u6','Unit 6: Add and Take Away','➕'],['u7','Unit 7: Shapes and Patterns','🔺'],
+   ['u8','Unit 8: Measure It: Heavy or Light?','⚖️'],['u9','Unit 9: Day and Night: Love Our Earth','🌍'],['u10','Unit 10: Safe on the Road: Ready for School!','🚦']]},
   {id:'on-noi',ic:'🎤',name:'Ôn tập nói (Speaking)',en:'Speaking',file:'mau-giao/on-tap-noi.html',answers:true,topics:[
    ['lo-trinh','🗺️ Cách ôn và lịch ôn'],['r1','Review 1: Stage 1 · Units 1–3','🐮'],['r2','Review 2: Stage 1 · Units 1–5','🌈'],['r3','Review 3: Stage 1 · Units 1–7','🐳'],['r4','Review 4: + Stage 2 · Unit 1','🧸'],
    ['r5','Review 5: + Stage 2 · Units 1–3','☀️'],['r6','Review 6: + Stage 2 · Units 1–5','🔺'],['r7','Review 7: + Stage 2 · Units 1–7','🦸'],['r8','Big Show: all 16 units','🏆'],

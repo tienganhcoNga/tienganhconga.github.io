@@ -1,5 +1,5 @@
-/* Từ vựng Mầm non: 26 Unit của 3 Giai đoạn. SỬA TỪ Ở ĐÂY, không sửa trong từng trang.
-   Dùng ở: mau-giao/giai-doan-1.html (a1–a8), giai-doan-2.html (b1–b8), giai-doan-3.html (c1–c10),
+/* Từ vựng Mầm non: 36 Unit của 4 Giai đoạn. SỬA TỪ Ở ĐÂY, không sửa trong từng trang.
+   Dùng ở: mau-giao/giai-doan-1.html (a1–a8), giai-doan-2.html (b1–b8), giai-doan-3.html (c1–c10), giai-doan-4.html (d1–d10, Tiền tiểu học),
    mau-giao/on-tap-noi.html (Ôn tập nói, Bài tập về nhà, Word bank) và 📒 Words I know của lop-1/giao-an-lop-1.html.
    Mỗi từ: [hình, từ tiếng Anh, nghĩa, thêm, nhóm từ]
      hình: emoji · "pos:in" (hình vị trí vẽ sẵn: in, on, under, next to, behind, in front of, table) · "i:file.svg" (assets/img/)
@@ -336,5 +336,114 @@ LopHocVocab.add("mau-giao", {
     ["⬅️","turn left","rẽ trái","","Directions"],
     ["➡️","turn right","rẽ phải","","Directions"],
     ["🎉","hooray","hoan hô","","Directions"]
+  ]},
+  /* ===== Giai đoạn 4: Tiền tiểu học (5–6 tuổi), mỗi Unit gắn Toán – Khoa học – tiền đọc, tiền viết ===== */
+  d1: { n:"Stage 4 · Unit 1", en:"All About Me: My Name Is…", vi:"Bản thân: tên, tuổi, nhà, số điện thoại", ic:"🧒", w:[
+    ["🏷️","name","tên","","About me"],
+    ["🎂","years old","tuổi","","About me"],
+    ["🏠","house","ngôi nhà","","Where I live"],
+    ["🛣️","street","đường phố","","Where I live"],
+    ["🏙️","city","thành phố","","Where I live"],
+    ["📞","phone number","số điện thoại","","Where I live"],
+    ["👪","family","gia đình","","About me"],
+    ["🔢","number","con số","","Where I live"]
+  ]},
+  d2: { n:"Stage 4 · Unit 2", en:"My Five Senses: I Can See!", vi:"Năm giác quan và giữ vệ sinh", ic:"👀", w:[
+    ["👀","see","nhìn thấy","","My five senses"],
+    ["👂","hear","nghe thấy","","My five senses"],
+    ["👃","smell","ngửi","","My five senses"],
+    ["👅","taste","nếm","","My five senses"],
+    ["✋","touch","sờ, chạm","","My five senses"],
+    ["🧼","wash my hands","rửa tay","","Keep clean"],
+    ["🦷","brush my teeth","đánh răng","","Keep clean"],
+    ["🛁","take a bath","tắm","","Keep clean"]
+  ]},
+  d3: { n:"Stage 4 · Unit 3", en:"The Secret Garden: Seeds Grow!", vi:"Khu vườn bí mật: hạt nảy mầm", ic:"🌱", w:[
+    ["🌰","seed","hạt giống","","What a seed needs"],
+    ["🟫","soil","đất","","What a seed needs"],
+    ["💧","water","nước","","What a seed needs"],
+    ["☀️","sun","mặt trời, nắng","","What a seed needs"],
+    ["🌱","sprout","mầm cây","","It grows!"],
+    ["🍃","leaf","chiếc lá","","It grows!"],
+    ["🌿","plant","cái cây (nhỏ)","","It grows!"],
+    ["🌻","flower","bông hoa","","It grows!"]
+  ]},
+  d4: { n:"Stage 4 · Unit 4", en:"Pets, Wild Animals and Bugs", vi:"Vật nuôi, động vật hoang dã, côn trùng", ic:"🐞", w:[
+    ["🐶","dog","con chó","","Pets"],
+    ["🐰","rabbit","con thỏ","","Pets"],
+    ["🐠","goldfish","cá vàng","","Pets"],
+    ["🐯","tiger","con hổ","","Wild animals"],
+    ["🐒","monkey","con khỉ","","Wild animals"],
+    ["🐻","bear","con gấu","","Wild animals"],
+    ["🐝","bee","con ong","","Insects"],
+    ["🦋","butterfly","con bướm","","Insects"],
+    ["🐜","ant","con kiến","","Insects"],
+    ["🐞","ladybug","bọ rùa","","Insects"]
+  ]},
+  d5: { n:"Stage 4 · Unit 5", en:"Count to Twenty!", vi:"Đếm đến 20, đếm ngược, nhiều hơn – ít hơn", ic:"🔢", w:[
+    ["11","eleven","mười một","","11 to 15"],
+    ["12","twelve","mười hai","","11 to 15"],
+    ["13","thirteen","mười ba","","11 to 15"],
+    ["14","fourteen","mười bốn","","11 to 15"],
+    ["15","fifteen","mười lăm","","11 to 15"],
+    ["16","sixteen","mười sáu","","16 to 20"],
+    ["17","seventeen","mười bảy","","16 to 20"],
+    ["18","eighteen","mười tám","","16 to 20"],
+    ["19","nineteen","mười chín","","16 to 20"],
+    ["20","twenty","hai mươi","","16 to 20"]
+  ]},
+  d6: { n:"Stage 4 · Unit 6", en:"Add and Take Away", vi:"Thêm vào và bớt đi trong phạm vi 10", ic:"➕", w:[
+    ["➕","plus","cộng (thêm vào)","","Add"],
+    ["+1","one more","thêm một","","Add"],
+    ["🤲","altogether","tất cả","","Add"],
+    ["➖","take away","bớt đi (trừ)","","Take away"],
+    ["−1","one less","bớt một","","Take away"],
+    ["0","zero","số không","","Take away"],
+    ["=","equals","bằng","","Add"],
+    ["❓","how many","bao nhiêu","","Add"]
+  ]},
+  d7: { n:"Stage 4 · Unit 7", en:"Shapes and Patterns", vi:"Hình phẳng và quy luật lặp lại", ic:"🔺", w:[
+    ["⭕","circle","hình tròn","","Shapes"],
+    ["🟥","square","hình vuông","","Shapes"],
+    ["🔺","triangle","hình tam giác","","Shapes"],
+    ["<svg viewBox='0 0 100 100' width='1em' height='1em' aria-hidden='true'><rect x='6' y='26' width='88' height='48' rx='4' fill='#43A047' stroke='#1B5E20' stroke-width='5'/></svg>","rectangle","hình chữ nhật","","Shapes"],
+    ["📏","side","cạnh","","Shapes"],
+    ["📐","corner","góc","","Shapes"],
+    ["🔴🟡🔴","pattern","quy luật lặp lại","","Patterns"],
+    ["➡️","next","tiếp theo","","Patterns"]
+  ]},
+  d8: { n:"Stage 4 · Unit 8", en:"Measure It: Heavy or Light?", vi:"Đo lường: nặng – nhẹ, dài – ngắn, cao – thấp", ic:"⚖️", w:[
+    ["🧱","heavy","nặng","","Heavy and light"],
+    ["🎈","light","nhẹ","","Heavy and light"],
+    ["⚖️","scale","cái cân","","Heavy and light"],
+    ["🚂","long","dài","","Long, short, tall"],
+    ["🐛","short","ngắn","","Long, short, tall"],
+    ["🦒","tall","cao","","Long, short, tall"],
+    ["📏","measure","đo","","Long, short, tall"],
+    ["👯","the same","giống nhau, bằng nhau","","Long, short, tall"]
+  ]},
+  d9: { n:"Stage 4 · Unit 9", en:"Day and Night: Love Our Earth", vi:"Ngày và đêm, thời tiết, bảo vệ môi trường", ic:"🌍", w:[
+    ["🌞","day","ban ngày","","Day and night"],
+    ["🌙","night","ban đêm","","Day and night"],
+    ["⭐","star","ngôi sao","","Day and night"],
+    ["🌬️","windy","có gió","","Weather"],
+    ["⛈️","storm","cơn bão","","Weather"],
+    ["🚰","save water","tiết kiệm nước","","Love our Earth"],
+    ["♻️","recycle","tái chế","","Love our Earth"],
+    ["🗑️","trash","rác","","Love our Earth"]
+  ]},
+  d10: { n:"Stage 4 · Unit 10", en:"Safe on the Road: Ready for School!", vi:"An toàn giao thông, phòng tránh nguy hiểm, sẵn sàng vào lớp 1", ic:"🚦", w:[
+    ["🚦","traffic light","đèn giao thông","","On the road"],
+    ["🛑","stop","dừng lại","","On the road"],
+    ["🟢","go","đi","","On the road"],
+    ["⏳","wait","chờ","","On the road"],
+    ["🚸","crosswalk","vạch qua đường","","On the road"],
+    ["⛑️","helmet","mũ bảo hiểm","","On the road"],
+    ["🔥","hot","nóng (lửa)","","Danger!"],
+    ["🔪","sharp","sắc, nhọn","","Danger!"],
+    ["🎒","school bag","cặp sách","","Ready for school"],
+    ["✅","safe","an toàn","","Safe or dangerous?"],
+    ["⚠️","dangerous","nguy hiểm","","Safe or dangerous?"],
+    ["💺","seatbelt","dây an toàn","","Safe or dangerous?"]
   ]}
 }, { kind: "preschool" });
