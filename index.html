@@ -90,7 +90,8 @@ button{font:inherit;color:inherit}
 .parent:hover,.parent[aria-expanded="true"]{border-color:var(--c)}
 .parent .dot{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
 .parent.here .dot{box-shadow:0 0 0 3px var(--c-soft),0 0 0 5px var(--c)}
-.parent .cnt{margin-left:auto;font-family:var(--f-body);font-size:.8rem;font-weight:700;color:var(--muted)}
+.parent .pn{white-space:nowrap}
+.parent .cnt{margin-left:auto;font-family:var(--f-body);font-size:.8rem;font-weight:700;color:var(--muted);white-space:nowrap}
 .parent .chev,.sec-h .chev,.grp-h .chev{flex:none;transition:transform .2s;display:inline-block}
 .parent .chev{color:var(--c)}
 .parent[aria-expanded="true"] .chev,.sec-h[aria-expanded="true"] .chev,.grp-h[aria-expanded="true"] .chev{transform:rotate(90deg)}
@@ -589,7 +590,7 @@ function renderMenu(){
   $('#menu').innerHTML=GRADES.map(g=>{
     const open=openGrade===g.id,here=!!cur&&cur.g===g;const n=g.lessons.reduce((a,l)=>a+l.topics.length,0);
     return `<div style="--c:var(--${g.c});--c-soft:var(--${g.c}-soft)">
-      <button class="parent${here?' here':''}" type="button" data-g="${g.id}" aria-expanded="${open}"${here?' title="Đang học khối này"':''}><span class="dot"></span>${esc(g.name)}<span class="cnt">${locked(g.id)?'🔒 cần mã PIN':g.lessons.length+' phần · '+n+' bài'}</span><span class="chev" aria-hidden="true">▸</span></button>
+      <button class="parent${here?' here':''}" type="button" data-g="${g.id}" aria-expanded="${open}"${here?' title="Đang học khối này"':''}><span class="dot"></span><span class="pn">${esc(g.name)}</span><span class="cnt">${locked(g.id)?'🔒 cần mã PIN':n+' bài'}</span><span class="chev" aria-hidden="true">▸</span></button>
       ${open?`<ul class="secs">${g.lessons.map(l=>secHtml(g,l)).join('')}</ul>`:''}</div>`;
   }).join('');
 }
