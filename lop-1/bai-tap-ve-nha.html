@@ -121,6 +121,25 @@ section{padding-block:44px 8px;scroll-margin-top:64px}
 .line b{font-size:1.15rem}
 .line.speaking{outline:3px solid var(--gold)}
 
+/* Nói ở nhà cùng con */
+.ht h3{font-size:1.25rem;margin:22px 0 10px}
+.ht .intro{max-width:60em}
+.techs{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.tech{display:flex;flex-direction:column;gap:6px;border-top:5px solid var(--c,var(--jade))}
+.tech .pl{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--c,var(--jade))}
+.tech b{font-family:var(--f-display);font-size:1.15rem;line-height:1.2}
+.tech small{font-size:.9rem;line-height:1.5}
+.tech .ex{background:var(--sky-soft);border-radius:10px;padding:8px 10px}
+.tech i,.ht-list i{color:var(--sky)}
+.ht-rules{margin:0;padding-left:1.2em;max-width:60em}
+.ht-rules li+li{margin-top:4px}
+.ht-units{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px;align-items:start}
+.ht-unit{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px 14px}
+.ht-unit summary{cursor:pointer;font-weight:700;padding:8px 0}
+.ht-unit[open] summary{color:var(--sky)}
+.ht-list{margin:0 0 10px;padding-left:1.1em;font-size:.93rem}
+.ht-list li+li{margin-top:5px}
+
 footer{padding-block:40px;color:var(--muted);font-size:.9rem;text-align:center}
 footer a{color:var(--sky)}
 
@@ -133,7 +152,7 @@ footer a{color:var(--sky)}
 @media print{
   :root{--bg:#fff;--surface:#fff;--ink:#000;--muted:#444;--line:#999;--sky:#000;--sky-soft:#fff;--gold-soft:#fff;color-scheme:light}
   body{font-size:13pt;padding:0}
-  .nav,.no-print,#plan,#talk,#answers,footer,.spk,.score,.hint{display:none!important}
+  .nav,.no-print,#plan,#home-talk,#talk,#answers,footer,.spk,.score,.hint{display:none!important}
   .hero{padding-block:0 8px}
   .hero h1{font-size:24pt}
   .print-name{display:flex!important}
@@ -168,6 +187,7 @@ footer a{color:var(--sky)}
   <div class="wrap">
     <a class="home" href="../index.html">← Home <small>Trang chủ</small></a>
     <a href="#plan">Plan <small>Lịch học</small></a>
+    <a href="#home-talk">At home <small>Nói ở nhà</small></a>
     <a href="#numbers">Numbers <small>Toán</small></a>
     <a href="#animals">Animals <small>Khoa học</small></a>
     <a href="#talk">Talk <small>Nói</small></a>
@@ -193,6 +213,27 @@ footer a{color:var(--sky)}
         <ul><li><a href="#ex-body">Task 7: Body parts of an animal</a></li><li><a href="#talk">Task 8: Talk about an animal</a> (nói 4 câu về một con vật)</li>
         <li>Bé chọn con vật yêu thích, nói cho cả nhà nghe.</li></ul></div>
     </div>
+  </section>
+
+  <section id="home-talk" class="ht">
+    <div class="sec-head"><h2>Nói ở nhà cùng con</h2><span class="en">Speaking at home</span>
+      <p class="muted">Bé học với cô 2 buổi một tuần. Nói sõi là nhờ ba mẹ nói cùng con <b>10–15 phút mỗi ngày</b>, chia nhỏ vào giờ ăn, giờ tắm và trước khi ngủ. Ba mẹ không cần giỏi tiếng Anh: dùng đúng câu trong bài, bấm loa trên web để nghe mẫu. Bé lớp 1 đã nói được câu ngắn, nên mục tiêu là <b>nói cả câu</b> và <b>tự mở lời</b>.</p></div>
+    <h3>4 kỹ thuật vàng</h3>
+    <div class="techs" id="htTech"></div>
+    <h3>Thêm 4 cách từ giờ học của cô</h3>
+    <div class="techs" id="htMore"></div>
+    <h3>Nhớ khi nói cùng con</h3>
+    <ul class="ht-rules">
+      <li>Cứ 5 phút cho bé đứng dậy vận động: chạy đi lấy đồ, nhảy, vỗ tay, làm động tác theo câu.</li>
+      <li>Khen ngay khi bé mở lời (<i>Good job! Great talking!</i>). Không sửa lỗi giữa chừng, chỉ nhắc lại câu đúng một lần như kỹ thuật 1.</li>
+      <li>Bé trả lời một từ thì ba mẹ nói lại cả câu một lần, không bắt bé nói lại. Bé tự nói cả câu thì khen thật to.</li>
+      <li>Web chỉ để nghe mẫu và chơi 10 phút. Phần còn lại là nói chuyện thật với đồ thật.</li>
+    </ul>
+    <h3>Dùng ngay với bài tập tuần này</h3>
+    <div class="card"><ul class="ht-list" id="htWeek"></ul></div>
+    <h3>Bài tập theo từng Unit</h3>
+    <p class="muted" style="margin-bottom:10px">Theo 16 Unit của Giáo án lớp 1. Mỗi Unit có một ví dụ cho từng kỹ thuật, dùng đúng từ bé đang học. Ba mẹ mở Unit con đang học ở lớp.</p>
+    <div class="ht-units" id="htUnits"></div>
   </section>
 
   <section id="numbers">
@@ -376,6 +417,56 @@ function playLine(i,queue){const el=$(`#talkLines [data-l="${i}"]`);
 $('#animalPick').addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;animal=+b.dataset.a;drawTalk();speak(`It is a ${ANIMALS[animal][1]}.`);});
 $('#talkLines').addEventListener('click',e=>{const b=e.target.closest('[data-l]');if(b)playLine(+b.dataset.l);});
 $('#talkAll').addEventListener('click',()=>{if(hasSpeech)speechSynthesis.cancel();talkLines().forEach((_,i)=>playLine(i,true));});
+
+/* ---------- Nói ở nhà cùng con (hướng dẫn phụ huynh) ----------
+   HT_UNITS: [Unit, tên, hình, mở rộng [bé, ba mẹ], tình huống [việc ba mẹ làm, bé nói], lựa chọn [hỏi, đáp], đọc tranh [hỏi, đáp], từ dùng ở nhà] */
+const HT_TECH=[
+ ['Kỹ thuật 1','🗣️ Mở rộng câu','Bé nói một từ hoặc câu ngắn, ba mẹ nhắc lại thành câu đầy đủ và thêm một ý: màu, số, việc đang làm, ở đâu. Không chê bé nói thiếu, không bắt bé nói lại.','Bé: <i>Dog!</i> → Ba mẹ: <i>Yes! A big brown dog. The dog is running in the park!</i>','var(--sky)'],
+ ['Kỹ thuật 2','🎁 Tạo tình huống cần nói','Đừng phục vụ bé quá nhanh. Cố tình thiếu một thứ hoặc nói sai cho bé sửa, rồi chờ 5 giây để bé mở lời. Bé chưa nói được thì ba mẹ nói mẫu, chờ bé nhắc lại rồi mới đưa.','Đưa bát cơm, quên đũa: <i>What do you need?</i> → <i>Chopsticks, please!</i> · Nói sai: <i>A cat says woof!</i> → <i>No! A cat says meow!</i>','var(--jade)'],
+ ['Kỹ thuật 3','✌️ Câu hỏi lựa chọn','Đưa 2 lựa chọn, từ bé cần nói đã nằm sẵn trong câu hỏi. Bé lớp 1 trả lời cả câu. Khi bé đã quen, đổi sang câu hỏi mở.','<i>Apple or banana?</i> → <i>A banana, please!</i> Quen rồi: <i>What do you want?</i> → <i>I want a banana, please.</i>','var(--gold)'],
+ ['Kỹ thuật 4','📚 Đọc sách tranh trước khi ngủ','10 phút, không cần đọc hết chữ. Chỉ vào tranh và hỏi <i>Who? What? Where? How many? What color?</i> Cuối truyện hỏi <i>What happens next?</i> Bé tập đọc to những từ đã học.','<i>Where is the rabbit?</i> → <i>It’s under the tree!</i> · <i>How many birds?</i> → <i>Three birds!</i>','var(--lacquer)']];
+const HT_MORE=[
+ ['🎙️','Tường thuật rồi đổi vai','Ba mẹ “bình luận” việc bé đang làm bằng câu ngắn. Sau vài ngày đổi vai: bé tường thuật việc ba mẹ làm.','Ba mẹ: <i>You’re washing your hands. Now they’re clean!</i> → Bé: <i>You’re cooking! You’re cutting a carrot!</i>'],
+ ['🍌','Làm quá và dùng đồ thật','Nét mặt, động tác thật to. Cho bé cầm, ngửi, nếm đồ thật rồi nói.','Quả chuối: <i>Peel it! Smell it! Take a big bite! It’s soft and sweet. Yummy!</i>'],
+ ['🧩','Nói theo cụm','Ghép danh từ, động từ, tính từ thành cụm thay vì dạy từng từ rời.','<i>a yellow banana · peel the banana · it’s soft · three red apples</i>'],
+ ['🎤','Bài nói của con','Mỗi tối bé nói bài Speech đang luyện cho cả nhà nghe (mục Speech trong trang <a href="on-tap-noi.html">Ôn tập nói</a>). Ba mẹ quay video, tuần sau xem lại cùng con.','<i>Hello, everyone. My name is Nam. I’m six years old…</i>']];
+const HT_WEEK=[
+ ['🗣️ Mở rộng câu','Bé: <i>Cow!</i> → <i>Yes! A big cow. It gives us milk!</i>'],
+ ['🎁 Nói sai cho bé sửa','<i>A duck has four legs!</i> → <i>No! A duck has two legs!</i> · Đếm sai: <i>one, two, four…</i> → <i>No! Three!</i>'],
+ ['✌️ Câu hỏi lựa chọn','<i>Is a lion a wild animal or a farm animal?</i> → <i>It’s a wild animal!</i>'],
+ ['📚 Đọc tranh','<i>How many legs does it have? What does it give us?</i> → <i>It has four legs. It gives us wool.</i>'],
+ ['🏠 Đồ thật','Đếm trứng, cốc, đũa trong bếp: <i>one, two, three…</i> Mở tủ lạnh: <i>Milk comes from a cow!</i>']];
+const HT_UNITS=[
+ ['Unit 1','In the school playground','🎠',['Ball!','Yes, a big ball! Let’s play with the ball.'],['Ba mẹ cầm quả bóng, chưa đưa: Who wants the ball?','Me! Can I have the ball, please?'],['Jump or clap?','Jump! One, two, three!'],['Who is he? What is he doing?','He is my friend. He is playing with a ball.'],'hug, sorry, wait, share, ouch, sand'],
+ ['Unit 2','In the dining room','🍽️',['Rice!','Yes! A bowl of rice. I’m hungry!'],['Đưa bát cơm nhưng quên đũa.','Chopsticks, please!'],['Meat or vegetables?','Vegetables, please!'],['What is the baby doing?','The baby is drinking milk.'],'chew, bite, blow, sip, pour, lick: “It’s hot. Blow! Chew, chew!”'],
+ ['Unit 3','At the street market','🛒',['Apple.','A big red apple! Let’s buy two apples.'],['Đi chợ, ba mẹ cầm túi không đưa: What do you need?','A bag, please!'],['A big carrot or a small carrot?','A big carrot, please!'],['What can you see at the market?','I can see tomatoes and potatoes.'],'peel, crunchy, soft, hard: cắn thử cà rốt, bóc chuối'],
+ ['Unit 4','In the bedroom','🛏️',['Doll.','Your doll is on the bed. Good night, doll!'],['Giờ ngủ, ba mẹ giấu cái gối sau lưng.','Where is my pillow?'],['Shirt or pants first?','My shirt first!'],['Where is the dog?','It’s under the bed.'],'pillow, blanket, sleepy, put on, take off'],
+ ['Unit 5','At the fish and chip shop','🐟',['Ice cream!','Yes, ice cream! Yummy! I like ice cream.'],['Rót nước ép nhưng không đưa cốc.','Juice, please!'],['Milk or juice?','Juice, please!'],['Does the pig like chips?','Yes! It likes chips. Yummy!'],'yummy, yucky: nếm đồ ăn thật rồi nói'],
+ ['Unit 6','In the classroom','🏫',['Pencil.','A yellow pencil. Let’s write your name!'],['Đưa vở mà không có bút.','A pencil, please!'],['Do you want to read or write?','I want to read!'],['What is the teacher doing?','She is reading a book.'],'stand up, sit down, whisper, shout, clean up: “It’s time to clean up!”'],
+ ['Unit 7','In the garden','🌷',['Bird!','A little bird in the tree. Look, it has a beak!'],['Tưới cây: ba mẹ cầm bình nước, chưa đưa.','Water, please! I can water the flowers.'],['A pink flower or a purple flower?','A pink flower!'],['What color is the butterfly?','It’s orange and black.'],'rain, wind, peck, beak, feather'],
+ ['Unit 8','In the park','🌳',['Kite!','Your kite is up! Fly a kite, fly!'],['Chơi Touch: ba mẹ chạm tai mà nói “nose”.','No! That’s my ear!'],['Dance or sing?','Dance!'],['Is the boy happy or sad?','He is happy!'],'arm, finger, touch your nose, ride a bike'],
+ ['Unit 9','In the shop','🏬',['Socks.','Two red socks! One, two.'],['Ba mẹ đếm sai: one, two, four…','No! Three!'],['One sock or two socks?','Two socks!'],['How many clocks?','Three clocks!'],'đếm đồ thật: one, two, three, four, five, many'],
+ ['Unit 10','At the zoo','🦒',['Monkey!','A funny monkey! It can climb.'],['Ba mẹ nói sai: A lion says moo!','No! A lion says roar!'],['Is the elephant big or small?','It’s big!'],['What is the monkey eating?','It’s eating a banana.'],'climb, nibble: giả làm con vật “The mouse nibbles!”'],
+ ['Unit 11','At the bus stop','🚏',['Bus!','A big yellow bus! Beep, beep!'],['Chơi lái xe: ba mẹ không chịu chạy, chờ bé ra lệnh.','Go! … Stop!'],['A doctor or a farmer?','A doctor!'],['What’s his job?','He is a police officer.'],'airplane, fire truck, loud: “Look! A fire truck. It’s loud!”'],
+ ['Unit 12','At the lake','🏞️',['Frog.','A little green frog. Jump, frog, jump!'],['Vẩy nước vào tay bé rồi hỏi: Are you dry?','No! I’m wet!'],['Can a frog swim or fly?','It can swim!'],['Where is the ladybird?','It’s on the leaf.'],'wet, boat, swim, look'],
+ ['Unit 13','In the school canteen','🍜',['Noodles!','Hot noodles for lunch. Slurp, slurp!'],['Bé ăn xong, ba mẹ đưa thêm bánh mì.','No, thank you. I’m full!'],['Banana or bread?','Bread, please!'],['Where do they sing?','In the music room!'],'slurp, full, nice, lunch'],
+ ['Unit 14','In the toy shop','🧸',['Robot!','A big robot! I want a robot.'],['Để đồ chơi trên giá cao, bé không với tới.','I want the teddy bear, please!'],['A train or a plane?','A train!'],['What toys can you see?','I can see a kite and a yo-yo.'],'hold, want, shelf, puzzle'],
+ ['Unit 15','At the football match','⚽',['Kick!','Kick the ball! Kick it fast! Goal!'],['Ba mẹ giữ chặt quả bóng.','Kick it to me, please!'],['Football or badminton?','Football!'],['Where is he from?','He’s from Japan.'],'watch, fast, fun: xem bóng đá cùng nhau'],
+ ['Unit 16','At home','🏠',['Teeth.','Brush your teeth! Brush, brush! Now they’re clean.'],['Giờ tắm: đưa khăn nhưng quên xà phòng.','Soap, please!'],['Watch TV or listen to music?','Listen to music!'],['Where is Mom?','She is in the kitchen.'],'toothbrush, soap, towel, smelly: giờ tắm']];
+function drawHome(){
+  const card=(pl,t,d,ex,c)=>`<div class="card tech"${c?` style="--c:${c}"`:''}><span class="pl">${pl}</span><b>${t}</b><small>${d}</small><small class="ex">${ex}</small></div>`;
+  const q=t=>`“<i>${esc(t)}</i>”`;
+  $('#htTech').innerHTML=HT_TECH.map(t=>card(...t)).join('');
+  $('#htMore').innerHTML=HT_MORE.map((t,i)=>card('Cách '+(i+1),t[0]+' '+t[1],t[2],t[3])).join('');
+  $('#htWeek').innerHTML=HT_WEEK.map(t=>`<li><b>${t[0]}:</b> ${t[1]}</li>`).join('');
+  $('#htUnits').innerHTML=HT_UNITS.map(([n,en,ic,e,s,c,b,x])=>`<details class="ht-unit"><summary>${ic} ${esc(n)}: ${esc(en)}</summary><ul class="ht-list">`+
+    `<li><b>🗣️ Mở rộng câu:</b> Bé: ${q(e[0])} → Ba mẹ: ${q(e[1])}</li>`+
+    `<li><b>🎁 Tạo tình huống:</b> ${esc(s[0])} Chờ 5 giây → bé nói: ${q(s[1])}</li>`+
+    `<li><b>✌️ Câu hỏi lựa chọn:</b> ${q(c[0])} → ${q(c[1])}</li>`+
+    `<li><b>📚 Đọc tranh:</b> ${q(b[0])} → ${q(b[1])}</li>`+
+    `<li><b>🏠 Từ dùng thêm ở nhà:</b> <i>${esc(x)}</i></li></ul></details>`).join('');
+}
+drawHome();
 
 /* ---------- Khởi tạo ---------- */
 function drawAll(){['count','word','seq','wild','product','body'].forEach(drawChoice);drawWrite();drawTalk();}
