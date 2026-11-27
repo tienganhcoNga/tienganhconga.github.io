@@ -31,7 +31,7 @@
     o = o || {}; if (!hasSpeech || !text) return;
     if (!o.queue) speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(text); u.lang = "en-US"; u.rate = Math.max(0.4, (o.rate || 0.8) * SPEED);
-    if (voices.length) u.voice = voices[(o.voice || 0) % voices.length];
+    if (window.LopHocVoice) LopHocVoice.apply(u, o.voice || 0); else if (voices.length) u.voice = voices[(o.voice || 0) % voices.length];
     u.pitch = voices.length > 1 ? 1 : (o.voice ? 0.85 : 1.15);
     if (o.onstart) u.onstart = o.onstart; if (o.onend) { u.onend = o.onend; u.onerror = o.onend; }
     speechSynthesis.speak(u);

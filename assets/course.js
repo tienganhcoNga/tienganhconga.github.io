@@ -17,7 +17,7 @@
     o = o || {}; if (!hasSpeech) return;
     if (!o.queue) speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(text); u.lang = "en-US"; u.rate = o.rate || 0.8;
-    if (voices.length) u.voice = voices[0];
+    if (window.LopHocVoice) LopHocVoice.apply(u, 0); else if (voices.length) u.voice = voices[0];
     if (o.onstart) u.onstart = o.onstart; if (o.onend) { u.onend = o.onend; u.onerror = o.onend; }
     window.__lastUtt = u; // keep a reference: Chrome can drop onend for utterances that get garbage-collected
     speechSynthesis.speak(u);

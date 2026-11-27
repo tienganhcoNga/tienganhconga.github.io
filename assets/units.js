@@ -23,7 +23,7 @@
     o = o || {}; if (!hasSpeech) return;
     if (!o.queue) speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(text); u.lang = "en-US"; u.rate = o.rate || 0.8; u.pitch = o.pitch || 1;
-    if (voices.length) u.voice = voices[0];
+    if (window.LopHocVoice) LopHocVoice.apply(u, 0); else if (voices.length) u.voice = voices[0];
     if (o.onstart) u.onstart = o.onstart; if (o.onend) { u.onend = o.onend; u.onerror = o.onend; }
     (window.__utts = window.__utts || []).push(u); if (window.__utts.length > 40) window.__utts.shift(); // giữ tham chiếu để Chrome không làm mất onend
     speechSynthesis.speak(u);

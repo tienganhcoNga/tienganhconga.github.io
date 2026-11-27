@@ -40,7 +40,7 @@
     if (!o.queue) speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(String(text).replace(/\.\.\./g, ","));
     u.lang = "en-US"; u.rate = Math.max(0.4, (o.rate || D.rate || 0.85) * SPEED); u.pitch = o.pitch || 1.1;
-    if (voices.length) u.voice = voices[(o.voice || 0) % voices.length];
+    if (window.LopHocVoice) LopHocVoice.apply(u, o.voice || 0); else if (voices.length) u.voice = voices[(o.voice || 0) % voices.length];
     if (o.onstart) u.onstart = o.onstart;
     if (o.onend) { u.onend = o.onend; u.onerror = o.onend; }
     speechSynthesis.speak(u);
