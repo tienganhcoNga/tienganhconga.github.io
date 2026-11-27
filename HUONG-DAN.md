@@ -11,6 +11,7 @@ lop-hoc/
 │   ├── course.js / course.css       ← Phần chạy chung cho trang "Ôn 10 chủ đề" lớp 1
 │   ├── preschool.js / preschool.css ← Phần chạy chung cho lộ trình mẫu giáo (thẻ hình, hội thoại, trò chơi, cẩm nang). Trang nào có `book:{title,note,rows}` thì Lộ trình hiện bảng đối chiếu với sách học trên lớp
 │   ├── pos-art.js          ← Hình vị trí dùng chung cho Mầm non: POS('in' | 'on' | 'under' | 'next to' | 'behind' | 'in front of' | 'table')
+│   ├── bilingual.js        ← Nút 🇻🇳 Song ngữ cho phụ huynh (Mầm non, Lớp 1): mặc định chỉ tiếng Anh; bật lên thì hiện các <span class="vi-t"> (nghĩa tiếng Việt). Nút nằm trên thanh chọn bài (kidnav.js), nạp trước kidnav.js; preschool.js và speaking.js tự ghi nghĩa từ, câu, tiêu đề
 │   └── speaking.js / speaking.css   ← Phần chạy chung cho các trang "Ôn tập nói" và "Giáo án lớp 1"
 ├── lop-1/
 │   ├── giao-an-lop-1.html  ← Giáo án lớp 1: 16 Unit giao tiếp theo chủ đề sách trên lớp (mỗi Unit một chữ cái, 2 bài nói), Math / Science (tiếng Anh cho Toán – Khoa học), Story Time (5 truyện cổ tích), 8 bài nói về con vật (Easy / Challenge). Đã lọc bỏ mẫu câu vượt lớp 1. Menu Lớp 1 chỉ còn: Giáo án, Ôn tập nói, Bài tập về nhà

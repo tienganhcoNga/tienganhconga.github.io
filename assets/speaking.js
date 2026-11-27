@@ -101,7 +101,7 @@
       if (t.type === "story") out.push({ who: "N", ic: "📕", html: "The end!", vi: "Hết truyện!", extra: true });
       else if (!t.own) out.push({ who: "N", ic: "🙇", html: "Thank you for listening!", vi: "Cảm ơn mọi người đã lắng nghe!", extra: true });
     }
-    out.forEach(function (g, k) { g.k = k; g.html = fill(g.html); g.say = plain(g.html); });
+    out.forEach(function (g, k) { g.k = k; g.html = fill(g.html); g.say = plain(g.html); g.vi = String(g.vi || "").replace(/\{name\}/g, nameOf()); });
     return out;
   }
   /* Bài nói dùng từ của Unit nào: tự dò từ trong kho từ (bỏ qua vài từ quá ngắn hay gặp như in, on, OK) */
@@ -164,25 +164,28 @@
       return '<details class="sk-ug' + (isNew ? " new" : "") + '"' + (isNew ? " open" : "") + '><summary><span aria-hidden="true">' + u.ic + "</span> <b>" + esc(u.n) + "</b> " + esc(u.en) +
         (isNew ? ' <span class="sk-new">NEW</span>' : "") + ' <span class="muted">· ' + u.w.length + "</span></summary>" +
         '<div class="sk-chips">' + u.w.map(function (w) {
-          return '<button class="sk-chip" type="button" data-say="' + esc(w[1]) + '"><span class="ic" aria-hidden="true">' + icon(w[0]) + "</span>" + esc(w[1]) + "</button>";
+          return '<button class="sk-chip" type="button" data-say="' + esc(w[1]) + '"><span class="ic" aria-hidden="true">' + icon(w[0]) + "</span>" + esc(w[1]) + vi(w[2], true) + "</button>";
         }).join("") + "</div></details>";
     }).join("");
-    return '<details class="block sk-bank"><summary class="b-head"><h3>📚 Word bank</h3><span class="muted">' + total + " words · " + esc(r.span) + "</span></summary>" +
+    return '<details class="block sk-bank"><summary class="b-head"><h3>📚 Word bank' + vi("Kho từ", true) + '</h3><span class="muted">' + total + " words · " + esc(r.span) + "</span></summary>" +
       '<p class="muted sk-hint">Tap a word to hear it. Use these words in your talk!</p>' + groups + "</details>";
   }
 
+  var MODE_VI = { listen: "Nghe mẫu", roleA: "Con nói phần này", roleB: "Con nói phần này", repeat: "Nghe rồi nói theo", self: "Tự nói, chữ được ẩn", stage: "Lên sân khấu nói cho cả lớp" };
   function modeBtns(t) {
     var m = [["listen", "👂", "Listen", "Listen and look"]];
     if (t.type === "talk") m.push(["roleA", t.roles.A[0], "Be " + roleName(t, "A"), "You say " + roleName(t, "A") + "'s part"], ["roleB", t.roles.B[0], "Be " + roleName(t, "B"), "You say " + roleName(t, "B") + "'s part"]);
     else m.push(["repeat", "🦜", "Repeat", "Listen and say it"]);
     m.push(["self", "🙈", "Say it alone", "Look at the pictures"], ["stage", "🌟", "On stage!", "Speak to the class"]);
     return '<div class="sk-modes">' + m.map(function (x) {
-      return '<button class="sk-mode m-' + x[0] + '" type="button" data-sk="' + x[0] + '" aria-pressed="false"><span class="e" aria-hidden="true">' + x[1] + "</span><b>" + esc(x[2]) + "</b><small>" + esc(x[3]) + "</small></button>";
+      return '<button class="sk-mode m-' + x[0] + '" type="button" data-sk="' + x[0] + '" aria-pressed="false"><span class="e" aria-hidden="true">' + x[1] + "</span><b>" + esc(x[2]) + "</b><small>" + esc(x[3]) + vi(MODE_VI[x[0]]) + "</small></button>";
     }).join("") + "</div>";
   }
 
+  /* Song ngữ cho phụ huynh: <span class="vi-t"> bị ẩn (speaking.css), chỉ hiện khi bật nút 🇻🇳 Song ngữ (assets/bilingual.js). */
+  function vi(t, inl) { return t ? '<span class="vi-t' + (inl ? " in" : "") + '" lang="vi">' + esc(t) + "</span>" : ""; }
   function lineBody(g) {
-    return '<span class="sk-txt">' + g.html + '</span><span class="sk-turn" aria-hidden="true">🎤 Your turn!<i></i></span>';
+    return '<span class="sk-txt">' + g.html + "</span>" + vi(g.vi) + '<span class="sk-turn" aria-hidden="true">🎤 Your turn!<i></i></span>';
   }
   function content(t, L) {
     if (t.type === "talk") {
@@ -222,9 +225,9 @@
 
   function extras(t) {
     var h = "";
-    if (t.swap && t.swap.length) h += '<div class="sk-x sk-swap"><h4>🔄 Make it yours!</h4><p class="muted">Change the words. Make it your talk!</p><ul>' +
+    if (t.swap && t.swap.length) h += '<div class="sk-x sk-swap"><h4>🔄 Make it yours!' + vi("Đổi từ in đậm để thành bài của con", true) + '</h4><p class="muted">Change the words. Make it your talk!</p><ul>' +
       t.swap.map(function (s) { return "<li>" + fill(s) + "</li>"; }).join("") + "</ul></div>";
-    if (t.ask && t.ask.length) h += '<div class="sk-x sk-ask"><h4>❓ Teacher asks</h4><p class="muted">Answer in your own words.</p><ul>' +
+    if (t.ask && t.ask.length) h += '<div class="sk-x sk-ask"><h4>❓ Teacher asks' + vi("Cô hỏi, con tự trả lời", true) + '</h4><p class="muted">Answer in your own words.</p><ul>' +
       t.ask.map(function (s) { var q = fill(s); return '<li><button class="sk-q" type="button" data-say="' + esc(plain(q)) + '">🔊</button> ' + q + "</li>"; }).join("") + "</ul></div>";
     return h ? '<div class="sk-xs">' + h + "</div>" : "";
   }
@@ -246,7 +249,7 @@
   function taskView(r, ti) {
     var t = r.tasks[ti], T = TYPES[t.type], L = lines(t), pi = prevTi(r, ti), ni = nextTi(r, ti);
     return '<div class="block sk-task type-' + t.type + '" id="task">' +
-      '<div class="sk-th"><span class="sk-tic" aria-hidden="true">' + (t.ic || T.ic) + '</span><div><div class="sk-tt">' + T.ic + " " + T.en + (t.badge ? ' <span class="sk-badge">' + esc(t.badge) + "</span>" : "") + "</div><h3>" + fill(t.title) + "</h3>" +
+      '<div class="sk-th"><span class="sk-tic" aria-hidden="true">' + (t.ic || T.ic) + '</span><div><div class="sk-tt">' + T.ic + " " + T.en + vi(T.vi, true) + (t.badge ? ' <span class="sk-badge">' + esc(t.badge) + "</span>" : "") + "</div><h3>" + fill(t.title) + "</h3>" +
       '<div class="sk-use">Words from: ' + usedUnits(r, t).map(function (id) { return '<span class="' + (r.fresh.indexOf(id) >= 0 ? "new" : "") + '">' + esc(unitLabel(id)) + "</span>"; }).join("") + "</div></div></div>" +
       levelBar(r, ti) + modeBtns(t) +
       '<div class="sk-bar"><label>✏️ My name: <input id="skName" type="text" maxlength="24" placeholder="' + esc(D.kid || "Bin") + '" autocomplete="off" value="' + esc(kidName()) + '"></label>' + speedBar() +
@@ -258,14 +261,14 @@
 
   function reviewView(r) {
     var idx = D.reviews.indexOf(r);
-    return '<div class="u-head"><span class="u-ic" aria-hidden="true">' + r.ic + '</span><div><div class="u-n">' + esc(r.n) + " · " + esc(r.span) + "</div><h2>" + esc(r.title) + "</h2></div></div>" +
+    return '<div class="u-head"><span class="u-ic" aria-hidden="true">' + r.ic + '</span><div><div class="u-n">' + esc(r.n) + " · " + esc(r.span) + "</div><h2>" + esc(r.title) + "</h2>" + vi(r.when) + "</div></div>" +
       '<div class="sk-map" aria-label="Units">' + r.units.map(function (id) { var u = D.units[id]; return '<span class="' + (r.fresh.indexOf(id) >= 0 ? "new" : "") + '" title="' + esc(u.n + ": " + u.en) + '">' + u.ic + "</span>"; }).join("") + "</div>" +
       (D.cards && !r.noCards && hasEx(r) ? cardsBlock(r) : bank(r)) + (D.games && !r.noGames ? gamesBlock(r) : "") +
       /* mục chỉ có từ và trò chơi (tasks rỗng) thì không có phần bài nói */
       (r.tasks.length ? '<div class="sk-tabs" role="tablist">' + r.tasks.map(function (t, k) {
         var T = TYPES[t.type];
         if (k > 0 && sameGroup(r, k - 1, k)) return ""; /* nhóm Level: chỉ một tab */
-        return '<button class="sk-tab" type="button" role="tab" data-ti="' + k + '" aria-selected="' + sameGroup(r, k, cur.ti) + '"><span class="e" aria-hidden="true">' + T.ic + "</span><b>" + esc(T.en) + "</b><small>" + (t.badge ? esc(t.badge) + " · " : "") + fill(t.title) + "</small></button>";
+        return '<button class="sk-tab" type="button" role="tab" data-ti="' + k + '" aria-selected="' + sameGroup(r, k, cur.ti) + '"><span class="e" aria-hidden="true">' + T.ic + "</span><b>" + esc(T.en) + "</b>" + vi(T.vi) + "<small>" + (t.badge ? esc(t.badge) + " · " : "") + fill(t.title) + "</small></button>";
       }).join("") + "</div>" +
       '<div id="taskBox">' + taskView(r, cur.ti) + "</div>" : "") +
       '<div class="u-nav">' + (idx > 0 ? '<a class="btn" href="#' + D.reviews[idx - 1].id + '">← ' + esc(D.reviews[idx - 1].n) + "</a>" : '<a class="btn" href="#lo-trinh">← 🗺️</a>') +
@@ -457,17 +460,17 @@
      Từ trong kho: [hình, từ, nghĩa, câu ví dụ (có <b>), nghĩa câu]. Bấm thẻ: đọc từ rồi đọc câu. */
   function poolOf(r) {
     var ids = r.fresh && r.fresh.length ? r.fresh : r.units, seen = {}, out = [];
-    ids.forEach(function (id) { (D.units[id] ? D.units[id].w : []).forEach(function (w) { if (!seen[w[1]]) { seen[w[1]] = 1; out.push({ ic: w[0], w: w[1], ex: w[3] || "" }); } }); });
+    ids.forEach(function (id) { (D.units[id] ? D.units[id].w : []).forEach(function (w) { if (!seen[w[1]]) { seen[w[1]] = 1; out.push({ ic: w[0], w: w[1], vi: w[2] || "", ex: w[3] || "", exVi: w[4] || "" }); } }); });
     return out;
   }
   function hasEx(r) { return poolOf(r).some(function (x) { return x.ex; }); }
   function cardsBlock(r) {
     var P = poolOf(r);
-    return '<div class="block sk-words" id="words"><div class="b-head"><h3>📚 Words</h3><span class="muted">' + P.length + ' words · Tap a card to listen</span>' +
+    return '<div class="block sk-words" id="words"><div class="b-head"><h3>📚 Words' + vi("Từ vựng", true) + '</h3><span class="muted">' + P.length + ' words · Tap a card to listen</span>' +
       '<button class="btn" type="button" data-g="allwords">▶ Play all</button></div><div class="sk-wcards">' +
       P.map(function (x, k) {
-        return '<button class="sk-wc" type="button" data-card="' + k + '"><span class="sk-wic" aria-hidden="true">' + icon(x.ic) + '</span><span class="sk-ww">' + esc(x.w) + "</span>" +
-          (x.ex ? '<span class="sk-wex">' + fill(x.ex) + "</span>" : "") + "</button>";
+        return '<button class="sk-wc" type="button" data-card="' + k + '"><span class="sk-wic" aria-hidden="true">' + icon(x.ic) + '</span><span class="sk-ww">' + esc(x.w) + "</span>" + vi(x.vi) +
+          (x.ex ? '<span class="sk-wex">' + fill(x.ex) + "</span>" + vi(x.exVi) : "") + "</button>";
       }).join("") + "</div></div>";
   }
   function sayCard(x, el, then) {
@@ -485,7 +488,7 @@
   function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function gamesBlock(r) {
     var P = poolOf(r), ex = P.some(function (x) { return x.ex; });
-    return '<div class="block sk-games" id="games"><div class="b-head"><h3>🎮 Games</h3><span class="muted">Play with the words</span></div>' +
+    return '<div class="block sk-games" id="games"><div class="b-head"><h3>🎮 Games' + vi("Trò chơi", true) + '</h3><span class="muted">Play with the words</span></div>' +
       '<div class="sk-gtabs">' + GAMES.filter(function (g) { return g[0] !== "fill" || ex; }).map(function (g) {
         return '<button class="chip" type="button" data-g="start" data-gt="' + g[0] + '" aria-pressed="false">' + g[1] + " " + g[2] + "</button>";
       }).join("") + '</div><div class="sk-gbox" id="gameBox"><p class="muted sk-gstart">Choose a game! 👆</p></div></div>';

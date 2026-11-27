@@ -52,7 +52,8 @@
   /* ---------- nút chọn giọng ---------- */
   var SAMPLE = "ship, sheep. sit, seat. big, bean. fish, feet.";
   var css = "" +
-    ".vc-btn{position:absolute;top:4px;right:0;font:inherit;font-size:.9rem;font-weight:700;padding:6px 12px;border-radius:999px;cursor:pointer;border:1px solid var(--line,#D3DFD8);background:var(--surface,#fff);color:var(--ink,#1C2A36)}" +
+    ".hero-tools{position:absolute;top:4px;right:0;display:flex;gap:6px;align-items:center;justify-content:flex-end;z-index:5}" +
+    ".vc-btn{font:inherit;white-space:nowrap;font-size:.9rem;font-weight:700;padding:6px 12px;border-radius:999px;cursor:pointer;border:1px solid var(--line,#D3DFD8);background:var(--surface,#fff);color:var(--ink,#1C2A36)}" +
     ".vc-btn:hover{border-color:var(--sky,#2F6F98);color:var(--sky,#2F6F98)}" +
     "header.hero{position:relative}header.hero .eyebrow{padding-right:96px}" +
     ".vc-bg{position:fixed;inset:0;background:rgba(10,20,25,.55);display:flex;align-items:center;justify-content:center;z-index:1000;padding:16px}" +
@@ -107,7 +108,9 @@
     var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
     var b = document.createElement("button"); b.type = "button"; b.className = "vc-btn";
     b.textContent = "🔊 Voice"; b.title = "Choose voice"; b.onclick = open;
-    hero.appendChild(b);
+    var t = hero.querySelector(".hero-tools");
+    if (!t) { t = document.createElement("div"); t.className = "hero-tools"; hero.appendChild(t); }
+    t.appendChild(b);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount); else mount();
 

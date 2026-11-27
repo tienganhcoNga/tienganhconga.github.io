@@ -165,7 +165,10 @@
     var curBtn = el("button", "kn-cur", { type: "button", title: "All lessons" }, icLabel(cur));
     curBtn.onclick = openAll;
     var all = el("button", "kn-btn kn-all", { type: "button", "aria-label": "All lessons", title: "All lessons" }, ["☰", el("b", "", {}, ["All"])]); all.onclick = openAll;
-    var nodes = [arw(prev, "‹", "Back"), curBtn, arw(next, "›", "Next"), el("span", "kn-sp"), all];
+    var nodes = [arw(prev, "‹", "Back"), curBtn, arw(next, "›", "Next"), el("span", "kn-sp")];
+    /* nút 🇻🇳 Song ngữ cho phụ huynh (assets/bilingual.js), cùng một nút được gắn lại mỗi lần vẽ */
+    if (window.LopHocBi && LopHocBi.btn) nodes.push(LopHocBi.btn());
+    nodes.push(all);
     if (it.teach.length) {
       var lock = el("button", "kn-btn kn-lock", { type: "button", "aria-label": "For teachers and parents", title: "For teachers and parents", "aria-expanded": "false" }, ["🔒"]);
       menu = el("div", "kn-menu", { hidden: "" }, it.teach.map(function (p) {

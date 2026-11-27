@@ -291,3 +291,5 @@ html.sk-lock,html.sk-lock body{overflow:hidden}
 .sk-lv small{font-size:.78rem;opacity:.75}
 .sk-lv:hover{border-color:var(--accent)}
 .sk-lv[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px var(--accent-soft)}
+/* Song ngữ: tiếng Việt cho phụ huynh, chỉ hiện khi bật nút 🇻🇳 Song ngữ (assets/bilingual.js) */
+.vi-t{display:none}

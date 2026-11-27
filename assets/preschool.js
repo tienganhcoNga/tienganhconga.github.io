@@ -71,6 +71,8 @@
 
   var unitById = function (id) { return P.units.filter(function (u) { return u.id === id; })[0]; };
   var W = function (w) { return { ic: w[0], en: w[1], vi: w[2], x: w[3] }; };
+  /* Song ngữ cho phụ huynh: <span class="vi-t"> bị ẩn (preschool.css), chỉ hiện khi bật nút 🇻🇳 Song ngữ (assets/bilingual.js). */
+  var vi = function (t, inl) { return t ? '<span class="vi-t' + (inl ? " in" : "") + '" lang="vi">' + esc(t) + "</span>" : ""; };
 
   /* ---------- roadmap ---------- */
   function roadmap() {
@@ -149,24 +151,25 @@
   /* ---------- unit ---------- */
   function unitView(u) {
     var i = P.units.indexOf(u), prev = P.units[i - 1], next = P.units[i + 1];
-    var h = '<div class="v-head"><span class="v-ic" aria-hidden="true">' + u.ic + '</span><div><span class="v-n">' + esc(u.n) + "</span><h2>" + esc(u.en) + '</h2></div></div>';
-    var rv = enOnly(u.review); if (rv) h += '<p class="review">🔁 Review: ' + esc(rv) + "</p>";
+    var h = '<div class="v-head"><span class="v-ic" aria-hidden="true">' + u.ic + '</span><div><span class="v-n">' + esc(u.n) + "</span><h2>" + esc(u.en) + "</h2>" + vi(u.vi) + '</div></div>';
+    var rv = enOnly(u.review); if (rv) h += '<p class="review">🔁 Review: ' + esc(rv) + vi("Ôn lại: " + u.review) + "</p>";
+    else if (u.review) h += '<p class="review vi-t" lang="vi">🔁 Ôn lại: ' + esc(u.review) + "</p>";
     if (u.speech) { var nS = spList(u).length; h += '<button class="sp-jump" type="button" data-sp="jump">🎤 My Speech: <b>' + esc(u.speech.t) + "</b>" + (nS > 1 ? " +" + (nS - 1) : "") + " ↓</button>"; }
-    h += '<div class="block"><div class="b-head"><h3>1. Tap &amp; Listen</h3><button class="btn" type="button" data-act="all-words">▶ Listen to all</button></div>';
+    h += '<div class="block"><div class="b-head"><h3>1. Tap &amp; Listen' + vi("Bấm vào hình để nghe", true) + '</h3><button class="btn" type="button" data-act="all-words">▶ Listen to all</button></div>';
     var lastG = null;
     h += u.words.map(function (w, k) {
       var o = W(w), g = w[4] || "", head = "";
       if (g !== lastG) { head = (lastG !== null ? "</div>" : "") + (lastG !== null ? '<div class="grp-gap"></div>' : "") + '<div class="cards">'; lastG = g; }
-      return head + '<button class="card" type="button" data-w="' + k + '">' + vis(o, true) + '<span class="en">' + esc(o.en) + "</span></button>";
+      return head + '<button class="card" type="button" data-w="' + k + '">' + vis(o, true) + '<span class="en">' + esc(o.en) + "</span>" + vi(o.vi) + "</button>";
     }).join("") + "</div></div>";
-    h += '<div class="block"><div class="b-head"><h3>2. Say it!</h3><button class="btn" type="button" data-act="all-talk">▶ Listen to all</button>' + speedBar() + '</div><div class="talk">' +
+    h += '<div class="block"><div class="b-head"><h3>2. Say it!' + vi("Nói theo", true) + '</h3><button class="btn" type="button" data-act="all-talk">▶ Listen to all</button>' + speedBar() + '</div><div class="talk">' +
       u.talk.map(function (t, k) {
         var who = P.chars[t[2] || 0];
-        return '<div class="bub ' + ((t[2] || 0) === 2 ? "r" : "") + '" data-t="' + k + '"><span class="who" aria-hidden="true">' + who + '</span><button class="bb" type="button" data-t="' + k + '"><span class="en">' + esc(t[0]) + "</span></button></div>";
+        return '<div class="bub ' + ((t[2] || 0) === 2 ? "r" : "") + '" data-t="' + k + '"><span class="who" aria-hidden="true">' + who + '</span><button class="bb" type="button" data-t="' + k + '"><span class="en">' + esc(t[0]) + "</span>" + vi(t[1]) + "</button></div>";
       }).join("") + "</div></div>";
     h += songBlock(u);
     var gs = gamesOf(u);
-    h += '<div class="block"><div class="b-head"><h3>3. Games</h3></div>' +
+    h += '<div class="block"><div class="b-head"><h3>3. Games' + vi("Trò chơi", true) + '</h3></div>' +
       '<div class="gtabs">' + gs.map(function (g, k) { return '<button class="chip" type="button" data-g="' + k + '" aria-pressed="' + (k === 0) + '">' + esc(g.name) + "</button>"; }).join("") + "</div>" +
       '<div class="gq"><div class="game" id="game" aria-live="polite"></div><aside class="gside" id="gside" hidden></aside></div></div>';
     h += speechBlock(u);
@@ -180,11 +183,11 @@
   function songBlock(u) {
     if (!u.song) return "";
     var s = u.song;
-    return '<div class="block song" id="song"><div class="b-head"><h3>🎵 Let&#39;s sing!</h3><span class="muted">' + esc(s.t) + '</span><button class="btn" type="button" data-act="all-song">▶ Listen to all</button></div>' +
+    return '<div class="block song" id="song"><div class="b-head"><h3>🎵 Let&#39;s sing!' + vi("Cùng hát", true) + '</h3><span class="muted">' + esc(s.t) + '</span><button class="btn" type="button" data-act="all-song">▶ Listen to all</button></div>' +
       '<p class="muted">Sing and do the actions! Tap a picture to hear it.</p><div class="verses">' +
       s.verses.map(function (v, k) {
         return '<button class="verse c-' + NOTE_C[k % NOTE_C.length] + '" type="button" data-verse="' + k + '"><span class="v-art" aria-hidden="true">' + v.ic + '</span><span class="v-lines">' +
-          v.lines.map(function (l) { return '<span class="v-line">' + l + "</span>"; }).join("") + "</span>" + cueTag(v.cue && v.cue[0]) + "</button>";
+          v.lines.map(function (l) { return '<span class="v-line">' + l + "</span>"; }).join("") + vi(v.vi) + "</span>" + cueTag(v.cue && v.cue[0]) + "</button>";
       }).join("") + "</div></div>";
   }
   /* đọc lần lượt các dòng của bài hát, tô sáng dòng đang đọc */
@@ -265,7 +268,7 @@
         var o = W(cur.words[j]);
         return '<button class="fcard" type="button" data-f="' + j + '" aria-pressed="false"><span class="fc-front"><span class="q" aria-hidden="true">' + vis(o) + "</span><span class=\"fq\">?</span>" +
           (o.x && o.x.sound ? '<span class="fs">“' + esc(o.x.sound) + "”</span>" : "") + '<span class="hint">Tap to check</span></span>' +
-          '<span class="fc-back">' + vis(o) + '<span class="en">' + esc(o.en) + "</span></span></button>";
+          '<span class="fc-back">' + vis(o) + '<span class="en">' + esc(o.en) + "</span>" + vi(o.vi) + "</span></button>";
       }).join("") + "</div>";
   }
   function flipCard(c, on) { c.classList.toggle("open", on); c.setAttribute("aria-pressed", on ? "true" : "false"); }
@@ -449,7 +452,7 @@
     var S = segs(u), L = spList(u), s = spCur(u);
     var modes = [["listen", "👂", "1. Listen", "Listen and look"], ["repeat", "🦜", "2. Repeat", "Listen and say it"],
       ["self", "🙈", "3. Say it alone", "Look at the pictures"], ["stage", "🌟", "4. On stage!", "Speak to the class"]];
-    return '<div class="block speech" id="speech"><div class="b-head"><h3>4. My Speech</h3><span class="muted">' + esc(s.t) + "</span></div>" +
+    return '<div class="block speech" id="speech"><div class="b-head"><h3>4. My Speech' + vi("Bài nói của bé", true) + '</h3><span class="muted">' + esc(s.t) + "</span></div>" +
       (L.length > 1 ? '<div class="sp-pick" role="group" aria-label="Choose a speech">' + L.map(function (x, k) {
         return '<button class="chip" type="button" data-sp="pick" data-k="' + k + '" aria-pressed="' + (x === s) + '">🎤 ' + esc(x.t) + "</button>"; }).join("") + "</div>" : "") +
       '<p class="muted">Speak loud. Look at your friends. Smile! 😊</p>' +
@@ -458,7 +461,7 @@
       '<button class="btn" type="button" data-sp="stop" id="spStop" hidden>⏹ Stop</button><span class="sp-status" id="spStatus" aria-live="polite"></span></div>' +
       '<div class="sp-paper" id="spPaper">' + S.map(function (g, k) {
         return '<button class="sp-note c-' + NOTE_C[k % NOTE_C.length] + (g.wide ? " wide" : "") + '" type="button" data-sp-s="' + k + '"><span class="sp-art" aria-hidden="true">' + g.ic + "</span>" +
-          '<span class="sp-body"><span class="sp-txt">' + g.html + "</span>" + cueTag(g.cue) + '<span class="sp-turn" aria-hidden="true">🎤 Your turn!<i></i></span></span></button>';
+          '<span class="sp-body"><span class="sp-txt">' + g.html + "</span>" + vi(g.vi) + cueTag(g.cue) + '<span class="sp-turn" aria-hidden="true">🎤 Your turn!<i></i></span></span></button>';
       }).join("") + "</div></div>";
   }
   function later(fn, ms) { SP.timers.push(setTimeout(fn, ms)); }

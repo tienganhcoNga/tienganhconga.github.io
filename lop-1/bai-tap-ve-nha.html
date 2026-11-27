@@ -140,6 +140,9 @@ section{padding-block:44px 8px;scroll-margin-top:64px}
 .ht-list{margin:0 0 10px;padding-left:1.1em;font-size:.93rem}
 .ht-list li+li{margin-top:5px}
 
+/* Song ngữ: tiếng Việt cho phụ huynh, chỉ hiện khi bật nút 🇻🇳 Song ngữ (assets/bilingual.js) */
+.vi-t{display:none}
+
 footer{padding-block:40px;color:var(--muted);font-size:.9rem;text-align:center}
 footer a{color:var(--sky)}
 
@@ -152,6 +155,7 @@ footer a{color:var(--sky)}
 @media print{
   :root{--bg:#fff;--surface:#fff;--ink:#000;--muted:#444;--line:#999;--sky:#000;--sky-soft:#fff;--gold-soft:#fff;color-scheme:light}
   body{font-size:13pt;padding:0}
+  .vi-t{display:none!important}
   .nav,.no-print,#plan,#home-talk,#talk,#answers,footer,.spk,.score,.hint{display:none!important}
   .hero{padding-block:0 8px}
   .hero h1{font-size:24pt}
@@ -184,7 +188,7 @@ footer a{color:var(--sky)}
 </header>
 
 <nav class="nav" aria-label="Sections · Các phần">
-  <div class="wrap">
+  <div class="wrap" data-bi-slot="end">
     <a class="home" href="../index.html">← Home <small>Trang chủ</small></a>
     <a href="#plan">Plan <small>Lịch học</small></a>
     <a href="#home-talk">At home <small>Nói ở nhà</small></a>
@@ -237,8 +241,8 @@ footer a{color:var(--sky)}
   </section>
 
   <section id="numbers">
-    <div class="sec-head"><h2>Numbers within ten</h2><span class="en">Math</span>
-      <p class="muted">Count, read and write the numbers from <span class="en">zero</span> to <span class="en">ten</span>.</p></div>
+    <div class="sec-head"><h2>Numbers within ten<span class="vi-t in" lang="vi">Các số trong phạm vi 10</span></h2><span class="en">Math</span>
+      <p class="muted">Count, read and write the numbers from <span class="en">zero</span> to <span class="en">ten</span>.<span class="vi-t" lang="vi">Đếm, đọc và viết các số từ 0 đến 10.</span></p></div>
     <div class="stack">
       <div class="card ex" id="ex-count" data-ex="count"></div>
       <div class="card ex" id="ex-word" data-ex="word"></div>
@@ -248,8 +252,8 @@ footer a{color:var(--sky)}
   </section>
 
   <section id="animals">
-    <div class="sec-head"><h2>Animal world</h2><span class="en">Science</span>
-      <p class="muted">Wild animals, farm animals, farm animal products and body parts of an animal.</p></div>
+    <div class="sec-head"><h2>Animal world<span class="vi-t in" lang="vi">Thế giới động vật</span></h2><span class="en">Science</span>
+      <p class="muted">Wild animals, farm animals, farm animal products and body parts of an animal.<span class="vi-t" lang="vi">Con vật hoang dã, vật nuôi ở nông trại, sản phẩm từ vật nuôi và các bộ phận cơ thể con vật.</span></p></div>
     <div class="stack">
       <div class="card ex" id="ex-wild" data-ex="wild"></div>
       <div class="card ex" id="ex-product" data-ex="product"></div>
@@ -258,10 +262,10 @@ footer a{color:var(--sky)}
   </section>
 
   <section id="talk">
-    <div class="sec-head"><h2>Talk about an animal</h2><span class="en">Task 8</span>
-      <p class="muted">Choose an animal. Tap a sentence, listen and say it. Can you say all 4 sentences without looking? Try 3 different animals!</p></div>
+    <div class="sec-head"><h2>Talk about an animal<span class="vi-t in" lang="vi">Nói về một con vật</span></h2><span class="en">Task 8</span>
+      <p class="muted">Choose an animal. Tap a sentence, listen and say it. Can you say all 4 sentences without looking? Try 3 different animals!<span class="vi-t" lang="vi">Chọn một con vật. Bấm vào từng câu để nghe rồi nói theo. Con thử nói cả 4 câu mà không nhìn chữ, rồi đổi sang 3 con vật khác!</span></p></div>
     <div class="talk">
-      <div class="card"><b>Choose an animal</b><div class="animals" id="animalPick" style="margin-top:10px"></div></div>
+      <div class="card"><b>Choose an animal</b><span class="vi-t" lang="vi">Chọn một con vật</span><div class="animals" id="animalPick" style="margin-top:10px"></div></div>
       <div class="card">
         <div class="row-tools" style="margin-bottom:10px"><button class="btn primary" type="button" id="talkAll">▶ Listen to all 4</button></div>
         <div class="lines" id="talkLines"></div>
@@ -279,6 +283,7 @@ footer a{color:var(--sky)}
 </main>
 
 <script src="../assets/pin.js?v=20261127e"></script>
+<script src="../assets/bilingual.js?v=20261127bo"></script>
 <script>
 (function(){
 "use strict";
@@ -302,16 +307,16 @@ const WORDS=['zero','one','two','three','four','five','six','seven','eight','nin
 
 /* ---------- Dữ liệu bài tập ---------- */
 const EX={
- count:{t:'Task 1: Count and choose',en:'How many? Count and choose the number.',items:[
-   {pic:'🍎'.repeat(3),q:'How many apples?',o:[2,3,5],a:3},
-   {pic:'⭐'.repeat(5),q:'How many stars?',o:[5,4,6],a:5},
-   {pic:'🐟'.repeat(7),q:'How many fish?',o:[6,8,7],a:7},
-   {pic:'🍽️',q:'How many cakes on the plate?',o:[1,0,2],a:0,big:true},
-   {pic:'🌸'.repeat(9),q:'How many flowers?',o:[9,8,10],a:9},
-   {pic:'🐥'.repeat(6),q:'How many chicks?',o:[4,6,9],a:6},
-   {pic:'✏️'.repeat(10),q:'How many pencils?',o:[10,9,7],a:10},
-   {pic:'🚗'.repeat(8),q:'How many cars?',o:[3,8,6],a:8}]},
- word:{t:'Task 2: Read and choose',en:'Read the word, choose the number. Read the number, choose the word.',items:[
+ count:{t:'Task 1: Count and choose',vi:'Bài 1: Đếm rồi chọn số đúng.',en:'How many? Count and choose the number.',items:[
+   {pic:'🍎'.repeat(3),q:'How many apples?',qv:'Có mấy quả táo?',o:[2,3,5],a:3},
+   {pic:'⭐'.repeat(5),q:'How many stars?',qv:'Có mấy ngôi sao?',o:[5,4,6],a:5},
+   {pic:'🐟'.repeat(7),q:'How many fish?',qv:'Có mấy con cá?',o:[6,8,7],a:7},
+   {pic:'🍽️',q:'How many cakes on the plate?',qv:'Trên đĩa có mấy cái bánh?',o:[1,0,2],a:0,big:true},
+   {pic:'🌸'.repeat(9),q:'How many flowers?',qv:'Có mấy bông hoa?',o:[9,8,10],a:9},
+   {pic:'🐥'.repeat(6),q:'How many chicks?',qv:'Có mấy con gà con?',o:[4,6,9],a:6},
+   {pic:'✏️'.repeat(10),q:'How many pencils?',qv:'Có mấy cái bút chì?',o:[10,9,7],a:10},
+   {pic:'🚗'.repeat(8),q:'How many cars?',qv:'Có mấy chiếc ô tô?',o:[3,8,6],a:8}]},
+ word:{t:'Task 2: Read and choose',vi:'Bài 2: Đọc chữ rồi chọn số; đọc số rồi chọn chữ.',en:'Read the word, choose the number. Read the number, choose the word.',items:[
    {pic:'seven',word:true,o:[5,7,9],a:7},
    {pic:'four',word:true,o:[4,5,1],a:4},
    {pic:'ten',word:true,o:[2,0,10],a:10},
@@ -320,47 +325,48 @@ const EX={
    {pic:'3',num:true,o:['two','three','eight'],a:'three'},
    {pic:'8',num:true,o:['five','eight','one'],a:'eight'},
    {pic:'2',num:true,o:['ten','two','four'],a:'two'}]},
- seq:{t:"Task 3: What's missing?",en:'Which number is missing? The last one counts down: 10, 9, 8…',items:[
+ seq:{t:"Task 3: What's missing?",vi:'Bài 3: Tìm số còn thiếu. Dãy cuối cùng đếm ngược: 10, 9, 8…',en:'Which number is missing? The last one counts down: 10, 9, 8…',items:[
    {s:[1,2,null,4],o:[3,5,6],a:3},
    {s:[5,6,7,null],o:[9,8,4],a:8},
    {s:[null,1,2,3],o:[4,0,10],a:0},
    {s:[3,null,5,6],o:[7,2,4],a:4},
    {s:[8,null,10],o:[9,7,6],a:9},
    {s:[10,9,null,7],o:[6,8,5],a:8}]},
- write:{t:'Task 4: Write the number words',en:'Write the word for each number. Press Enter to check.',items:[1,2,3,4,5,6,7,8,9,10].map(n=>({n,a:WORDS[n]}))},
- wild:{t:'Task 5: Wild or farm?',en:'Is it a wild animal or a farm animal?',items:[
-   ['🦁','lion','Wild'],['🐄','cow','Farm'],['🐘','elephant','Wild'],['🐖','pig','Farm'],['🦒','giraffe','Wild'],
-   ['🐑','sheep','Farm'],['🐒','monkey','Wild'],['🐔','chicken','Farm'],['🐯','tiger','Wild'],['🦆','duck','Farm']]
-   .map(([pic,name,a])=>({pic,name,q:`Is a ${name} a wild animal or a farm animal?`,o:['Wild','Farm'],a,big:true}))},
- product:{t:'Task 6: Farm animal products',en:'Which animal gives us these things?',items:[
-   {pic:'🥛',q:'Milk comes from a …',say:'Milk comes from a cow.',o:['🐄 cow','🐔 chicken','🐑 sheep'],a:'🐄 cow',big:true},
-   {pic:'🥚',q:'Eggs come from a …',say:'Eggs come from a chicken.',o:['🐖 pig','🐔 chicken','🐄 cow'],a:'🐔 chicken',big:true},
-   {pic:'🧶',q:"Is wool a sheep's product or a duck's product?",o:['🐑 sheep','🦆 duck'],a:'🐑 sheep',big:true},
-   {pic:'🍯',q:'Honey comes from a …',say:'Honey comes from a bee.',o:['🐝 bee','🐐 goat','🦆 duck'],a:'🐝 bee',big:true},
-   {pic:'🐄',q:'A cow gives us …',say:'A cow gives us milk.',o:['🥛 milk','🧶 wool','🥚 eggs'],a:'🥛 milk',big:true},
-   {pic:'🐑',q:'A sheep gives us …',say:'A sheep gives us wool.',o:['🍯 honey','🧶 wool','🥛 milk'],a:'🧶 wool',big:true}]},
- body:{t:'Task 7: Body parts of an animal',en:'Choose the right body part. The last two: count the legs!',items:[
-   {pic:'🐘',q:'An elephant has a long …',say:'An elephant has a long trunk.',o:['trunk','beak','fin'],a:'trunk',big:true},
-   {pic:'🐦',q:'A bird has two …',say:'A bird has two wings.',o:['horns','wings','fins'],a:'wings',big:true},
-   {pic:'🐟',q:'A fish has …',say:'A fish has fins.',o:['fins','legs','fur'],a:'fins',big:true},
-   {pic:'🦆',q:'A duck has a …',say:'A duck has a beak.',o:['trunk','horn','beak'],a:'beak',big:true},
-   {pic:'🐐',q:'A goat has two …',say:'A goat has two horns.',o:['horns','wings','fins'],a:'horns',big:true},
-   {pic:'🐈',q:'A cat has soft …',say:'A cat has soft fur.',o:['feathers','fur','fins'],a:'fur',big:true},
-   {pic:'🐄',q:'How many legs does a cow have?',o:[2,4,6],a:4,big:true},
-   {pic:'🐔',q:'How many legs does a chicken have?',o:[2,4,0],a:2,big:true}]}
+ write:{t:'Task 4: Write the number words',vi:'Bài 4: Viết chữ cho mỗi số. Bấm Enter để kiểm tra.',en:'Write the word for each number. Press Enter to check.',items:[1,2,3,4,5,6,7,8,9,10].map(n=>({n,a:WORDS[n]}))},
+ wild:{t:'Task 5: Wild or farm?',vi:'Bài 5: Con vật hoang dã (Wild) hay vật nuôi ở nông trại (Farm)?',en:'Is it a wild animal or a farm animal?',items:[
+   ['🦁','lion','Wild','sư tử'],['🐄','cow','Farm','bò'],['🐘','elephant','Wild','voi'],['🐖','pig','Farm','lợn'],['🦒','giraffe','Wild','hươu cao cổ'],
+   ['🐑','sheep','Farm','cừu'],['🐒','monkey','Wild','khỉ'],['🐔','chicken','Farm','gà'],['🐯','tiger','Wild','hổ'],['🦆','duck','Farm','vịt']]
+   .map(([pic,name,a,vn])=>({pic,name,q:`Is a ${name} a wild animal or a farm animal?`,qv:`Con ${vn} là con vật hoang dã hay vật nuôi?`,o:['Wild','Farm'],a,big:true}))},
+ product:{t:'Task 6: Farm animal products',vi:'Bài 6: Con vật nào cho chúng ta những thứ này?',en:'Which animal gives us these things?',items:[
+   {pic:'🥛',q:'Milk comes from a …',qv:'Sữa lấy từ con …',say:'Milk comes from a cow.',o:['🐄 cow','🐔 chicken','🐑 sheep'],a:'🐄 cow',big:true},
+   {pic:'🥚',q:'Eggs come from a …',qv:'Trứng lấy từ con …',say:'Eggs come from a chicken.',o:['🐖 pig','🐔 chicken','🐄 cow'],a:'🐔 chicken',big:true},
+   {pic:'🧶',q:"Is wool a sheep's product or a duck's product?",qv:'Len là sản phẩm của con cừu hay con vịt?',o:['🐑 sheep','🦆 duck'],a:'🐑 sheep',big:true},
+   {pic:'🍯',q:'Honey comes from a …',qv:'Mật ong lấy từ con …',say:'Honey comes from a bee.',o:['🐝 bee','🐐 goat','🦆 duck'],a:'🐝 bee',big:true},
+   {pic:'🐄',q:'A cow gives us …',qv:'Con bò cho chúng ta …',say:'A cow gives us milk.',o:['🥛 milk','🧶 wool','🥚 eggs'],a:'🥛 milk',big:true},
+   {pic:'🐑',q:'A sheep gives us …',qv:'Con cừu cho chúng ta …',say:'A sheep gives us wool.',o:['🍯 honey','🧶 wool','🥛 milk'],a:'🧶 wool',big:true}]},
+ body:{t:'Task 7: Body parts of an animal',vi:'Bài 7: Chọn đúng bộ phận cơ thể. Hai câu cuối: đếm số chân!',en:'Choose the right body part. The last two: count the legs!',items:[
+   {pic:'🐘',q:'An elephant has a long …',qv:'Con voi có cái … dài',say:'An elephant has a long trunk.',o:['trunk','beak','fin'],a:'trunk',big:true},
+   {pic:'🐦',q:'A bird has two …',qv:'Con chim có hai cái …',say:'A bird has two wings.',o:['horns','wings','fins'],a:'wings',big:true},
+   {pic:'🐟',q:'A fish has …',qv:'Con cá có …',say:'A fish has fins.',o:['fins','legs','fur'],a:'fins',big:true},
+   {pic:'🦆',q:'A duck has a …',qv:'Con vịt có cái …',say:'A duck has a beak.',o:['trunk','horn','beak'],a:'beak',big:true},
+   {pic:'🐐',q:'A goat has two …',qv:'Con dê có hai cái …',say:'A goat has two horns.',o:['horns','wings','fins'],a:'horns',big:true},
+   {pic:'🐈',q:'A cat has soft …',qv:'Con mèo có bộ … mềm',say:'A cat has soft fur.',o:['feathers','fur','fins'],a:'fur',big:true},
+   {pic:'🐄',q:'How many legs does a cow have?',qv:'Con bò có mấy cái chân?',o:[2,4,6],a:4,big:true},
+   {pic:'🐔',q:'How many legs does a chicken have?',qv:'Con gà có mấy cái chân?',o:[2,4,0],a:2,big:true}]}
 };
 
 /* ---------- Vẽ bài tập chọn đáp án ---------- */
 const state={};
 function setScore(id){const ex=EX[id],el=$(`[data-ex="${id}"] .score`);const n=state[id].size,t=ex.items.length;
   el.textContent=n===t?`🎉 All correct! ${t}/${t}`:`Score: ${n}/${t}`;el.classList.toggle('done',n===t);}
-function head(ex){return `<div class="ex-head"><h3>${esc(ex.t)}</h3><span class="score"></span><span class="en">${esc(ex.en)}</span></div>`}
+const viT=(t,inl)=>t?`<span class="vi-t${inl?' in':''}" lang="vi">${esc(t)}</span>`:'';
+function head(ex){return `<div class="ex-head"><h3>${esc(ex.t)}</h3><span class="score"></span><span class="en">${esc(ex.en)}${viT(ex.vi)}</span></div>`}
 function choiceItem(it,i){
   let top;
   if(it.s) top=`<div class="seq">${it.s.map(x=>x===null?'<span class="gap">?</span>':`<span>${x}</span>`).join('')}</div>`;
   else if(it.word) top=`<div class="pic big" style="font-family:var(--f-display);font-weight:800;letter-spacing:0;color:var(--sky)">${esc(it.pic)}</div><div class="q">${spk(it.pic)}</div>`;
   else if(it.num) top=`<div class="pic big" style="font-family:var(--f-display);font-weight:800;color:var(--sky)">${esc(it.pic)}</div>`;
-  else top=`<div class="pic${it.big?' big':''}" role="img" aria-label="${esc(it.q)}">${it.pic}</div><div class="q"><span class="en">${esc(it.q)}</span> ${spk(it.q)}</div>`;
+  else top=`<div class="pic${it.big?' big':''}" role="img" aria-label="${esc(it.q)}">${it.pic}</div><div class="q"><span class="en">${esc(it.q)}</span> ${spk(it.q)}${viT(it.qv)}</div>`;
   return `<div class="item" data-i="${i}">${top}<div class="opts">${it.o.map(o=>`<button class="opt" type="button" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div></div>`;
 }
 function drawChoice(id){
@@ -395,22 +401,24 @@ function drawWrite(){
 
 /* ---------- Bài 8: nói về con vật ---------- */
 const ANIMALS=[
- ['🐄','cow','farm',4,'It gives us milk.'],
- ['🐔','chicken','farm',2,'It gives us eggs.'],
- ['🐑','sheep','farm',4,'It gives us wool.'],
- ['🐐','goat','farm',4,'It has two horns.'],
- ['🦆','duck','farm',2,'It has a beak.'],
- ['🐘','elephant','wild',4,'It has a long trunk.'],
- ['🦁','lion','wild',4,'It has a long tail.'],
- ['🐒','monkey','wild',2,'It likes bananas.'],
- ['🦒','giraffe','wild',4,'It has a long neck.']];
+ ['🐄','cow','farm',4,'It gives us milk.','bò','Nó cho chúng ta sữa.'],
+ ['🐔','chicken','farm',2,'It gives us eggs.','gà','Nó cho chúng ta trứng.'],
+ ['🐑','sheep','farm',4,'It gives us wool.','cừu','Nó cho chúng ta len.'],
+ ['🐐','goat','farm',4,'It has two horns.','dê','Nó có hai cái sừng.'],
+ ['🦆','duck','farm',2,'It has a beak.','vịt','Nó có cái mỏ.'],
+ ['🐘','elephant','wild',4,'It has a long trunk.','voi','Nó có cái vòi dài.'],
+ ['🦁','lion','wild',4,'It has a long tail.','sư tử','Nó có cái đuôi dài.'],
+ ['🐒','monkey','wild',2,'It likes bananas.','khỉ','Nó thích ăn chuối.'],
+ ['🦒','giraffe','wild',4,'It has a long neck.','hươu cao cổ','Nó có cái cổ dài.']];
 const LEGS={2:'two',4:'four'};
 let animal=0;
 function talkLines(){const [,n,k,l,s]=ANIMALS[animal];
   return [`It is a ${n}.`,`It is a ${k} animal.`,`It has ${LEGS[l]} legs.`,s];}
+function talkVi(){const [,,k,l,,vn,sv]=ANIMALS[animal];
+  return [`Đây là con ${vn}.`,k==='farm'?'Nó là vật nuôi ở nông trại.':'Nó là con vật hoang dã.',`Nó có ${l===2?'hai':'bốn'} cái chân.`,sv];}
 function drawTalk(){
   $('#animalPick').innerHTML=ANIMALS.map((a,i)=>`<button type="button" data-a="${i}" aria-pressed="${i===animal}" aria-label="${a[1]}">${a[0]}</button>`).join('');
-  $('#talkLines').innerHTML=talkLines().map((en,i)=>`<button class="line" type="button" data-l="${i}"><span class="spk" aria-hidden="true">${SPK}</span><b>${esc(en)}</b></button>`).join('');
+  $('#talkLines').innerHTML=talkLines().map((en,i)=>`<button class="line" type="button" data-l="${i}"><span class="spk" aria-hidden="true">${SPK}</span><b>${esc(en)}${viT(talkVi()[i])}</b></button>`).join('');
 }
 function playLine(i,queue){const el=$(`#talkLines [data-l="${i}"]`);
   speak(talkLines()[i],{queue,onstart:()=>el.classList.add('speaking'),onend:()=>el.classList.remove('speaking')});}

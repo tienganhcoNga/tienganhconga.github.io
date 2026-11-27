@@ -332,3 +332,5 @@ body.in-unit .nav{margin-top:12px}
 .hw-list{margin:8px 0 0;padding-left:20px}
 .hw-unit{border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-top:8px;background:var(--surface)}
 .hw-unit summary{cursor:pointer;font-weight:700}
+/* Song ngữ: tiếng Việt cho phụ huynh, chỉ hiện khi bật nút 🇻🇳 Song ngữ (assets/bilingual.js) */
+.vi-t{display:none}
