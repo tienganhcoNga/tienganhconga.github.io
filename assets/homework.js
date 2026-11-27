@@ -16,6 +16,10 @@
             kind mặc định (chọn đáp án): item { pic | txt | s:[dãy, null = ô trống], q, o:[…], a, say }
             kind "write": item { txt, a }               (nhìn số, gõ chữ)
             kind "speak": item { pic, lines:[câu…] }    (nghe rồi nói cả đoạn)
+     key:"…"          chỗ lưu sao trên máy (mỗi trang một key)
+     young:true       chế độ Mầm non: phiếu in cho bé chưa biết viết (tô chữ, nghe rồi khoanh hình, khoanh chữ, nối, vẽ và nói)
+     types:[…]        chỉ dùng các dạng này (Mầm non: listen, look, yesno, match, memory, say, talk)
+     talk có thể ghi dạng { e, s, c, b, x } giống dòng hw: của trang Giai đoạn Mầm non
    Bài của bé chỉ có tiếng Anh; tiếng Việt nằm trong <span class="vi-t"> (nút 🇻🇳 Song ngữ).
    Số sao mỗi bài lưu trên máy (localStorage "lophoc.hw.l1"). */
 (function () {
@@ -25,7 +29,13 @@
     var $ = function (s, r) { return (r || document).querySelector(s); };
     var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
     var speak = function (t, o) { K.speak(t, o || { rate: 0.8 }); };
-    var KEY = HD.key || "lophoc.hw.l1", N = 8;
+    var KEY = HD.key || "lophoc.hw.l1", N = 8, YOUNG = !!HD.young, ONLY = HD.types || null;
+    /* talk dạng {e,s,c,b,x} (giống hw: của trang Giai đoạn Mầm non) → dạng mảng */
+    var TALK = {};
+    Object.keys(HD.talk || {}).forEach(function (g) {
+      var t = HD.talk[g];
+      TALK[g] = Array.isArray(t) ? t : [t.e, [t.s[0], t.s.length > 2 ? t.s[1] : "", t.s[t.s.length - 1]], t.c, t.b, t.x];
+    });
     var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     var sel = {}, G = null;
 
@@ -106,6 +116,10 @@
       "#hwPrint ol{margin:0;padding-left:1.4em}#hwPrint ol li{margin-bottom:10px;break-inside:avoid}" +
       "#hwPrint .wb{border:1.5px solid #000;border-radius:10px;padding:6px 10px;margin-bottom:8px;font-weight:700}" +
       "#hwPrint .ans{break-before:page;font-size:11pt}#hwPrint .ans ol{columns:2}" +
+      "#hwPrint .tw{font-family:var(--f-display,inherit);font-size:24pt;font-weight:800;letter-spacing:3px;color:#fff;-webkit-text-stroke:1.2px #888;line-height:1.3}" +
+      "#hwPrint li.row{display:flex;gap:28px;align-items:center;margin-bottom:12px}#hwPrint li.row .p{font-size:30pt;border:1.5px solid #bbb;border-radius:12px;padding:2px 12px}" +
+      "#hwPrint .g2{display:grid;grid-template-columns:1fr 1fr;gap:18px}#hwPrint .dr .box{height:150px;border:1.5px dashed #999;border-radius:10px;margin:6px 0}" +
+      "#hwPrint small{font-weight:400;font-size:10pt;color:#555}" +
       "#hwPrint .sw{display:inline-block;width:1.1em;height:1.1em;border-radius:4px;border:1px solid #000;vertical-align:middle}";
     var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
 
@@ -140,8 +154,8 @@
     function typesFor(g) {
       var P = words(g), S = P.filter(isSpell), out = [];
       var ok = { listen: uniqPics(P).length >= 4, look: P.length >= 4, yesno: P.length >= 3, match: uniqPics(P).length >= 4, letter: S.length >= 3, spell: S.length >= 3,
-        write: S.length >= 3, gap: P.filter(gapOK).length >= 3, order: P.filter(orderOK).length >= 3, memory: uniqPics(P).length >= 4, say: P.length >= 3, talk: !!(HD.talk && HD.talk[g]) };
-      BASE.forEach(function (b) { if (ok[b[0]]) out.push({ id: b[0], ic: b[1], t: b[2], vi: b[3], how: b[4], howVi: b[5] }); });
+        write: S.length >= 3, gap: P.filter(gapOK).length >= 3, order: P.filter(orderOK).length >= 3, memory: uniqPics(P).length >= 4, say: P.length >= 3, talk: !!TALK[g] };
+      BASE.forEach(function (b) { if (ok[b[0]] && (!ONLY || ONLY.indexOf(b[0]) >= 0)) out.push({ id: b[0], ic: b[1], t: b[2], vi: b[3], how: b[4], howVi: b[5] }); });
       ((HD.extra || {})[g] || []).forEach(function (x, k) { out.push({ id: "x" + k, ic: x.ic || "⭐", t: x.t, vi: x.vi || "", how: x.how || "", howVi: x.howVi || "", x: x, extra: true }); });
       return out;
     }
@@ -390,7 +404,7 @@
     }
     /* 💬 Talk at home: ba mẹ nói câu của ba mẹ, bé nói câu của bé (che sẵn) */
     function showTalk(box) {
-      var T = HD.talk[G.g], P = "👩", Kd = "🧒";
+      var T = TALK[G.g], P = "👩", Kd = "🧒";
       var ln = function (who, text) {
         if (!text) return "";
         return '<div class="hw-ln ' + (who === Kd ? "k" : "p") + '"><span class="who" aria-hidden="true">' + who + "</span>" +
@@ -402,7 +416,7 @@
       box.innerHTML = gh(false) + '<div class="hw-talk">' +
         card(1, "Say more!", "Mở rộng câu: con nói một từ, ba mẹ nói lại cả câu", "Con nói từ này, ba mẹ nói lại thành câu đầy đủ và thêm một ý. Không bắt con nói lại.", ln(Kd, T[0][0]) + ln(P, T[0][1])) +
         card(2, "What do you need?", "Tạo tình huống để con phải nói", T[1][0] + " Chờ 5 giây để con tự nói.", ln(P, T[1][1]) + ln(Kd, T[1][2])) +
-        card(3, "This or that?", "Câu hỏi lựa chọn", "Hỏi hai lựa chọn, con trả lời cả câu.", ln(P, T[2][0]) + ln(Kd, T[2][1])) +
+        card(3, "This or that?", "Câu hỏi lựa chọn", YOUNG ? "Hỏi hai lựa chọn, con chỉ cần nói một từ." : "Hỏi hai lựa chọn, con trả lời cả câu.", ln(P, T[2][0]) + ln(Kd, T[2][1])) +
         card(4, "Look and talk", "Đọc tranh, sách trước khi ngủ", "Chỉ vào tranh trong sách hoặc đồ thật rồi hỏi.", ln(P, T[3][0]) + ln(Kd, T[3][1])) +
         (T[4] ? '<p class="vi-t note" lang="vi">🏠 Từ dùng thêm ở nhà: ' + esc(T[4]) + "</p>" : "") +
         '</div><div class="sk-ctl" style="margin-top:12px"><button class="sk-sbtn go" type="button" data-hw="tdone">✓ We talked today!</button></div>';
@@ -450,6 +464,7 @@
       var u = D.units[g], P = words(g), S = P.filter(isSpell), pics = uniqPics(P), A = [];
       var pic = function (x) { return /^c:/.test(x.ic) ? '<span class="sw" style="background:' + esc(x.ic.slice(2)) + '"></span>' : icon(x.ic); };
       var h = "<h1>" + u.ic + " " + esc(u.n) + ": " + esc(u.en) + '</h1><div class="nm">Name:<span></span>Date:<span></span></div>';
+      if (YOUNG) return printYoung(g, u, P, pics, pic, h);
       /* 1. Look and write */
       var lw = pickN(S.length >= 6 ? S : pics, 6);
       h += "<h2>1. Look and write.</h2><div class=\"g\">" + lw.map(function (x) { return '<div class="c"><div class="p">' + pic(x) + '</div><div class="bx">' + x.w.split("").map(function (c) { return c === " " ? "&nbsp;" : "_"; }).join(" ") + "</div></div>"; }).join("") + "</div>";
@@ -482,6 +497,27 @@
         h += "<h2>6. Put the words in order.</h2><ol>" + po.map(function (x) { return "<li>" + shuffle(tokens(x)).map(esc).join(" &nbsp;/&nbsp; ") + '<span class="ln"></span></li>'; }).join("") + "</ol>";
         A.push(["6. Put the words in order", po.map(function (x) { return tokens(x).join(" "); })]);
       }
+      finishPrint(h, A);
+    }
+    /* Phiếu cho bé Mầm non (chưa biết viết): tô chữ, nghe rồi khoanh hình, khoanh chữ, nối, vẽ và nói */
+    function printYoung(g, u, P, pics, pic, h) {
+      var A = [], n = 0, sec = function (t) { n++; return "<h2>" + n + ". " + t + "</h2>"; };
+      var tr = pickN(pics, 6);
+      h += sec("Look, say and trace.") + '<div class="g">' + tr.map(function (x) { return '<div class="c"><div class="p">' + pic(x) + '</div><div class="tw">' + esc(x.w) + '</div><div class="tw">' + esc(x.w) + "</div></div>"; }).join("") + "</div>";
+      var ls = pickN(pics, 5).map(function (x) { var o = shuffle(others(pics, x, "ic", 2).concat([x])); return { x: x, o: o }; });
+      h += sec("Listen and circle. <small>(Ba mẹ đọc to từ ở trang đáp án, bé khoanh hình đúng.)</small>") + "<ol>" + ls.map(function (m, k) { return '<li class="row"><b>' + (k + 1) + ".</b>" + m.o.map(function (o) { return '<span class="p">' + pic(o) + "</span>"; }).join("") + "</li>"; }).join("") + "</ol>";
+      A.push(["Listen and circle (ba mẹ đọc to)", ls.map(function (m) { return m.x.w; })]);
+      var lc = pickN(pics, 6).map(function (x) { var o = others(P, x, "w", 1)[0]; return { x: x, o: Math.random() < 0.5 ? [x.w, o ? o.w : ""] : [o ? o.w : "", x.w] }; });
+      h += sec("Look and circle the right word.") + '<div class="g">' + lc.map(function (m) { return '<div class="c"><div class="p">' + pic(m.x) + "</div><div><b>" + esc(m.o[0]) + "</b> &nbsp;/&nbsp; <b>" + esc(m.o[1]) + "</b></div></div>"; }).join("") + "</div>";
+      A.push(["Look and circle", lc.map(function (m) { return m.x.w; })]);
+      var mt = pickN(pics, 4), mw = shuffle(mt);
+      h += sec("Match.") + '<div class="mt">' + mt.map(function (x, k) { return '<div class="p">' + pic(x) + '<span class="dot"></span></div><div></div><div class="w"><span class="dot"></span>' + esc(mw[k].w) + "</div>"; }).join("") + "</div>";
+      A.push(["Match", mt.map(function (x) { return x.w; })]);
+      var dr = pickN(pics, 2);
+      h += sec("Draw and say.") + '<div class="g2">' + dr.map(function (x) { return '<div class="c dr"><div class="bx">' + esc(x.w) + '</div><div class="box"></div><div>I can see a <b>' + esc(x.w) + "</b>!</div></div>"; }).join("") + "</div>";
+      finishPrint(h, A);
+    }
+    function finishPrint(h, A) {
       h += '<div class="ans"><h2>Answers (for parents)</h2>' + A.map(function (a) { return "<p><b>" + esc(a[0]) + "</b></p><ol>" + a[1].map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ol>"; }).join("") + "</div>";
       var box = document.getElementById("hwPrint");
       if (!box) { box = document.createElement("div"); box.id = "hwPrint"; document.body.appendChild(box); }

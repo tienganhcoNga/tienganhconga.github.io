@@ -79,7 +79,7 @@ c1:{n:"Stage 3 · Unit 1",en:"Where Is It? In, On, Under, Behind",ic:"📦",w:[[
   '<h3>🏠 Ôn ở nhà cùng con (dành cho ba mẹ)</h3>'+
   '<p>Bé học với cô 2 buổi một tuần. Bé nói được là nhờ ba mẹ nói cùng con <b>10–15 phút mỗi ngày</b>, chia nhỏ vào giờ ăn, giờ tắm và trước khi ngủ. Ba mẹ không cần giỏi tiếng Anh: dùng đúng câu trong bài, bấm 🔊 để nghe mẫu, bật nút <b>🇻🇳 Song ngữ</b> để xem nghĩa. Bé mẫu giáo chỉ cần nói <b>một từ hoặc cụm 2–3 từ</b>, không bắt bé nói cả câu.</p>'+
   '<ul><li><b>Sau mỗi bài ôn:</b> mỗi ngày làm 1 trong 3 bài nói chưa học trên lớp: 👂 nghe mẫu → 🦜 nói theo → 🙈 tự nói. Cuối tuần cho bé lên “sân khấu” nói cho cả nhà nghe.</li>'+
-  '<li><b>Bài tập theo từng Unit:</b> nằm ở mục 🗺️ Lộ trình của Giai đoạn 1, 2, 3 (khối <b>🏠 Bài tập về nhà</b>, mỗi Unit có ví dụ riêng). Ba mẹ mở Unit con vừa học trên lớp.</li>'+
+  '<li><b>🏠 Bài tập về nhà theo Unit:</b> nằm ở <b>cuối mỗi bài ôn</b> (khối <b>🏠 Homework</b>, mỗi tab là một Unit mới của bài ôn đó). Muốn chọn thẳng Unit 1–26 thì bấm <b>📚 All units</b> hoặc mục <b>Bài tập về nhà</b> trên menu. Mỗi Unit có 7 dạng bài tự chấm cho bé chưa biết đọc viết: <i>Listen and choose</i> (nghe chọn hình), <i>Look and choose</i> (nhìn hình chọn từ), <i>Yes or no</i>, <i>Match</i> (nối hình với chữ), <i>Memory</i> (lật thẻ), <i>Say it</i> (nhìn hình nói từ), <i>Talk at home</i> (4 tình huống nói chuyện với con, dùng đúng từ của Unit), và nút <b>🖨️ Worksheet</b> in phiếu: tô chữ, nghe ba mẹ đọc rồi khoanh hình, khoanh chữ, nối, vẽ và nói (có trang đáp án cho ba mẹ, mỗi lần in đổi từ). Mỗi ngày 2–3 bài, ngồi cùng con. Mỗi bài có 3 sao, sao lưu trên máy đang dùng.</li>'+
   '<li><b>Bài nói của bé (🎤 Speech):</b> mỗi tối bé nói cho cả nhà nghe, ba mẹ quay video, tuần sau xem lại cùng con: <i>Hello! I’m Bin. I’m five. I like ducks!</i></li></ul>'+
   '<h3>4 kỹ thuật vàng khi nói cùng con ở nhà</h3>'+
   '<ol><li><b>Mở rộng câu:</b> bé nói một từ, ba mẹ nhắc lại thành câu ngắn và thêm một ý (màu, số, tiếng kêu). Không chê, không bắt bé nói lại. <i>Cow! → Yes! A big cow. The cow says moo!</i></li>'+
@@ -98,6 +98,37 @@ c1:{n:"Stage 3 · Unit 1",en:"Where Is It? In, On, Under, Behind",ic:"📦",w:[[
   '<li>Bài <b>Kể chuyện</b>: lần đầu cô kể, bé chỉ tranh. Lần sau đổi lại: bé kể, cô chỉ tranh.</li>'+
   '<li>Trên sân khấu, tick <b>Record my voice</b> để bé nghe lại giọng mình. Bé rất thích phần này.</li>'+
   '<li>Bài học của bé chỉ có tiếng Anh. Gợi ý dạy từng bài và nghĩa tiếng Việt của từng câu nằm ở mục <b>🔒 Cẩm nang</b> (mã PIN Đáp án).</li></ul>',
+ /* 🏠 Bài tập về nhà theo Unit (assets/homework.js): khối cuối mỗi bài ôn, tab là các Unit mới của bài ôn; #hw = bảng 26 Unit, #hw-a1 = Unit 1 Giai đoạn 1.
+    Dạng bài cho bé mầm non: nghe – nhìn – nói (không đánh vần, không viết); phiếu in: tô chữ, nghe rồi khoanh hình, nối, vẽ và nói.
+    talk: chép từ dòng hw: của từng Unit ở trang Giai đoạn 1, 2, 3 (sửa ở đó thì chép lại sang đây). */
+ homework:{key:'lophoc.hw.mg',young:true,types:['listen','look','yesno','match','memory','say','talk'],
+  talk:{
+   a1:{"e":["Happy!","Yes! You are happy. Big smile!"],"s":["Ba mẹ đi làm về, đứng ở cửa mỉm cười chờ bé chào trước.","Hello, Mommy!"],"c":["Happy or sleepy?","Sleepy!"],"b":["Look at the bear. Is he happy or sad?","Sad! He is crying."],"x":"hug, tired, hurt / ouch, scared"},
+   a2:{"e":["Cow!","Yes! A big cow. The cow says moo!"],"s":["Giấu con vịt đồ chơi sau lưng, chỉ đưa ra khi bé gọi tên.","Duck, please!"],"c":["Dog or cat?","Cat! Meow!"],"b":["Where is the duck?","In the water!"],"x":"big, small, loud, in, on"},
+   a3:{"e":["Fish!","Yes! A little fish. It can swim!"],"s":["Lúc tắm, để cá đồ chơi ngoài chậu, chờ bé đòi.","Fish, please!"],"c":["Whale or crab?","Whale! It's big!"],"b":["Where is the crab?","Under the rock!"],"x":"water, wet, sand, under"},
+   a4:{"e":["Nose!","Yes! Your nose. Smell, smell!"],"s":["Mặc áo cho bé, dừng lại ở cổ áo, chờ bé nhờ.","Help, please!"],"c":["Hands or feet?","Hands! Clap, clap!"],"b":["What is the bear doing?","He is clapping!"],"x":"tummy, chew, hug, hurt / ouch"},
+   a5:{"e":["Red!","Yes! A red apple. It's yummy!"],"s":["Đưa giấy vẽ nhưng giữ lại hộp bút màu, chờ bé xin.","Blue, please!"],"c":["Red or blue?","Blue!"],"b":["What color is the car?","It's yellow!"],"x":"circle, square, sun, moon"},
+   a6:{"e":["Three!","Yes! Three candies. One, two, three!"],"s":["Bé đòi kẹo: mẹ xòe tay hỏi bao nhiêu và chờ bé đếm.","Two, please!"],"c":["One or two?","Two, please!"],"b":["How many ducks?","Five ducks!"],"x":"many, more, all gone"},
+   a7:{"e":["Jump!","Yes! You can jump. Jump up high!"],"s":["Bật nhạc cho bé nhảy rồi tắt giữa chừng, chờ bé đòi.","Again, please!"],"c":["Run or swim?","Run!"],"b":["What is the bird doing?","It is flying!"],"x":"fast, slow, walk, tired"},
+   a8:{"e":["Ball!","Yes! A red ball. It's under the bed!"],"s":["Giấu gấu bông dưới gối, giả vờ không biết, chờ bé hỏi.","Where is Teddy?"],"c":["Ball or car?","Car, please!"],"b":["Where is the cat?","It's on the bed!"],"x":"pillow, blanket, clean up, in / on / under"},
+   b1:{"e":["Grandma!","Yes! It's Grandma. Grandma loves you!"],"s":["Xem ảnh gia đình, lấy tay che một người, chờ bé đoán.","It's Daddy!"],"c":["Mommy or Daddy?","Mommy!"],"b":["Where is the baby?","In the bed!"],"x":"hug, help, share, cute, behind"},
+   b2:{"e":["Milk!","Yes! Cold milk. Yummy!"],"s":["Đưa cốc không nhưng chưa rót sữa, chờ bé nói.","Milk, please!"],"c":["Banana or apple?","Banana, please!"],"b":["What is the monkey eating?","A banana!"],"x":"peel, bite, blow, pour, crunchy, soft"},
+   b3:{"e":["Hat!","Yes! Your red hat. It's sunny!"],"s":["Chuẩn bị ra ngoài nhưng không đưa giày, chờ bé đòi.","Shoes, please!"],"c":["Hot or cold?","Hot!"],"b":["What's the weather?","It's rainy!"],"x":"put on, take off, wet, dry"},
+   b4:{"e":["Friend!","Yes! Your friend Tom. He is funny!"],"s":["Đưa giấy vẽ, giữ lại bút sáp, chờ bé xin.","Can I have a crayon, please?"],"c":["Book or bag?","Bag!"],"b":["Who is next to the bear?","The rabbit!"],"x":"share, wait, please, next to"},
+   b5:{"e":["Circle!","Yes! A big circle. It's round like the sun!"],"s":["Ghép hình còn thiếu một mảnh, mẹ giữ mảnh đó, chờ bé xin.","Triangle, please!"],"c":["Big or small?","Small!"],"b":["What shape is the window?","A square!"],"x":"round, long, in front of"},
+   b6:{"e":["Fly!","Yes! The superhero can fly. Whoosh!"],"s":["Để đồ chơi trên giá cao, chờ bé nhờ.","Help, please!"],"c":["Strong or fast?","Strong!"],"b":["What can Spider-Man do?","He can climb!"],"x":"brave, help, up, down"},
+   b7:{"e":["Bath!","Yes! Bath time. Wash with soap!"],"s":["Đưa bàn chải chưa có kem đánh răng, chờ bé nói.","Toothpaste, please!"],"c":["Wash your face or brush your teeth?","Brush my teeth!"],"b":["What is the girl doing?","She is sleeping!"],"x":"towel, soap, toothbrush, pillow, blanket, wet, dry, smelly"},
+   b8:{"e":["My turn!","Yes! It's your turn. Then my turn!"],"s":["Chơi xúc xắc, mẹ cầm xúc xắc, chờ bé đòi lượt.","My turn, please!"],"c":["Ball or blocks?","Blocks!"],"b":["What does the bear say?","Sorry!"],"x":"wait, share, sorry, thank you"},
+   c1:{"e":["Box!","Yes! The ball is in the box!"],"s":["Giả vờ không tìm thấy điều khiển TV (đang ở dưới gối), hỏi bé.","It's under the pillow!"],"c":["In or on?","On!"],"b":["Where is the rabbit?","Behind the tree!"],"x":"pillow, sofa, find, behind, in front of"},
+   c2:{"e":["Left!","Yes! Turn left. This is your left hand!"],"s":["Đi bộ đến ngã rẽ, mẹ dừng lại hỏi bé đi đường nào.","Turn right!"],"c":["Left or right?","Right!"],"b":["Which way is the dog going?","Left!"],"x":"go straight, stop, here, there"},
+   c3:{"e":["Elephant!","Yes! A big elephant. It's very big!"],"s":["Đưa bé cái bánh nhỏ xíu, chờ bé đòi cái to.","The big one, please!"],"c":["Big or small?","Big!"],"b":["Which one is tall?","The giraffe!"],"x":"tall, short, loud, huge, tiny"},
+   c4:{"e":["Snake!","Yes! A long snake. Sss!"],"s":["Đưa sợi dây quá ngắn để buộc hộp quà, chờ bé nói.","It's short! A long one, please!"],"c":["Long or short?","Long!"],"b":["Who has a long tail?","The monkey!"],"x":"hair, pencil, string"},
+   c5:{"e":["Flower!","Yes! A pretty flower. It smells good!"],"s":["Tay bé bẩn, mẹ đưa khăn khô chưa nhúng nước, chờ.","My hands are dirty! Water, please!"],"c":["Clean or dirty?","Dirty!"],"b":["Is the monster pretty or ugly?","Ugly! Grrr!"],"x":"smelly, good smell, wet, dry"},
+   c6:{"e":["Yummy!","Yes! It's yummy. Yummy rice!"],"s":["Bưng bát canh nóng, mẹ chưa thổi, chờ bé nói.","It's hot! Blow, please!"],"c":["Rice or bread?","Rice, please!"],"b":["Does the bear like it?","No! Yucky!"],"x":"blow, bite, chew, full, thirsty"},
+   c7:{"e":["Sour!","Yes! The lemon is sour. Ooh!"],"s":["Cho bé nếm một chút muối, chờ bé nói vị rồi xin nước.","It's salty! Water, please!"],"c":["Sweet or sour?","Sweet!"],"b":["What is the boy eating? Is it spicy?","Yes! Hot, hot!"],"x":"crunchy, soft, hard, juicy"},
+   c8:{"e":["Sunny!","Yes! It's sunny and hot. Wear your hat!"],"s":["Trời lạnh, mẹ cầm áo khoác nhưng chưa đưa, chờ bé xin.","It's cold! My jacket, please!"],"c":["Hot or cold?","Cold! Brrr!"],"b":["What's the weather in the picture?","It's rainy!"],"x":"wet, dry, umbrella, fan"},
+   c9:{"e":["Summer!","Yes! In summer, it's hot. We swim!"],"s":["Trời lạnh mà mẹ chỉ đưa áo phông, chờ bé phản đối.","No! It's cold! My coat, please!"],"c":["Spring or winter?","Spring!"],"b":["What season is it in the picture?","Autumn! The leaves fall."],"x":"Tet, beach, snowman"},
+   c10:{"e":["Treasure!","Yes! We find the treasure. Hooray!"],"s":["Giấu kẹo, chỉ đưa bản đồ: bé phải nói chỉ dẫn cho mẹ đi.","Go straight! Turn left!"],"c":["Under the bed or behind the door?","Behind the door!"],"b":["Where is the treasure?","Under the bridge!"],"x":"map, find, here, there"}}},
  reviews:[
 
  /* ===================== ÔN 1: GĐ1 Unit 1–3 (Chào hỏi · Nông trại · Biển) ===================== */
@@ -1139,9 +1170,10 @@ c1:{n:"Stage 3 · Unit 1",en:"Where Is It? In, On, Under, Behind",ic:"📦",w:[[
  ]};
 </script>
 <script src="../assets/pin.js?v=20261127g"></script>
-<script src="../assets/bilingual.js?v=20261127vi13"></script>
+<script src="../assets/bilingual.js?v=20261127vi14"></script>
 <script src="../assets/voice.js?v=20261127bi"></script>
-<script src="../assets/speaking.js?v=20261127bk"></script>
-<script src="../assets/kidnav.js?v=20261127bi"></script>
+<script src="../assets/homework.js?v=20261127d"></script>
+<script src="../assets/speaking.js?v=20261127hw"></script>
+<script src="../assets/kidnav.js?v=20261127hw"></script>
 </body>
 </html>

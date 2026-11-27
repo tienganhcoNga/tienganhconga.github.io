@@ -91,7 +91,20 @@ window.LOPHOC_VI = {
   "Tap a picture, then tap its word.": "Bấm một hình, rồi bấm chữ của nó.", "Tap the words in order to make a sentence.": "Bấm các từ theo thứ tự để thành câu.",
   "Talk with Mom or Dad. Say your part!": "Nói cùng ba mẹ. Con nói phần của con!", "Which letter is missing?": "Chữ cái nào còn thiếu?",
   "Stage {s} · Unit {n} {t} · {c}": "Giai đoạn {s} · Unit {n}: {t} · {c} từ", "Stage {s} · Unit {n} {t} NEW · {c}": "Giai đoạn {s} · Unit {n}: {t} · MỚI · {c} từ",
-  "Stage {s} · Unit {n}": "Giai đoạn {s} · Unit {n}", "Unit {n}: {t}": "Unit {n}: {t}", "All {n} units": "Cả {n} Unit", "Big Show {n}": "Buổi diễn lớn {n}", "My Speech: {t} +{c}": "Bài nói của bé: {t}", "My Speech: {t}": "Bài nói của bé: {t}", "Big Show": "Buổi diễn lớn",
+  "Stage {s} · Unit {n}": "Giai đoạn {s} · Unit {n}", "Unit {n}: {t}": "Unit {n}: {t}",
+  /* ---- Bài tập về nhà Mầm non: Talk at home ---- */
+  "Happy or sleepy?": "Vui hay buồn ngủ?", "Sleepy!": "Buồn ngủ!", "Dog or cat?": "Chó hay mèo?", "Cat! Meow!": "Mèo! Meo meo!",
+  "Whale or crab?": "Cá voi hay con cua?", "Whale! It's big!": "Cá voi! Nó to lắm!", "Hands or feet?": "Tay hay chân?", "Hands! Clap, clap!": "Tay! Vỗ tay, vỗ tay!",
+  "Red or blue?": "Đỏ hay xanh dương?", "Blue!": "Xanh dương!", "One or two?": "Một hay hai?", "Run or swim?": "Chạy hay bơi?", "Run!": "Chạy!",
+  "Ball or car?": "Quả bóng hay ô tô?", "Car, please!": "Cho con ô tô ạ!", "Mommy or Daddy?": "Mẹ hay bố?", "Mommy!": "Mẹ!",
+  "Banana or apple?": "Chuối hay táo?", "Banana, please!": "Cho con chuối ạ!", "Hot!": "Nóng!", "Book or bag?": "Quyển sách hay cái cặp?", "Bag!": "Cái cặp!",
+  "Small!": "Nhỏ!", "Strong or fast?": "Khỏe hay nhanh?", "Strong!": "Khỏe!", "Wash your face or brush your teeth?": "Rửa mặt hay đánh răng?",
+  "Brush my teeth!": "Đánh răng!", "Ball or blocks?": "Quả bóng hay đồ xếp hình?", "Blocks!": "Đồ xếp hình!", "In or on?": "Ở trong hay ở trên?", "On!": "Ở trên!",
+  "Left or right?": "Trái hay phải?", "Right!": "Phải!", "Big!": "To!", "Long!": "Dài!", "Clean or dirty?": "Sạch hay bẩn?", "Dirty!": "Bẩn!",
+  "Rice or bread?": "Cơm hay bánh mì?", "Rice, please!": "Cho con cơm ạ!", "Sweet or sour?": "Ngọt hay chua?", "Sweet!": "Ngọt!", "Cold! Brrr!": "Lạnh! Brừ!",
+  "Spring or winter?": "Mùa xuân hay mùa đông?", "Spring!": "Mùa xuân!", "Under the bed or behind the door?": "Dưới gầm giường hay sau cánh cửa?", "Behind the door!": "Sau cánh cửa!",
+  "Stage {s} · Unit {n}": "Giai đoạn {s} · Unit {n}",
+ "All {n} units": "Cả {n} Unit", "Big Show {n}": "Buổi diễn lớn {n}", "My Speech: {t} +{c}": "Bài nói của bé: {t}", "My Speech: {t}": "Bài nói của bé: {t}", "Big Show": "Buổi diễn lớn",
   "{n} words": "{n} từ", "Easy and Challenge": "Dễ và Thử thách", "Is it pretty or ugly?": "Nó đẹp hay xấu?", "Stories": "Truyện", "Year": "Năm", "Unit {n} {t} · {c}": "Unit {n}: {t} · {c} từ", "Unit {n} {t} NEW · {c}": "Unit {n}: {t} · MỚI · {c} từ", "Name": "Tên", "Date": "Ngày", "Grade 1 · English Plan": "Lớp 1 · Giáo án tiếng Anh"
  }
 };
