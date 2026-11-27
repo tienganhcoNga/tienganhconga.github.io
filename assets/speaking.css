@@ -278,3 +278,9 @@ html.sk-lock,html.sk-lock body{overflow:hidden}
 .sk-mc .back{font-size:2rem}
 .sk-gend{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 0}
 @media (max-width:560px){ .sk-opts.pics{grid-template-columns:repeat(2,1fr);max-width:300px} .sk-mem{grid-template-columns:repeat(3,1fr)} }
+
+/* tốc độ đọc */
+.speed{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:center}
+.speed button{font:inherit;font-weight:700;font-size:.9rem;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:3px 11px;cursor:pointer}
+.speed button:hover{border-color:var(--ink)}
+.speed button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}

@@ -22,12 +22,24 @@
   var hasSpeech = "speechSynthesis" in window, voices = [];
   function loadVoices() { voices = hasSpeech ? speechSynthesis.getVoices().filter(function (v) { return /^en[-_]/i.test(v.lang); }) : []; }
   if (hasSpeech) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; } else document.documentElement.classList.add("no-speech");
+  /* tốc độ đọc chung cho mọi trang (Rất chậm / Chậm / Bình thường), lưu trên trình duyệt */
+  var SPEEDS = [[0.65, "🐌", "Very slow"], [0.8, "🐢", "Slow"], [1, "🐇", "Normal"]];
+  var SPEED = (function () { try { var v = parseFloat(localStorage.getItem("lophoc.speed")); if (v > 0) return v; } catch (e) {} return 1; })();
+  function speedBar() {
+    return '<span class="speed" role="group" aria-label="Speaking speed">' + SPEEDS.map(function (s) {
+      return '<button type="button" data-speed="' + s[0] + '" aria-pressed="' + (s[0] === SPEED) + '"><span aria-hidden="true">' + s[1] + "</span> " + s[2] + "</button>"; }).join("") + "</span>";
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-speed]"); if (!b) return;
+    SPEED = parseFloat(b.getAttribute("data-speed")); try { localStorage.setItem("lophoc.speed", String(SPEED)); } catch (err) {}
+    document.querySelectorAll("[data-speed]").forEach(function (x) { x.setAttribute("aria-pressed", String(parseFloat(x.getAttribute("data-speed")) === SPEED)); });
+  });
   function speak(text, o) {
     o = o || {};
     if (!hasSpeech) { if (o.onend) setTimeout(o.onend, 600); return; }
     if (!o.queue) speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(String(text).replace(/\.\.\./g, ","));
-    u.lang = "en-US"; u.rate = o.rate || D.rate || 0.85; u.pitch = o.pitch || 1.1;
+    u.lang = "en-US"; u.rate = Math.max(0.4, (o.rate || D.rate || 0.85) * SPEED); u.pitch = o.pitch || 1.1;
     if (voices.length) u.voice = voices[(o.voice || 0) % voices.length];
     if (o.onstart) u.onstart = o.onstart;
     if (o.onend) { u.onend = o.onend; u.onerror = o.onend; }
@@ -223,7 +235,7 @@
       '<div class="sk-th"><span class="sk-tic" aria-hidden="true">' + (t.ic || T.ic) + '</span><div><div class="sk-tt">' + T.ic + " " + T.en + (t.badge ? ' <span class="sk-badge">' + esc(t.badge) + "</span>" : "") + "</div><h3>" + fill(t.title) + "</h3>" +
       '<div class="sk-use">Words from: ' + usedUnits(r, t).map(function (id) { return '<span class="' + (r.fresh.indexOf(id) >= 0 ? "new" : "") + '">' + esc(unitLabel(id)) + "</span>"; }).join("") + "</div></div></div>" +
       modeBtns(t) +
-      '<div class="sk-bar"><label>✏️ My name: <input id="skName" type="text" maxlength="24" placeholder="' + esc(D.kid || "Bin") + '" autocomplete="off" value="' + esc(kidName()) + '"></label>' +
+      '<div class="sk-bar"><label>✏️ My name: <input id="skName" type="text" maxlength="24" placeholder="' + esc(D.kid || "Bin") + '" autocomplete="off" value="' + esc(kidName()) + '"></label>' + speedBar() +
       '<button class="btn" type="button" data-sk="stop" id="skStop" hidden>⏹ Stop</button><span class="sk-status" id="skStatus" aria-live="polite"></span></div>' +
       '<div class="sk-area" id="skArea">' + content(t, L) + "</div>" + extras(t) +
       '<div class="u-nav">' + (ti > 0 ? '<button class="btn" type="button" data-sk="prevtask">← ' + esc(r.tasks[ti - 1].title.replace(/\{name\}/g, nameOf())) + "</button>" : "<span></span>") +
@@ -303,9 +315,9 @@
     var v = VOICE[g.who] || VOICE.N;
     if (!hasSpeech) { later(go, 1200 + g.say.split(" ").length * 350); return; }
     speak(g.say, { rate: rate, voice: v.voice, pitch: v.pitch, onend: go });
-    later(go, 4000 + g.say.length * 170);
+    later(go, (4000 + g.say.length * 170) / SPEED);
   }
-  var waitFor = function (g) { return Math.max(2800, g.say.split(" ").length * (D.waitWord || 750) + 1500); };
+  var waitFor = function (g) { return Math.max(2800, g.say.split(" ").length * (D.waitWord || 750) + 1500) / SPEED; };
   function run(mode) {
     var t = curTask(); if (!t) return;
     stop(); var L = lines(t), els = $$("#skArea .sk-ln"), i = 0, mine = mode === "roleA" ? "A" : mode === "roleB" ? "B" : null;

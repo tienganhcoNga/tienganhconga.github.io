@@ -15,10 +15,22 @@
   if (!hasSpeech) document.documentElement.classList.add("no-speech");
   function loadVoices() { voices = hasSpeech ? speechSynthesis.getVoices().filter(function (v) { return /^en[-_]/i.test(v.lang); }) : []; }
   if (hasSpeech) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
+  /* tốc độ đọc chung cho mọi trang (Rất chậm / Chậm / Bình thường), lưu trên trình duyệt */
+  var SPEEDS = [[0.65, "🐌", "Very slow"], [0.8, "🐢", "Slow"], [1, "🐇", "Normal"]];
+  var SPEED = (function () { try { var v = parseFloat(localStorage.getItem("lophoc.speed")); if (v > 0) return v; } catch (e) {} return 1; })();
+  function speedBar() {
+    return '<span class="speed" role="group" aria-label="Speaking speed">' + SPEEDS.map(function (s) {
+      return '<button type="button" data-speed="' + s[0] + '" aria-pressed="' + (s[0] === SPEED) + '"><span aria-hidden="true">' + s[1] + "</span> " + s[2] + "</button>"; }).join("") + "</span>";
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-speed]"); if (!b) return;
+    SPEED = parseFloat(b.getAttribute("data-speed")); try { localStorage.setItem("lophoc.speed", String(SPEED)); } catch (err) {}
+    document.querySelectorAll("[data-speed]").forEach(function (x) { x.setAttribute("aria-pressed", String(parseFloat(x.getAttribute("data-speed")) === SPEED)); });
+  });
   function speak(text, o) {
     o = o || {}; if (!hasSpeech || !text) return;
     if (!o.queue) speechSynthesis.cancel();
-    var u = new SpeechSynthesisUtterance(text); u.lang = "en-US"; u.rate = o.rate || 0.8;
+    var u = new SpeechSynthesisUtterance(text); u.lang = "en-US"; u.rate = Math.max(0.4, (o.rate || 0.8) * SPEED);
     if (voices.length) u.voice = voices[(o.voice || 0) % voices.length];
     u.pitch = voices.length > 1 ? 1 : (o.voice ? 0.85 : 1.15);
     if (o.onstart) u.onstart = o.onstart; if (o.onend) { u.onend = o.onend; u.onerror = o.onend; }
@@ -106,7 +118,7 @@
       if (g !== lastG) { head = (lastG !== null ? "</div>" : "") + (lastG !== null ? '<div class="grp-gap"></div>' : "") + '<div class="cards">'; lastG = g; }
       return head + '<button class="card" type="button" data-w="' + k + '">' + vis(o, true) + '<span class="en">' + esc(o.en) + "</span></button>";
     }).join("") + "</div></div>";
-    h += '<div class="block"><div class="b-head"><h3>2. Say it!</h3><button class="btn" type="button" data-act="all-talk">▶ Listen to all</button></div><div class="talk">' +
+    h += '<div class="block"><div class="b-head"><h3>2. Say it!</h3><button class="btn" type="button" data-act="all-talk">▶ Listen to all</button>' + speedBar() + '</div><div class="talk">' +
       u.talk.map(function (t, k) {
         var who = P.chars[t[2] || 0];
         return '<div class="bub ' + ((t[2] || 0) === 2 ? "r" : "") + '" data-t="' + k + '"><span class="who" aria-hidden="true">' + who + '</span><button class="bb" type="button" data-t="' + k + '"><span class="en">' + esc(t[0]) + "</span></button></div>";
@@ -401,7 +413,7 @@
         return '<button class="chip" type="button" data-sp="pick" data-k="' + k + '" aria-pressed="' + (x === s) + '">🎤 ' + esc(x.t) + "</button>"; }).join("") + "</div>" : "") +
       '<p class="muted">Speak loud. Look at your friends. Smile! 😊</p>' +
       '<div class="sp-modes">' + modes.map(function (m) { return '<button class="sp-mode ' + m[0] + '" type="button" data-sp="' + m[0] + '" aria-pressed="false"><span class="e" aria-hidden="true">' + m[1] + "</span><b>" + m[2] + "</b><small>" + m[3] + "</small></button>"; }).join("") + "</div>" +
-      '<div class="sp-bar"><label>✏️ My name: <input id="spName" type="text" maxlength="24" placeholder="Bin" autocomplete="off" value="' + esc(kidName()) + '"></label>' +
+      '<div class="sp-bar"><label>✏️ My name: <input id="spName" type="text" maxlength="24" placeholder="Bin" autocomplete="off" value="' + esc(kidName()) + '"></label>' + speedBar() +
       '<button class="btn" type="button" data-sp="stop" id="spStop" hidden>⏹ Stop</button><span class="sp-status" id="spStatus" aria-live="polite"></span></div>' +
       '<div class="sp-paper" id="spPaper">' + S.map(function (g, k) {
         return '<button class="sp-note c-' + NOTE_C[k % NOTE_C.length] + (g.wide ? " wide" : "") + '" type="button" data-sp-s="' + k + '"><span class="sp-art" aria-hidden="true">' + g.ic + "</span>" +
@@ -422,7 +434,7 @@
     var token = SP.run, fired = false, go = function () { if (fired || SP.run !== token) return; fired = true; then(); };
     if (!hasSpeech) { later(go, 1200 + text.split(" ").length * 350); return; }
     speak(text, { rate: rate, onend: go });
-    later(go, 4000 + text.length * 160); /* phòng khi trình duyệt không báo đọc xong */
+    later(go, (4000 + text.length * 160) / SPEED); /* phòng khi trình duyệt không báo đọc xong */
   }
   function spRun(repeat) {
     spStop(); var S = segs(cur), notes = $$("#spPaper .sp-note"), i = 0;
@@ -435,7 +447,7 @@
       spStatus("👂 " + (i + 1) + "/" + S.length);
       sayThen(g.say, repeat ? 0.72 : 0.8, function () {
         if (!repeat) { i++; later(step, 450); return; }
-        var wait = Math.max(2600, g.say.split(" ").length * 700 + 1400);
+        var wait = Math.max(2600, g.say.split(" ").length * 700 + 1400) / SPEED;
         n.style.setProperty("--wait", wait + "ms"); n.classList.add("turn"); spStatus("🎤 Your turn!");
         later(function () { i++; step(); }, wait);
       });
