@@ -1048,7 +1048,7 @@ function render(){
   let h='<div class="head"><h1>PHIẾU TẬP CHÉP TIẾNG ANH</h1><p class="sub">Ôn thi IOE lớp 4</p><div class="info"><span>Họ và tên: ..............................................................</span><span>Lớp: ...............</span><span>Ngày: ......./......./..............</span></div><p class="guide">Chép lại mỗi câu '+(n>1?n+' lần':'1 lần')+'. Viết hoa chữ cái đầu câu và nhớ dấu chấm, dấu hỏi.</p></div>';
   if(part!=='2'){h+='<h2>Phần 1: Mẫu câu 3 thì theo 11 chủ đề</h2>';D.p1.forEach(([t,list],i)=>{h+='<h3>'+(i+1)+'. '+esc(t)+'</h3>'+list.map((x,k)=>item(x[0],x[1],D.tense[k])).join('');});}
   if(part!=='1'){h+='<h2'+(part==='all'?' class="part2"':'')+'>Phần 2: 37 dạng câu hay ra thi</h2>';D.p2.forEach(([t,list],i)=>{h+='<h3>Dạng '+(i+1)+': '+esc(t)+'</h3>'+list.map(x=>item(x[0],x[1])).join('');});}
-  h+='<p class="foot">Lớp học của cô · Tiếng Anh IOE lớp 4</p>';
+  h+='<p class="foot">Tiếng Anh cô Ngà · Tiếng Anh IOE lớp 4</p>';
   document.getElementById('sheet').innerHTML=h;
 }
 ['part','rows','vi'].forEach(id=>document.getElementById(id).addEventListener('change',render));

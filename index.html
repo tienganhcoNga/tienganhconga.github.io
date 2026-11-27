@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lớp học của cô</title>
+<title>Tiếng Anh cô Ngà</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
@@ -71,9 +71,31 @@ button{font:inherit;color:inherit}
 .frame{flex:1;min-height:0;width:100%;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
 
 .welcome{overflow-y:auto;min-height:0;padding:8px 0 24px}
-.welcome h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:800}
+.welcome h1{font-size:clamp(2.2rem,7vw,3.8rem);font-weight:800}
 .welcome h1 span{color:var(--lacquer)}
-.welcome .lead{color:var(--muted);font-size:1.08rem;margin:8px 0 22px;max-width:40em}
+.welcome .lead{color:var(--muted);font-size:1.1rem;margin:10px 0 18px;max-width:40em}
+.hero{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(18px,4vw,36px);background-image:radial-gradient(circle at 100% 0,var(--gold-soft),transparent 45%),radial-gradient(circle at 0 100%,var(--sky-soft),transparent 40%)}
+.eyebrow{margin:0 0 6px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:.8rem;color:var(--jade)}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.btn{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 18px;font-weight:800;cursor:pointer}
+.btn:hover{border-color:var(--sky)}
+.btn.primary{background:var(--lacquer);border-color:var(--lacquer);color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+.stats{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 28px}
+.stats b{display:block;font-family:var(--f-display);font-size:1.9rem;line-height:1;color:var(--ink)}
+.stats li{color:var(--muted);font-weight:600;font-size:.9rem}
+.block{margin-top:30px}
+.block>h2{font-size:1.6rem;margin-bottom:12px}
+.feats{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.feat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+.feat .fi{font-size:1.8rem}
+.feat h3{font-size:1.15rem;margin:6px 0 4px}
+.feat p{margin:0;color:var(--muted)}
+.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:10px;max-width:46em}
+.steps li{counter-increment:s;display:flex;gap:12px;align-items:baseline;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+.steps li::before{content:counter(s);flex:none;width:30px;height:30px;border-radius:50%;background:var(--jade);color:var(--surface);font-weight:800;display:grid;place-items:center;font-family:var(--f-display)}
+.parents p{margin:0;max-width:46em;background:var(--gold-soft);border-radius:14px;padding:14px 16px}
+.foot-note{margin:30px 0 0;text-align:center;color:var(--muted);font-weight:700;font-family:var(--f-display)}
 .grades{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
 .gcard{background:var(--surface);border:2px solid var(--line);border-top:8px solid var(--c);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px;text-align:left;cursor:pointer}
 .gcard:hover{border-color:var(--c)}
@@ -101,7 +123,7 @@ button{font:inherit;color:inherit}
 <div class="app">
   <header class="top">
     <button class="menu-btn" type="button" id="menuBtn" aria-controls="side" aria-expanded="false">☰ Chọn bài</button>
-    <a class="brand" href="#" id="homeLink">Lớp học <span>của cô</span></a>
+    <a class="brand" href="#" id="homeLink">Tiếng Anh <span>cô Ngà</span></a>
     <span class="crumb" id="crumb"></span>
   </header>
 
@@ -124,9 +146,49 @@ button{font:inherit;color:inherit}
     </div>
 
     <div class="welcome" id="welcome">
-      <h1>Lớp học <span>của cô</span></h1>
-      <p class="lead">Bấm vào khối lớp để vào học ngay. Mỗi bài có hình ảnh, giọng đọc, trò chơi và câu hỏi để các em tự luyện.</p>
-      <div class="grades" id="grades"></div>
+      <section class="hero">
+        <p class="eyebrow">Mẫu giáo · Lớp 1 · Lớp 4</p>
+        <h1>Tiếng Anh <span>cô Ngà</span></h1>
+        <p class="lead">Lớp học tiếng Anh cho các bé từ Mẫu giáo đến Lớp 4. Mỗi bài có hình ảnh, giọng đọc, trò chơi và bài luyện nói, để bé học trên lớp với cô và tự ôn ở nhà cùng bố mẹ.</p>
+        <div class="cta">
+          <button class="btn primary" type="button" data-scroll="pick">Vào học ngay ↓</button>
+          <button class="btn" type="button" data-scroll="how">Học thế nào?</button>
+        </div>
+        <ul class="stats" id="stats"></ul>
+      </section>
+
+      <section class="block" id="pick">
+        <h2>Chọn khối lớp</h2>
+        <div class="grades" id="grades"></div>
+      </section>
+
+      <section class="block">
+        <h2>Mỗi bài học có gì?</h2>
+        <div class="feats">
+          <div class="feat"><span class="fi" aria-hidden="true">🖼️</span><h3>Thẻ từ có hình</h3><p>Mỗi từ có hình minh họa, nghĩa tiếng Việt và câu ví dụ.</p></div>
+          <div class="feat"><span class="fi" aria-hidden="true">🔊</span><h3>Nghe giọng đọc</h3><p>Bấm vào thẻ để nghe từ và câu. Nghe đi nghe lại bao nhiêu lần cũng được.</p></div>
+          <div class="feat"><span class="fi" aria-hidden="true">🎮</span><h3>Trò chơi ôn từ</h3><p>Nghe chọn hình, lật thẻ, nối từ, điền từ: vừa chơi vừa nhớ.</p></div>
+          <div class="feat"><span class="fi" aria-hidden="true">🎤</span><h3>Luyện nói</h3><p>Hội thoại đóng vai, kể chuyện và bài thuyết trình ngắn để bé tự tin nói.</p></div>
+          <div class="feat"><span class="fi" aria-hidden="true">🔢</span><h3>Toán và Khoa học</h3><p>Lớp 1 học thêm Math và Science bằng tiếng Anh theo sách iSMART.</p></div>
+          <div class="feat"><span class="fi" aria-hidden="true">📝</span><h3>Ôn thi IOE</h3><p>Lớp 4 có từ vựng, ngữ pháp, luyện đề và đề thi thử IOE.</p></div>
+        </div>
+      </section>
+
+      <section class="block" id="how">
+        <h2>Học thế nào?</h2>
+        <ol class="steps">
+          <li><span><b>Chọn khối lớp</b> của bé ở trên hoặc ở menu bên trái.</span></li>
+          <li><span><b>Chọn bài</b> theo lộ trình. Mỗi khối có Lộ trình gợi ý học tuần nào, bài nào.</span></li>
+          <li><span><b>Nghe, chơi, nói:</b> xem thẻ từ, chơi trò chơi rồi luyện nói cùng bố mẹ.</span></li>
+        </ol>
+      </section>
+
+      <section class="block parents">
+        <h2>Dành cho bố mẹ</h2>
+        <p>Phần <b>Đáp án</b> và một số khối lớp cần <b>mã PIN</b>, để bé tự làm bài trước khi xem đáp án. Bố mẹ liên hệ cô Ngà để nhận mã.</p>
+      </section>
+
+      <p class="foot-note">Tiếng Anh cô Ngà</p>
     </div>
 
     <iframe class="frame" id="frame" title="Bài học" allow="microphone; autoplay" hidden></iframe>
@@ -160,7 +222,9 @@ const GRADES=[
    ['u5','Unit 5: At the fish and chip shop'],['u6','Unit 6: In the classroom'],['u7','Unit 7: In the garden'],['u8','Unit 8: In the park'],
    ['u9','Unit 9: In the shop'],['u10','Unit 10: At the zoo'],['u11','Unit 11: At the bus stop'],['u12','Unit 12: At the lake'],
    ['u13','Unit 13: In the school canteen'],['u14','Unit 14: In the toy shop'],['u15','Unit 15: At the football match'],['u16','Unit 16: At home'],
-   ['math','Math: numbers and shapes'],['science','Science: animals, plants, senses'],['days','📅 Days and months'],
+   ['math1','Math 1: Basic shapes'],['math2','Math 2: Positions'],['math3','Math 3: Numbers and comparison'],['math4','Math 4: Addition and subtraction'],['math5','Math 5: Numbers to 100'],
+   ['sci1','Science 1: Plants'],['sci2','Science 2: Animal world'],['sci3','Science 3: Animal homes'],['sci4','Science 4: My body'],['sci5','Science 5: Foods and drinks'],['sci6','Science 6: Sky and weather'],
+   ['days','📅 Days and months'],
    ['tales','Story Time: Fairy tales'],['speeches','Speeches: Animals']]},
   {id:'on-noi',ic:'🎤',name:'Ôn tập nói (Speaking)',file:'lop-1/on-tap-noi.html',answers:true,topics:[
    ['lo-trinh','🗺️ Cách ôn và lịch ôn'],['r1','Speaking 1: Units 1–3'],['r2','Speaking 2: Units 1–5'],['r3','Speaking 3: Units 1–7'],['r4','Speaking 4: Units 1–9'],
@@ -275,6 +339,9 @@ $('#menu').addEventListener('click',e=>{
   select(id);
 });
 $('#grades').addEventListener('click',e=>{const g=e.target.closest('.gcard');if(!g)return;select(g.dataset.g);});
+$('#welcome').addEventListener('click',e=>{const b=e.target.closest('[data-scroll]');if(b)document.getElementById(b.dataset.scroll).scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});});
+(function(){const L=GRADES.reduce((a,g)=>a+g.lessons.length,0),T=GRADES.reduce((a,g)=>a+g.lessons.reduce((b,l)=>b+l.topics.length,0),0);
+  $('#stats').innerHTML=`<li><b>${GRADES.length}</b>khối lớp</li><li><b>${L}</b>bộ bài học</li><li><b>${T}</b>chủ đề</li>`;})();
 $('#tabLesson').addEventListener('click',e=>{if(!cur)return;
   if(newTabClick(e)){window.open(`#${cur.g.id}/${cur.l.id}/${cur.t}`,'_blank');return;}
   tab='lesson';goFrame(cur.l.file,cur.t);renderMenu();updateChrome();});
