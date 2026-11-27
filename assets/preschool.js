@@ -20,7 +20,8 @@
   var SPEED = (function () { try { var v = parseFloat(localStorage.getItem("lophoc.speed")); if (v > 0) return v; } catch (e) {} return 1; })();
   function speedBar() {
     return '<span class="speed" role="group" aria-label="Speaking speed">' + SPEEDS.map(function (s) {
-      return '<button type="button" data-speed="' + s[0] + '" aria-pressed="' + (s[0] === SPEED) + '"><span aria-hidden="true">' + s[1] + "</span> " + s[2] + "</button>"; }).join("") + "</span>";
+      /* bé chưa đọc được chữ: nút chỉ có hình con vật, tên tốc độ để trong aria-label và title */
+      return '<button type="button" data-speed="' + s[0] + '" aria-pressed="' + (s[0] === SPEED) + '" aria-label="' + s[2] + '" title="' + s[2] + '">' + s[1] + "</button>"; }).join("") + "</span>";
   }
   document.addEventListener("click", function (e) {
     var b = e.target.closest("[data-speed]"); if (!b) return;
@@ -88,7 +89,7 @@
       P.lessonPlan.map(function (s) { return '<div class="step" style="--w:' + s[0] + '"><div class="mins">' + s[0] + "′" + (s[3] ? "*" : "") + '</div><div><b>' + esc(s[1]) + "</b><small>" + esc(s[2]) + "</small></div></div>"; }).join("") + "</div></div>";
     h += '<div class="block"><h3>Mỗi Unit học trong 3 buổi</h3><div class="parts">' + S.map(function (s, i) { return '<div class="part"><span class="pl">Buổi ' + "ABC"[i] + "</span><b>" + esc(s[0]) + "</b><small>" + esc(s[1]) + "</small></div>"; }).join("") + "</div></div>";
     h += '<div class="block"><h3>Trong bài học chỉ có tiếng Anh</h3><p>Để bé không bị lẫn, màn hình bài học và trò chơi chỉ ghi tiếng Anh. Nghĩa tiếng Việt của từ, câu và bài nói nằm trong <b>🔒 Cẩm nang</b> (cần mã PIN), ba mẹ xem trước để hiểu bé đang học gì.</p></div>';
-    h += '<div class="block"><h3>🎤 Bé thuyết trình (mục 4 của mỗi Unit)</h3><div class="parts">' +
+    h += '<div class="block"><h3>🎤 Bé thuyết trình (bước 🎤 Speak, cuối mỗi Unit)</h3><div class="parts">' +
       [["1. Listen", "Nghe mẫu", "Máy đọc cả bài, bé nghe và nhìn hình."], ["2. Repeat", "Nói theo", "Máy đọc từng câu rồi dừng, bé nhắc lại khi thấy chữ “Your turn!”."],
        ["3. Say it alone", "Tự nói", "Chữ được ẩn, chỉ còn hình và từ khóa. Bé nhìn hình để nói. Bấm vào tờ giấy để xem gợi ý."], ["4. On stage!", "Lên sân khấu", "Bé tự bấm Next để nói từng câu. Hết bài cả lớp vỗ tay. Có thể tick “Record my voice” để bé nghe lại giọng mình."]]
         .map(function (x) { return '<div class="part"><span class="pl">' + x[0] + "</span><b>" + x[1] + "</b><small>" + x[2] + "</small></div>"; }).join("") +
@@ -148,30 +149,73 @@
 
   var VI = /[ăâđêôơưàáảãạằắẳẵặầấẩẫậèéẻẽẹềếểễệìíỉĩịòóỏõọồốổỗộờớởỡợùúủũụừứửữựỳýỷỹỵ]/i;
   function enOnly(t) { if (!t) return ""; var x = String(t); if (VI.test(x) && x.indexOf(":") >= 0) x = x.slice(x.indexOf(":") + 1).trim(); return VI.test(x) ? "" : x; }
-  /* ---------- unit ---------- */
+  /* ---------- unit ----------
+     Bé 4–6 tuổi tự dùng: mỗi Unit là một con đường nhiều bước (👂 Nghe → 🗣️ Nói → 🎵 Hát → 🎮 Chơi → 🎤 Thuyết trình).
+     Mỗi lần chỉ hiện một bước; vào bước nào máy đọc lời hướng dẫn của bước đó; xong bước được ⭐ (nhớ trên máy). */
+  function stepsOf(u) {
+    var s = [["words", "👂", "Listen", "Tap a picture and listen!", "Bấm vào hình để nghe"], ["talk", "🗣️", "Say", "Listen and say it!", "Nghe rồi nói theo"]];
+    if (u.song) s.push(["song", "🎵", "Sing", "Let's sing and dance!", "Cùng hát và múa"]);
+    s.push(["games", "🎮", "Play", "Let's play a game!", "Cùng chơi"]);
+    if (u.speech) s.push(["speech", "🎤", "Speak", "Let's make a speech!", "Tập thuyết trình"]);
+    return s;
+  }
+  var STEP = null, DONE_KEY = "lophoc.mg.steps";
+  function doneOf(u) { try { return JSON.parse(localStorage.getItem(DONE_KEY) || "{}")[u.id] || {}; } catch (e) { return {}; } }
+  function markStep(key) {
+    if (!cur) return;
+    try { var all = JSON.parse(localStorage.getItem(DONE_KEY) || "{}"); all[cur.id] = all[cur.id] || {}; all[cur.id][key] = 1; localStorage.setItem(DONE_KEY, JSON.stringify(all)); } catch (e) {}
+    var b = $('.stp[data-step-go="' + key + '"]'); if (b) b.classList.add("done");
+  }
+  function stepHead(st, extra) {
+    return '<div class="b-head step-head"><h3><span class="st-ic" aria-hidden="true">' + st[1] + "</span> " + st[2] + vi(st[4], true) + "</h3>" + sayBtn(st[3], st[3]) +
+      '<span class="st-say">' + esc(st[3]) + "</span>" + (extra || "") + "</div>";
+  }
+  function stepNext(u, k) {
+    var S = stepsOf(u), n = S[k + 1], i = P.units.indexOf(u), nu = P.units[i + 1];
+    if (n) return '<div class="step-next"><button class="go-next" type="button" data-step-go="' + n[0] + '" data-from="' + S[k][0] + '" aria-label="Next: ' + n[2] + '"><span aria-hidden="true">' + n[1] + "</span> ▶</button></div>";
+    return '<div class="step-next">' + (nu ? '<a class="go-next" href="#' + nu.id + '" data-from="' + S[k][0] + '" aria-label="Next unit: ' + esc(nu.en) + '"><span aria-hidden="true">🏆 ' + nu.ic + "</span> ▶</a>"
+      : P.next ? '<a class="go-next" target="_top" href="' + P.next.href + '" data-from="' + S[k][0] + '" aria-label="' + esc(P.next.label) + '"><span aria-hidden="true">🏆</span> ▶</a>' : "") + "</div>";
+  }
+  function stepBar(u) {
+    var d = doneOf(u);
+    return '<nav class="steps" aria-label="Steps">' + stepsOf(u).map(function (s, k) {
+      return '<button class="stp' + (d[s[0]] ? " done" : "") + '" type="button" data-step-go="' + s[0] + '" aria-current="' + (k === 0) + '"><span class="e" aria-hidden="true">' + s[1] + "</span><b>" + s[2] + '</b><i class="star" aria-hidden="true">⭐</i></button>';
+    }).join('<span class="stp-line" aria-hidden="true"></span>') + "</nav>";
+  }
+  function showStep(key, talk) {
+    if (!cur) return;
+    var S = stepsOf(cur), st = S.filter(function (s) { return s[0] === key; })[0] || S[0];
+    STEP = st[0]; spStop(); if (hasSpeech) speechSynthesis.cancel();
+    $$("#view [data-step]").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-step") === STEP); });
+    $$(".stp").forEach(function (b) { b.setAttribute("aria-current", String(b.getAttribute("data-step-go") === STEP)); });
+    if (talk) {
+      var bar = $(".steps"); if (bar && bar.getBoundingClientRect().top < 0) bar.scrollIntoView({ block: "start" });
+      if (STEP === "games" && G) gameIntro(); else speak(st[3]);
+    }
+  }
   function unitView(u) {
-    var i = P.units.indexOf(u), prev = P.units[i - 1], next = P.units[i + 1];
+    var i = P.units.indexOf(u), prev = P.units[i - 1], next = P.units[i + 1], S = stepsOf(u), k = function (key) { for (var j = 0; j < S.length; j++) if (S[j][0] === key) return j; return -1; };
     var h = '<div class="v-head"><span class="v-ic" aria-hidden="true">' + u.ic + '</span><div><span class="v-n">' + esc(u.n) + "</span><h2>" + esc(u.en) + "</h2>" + vi(u.vi) + '</div></div>';
     var rv = enOnly(u.review); if (rv) h += '<p class="review">🔁 Review: ' + esc(rv) + vi("Ôn lại: " + u.review) + "</p>";
     else if (u.review) h += '<p class="review vi-t" lang="vi">🔁 Ôn lại: ' + esc(u.review) + "</p>";
-    if (u.speech) { var nS = spList(u).length; h += '<button class="sp-jump" type="button" data-sp="jump">🎤 My Speech: <b>' + esc(u.speech.t) + "</b>" + (nS > 1 ? " +" + (nS - 1) : "") + " ↓</button>"; }
-    h += '<div class="block"><div class="b-head"><h3>1. Tap &amp; Listen' + vi("Bấm vào hình để nghe", true) + '</h3><button class="btn" type="button" data-act="all-words">▶ Listen to all</button></div>';
+    h += stepBar(u);
+    h += '<div class="block" data-step="words">' + stepHead(S[k("words")], '<button class="btn all" type="button" data-act="all-words" aria-label="Listen to all">🔊 All</button>');
     var lastG = null;
     h += u.words.map(function (w, k) {
       var o = W(w), g = w[4] || "", head = "";
       if (g !== lastG) { head = (lastG !== null ? "</div>" : "") + (lastG !== null ? '<div class="grp-gap"></div>' : "") + '<div class="cards">'; lastG = g; }
-      return head + '<button class="card" type="button" data-w="' + k + '">' + vis(o, true) + '<span class="en">' + esc(o.en) + "</span>" + vi(o.vi) + "</button>";
-    }).join("") + "</div></div>";
-    h += '<div class="block"><div class="b-head"><h3>2. Say it!' + vi("Nói theo", true) + '</h3><button class="btn" type="button" data-act="all-talk">▶ Listen to all</button>' + speedBar() + '</div><div class="talk">' +
+      return head + '<button class="card" type="button" data-w="' + k + '">' + vis(o, true) + '<span class="en">' + esc(o.en) + "</span>" + vi(o.vi) + '<i class="heard" aria-hidden="true">⭐</i></button>';
+    }).join("") + "</div>" + stepNext(u, k("words")) + "</div>";
+    h += '<div class="block" data-step="talk">' + stepHead(S[k("talk")], '<button class="btn all" type="button" data-act="all-talk" aria-label="Listen to all">🔊 All</button>' + speedBar()) + '<div class="talk">' +
       u.talk.map(function (t, k) {
         var who = P.chars[t[2] || 0];
         return '<div class="bub ' + ((t[2] || 0) === 2 ? "r" : "") + '" data-t="' + k + '"><span class="who" aria-hidden="true">' + who + '</span><button class="bb" type="button" data-t="' + k + '"><span class="en">' + esc(t[0]) + "</span>" + vi(t[1]) + "</button></div>";
-      }).join("") + "</div></div>";
-    h += songBlock(u);
+      }).join("") + "</div>" + stepNext(u, k("talk")) + "</div>";
+    if (u.song) h += songBlock(u, S[k("song")]).replace(/<\/div>$/, stepNext(u, k("song")) + "</div>");
     var gs = gamesOf(u);
-    h += '<div class="block"><div class="b-head"><h3>3. Games' + vi("Trò chơi", true) + '</h3></div>' +
-      '<div class="gtabs">' + gs.map(function (g, k) { return '<button class="chip" type="button" data-g="' + k + '" aria-pressed="' + (k === 0) + '">' + esc(g.name) + "</button>"; }).join("") + "</div>" +
-      '<div class="gq"><div class="game" id="game" aria-live="polite"></div><aside class="gside" id="gside" hidden></aside></div></div>';
+    h += '<div class="block" data-step="games">' + stepHead(S[k("games")]) +
+      '<div class="gtabs">' + gs.map(function (g, k) { var m = /^(\S+)\s+(.*)$/.exec(g.name) || [0, "🎮", g.name]; return '<button class="chip gt" type="button" data-g="' + k + '" aria-pressed="' + (k === 0) + '"><span class="e" aria-hidden="true">' + m[1] + "</span><small>" + esc(m[2]) + "</small></button>"; }).join("") + "</div>" +
+      '<div class="gq"><div class="game" id="game" aria-live="polite"></div><aside class="gside" id="gside" hidden></aside></div>' + stepNext(u, k("games")) + "</div>";
     h += speechBlock(u);
     h += '<div class="u-nav">' + (prev ? '<a class="btn" href="#' + prev.id + '">← ' + esc(prev.n) + "</a>" : '<a class="btn" href="#lo-trinh">← Start</a>') +
       (next ? '<a class="btn primary" href="#' + next.id + '">' + esc(next.n) + ": " + esc(next.en) + " →</a>" : (P.next ? '<a class="btn primary" target="_top" href="' + P.next.href + '">' + esc(P.next.label) + " →</a>" : "")) + "</div>";
@@ -180,11 +224,11 @@
   /* ---------- bài hát ----------
      Unit khai báo song:{t, verses:[{ic, cue:[gợi ý EN, gợi ý VI], lines:[câu (có <b>)], vi:"nghĩa"}]}.
      Trong bài chỉ hiện tiếng Anh; nghĩa và gợi ý động tác tiếng Việt nằm ở cẩm nang. */
-  function songBlock(u) {
+  function songBlock(u, st) {
     if (!u.song) return "";
     var s = u.song;
-    return '<div class="block song" id="song"><div class="b-head"><h3>🎵 Let&#39;s sing!' + vi("Cùng hát", true) + '</h3><span class="muted">' + esc(s.t) + '</span><button class="btn" type="button" data-act="all-song">▶ Listen to all</button></div>' +
-      '<p class="muted">Sing and do the actions! Tap a picture to hear it.</p><div class="verses">' +
+    return '<div class="block song" id="song" data-step="song">' + stepHead(st, '<span class="muted">' + esc(s.t) + '</span><button class="btn all" type="button" data-act="all-song" aria-label="Listen to all">🔊 All</button>') +
+      '<div class="verses">' +
       s.verses.map(function (v, k) {
         return '<button class="verse c-' + NOTE_C[k % NOTE_C.length] + '" type="button" data-verse="' + k + '"><span class="v-art" aria-hidden="true">' + v.ic + '</span><span class="v-lines">' +
           v.lines.map(function (l) { return '<span class="v-line">' + l + "</span>"; }).join("") + vi(v.vi) + "</span>" + cueTag(v.cue && v.cue[0]) + "</button>";
@@ -210,6 +254,14 @@
   /* Mỗi bài có thêm trò "Lật thẻ đoán từ" (giống thẻ "Đoán nhân vật" ở trang Sử Việt). */
   function gamesOf(u) { return u.games.concat([{ type: "flip", name: "🃏 Look and say" }]); }
   var ROUND = { pick: 1, count: 1, scene: 1, basket: 1, phrase: 1 };
+  /* lời hướng dẫn máy đọc khi bé mở trò chơi (bé chưa đọc được chữ) */
+  var GI = { pick: "Listen and tap the picture!", count: "Count and tap the number!", scene: "Listen and find it!", basket: "Listen and put it in the basket!",
+    match: "Tap an animal. Then tap what it can do!", phrase: "What do you say?", simon: "Stand up! Listen and do it!", flip: "Look at the picture and say the word!" };
+  function gameIntro() {
+    if (!G) return;
+    speak(GI[G.cfg.type] || "Let's play!");
+    if (G.say && ROUND[G.cfg.type]) speak(G.say, { queue: true });
+  }
   function startGame(k) {
     $$(".gtabs .chip").forEach(function (c) { c.setAttribute("aria-pressed", +c.getAttribute("data-g") === k); });
     var cfg = gamesOf(cur)[k];
@@ -227,23 +279,23 @@
   }
   function idx(cfg) { return cfg.only || cur.words.map(function (_, j) { return j; }); }
   function fill(t, o) { return t.replace("{w}", o.en).replace("{s}", o.x && o.x.sound || "").replace("{a}", /^[aeiou]/i.test(o.en) ? "an" : "a"); }
-  function top() { setTimeout(side, 0); return '<div class="g-top"><span>' + (G.i + 1) + "/" + G.order.length + '</span><span class="stars">' + "⭐".repeat(G.ok) + "</span></div>"; }
+  function top() { setTimeout(side, 0); return '<div class="g-top"><span class="stars">' + "⭐".repeat(G.ok) + "</span></div>"; }
   /* Khung điểm bên phải: mỗi câu một ô, xanh = đúng ngay lần đầu, đỏ = có chọn sai. */
   function wrongs() { return G.order.filter(function (_, i) { return G.res[i] === false; }); }
   function side() {
     var box = $("#gside"), gq = $(".gq"); if (!box || !gq) return;
     var on = !!(G && ROUND[G.cfg.type] && G.order);
     box.hidden = !on; gq.classList.toggle("has-side", on); if (!on) return;
-    box.innerHTML = '<div class="gs-score"><b>' + G.ok + '</b><span>/ ' + G.order.length + "</span></div>" +
-      '<div class="gs-dots">' + G.order.map(function (_, i) { var r = G.res[i]; return '<span class="gs-dot' + (i === G.i ? " cur" : "") + (r === true ? " r" : r === false ? " w" : "") + '">' + (i + 1) + "</span>"; }).join("") + "</div>" +
-      '<button class="btn" type="button" data-act="replay">🔀 Play again</button>' +
-      '<button class="btn" type="button" data-act="g-wrong"' + (wrongs().length ? "" : " disabled") + ">🔁 Try the red ones</button>";
+    /* mỗi câu một ô: ⭐ = đúng ngay, 🔁 = câu cần làm lại (màu cam nhẹ, không báo đỏ) */
+    box.innerHTML = '<div class="gs-dots">' + G.order.map(function (_, i) { var r = G.res[i]; return '<span class="gs-dot' + (i === G.i ? " cur" : "") + (r === true ? " r" : r === false ? " w" : "") + '" aria-hidden="true">' + (r === true ? "⭐" : r === false ? "🔁" : "") + "</span>"; }).join("") + "</div>" +
+      '<button class="btn" type="button" data-act="replay" aria-label="Play again">↺ Again</button>' +
+      '<button class="btn" type="button" data-act="g-wrong" aria-label="Try the missed ones again"' + (wrongs().length ? "" : " disabled") + ">🔁 Try again</button>";
   }
   function mark(ok) { if (G.res[G.i] === undefined) G.res[G.i] = ok; side(); }
   function fb(ok, text) {
     var box = $("#game"); $$(".feedback", box).forEach(function (f) { f.remove(); });
     box.insertAdjacentHTML("beforeend", ok ? '<div class="feedback good"><b>✅ Yes!</b> <span class="en">' + esc(text || "") + "</span></div>"
-      : '<div class="feedback bad"><b>❌ Try again!</b></div>');
+      : '<div class="feedback bad"><b>🤔 Try again!</b></div>');
   }
   function renderRound() { var box = $("#game"), t = G.cfg.type; ({ pick: pick, count: count, scene: scene, basket: basket, phrase: phrase })[t](box); }
   function retryWrong() {
@@ -254,10 +306,10 @@
   }
   function done(box) {
     var w = wrongs().length;
-    box.innerHTML = '<div class="done"><div class="big">🎉</div><p>Great job! <b>' + G.ok + "/" + G.order.length + "</b></p><div class=\"stars\">" + "⭐".repeat(G.ok) + "</div>" +
-      '<div class="row-tools center">' + (w ? '<button class="btn primary" type="button" data-act="g-wrong">🔁 Try the red ones (' + w + ")</button>" : "") +
-      '<button class="btn' + (w ? "" : " primary") + '" type="button" data-act="replay">↺ Play again</button></div></div>';
-    side(); chime(true); speak("Well done! Great job!");
+    box.innerHTML = '<div class="done"><div class="big">🎉</div><p>Great job!</p><div class="stars">' + "⭐".repeat(Math.max(1, G.ok)) + "</div>" +
+      '<div class="row-tools center">' + (w ? '<button class="btn primary big" type="button" data-act="g-wrong" aria-label="Try the missed ones again">🔁 Try again</button>' : "") +
+      '<button class="btn big' + (w ? "" : " primary") + '" type="button" data-act="replay" aria-label="Play again">↺ Again</button></div></div>';
+    side(); chime(true); speak(w ? "Well done! Let's try again!" : "Well done! Great job!"); markStep("games");
   }
   /* flip: lật thẻ đoán từ */
   function flip(box) {
@@ -357,7 +409,7 @@
     if (a) {
       var act = a.getAttribute("data-act");
       if (act === "hear") speak(G.say);
-      if (act === "replay") startGame(G ? G.k : 0);
+      if (act === "replay") { startGame(G ? G.k : 0); gameIntro(); }
       if (act === "g-wrong") retryWrong();
       if (act === "flip-all" || act === "flip-none") $$(".fcard").forEach(function (c) { flipCard(c, act === "flip-all"); });
       if (act === "cmd") nextCmd(false);
@@ -367,10 +419,16 @@
       if (act === "all-talk") { if (hasSpeech) speechSynthesis.cancel(); var bs = $$(".bub"); cur.talk.forEach(function (x, k) { speak(x[0], { queue: true, voice: x[2] || 0, onstart: function () { bs.forEach(function (c) { c.classList.remove("on"); }); bs[k].classList.add("on"); }, onend: function () { bs[k].classList.remove("on"); } }); }); }
       return;
     }
-    var gt = t.closest(".gtabs .chip"); if (gt) { startGame(+gt.getAttribute("data-g")); return; }
+    var gt = t.closest(".gtabs .chip"); if (gt) { startGame(+gt.getAttribute("data-g")); gameIntro(); return; }
+    var sg = t.closest("[data-step-go]");
+    if (sg) { var from = sg.getAttribute("data-from"); if (from) markStep(from); showStep(sg.getAttribute("data-step-go"), true); return; }
+    var nu = t.closest("a.go-next[data-from]"); if (nu) markStep(nu.getAttribute("data-from"));
     var vs = t.closest(".verse"); if (vs) { singLines($$(".v-line", vs)); return; }
     var card = t.closest(".card");
-    if (card) { var w = cur.words[+card.getAttribute("data-w")]; card.classList.add("on", "zoom"); speak(w[1].replace(/ \/ /g, ", "), { onend: function () { card.classList.remove("on"); } }); setTimeout(function () { card.classList.remove("zoom"); }, 450); return; }
+    if (card) {
+      card.classList.add("heard");
+      if (!$$(".card:not(.heard)").length && !doneOf(cur).words) { markStep("words"); setTimeout(function () { burst(card); chime(true); }, 700); }
+      var w = cur.words[+card.getAttribute("data-w")]; card.classList.add("on", "zoom"); speak(w[1].replace(/ \/ /g, ", "), { onend: function () { card.classList.remove("on"); } }); setTimeout(function () { card.classList.remove("zoom"); }, 450); return; }
     var bb = t.closest(".bb"); if (bb) { var x = cur.talk[+bb.getAttribute("data-t")]; speak(x[0], { voice: x[2] || 0 }); return; }
     var fc = t.closest(".fcard");
     if (fc) { var open = !fc.classList.contains("open"); flipCard(fc, open); if (open) { speak(cur.words[+fc.getAttribute("data-f")][1].replace(/ \/ /g, ", ")); burst(fc); } return; }
@@ -449,10 +507,10 @@
   var cueTag = function (c) { return c ? '<span class="sp-cue">' + esc(c) + "</span>" : ""; };
   function speechBlock(u) {
     if (!u.speech) return "";
-    var S = segs(u), L = spList(u), s = spCur(u);
-    var modes = [["listen", "👂", "1. Listen", "Listen and look"], ["repeat", "🦜", "2. Repeat", "Listen and say it"],
-      ["self", "🙈", "3. Say it alone", "Look at the pictures"], ["stage", "🌟", "4. On stage!", "Speak to the class"]];
-    return '<div class="block speech" id="speech"><div class="b-head"><h3>4. My Speech' + vi("Bài nói của bé", true) + '</h3><span class="muted">' + esc(s.t) + "</span></div>" +
+    var S = segs(u), L = spList(u), s = spCur(u), ST = stepsOf(u), sk = ST.length - 1;
+    var modes = [["listen", "👂", "Listen", "Listen and look"], ["repeat", "🦜", "Say after me", "Listen and say it"],
+      ["self", "🙈", "By myself", "Look at the pictures"], ["stage", "🌟", "On stage!", "Speak to the class"]];
+    return '<div class="block speech' + (STEP === "speech" ? " on" : "") + '" id="speech" data-step="speech">' + stepHead(ST[sk], '<span class="muted">' + esc(s.t) + "</span>") +
       (L.length > 1 ? '<div class="sp-pick" role="group" aria-label="Choose a speech">' + L.map(function (x, k) {
         return '<button class="chip" type="button" data-sp="pick" data-k="' + k + '" aria-pressed="' + (x === s) + '">🎤 ' + esc(x.t) + "</button>"; }).join("") + "</div>" : "") +
       '<p class="muted">Speak loud. Look at your friends. Smile! 😊</p>' +
@@ -462,7 +520,7 @@
       '<div class="sp-paper" id="spPaper">' + S.map(function (g, k) {
         return '<button class="sp-note c-' + NOTE_C[k % NOTE_C.length] + (g.wide ? " wide" : "") + '" type="button" data-sp-s="' + k + '"><span class="sp-art" aria-hidden="true">' + g.ic + "</span>" +
           '<span class="sp-body"><span class="sp-txt">' + g.html + "</span>" + vi(g.vi) + cueTag(g.cue) + '<span class="sp-turn" aria-hidden="true">🎤 Your turn!<i></i></span></span></button>';
-      }).join("") + "</div></div>";
+      }).join("") + "</div>" + stepNext(u, sk) + "</div>";
   }
   function later(fn, ms) { SP.timers.push(setTimeout(fn, ms)); }
   function spStatus(t) { var s = $("#spStatus"); if (s) s.textContent = t || ""; }
@@ -592,7 +650,7 @@
     /* nút nghe lại hiện ra khi bản thu đã lưu xong (recorder.onstop) */
     $("#spCtl").innerHTML = (st.rec ? '<button class="sp-btn go" type="button" data-sp="st-play" id="spPlay" hidden>▶ Hear my voice</button>' : "") +
       '<button class="sp-btn" type="button" data-sp="st-again">↺ Again</button><button class="sp-btn" type="button" data-sp="st-close">✕ Close</button>';
-    applause(); confetti(); setTimeout(function () { if (SP.st && !SP.audio) speak("Wonderful! Great job!"); }, 900);
+    applause(); confetti(); markStep("speech"); setTimeout(function () { if (SP.st && !SP.audio) speak("Wonderful! Great job!"); }, 900);
   }
   function closeStage() {
     playStop(); recStop(); if (SP.stream) { SP.stream.getTracks().forEach(function (t) { t.stop(); }); SP.stream = null; }
@@ -652,7 +710,7 @@
         return '<div class="block guide" id="g-' + u.id + '"><h3>' + u.ic + " " + esc(u.n) + ": " + esc(u.en) + "</h3>" +
           '<div class="gcols"><div><h4>✅ Đáp án nhanh</h4><ul>' + g.answers.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul></div>" +
           '<div><h4>🏠 Kịch bản 2 phút ở nhà</h4><ul>' + g.home.map(function (x) { return "<li>" + x + "</li>"; }).join("") +
-            (u.speech ? "<li>🎤 Mỗi tối bé nói bài <i>" + esc(u.speech.t) + "</i> (mục 4 của bài) cho cả nhà nghe. Ba mẹ làm khán giả, vỗ tay thật to sau mỗi lần nói.</li>" : "") + "</ul></div>" +
+            (u.speech ? "<li>🎤 Mỗi tối bé nói bài <i>" + esc(u.speech.t) + "</i> (bước 🎤 Speak cuối bài) cho cả nhà nghe. Ba mẹ làm khán giả, vỗ tay thật to sau mỗi lần nói.</li>" : "") + "</ul></div>" +
           (u.hw ? '<div><h4>🏠 Bài tập về nhà: 4 kỹ thuật</h4>' + hwItems(u) + '<p class="muted"><a href="#lo-trinh">Cách làm từng kỹ thuật: xem Lộ trình</a></p></div>' : "") +
           '<div><h4>🗣️ Mẹo phát âm</h4><ul>' + g.tips.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul></div></div>" +
           meaningBox(u) + "</div>";
@@ -686,7 +744,7 @@
     $$("#units a[data-v]").forEach(function (a) { a.setAttribute("aria-current", a.getAttribute("data-v") === (u ? u.id : id) ? "page" : "false"); });
     spStop(); closeStage();
     document.body.classList.toggle("in-unit", !!u); /* bài học chỉ tiếng Anh: ẩn phần giới thiệu tiếng Việt ở đầu trang */
-    if (u) { if (cur !== u) SP.k = 0; cur = u; view.innerHTML = unitView(u); startGame(0); }
+    if (u) { if (cur !== u) { SP.k = 0; STEP = null; } cur = u; STEP = STEP || "words"; view.innerHTML = unitView(u); startGame(0); showStep(STEP, false); }
     else if (id === "answers") { cur = null; G = null; view.innerHTML = guideView(); if (window.LopHocPIN) LopHocPIN.guard($("#answerBox"), guideBody); else guideBody($("#answerBox")); }
     else { cur = null; G = null; view.innerHTML = roadmap(); }
     var nav = $(".nav"); if (nav && nav.getBoundingClientRect().top <= 0) view.scrollIntoView();

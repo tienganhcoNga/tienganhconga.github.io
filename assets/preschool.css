@@ -334,3 +334,41 @@ body.in-unit .nav{margin-top:12px}
 .hw-unit summary{cursor:pointer;font-weight:700}
 /* Song ngữ: tiếng Việt cho phụ huynh, chỉ hiện khi bật nút 🇻🇳 Song ngữ (assets/bilingual.js) */
 .vi-t{display:none}
+
+/* ---------- Cho bé 4–6 tuổi tự dùng: con đường các bước, mỗi lần một bước ---------- */
+.steps{display:flex;align-items:center;margin:4px 0 18px;overflow-x:auto;padding:12px 4px 10px;scrollbar-width:none}
+.steps::-webkit-scrollbar{display:none}
+.stp{position:relative;flex:none;display:flex;flex-direction:column;align-items:center;gap:2px;width:84px;padding:8px 4px;border:3px solid var(--line);background:var(--surface);border-radius:22px;cursor:pointer;font:inherit;color:var(--ink);box-shadow:0 4px 0 var(--line)}
+.stp .e{font-size:2.2rem;line-height:1.1}
+.stp b{font-family:var(--f-display);font-size:.95rem}
+.stp[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 4px 0 var(--accent);transform:translateY(-2px)}
+.stp .star{position:absolute;top:-12px;right:-8px;font-style:normal;font-size:1.35rem;display:none}
+.stp.done .star{display:block}
+.stp-line{flex:1 1 14px;min-width:10px;border-top:4px dotted var(--line)}
+#view [data-step]{display:none}
+#view [data-step].on{display:block}
+.step-head{flex-wrap:wrap;align-items:center;gap:8px 10px}
+.step-head h3{display:flex;align-items:center;gap:6px}
+.step-head .st-ic{font-size:1.7rem;line-height:1}
+.step-head .say{width:46px;height:46px}
+.step-head .say svg{width:24px;height:24px}
+.st-say{font-weight:700;color:var(--muted);flex:1 1 160px}
+.btn.all{font-size:1.1rem;padding:8px 16px;min-height:46px}
+.step-next{display:flex;justify-content:center;margin-top:22px}
+.go-next{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:800;font-size:1.8rem;padding:10px 36px;border-radius:999px;border:0;background:var(--accent);color:#fff;cursor:pointer;text-decoration:none;box-shadow:0 5px 0 rgba(0,0,0,.2);animation:goNudge 1.8s ease-in-out infinite}
+.go-next span{font-size:2.1rem;line-height:1}
+@keyframes goNudge{50%{transform:translateX(7px)}}
+.card{position:relative}
+.card .heard{position:absolute;top:6px;right:8px;font-style:normal;font-size:1.15rem;display:none}
+.card.heard .heard{display:block}
+.gtabs .chip.gt{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;border-radius:18px;min-width:86px;min-height:70px;justify-content:center}
+.gtabs .chip.gt .e{font-size:2rem;line-height:1.1}
+.gtabs .chip.gt small{font-size:.75rem;font-weight:700;color:var(--muted);max-width:120px;line-height:1.2}
+.gs-dot{font-size:1rem}
+.gs-dot.r{background:var(--gold-soft);border-color:var(--gold);color:inherit}
+.gs-dot.w{background:#FFE9D2;border-color:#F4A259;color:inherit}
+.feedback.bad{background:var(--gold-soft)}
+.speed button{font-size:1.4rem;line-height:1;padding:4px 10px;min-height:42px;min-width:46px}
+.sp-mode .e{font-size:2.4rem}
+@media (max-width:560px){ .stp{width:62px;padding:6px 2px;border-radius:16px} .stp .e{font-size:1.7rem} .stp b{font-size:.78rem} .stp-line{min-width:6px} .go-next{font-size:1.5rem;padding:10px 30px} }
+@media (prefers-reduced-motion: reduce){ .go-next{animation:none} .stp[aria-current="true"]{transform:none} }

@@ -9,7 +9,7 @@ lop-hoc/
 ├── assets/
 │   ├── pin.js              ← Khóa phần Đáp án bằng mã PIN (đổi mã PIN ở đây)
 │   ├── course.js / course.css       ← Phần chạy chung cho trang "Ôn 10 chủ đề" lớp 1
-│   ├── preschool.js / preschool.css ← Phần chạy chung cho lộ trình mẫu giáo (thẻ hình, hội thoại, trò chơi, cẩm nang). Trang nào có `book:{title,note,rows}` thì Lộ trình hiện bảng đối chiếu với sách học trên lớp
+│   ├── preschool.js / preschool.css ← Phần chạy chung cho lộ trình mẫu giáo (thẻ hình, hội thoại, trò chơi, cẩm nang). Mỗi Unit là con đường cho bé 4–6 tuổi tự đi: 👂 Listen → 🗣️ Say → 🎵 Sing (nếu có) → 🎮 Play → 🎤 Speak, mỗi lần hiện một bước (`data-step`), máy đọc lời hướng dẫn, nút ▶ to sang bước sau, xong bước được ⭐ (localStorage `lophoc.mg.steps`); trò chơi không ghi điểm số, câu sai hiện 🔁 màu cam. Trang nào có `book:{title,note,rows}` thì Lộ trình hiện bảng đối chiếu với sách học trên lớp
 │   ├── pos-art.js          ← Hình vị trí dùng chung cho Mầm non: POS('in' | 'on' | 'under' | 'next to' | 'behind' | 'in front of' | 'table')
 │   ├── bilingual.js        ← Nút 🇻🇳 Song ngữ cho phụ huynh (Mầm non, Lớp 1, Lớp 4: Từ vựng và Ôn tập nói): mặc định chỉ tiếng Anh; bật lên thì hiện các <span class="vi-t"> (nghĩa tiếng Việt). Nút nằm trên thanh chọn bài (kidnav.js), nạp trước kidnav.js; preschool.js và speaking.js tự ghi nghĩa từ, câu, tiêu đề
 │   ├── vi-dict.js          ← Từ điển Song ngữ (bilingual.js tự nạp): bật Song ngữ thì mọi chữ tiếng Anh trên trang có trong từ điển (nút, tên bài, câu hỏi, lời bài hát, lời nhắc trong trò chơi…) tự hiện thêm nghĩa. Cặp Anh–Việt có sẵn trong dữ liệu trang cũng tự được dùng. Thêm bài mới: mở trang với ?vimiss (vd. on-tap-noi.html?vimiss#r1) để xem chữ còn thiếu nghĩa, rồi thêm vào phần dict

@@ -62,7 +62,11 @@ window.LOPHOC_VI = {
   "Wild": "Hoang dã", "Farm": "Nông trại", "Yes": "Có", "No": "Không",
 
   /* ---- mầm non (preschool.js) ---- */
-  "Tap & Listen": "Bấm và nghe", "Say it! ": "Nói theo", "Games": "Trò chơi", "My Speech": "Bài nói của bé",
+  "Say": "Nói", "Sing": "Hát", "Play": "Chơi", "Speak": "Thuyết trình", "Try again": "Làm lại câu sai", "🔊 All": "Nghe tất cả", "↺ Again": "Chơi lại",
+  "🔁 Try again": "Làm lại câu sai", "🤔 Try again!": "Thử lại nhé!", "Say after me": "Nói theo", "By myself": "Tự nói",
+  "Tap a picture and listen!": "Bấm vào hình để nghe!", "Listen and say it!": "Nghe rồi nói theo!", "Let's sing and dance!": "Cùng hát và múa nào!",
+  "Let's play a game!": "Cùng chơi nào!", "Let's make a speech!": "Cùng tập thuyết trình nào!",
+  "Tap & Listen": "Bấm và nghe","Say it! ": "Nói theo", "Games": "Trò chơi", "My Speech": "Bài nói của bé",
   "Speak loud. Look at your friends. Smile!": "Nói to. Nhìn các bạn. Mỉm cười nhé!",
   "Try the red ones": "Làm lại các câu sai (màu đỏ)",
   "Who says that?": "Con nào kêu thế?", "Where is it?": "Nó ở đâu?", "Look and say": "Nhìn và nói",
