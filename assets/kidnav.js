@@ -30,6 +30,13 @@
     ".kn .kn-title{min-width:0;font-family:var(--f-display,inherit);font-weight:800;font-size:1.3rem;line-height:1.2;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 8px}" +
     "html.bi .kn .kn-title .vi-t{display:inline;font-size:.65em;margin-left:.4em}" +
     "body.kn-titled .v-head,body.kn-titled .u-head{display:none!important}" +
+    /* trang không phải bài học (🗺️ Lộ trình, Tra từ…): tên lên thanh, chỉ giữ dòng mô tả nhỏ */
+    "body.kn-titled2 .u-head>.u-ic,body.kn-titled2 .u-head .u-n,body.kn-titled2 .u-head h2,body.kn-titled2 .v-head>.v-ic,body.kn-titled2 .v-head .v-n,body.kn-titled2 .v-head h2{display:none!important}" +
+    "body.kn-titled2 .u-head,body.kn-titled2 .v-head{margin-bottom:10px}" +
+    /* khối giới thiệu to ở đầu trang (header.hero) bỏ hẳn: tên trang đã có trên đường dẫn của trang chủ và trên thanh này */
+    "body.kn-ready header.hero{display:none}body.kn-ready .nav{margin-top:12px}" +
+    ".kn-menu button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:10px;font:inherit;font-weight:700;color:var(--ink);border:0;background:none;cursor:pointer}" +
+    ".kn-menu button:hover{background:var(--accent-soft)}" +
     ".kn .kn-btn{min-height:44px;padding:4px 14px;font-size:1rem}" +
     ".kn .kn-lock{width:44px;padding:0;font-size:1.1rem;opacity:.75}" +
     ".kn .kn-arw:hover,.kn .kn-btn:hover{border-color:var(--accent)}" +
@@ -162,8 +169,10 @@
      Điện thoại hẹp không còn chỗ: giữ nguyên đầu bài trong trang. */
   var narrow = window.matchMedia ? window.matchMedia("(max-width:560px)") : null;
   function titleNode() {
-    var h = document.body.classList.contains("in-unit") && !(narrow && narrow.matches) && document.querySelector(".u-head h2, .v-head h2");
-    document.body.classList.toggle("kn-titled", !!h);
+    var unit = document.body.classList.contains("in-unit");
+    var h = !(narrow && narrow.matches) && document.querySelector(".u-head h2, .v-head h2");
+    document.body.classList.toggle("kn-titled", !!h && unit);
+    document.body.classList.toggle("kn-titled2", !!h && !unit);
     if (!h) return el("span", "kn-sp");
     var s = el("span", "kn-sp kn-title", { title: h.textContent });
     s.innerHTML = h.innerHTML;
@@ -186,11 +195,18 @@
     /* nút 🇻🇳 Song ngữ cho phụ huynh (assets/bilingual.js), cùng một nút được gắn lại mỗi lần vẽ */
     if (window.LopHocBi && LopHocBi.btn) nodes.push(LopHocBi.btn());
     nodes.push(all);
+    if (!it.teach.length && document.querySelector(".vc-btn")) { /* trang không có ô 🔒: nút giọng đọc nằm trên thanh */
+      var vb2 = el("button", "kn-btn kn-lock", { type: "button", "aria-label": "Choose voice", title: "Choose voice" }, ["🔊"]);
+      vb2.onclick = function () { document.querySelector(".vc-btn").click(); }; nodes.push(vb2);
+    }
     if (it.teach.length) {
       var lock = el("button", "kn-btn kn-lock", { type: "button", "aria-label": "For teachers and parents", title: "For teachers and parents", "aria-expanded": "false" }, ["🔒"]);
       menu = el("div", "kn-menu", { hidden: "" }, it.teach.map(function (p) {
         return el("a", "", p.cur ? { href: p.href, "aria-current": "page" } : { href: p.href }, [(p.ic ? p.ic + " " : "") + p.label]);
       }));
+      /* nút chọn giọng đọc (assets/voice.js) cho ba mẹ: nằm trong ô 🔒 thay vì chiếm chỗ ở đầu trang */
+      var vc = document.querySelector(".vc-btn");
+      if (vc) { var vb = el("button", "", { type: "button" }, ["🔊 Voice"]); vb.onclick = function () { menu.hidden = true; vc.click(); }; menu.appendChild(vb); }
       lock.onclick = function (e) { e.stopPropagation(); var h = !menu.hidden; menu.hidden = h; lock.setAttribute("aria-expanded", String(!h)); };
       menu.onclick = function () { menu.hidden = true; };
       nodes.push(el("div", "kn-pop", {}, [lock, menu]));
@@ -202,7 +218,7 @@
   function start() {
     if (!box.querySelector("a:not(.home)")) return;
     var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
-    box.classList.add("kn-on"); box.appendChild(bar); render();
+    box.classList.add("kn-on"); box.appendChild(bar); document.body.classList.add("kn-ready"); render();
     new MutationObserver(render).observe(box, { attributes: true, subtree: true, attributeFilter: ["aria-current"] });
     window.addEventListener("hashchange", function () { setTimeout(render, 0); });
     if (narrow && narrow.addEventListener) narrow.addEventListener("change", render);
