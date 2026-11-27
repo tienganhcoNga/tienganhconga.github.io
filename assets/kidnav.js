@@ -11,7 +11,7 @@
   "use strict";
   var box = document.getElementById("units");
   if (!box) return;
-  var TEACH = /^#(lo-trinh|answers)$/, EXTRA = /^#(tu-dien)$/;  /* EXTRA: có trong bảng All nhưng không nằm trong chuỗi bài ‹ › */
+  var TEACH = /^#(lo-trinh|answers)$/, EXTRA = /^#(tu-dien|hw)$/;  /* EXTRA: có trong bảng All nhưng không nằm trong chuỗi bài ‹ › (#hw: bảng Bài tập về nhà 16 Unit) */
 
   var css = "" +
     ".kn-on>a:not(.home){display:none!important}" +

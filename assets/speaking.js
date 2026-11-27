@@ -131,6 +131,7 @@
     var nav = $("#units");
     nav.insertAdjacentHTML("beforeend", '<a href="#lo-trinh" data-id="lo-trinh">🗺️ ' + esc(D.guideName || "Lộ trình") + "</a>" +
       D.reviews.map(function (r) { return '<a href="#' + r.id + '" data-id="' + r.id + '">' + r.ic + " " + esc(r.n) + "</a>"; }).join("") +
+      (HW ? '<a href="#hw" data-id="hw">🏠 Homework</a>' : "") +
       '<a href="#answers" data-id="answers">🔒 Cẩm nang</a>');
   }
   function unitLabel(id) { var u = D.units[id]; return u ? u.n : id; }
@@ -271,6 +272,7 @@
         return '<button class="sk-tab" type="button" role="tab" data-ti="' + k + '" aria-selected="' + sameGroup(r, k, cur.ti) + '"><span class="e" aria-hidden="true">' + T.ic + "</span><b>" + esc(T.en) + "</b>" + vi(T.vi) + "<small>" + (t.badge ? esc(t.badge) + " · " : "") + fill(t.title) + "</small></button>";
       }).join("") + "</div>" +
       '<div id="taskBox">' + taskView(r, cur.ti) + "</div>" : "") +
+      (HW ? HW.block(r) : "") +
       '<div class="u-nav">' + (idx > 0 ? '<a class="btn" href="#' + D.reviews[idx - 1].id + '">← ' + esc(D.reviews[idx - 1].n) + "</a>" : '<a class="btn" href="#lo-trinh">← 🗺️</a>') +
       (idx < D.reviews.length - 1 ? '<a class="btn primary" href="#' + D.reviews[idx + 1].id + '">' + esc(D.reviews[idx + 1].n) + " →</a>" : "") + "</div>";
   }
@@ -299,17 +301,21 @@
   function route() {
     stop(); closeStage();
     var id = location.hash.slice(1), r = D.reviews.filter(function (x) { return x.id === id; })[0];
-    var main = $("#view");
+    var main = $("#view"), hw = HW && HW.match(id);
+    if (HW) HW.reset();
+    if (hw && hw.r) { r = hw.r; id = r.id; }
     if (id.indexOf("n-") === 0) { var el = document.getElementById(id); if (el) { el.scrollIntoView(); return; } id = "answers"; }
     if (r) { if (cur.r !== r) cur.ti = 0; cur.r = r; main.innerHTML = reviewView(r); }
     else if (id === "answers") {
       cur.r = null; main.innerHTML = notesView();
       if (window.LopHocPIN) window.LopHocPIN.guard($("#notesBox"), notesBody); else notesBody($("#notesBox"));
     }
+    else if (hw && hw.hub) { cur.r = null; main.innerHTML = HW.hub(); }
     else { cur.r = null; id = "lo-trinh"; main.innerHTML = guide(); }
+    if (hw && hw.r) setTimeout(function () { var el = $("#homework"); if (el) el.scrollIntoView(); }, 30);
     $$("#units a[data-id]").forEach(function (a) { a.setAttribute("aria-current", a.getAttribute("data-id") === id ? "page" : "false"); });
     var on = $('#units a[aria-current="page"]'); if (on && on.scrollIntoView) on.scrollIntoView({ block: "nearest", inline: "center" });
-    document.title = (r ? r.n + ": " + r.title : id === "answers" ? "Cẩm nang" : "Lộ trình") + " · " + D.pageName;
+    document.title = (hw && hw.r ? "Homework " + unitLabel(hw.g) + " · " : "") + (r ? r.n + ": " + r.title : id === "answers" ? "Cẩm nang" : hw && hw.hub ? "Homework" : "Lộ trình") + " · " + D.pageName;
   }
   function showTask(ti) {
     stop(); cur.ti = ti;
@@ -652,6 +658,9 @@
     var n = nameOf(); $$(".sk-nm").forEach(function (s) { s.textContent = n; });
   });
   document.addEventListener("change", function (e) { if (e.target.id === "skName" && cur.r) showTask(cur.ti); });
+
+  /* Bài tập về nhà theo Unit (assets/homework.js, nạp trước file này; chỉ bật khi trang có SPEAK.homework) */
+  var HW = D.homework && window.SpeakHomework ? window.SpeakHomework({ D: D, speak: speak, chime: chime, icon: icon, esc: esc, plain: plain, fill: fill, vi: vi, shuffle: shuffle, confetti: confetti, stop: stop }) : null;
 
   head();
   route();

@@ -252,8 +252,14 @@ const GRADES=[
   {id:'on-noi',ic:'🎤',name:'Ôn tập nói (Speaking)',en:'Speaking',file:'lop-1/on-tap-noi.html',answers:true,topics:[
    ['lo-trinh','🗺️ Cách ôn và lịch ôn'],['r1','Speaking 1: Units 1–3','🛒'],['r2','Speaking 2: Units 1–5','🍟'],['r3','Speaking 3: Units 1–7','🌷'],['r4','Speaking 4: Units 1–9','🎂'],
    ['r5','Speaking 5: Units 1–11','🦒'],['r6','Speaking 6: Units 1–13','🏞️'],['r7','Speaking 7: Units 1–15','⚽'],['r8','Big Show: all 16 units','🌟']]},
-  {id:'bai-tap',ic:'📝',name:'Bài tập về nhà',en:'Homework',file:'lop-1/bai-tap-ve-nha.html',answers:true,topics:[
-   ['plan','Lịch làm bài 4 ngày','🗓️'],['home-talk','Nói ở nhà cùng con','🗣️'],['numbers','Numbers within ten','🔢'],['animals','Animal world','🐾'],['talk','Talk about an animal','💬']]}]},
+  /* Bài tập về nhà nằm ở cuối mỗi bài Ôn tập nói (cùng file), chia theo 16 Unit. alias: link cũ của trang bai-tap-ve-nha.html */
+  {id:'bai-tap',ic:'🏠',name:'Bài tập về nhà (theo Unit)',en:'Homework',file:'lop-1/on-tap-noi.html',answers:true,
+   alias:{plan:'hw','home-talk':'hw',numbers:'hw-g16',animals:'hw-g10',talk:'hw-g10'},topics:[
+   ['hw','🏠 Tất cả 16 Unit','🏠'],
+   ['hw-g1','Unit 1: In the school playground','🎠'],['hw-g2','Unit 2: In the dining room','🍽️'],['hw-g3','Unit 3: At the street market','🛒'],['hw-g4','Unit 4: In the bedroom','🛏️'],
+   ['hw-g5','Unit 5: At the fish and chip shop','🐟'],['hw-g6','Unit 6: In the classroom','🏫'],['hw-g7','Unit 7: In the garden','🌷'],['hw-g8','Unit 8: In the park','🌳'],
+   ['hw-g9','Unit 9: In the shop','🏬'],['hw-g10','Unit 10: At the zoo','🦒'],['hw-g11','Unit 11: At the bus stop','🚏'],['hw-g12','Unit 12: At the lake','🏞️'],
+   ['hw-g13','Unit 13: In the school canteen','🍜'],['hw-g14','Unit 14: In the toy shop','🧸'],['hw-g15','Unit 15: At the football match','⚽'],['hw-g16','Unit 16: At home','🏠']]}]},
  {id:'lop-4',name:'Lớp 4',c:'jade',note:'Từ vựng 20 Unit · Ôn nói · Ôn thi IOE',lessons:[
   {id:'units',ic:'📗',name:'Từ vựng & Lộ trình',en:'Units',file:'lop-4/units-lop-4.html',answers:false,topics:[
    ['lo-trinh','🗺️ Lộ trình cả năm'],['tu-dien','📒 Tất cả từ vựng','📒'],['s','Starter: Hello again!','👋'],['u1','Unit 1: My friends','🌏'],['u2','Unit 2: Time and daily routines','⏰'],['u3','Unit 3: My week','📅'],
@@ -279,6 +285,7 @@ let openGrade=null, cur=null, tab='lesson';  // cur = {g,l,t}
 function find(gid,lid,tid){
   const g=GRADES.find(x=>x.id===gid);if(!g)return null;
   const l=g.lessons.find(x=>x.id===lid)||g.lessons[0];
+  if(l.alias&&l.alias[tid])tid=l.alias[tid];
   const t=(l.topics.find(x=>x[0]===tid)||l.topics[0])[0];
   return {g,l,t};
 }
