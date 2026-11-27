@@ -26,6 +26,10 @@
     ".kn .kn-cur span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}" +
     ".kn .kn-cur .kn-ic{font-size:1.4rem}" +
     ".kn .kn-sp{flex:1}" +
+    /* tên bài đang học nằm ngay trên thanh này (gom đầu bài thành một dòng), đầu bài trong trang thì ẩn */
+    ".kn .kn-title{min-width:0;font-family:var(--f-display,inherit);font-weight:800;font-size:1.3rem;line-height:1.2;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 8px}" +
+    "html.bi .kn .kn-title .vi-t{display:inline;font-size:.65em;margin-left:.4em}" +
+    "body.kn-titled .v-head,body.kn-titled .u-head{display:none!important}" +
     ".kn .kn-btn{min-height:44px;padding:4px 14px;font-size:1rem}" +
     ".kn .kn-lock{width:44px;padding:0;font-size:1.1rem;opacity:.75}" +
     ".kn .kn-arw:hover,.kn .kn-btn:hover{border-color:var(--accent)}" +
@@ -154,6 +158,17 @@
 
   /* ---------- thanh gọn ---------- */
   var bar = el("div", "kn"), menu = null;
+  /* Đang học một bài (body.in-unit, trang tự bật): đưa tên bài lên khoảng trống giữa thanh, ẩn đầu bài trong trang.
+     Điện thoại hẹp không còn chỗ: giữ nguyên đầu bài trong trang. */
+  var narrow = window.matchMedia ? window.matchMedia("(max-width:560px)") : null;
+  function titleNode() {
+    var h = document.body.classList.contains("in-unit") && !(narrow && narrow.matches) && document.querySelector(".u-head h2, .v-head h2");
+    document.body.classList.toggle("kn-titled", !!h);
+    if (!h) return el("span", "kn-sp");
+    var s = el("span", "kn-sp kn-title", { title: h.textContent });
+    s.innerHTML = h.innerHTML;
+    return s;
+  }
   function render() {
     var it = items(), k = it.kid, i = -1, j;
     for (j = 0; j < k.length; j++) if (k[j].cur) i = j;
@@ -167,7 +182,7 @@
     var curBtn = el("button", "kn-cur", { type: "button", title: "All lessons" }, icLabel(cur));
     curBtn.onclick = openAll;
     var all = el("button", "kn-btn kn-all", { type: "button", "aria-label": "All lessons", title: "All lessons" }, ["☰", el("b", "", {}, ["All"])]); all.onclick = openAll;
-    var nodes = [arw(prev, "‹", "Back"), curBtn, arw(next, "›", "Next"), el("span", "kn-sp")];
+    var nodes = [arw(prev, "‹", "Back"), curBtn, arw(next, "›", "Next"), titleNode()];
     /* nút 🇻🇳 Song ngữ cho phụ huynh (assets/bilingual.js), cùng một nút được gắn lại mỗi lần vẽ */
     if (window.LopHocBi && LopHocBi.btn) nodes.push(LopHocBi.btn());
     nodes.push(all);
@@ -190,6 +205,7 @@
     box.classList.add("kn-on"); box.appendChild(bar); render();
     new MutationObserver(render).observe(box, { attributes: true, subtree: true, attributeFilter: ["aria-current"] });
     window.addEventListener("hashchange", function () { setTimeout(render, 0); });
+    if (narrow && narrow.addEventListener) narrow.addEventListener("change", render);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
