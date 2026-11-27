@@ -537,6 +537,17 @@
     }).catch(function () { cb(false); });
   }
   function recStop() { if (SP.rec && SP.rec.state !== "inactive") SP.rec.stop(); SP.rec = null; }
+  /* nghe lại bản thu: bấm lần nữa (⏹ Stop), ✕ Close hoặc ↺ Again là dừng */
+  function playStop() {
+    if (SP.audio) { SP.audio.onended = null; SP.audio.pause(); SP.audio = null; }
+    var b = $("#spPlay"); if (b) b.textContent = "▶ Hear my voice";
+  }
+  function playRec(b) {
+    if (SP.audio) { playStop(); return; }
+    if (hasSpeech) speechSynthesis.cancel();
+    var au = SP.audio = new Audio(SP.url); au.onended = playStop; b.textContent = "⏹ Stop";
+    try { var p = au.play(); if (p && p.catch) p.catch(playStop); } catch (err) { playStop(); }
+  }
   function stageOpen() {
     spStop(); closeStage();
     SP.st = { S: segs(cur), i: -1, text: true, rec: false };
@@ -581,10 +592,10 @@
     /* nút nghe lại hiện ra khi bản thu đã lưu xong (recorder.onstop) */
     $("#spCtl").innerHTML = (st.rec ? '<button class="sp-btn go" type="button" data-sp="st-play" id="spPlay" hidden>▶ Hear my voice</button>' : "") +
       '<button class="sp-btn" type="button" data-sp="st-again">↺ Again</button><button class="sp-btn" type="button" data-sp="st-close">✕ Close</button>';
-    applause(); confetti(); setTimeout(function () { speak("Wonderful! Great job!"); }, 900);
+    applause(); confetti(); setTimeout(function () { if (SP.st && !SP.audio) speak("Wonderful! Great job!"); }, 900);
   }
   function closeStage() {
-    recStop(); if (SP.stream) { SP.stream.getTracks().forEach(function (t) { t.stop(); }); SP.stream = null; }
+    playStop(); recStop(); if (SP.stream) { SP.stream.getTracks().forEach(function (t) { t.stop(); }); SP.stream = null; }
     var o = $("#spStage"); if (o) o.remove(); document.documentElement.classList.remove("sp-lock");
     if (SP.st) { SP.st = null; if (hasSpeech) speechSynthesis.cancel(); }
   }
@@ -612,7 +623,7 @@
     if (a === "st-close") closeStage();
     if (a === "st-start") stageStart();
     if (a === "st-again") { closeStage(); stageOpen(); }
-    if (a === "st-play" && SP.url) { try { new Audio(SP.url).play(); } catch (err) {} }
+    if (a === "st-play" && SP.url) playRec(b);
     if (!st || st.i < 0) return;
     if (a === "st-next") { if (st.i >= st.S.length - 1) stageEnd(); else { st.i++; stageShow(); } }
     if (a === "st-prev" && st.i > 0) { st.i--; stageShow(); }

@@ -549,6 +549,17 @@
     }).catch(function () { cb(false); });
   }
   function recStop() { if (REC.rec && REC.rec.state !== "inactive") REC.rec.stop(); REC.rec = null; }
+  /* nghe lại bản thu: bấm lần nữa (⏹ Stop), ✕ Close hoặc ↺ Again là dừng */
+  function playStop() {
+    if (REC.audio) { REC.audio.onended = null; REC.audio.pause(); REC.audio = null; }
+    var b = $("#skPlay"); if (b) b.textContent = "▶ Hear my voice";
+  }
+  function playRec(b) {
+    if (REC.audio) { playStop(); return; }
+    if (hasSpeech) speechSynthesis.cancel();
+    var au = REC.audio = new Audio(REC.url); au.onended = playStop; b.textContent = "⏹ Stop";
+    try { var p = au.play(); if (p && p.catch) p.catch(playStop); } catch (err) { playStop(); }
+  }
   var CARD_C = ["c1", "c2", "c3", "c4", "c5", "c6"];
   function stageOpen() {
     var t = curTask(); if (!t) return;
@@ -601,10 +612,10 @@
     c.innerHTML = '<span class="sk-big" aria-hidden="true">🏆</span><p class="sk-sline">Wonderful!</p><p class="sk-ssub">Everyone, clap your hands! 👏👏👏</p><div class="sk-stars" aria-hidden="true">⭐⭐⭐</div>';
     $("#skCtl").innerHTML = (ST.rec ? '<button class="sk-sbtn go" type="button" data-sk="st-play" id="skPlay" hidden>▶ Hear my voice</button>' : "") +
       '<button class="sk-sbtn" type="button" data-sk="st-again">↺ Again</button><button class="sk-sbtn" type="button" data-sk="st-close">✕ Close</button>';
-    applause(); confetti(); setTimeout(function () { speak("Wonderful! Great job!"); }, 900);
+    applause(); confetti(); setTimeout(function () { if (ST && !REC.audio) speak("Wonderful! Great job!"); }, 900);
   }
   function closeStage() {
-    recStop(); if (REC.stream) { REC.stream.getTracks().forEach(function (t) { t.stop(); }); REC.stream = null; }
+    playStop(); recStop(); if (REC.stream) { REC.stream.getTracks().forEach(function (t) { t.stop(); }); REC.stream = null; }
     var o = $("#skStage"); if (o) o.remove(); document.documentElement.classList.remove("sk-lock");
     if (ST) { ST = null; if (hasSpeech) speechSynthesis.cancel(); }
   }
@@ -790,7 +801,7 @@
     if (a === "st-close") closeStage();
     if (a === "st-start") stageStart();
     if (a === "st-again") stageOpen();
-    if (a === "st-play" && REC.url) { try { new Audio(REC.url).play(); } catch (err) {} }
+    if (a === "st-play" && REC.url) playRec(b);
     if (!ST || ST.i < 0) return;
     if (a === "st-next") { if (ST.i >= ST.L.length - 1) stageEnd(); else { ST.i++; stageShow(); } }
     if (a === "st-prev" && ST.i > 0) { ST.i--; stageShow(); }
