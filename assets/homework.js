@@ -81,6 +81,7 @@
       ".hw-ln{display:flex;align-items:center;gap:10px;margin-top:6px}" +
       ".hw-ln .who{flex:none;font-size:1.6rem}.hw-ln .t{flex:1;font-weight:700;font-size:1.1rem}" +
       ".hw-ln.k .t.hid{color:transparent;background:repeating-linear-gradient(90deg,var(--accent-soft) 0 10px,transparent 10px 14px);border-radius:8px;user-select:none}" +
+      "html.bi .hw-ln .t.hid .vi-t{visibility:hidden}" +
       ".hw-sp{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid var(--line);background:var(--surface);cursor:pointer;font-size:1.05rem}" +
       ".hw-sp:hover{border-color:var(--accent)}" +
       ".hw-tc .note{font-size:.9rem;color:var(--muted);margin:0 0 4px}" +
