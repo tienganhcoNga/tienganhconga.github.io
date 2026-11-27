@@ -317,7 +317,7 @@
           '</div><div class="sk-ctl"><button class="sk-sbtn go" type="button" data-hw="check">✔ Check</button><button class="sk-sbtn" type="button" data-hw="whint">💡 Help</button></div>';
       } else if (t.id === "gap") {
         var gap = fill(it.ex).replace(/<b>[\s\S]*?<\/b>/, '<span class="sk-gap">____</span>');
-        h = '<div class="sk-gq col"><span class="sk-gpic sm" aria-hidden="true">' + icon(it.ic) + '</span><p class="sk-gsent" id="hwSent">' + gap + "</p>" + (it.sent && HD.showVi ? '<p class="hw-hint">' + esc(it.exVi) + "</p>" : "") + "</div>" +
+        h = '<div class="sk-gq col"><span class="sk-gpic sm" aria-hidden="true">' + icon(it.ic) + '</span><p class="sk-gsent" id="hwSent">' + gap + "</p>" + (it.sent ? (HD.showVi ? '<p class="hw-hint">' + esc(it.exVi) + "</p>" : vi(it.exVi)) : "") + "</div>" +
           '<div class="sk-opts words">' + shuffle(others(G.P, it, "w", 2).concat([it])).map(function (o) { return '<button class="sk-opt" type="button" data-hw="ans" data-v="' + esc(o.w) + '">' + esc(o.w) + "</button>"; }).join("") + "</div>";
       } else if (t.id === "order") {
         G.tok = tokens(it);
@@ -355,7 +355,7 @@
       }
       if (t === "letter") { if (v !== G.ans) return wrong(btn); var w = $("#hwBox .hw-word"); if (w) w.textContent = it.w; return right(btn, it.w); }
       if (v !== it.w) return wrong(btn);
-      if (t === "gap") { var s = $("#hwSent"); if (s) s.innerHTML = fill(it.ex) + (it.sent && HD.showVi ? "" : vi(it.exVi)); return right(btn, plain(fill(it.ex))); }
+      if (t === "gap") { var s = $("#hwSent"); if (s) s.innerHTML = fill(it.ex) + (it.sent ? "" : vi(it.exVi)); return right(btn, plain(fill(it.ex))); }
       right(btn, it.w);
     }
     function spellTap(btn) {

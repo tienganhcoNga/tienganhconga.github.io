@@ -91,7 +91,7 @@
   function dict() {
     if (cache) return cache;
     var src = window.LOPHOC_VI || {}, d = {}, p = (src.pats || []).slice(), k, learned = {};
-    learn(window.SPEAK, learned, 0); learn(window.PRESCHOOL, learned, 0);
+    learn(window.SPEAK, learned, 0); learn(window.PRESCHOOL, learned, 0); learn(window.L4, learned, 0); learn(window.L4_DLG, learned, 0);
     [src.more || {}, learned, src.dict || {}, EXTRA].forEach(function (o) {
       for (k in o) if (o[k]) {
         var key = norm(plain(k)), val = plain(o[k]);

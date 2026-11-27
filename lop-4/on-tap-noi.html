@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="../assets/course.css?v=20261127b">
-<link rel="stylesheet" href="../assets/speaking.css?v=20261127bi">
+<link rel="stylesheet" href="../assets/speaking.css?v=20261127wb">
 <style>:root{--accent:var(--jade);--accent-soft:var(--jade-soft)}</style>
 <script>(function(){try{var g=document.documentElement.getAttribute("data-grade"),k="lophoc-grade-"+g;if(!(sessionStorage.getItem(k)==="1"||localStorage.getItem(k)==="1"))document.documentElement.classList.add("grade-locked")}catch(e){}})()</script><style>html.grade-locked body>*:not(.pin-gate){visibility:hidden}</style>
 </head>
@@ -29,7 +29,7 @@
 <script>
 /* Ôn tập nói lớp 4, theo trang Từ vựng & Lộ trình lớp 4 (Starter + Unit 1–20). Kho từ lấy từ assets/lop4-words.js.
    Ôn sau Unit 3 (gồm cả Starter), rồi cứ 2 Unit một lần: sau Unit 5, 7, 9, 11, 13, 15, 17, 19; cuối năm là Big Show (cả 20 Unit).
-   Mỗi bài ôn gom từ của TẤT CẢ các Unit đã học. Phần bài nói chỉ có tiếng Anh; tiếng Việt nằm ở mục Lộ trình, nút VI và ô gợi ý cho cô. */
+   Mỗi bài ôn gom từ của TẤT CẢ các Unit đã học. Phần bài nói chỉ có tiếng Anh; tiếng Việt nằm ở mục Lộ trình, nút 🇻🇳 Song ngữ và Cẩm nang (khóa PIN). */
 window.SPEAK={
  pageName:'Speaking Review lớp 4',
  title:'Let\'s <span>Speak!</span>',
@@ -39,8 +39,8 @@ window.SPEAK={
  units:window.L4.units,
  /* 🏠 Bài tập về nhà theo Unit (assets/homework.js): khối cuối mỗi bài ôn, tab là các Unit mới; #hw = bảng 21 Unit, #hw-u5 = Unit 5.
     Từ lấy ở kho từ (lop4-words.js); câu cho Fill the gap, Make a sentence lấy từ mẫu câu (p) và hội thoại (lop4-dialogues.js);
-    Ask and answer lấy các cặp hỏi – đáp. Lớp 4 hiện luôn nghĩa tiếng Việt (showVi). */
- homework:{key:'lophoc.hw.l4',showVi:true,maxWords:9,
+    Ask and answer lấy các cặp hỏi – đáp. Nghĩa tiếng Việt chỉ hiện khi bật 🇻🇳 Song ngữ. */
+ homework:{key:'lophoc.hw.l4',maxWords:9,
   note:'Chọn Unit vừa học trên lớp. Mỗi ngày 2–3 bài, khoảng 15 phút; làm sai cứ chọn lại, mỗi bài có sao. Bài 🙋 Ask and answer: đọc câu hỏi, tự trả lời cả câu rồi mới bấm 👀 xem. Bấm 🖨️ Worksheet để in phiếu 6 phần có đáp án.',
   sentences:function(g){
    var out=[],u=window.L4.units[g]||{},D=(window.L4_DLG||{})[g]||[];
@@ -73,14 +73,14 @@ window.SPEAK={
   '<li><b>Compare (so sánh):</b> hai bạn đứng cạnh nhau, mỗi bạn một bên; luyện <i>but, too, both, and</i>.</li>'+
   '<li><b>My story (tự sự):</b> con kể chuyện của chính mình theo thứ tự <i>First → Then → After that → Finally</i>, hoặc như một trang nhật kí.</li></ul>'+
   '<h3>🏠 Bài tập về nhà theo Unit</h3>'+
-  '<p>Cuối mỗi bài ôn có khối <b>🏠 Homework</b>, mỗi tab là một Unit mới của bài ôn đó (bấm <b>📚 All units</b> hoặc mục <b>Bài tập về nhà</b> trên menu để chọn thẳng Starter, Unit 1–20). Mỗi Unit có các dạng bài tự chấm, có sao: <i>Listen and choose, Look and choose, Yes or no, Match, Missing letter, Spell it, Write the word, Fill the gap</i> (điền từ vào mẫu câu và câu hội thoại trong bài), <i>Make a sentence</i> (xếp câu), <i>Memory, Say it</i> và <i>🙋 Ask and answer</i> (hỏi – đáp theo mẫu câu của Unit, câu trả lời được che để con tự nói trước). Nút <b>🖨️ Worksheet</b> in phiếu 6 phần có đáp án.</p>'+
+  '<p>Cuối mỗi bài ôn có khối <b>🏠 Homework</b>, mỗi tab là một Unit mới của bài ôn đó (bấm <b>📚 All units</b> hoặc mục <b>Bài tập về nhà</b> trên menu để chọn thẳng Starter, Unit 1–20). Mỗi Unit có các dạng bài tự chấm, có sao: <i>Listen and choose, Look and choose, Yes or no, Match, Missing letter, Spell it, Write the word, Fill the gap</i> (điền từ vào mẫu câu và câu hội thoại trong bài), <i>Make a sentence</i> (xếp câu), <i>Memory, Say it</i> và <i>🙋 Ask and answer</i> (hỏi – đáp theo mẫu câu của Unit, câu trả lời được che để con tự nói trước). Bài chỉ có tiếng Anh; bật <b>🇻🇳 Song ngữ</b> để xem nghĩa từng câu. Nút <b>🖨️ Worksheet</b> in phiếu 6 phần có đáp án.</p>'+
   '<ul><li>Mỗi ngày 2–3 bài, khoảng 15 phút. Con tự làm, ba mẹ xem số sao ở tab Unit (⭐ 5/12).</li>'+
   '<li>Bài <b>Ask and answer</b>: ba mẹ đọc câu hỏi (hoặc bấm 🔊), con trả lời thành câu đủ rồi mới bấm 👀 xem lại.</li>'+
   '<li>Sao lưu trên máy đang dùng.</li></ul>'+
   '<h3>Mẹo</h3>'+
   '<ul><li>Gõ tên con vào ô <b>My name</b>: tên con hiện trong bài.</li><li>Không ngắt lời để sửa. Con nói xong, cô nhắc lại câu đúng một lần.</li>'+
   '<li>Trên sân khấu, tick <b>Record my voice</b> để con nghe lại và tự nhận xét: “Mình nói to chưa? Rõ chưa? Có ngập ngừng không?”</li>'+
-  '<li>Nút <b>VI</b> hiện nghĩa tiếng Việt của từng câu cho phụ huynh. Khi con luyện thì tắt đi.</li>'+
+  '<li>Nút <b>🇻🇳 Song ngữ</b> (góc phải thanh trên) hiện nghĩa tiếng Việt dưới mọi chữ cho phụ huynh. Khi con luyện thì tắt đi.</li>'+
   '<li>Từ nào con quên: mở <a href="units-lop-4.html#tu-dien">📒 Tất cả từ vựng</a> để tra và nghe lại.</li></ul>',
  reviews:[
 /* ===================== SPEAKING 1: Starter + Unit 1–3 ===================== */
@@ -887,9 +887,11 @@ window.SPEAK={
  ]};
 </script>
 <script src="../assets/pin.js?v=20261127e"></script>
+<script src="../assets/bilingual.js?v=20261127vi16"></script>
 <script src="../assets/voice.js?v=20261127bi"></script>
-<script src="../assets/homework.js?v=20261127g"></script>
-<script src="../assets/speaking.js?v=20261127hw"></script>
+<script src="../assets/homework.js?v=20261127h"></script>
+<script src="../assets/wordbank.js?v=20261127a"></script>
+<script src="../assets/speaking.js?v=20261127wb"></script>
 <script src="../assets/kidnav.js?v=20261127hw"></script>
 </body>
 </html>

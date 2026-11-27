@@ -84,6 +84,8 @@
 .tx .en{font-size:1.02rem}
 .tx small{display:block;color:var(--muted);font-size:.85rem}
 .hide-dvi .tx small{display:none}
+/* Song ngữ: tiếng Việt chỉ hiện khi bật nút 🇻🇳 Song ngữ (assets/bilingual.js) */
+.vi-t{display:none}
 @media print{.nav,.tools,footer,.game-wrap,.sp-link,.dlg-tools{display:none}}
 </style>
 <script>(function(){try{var g=document.documentElement.getAttribute("data-grade"),k="lophoc-grade-"+g;if(!(sessionStorage.getItem(k)==="1"||localStorage.getItem(k)==="1"))document.documentElement.classList.add("grade-locked")}catch(e){}})()</script><style>html.grade-locked body>*:not(.pin-gate){visibility:hidden}</style>
@@ -92,8 +94,8 @@
 <div class="wrap">
   <header class="hero">
     <div class="eyebrow">Grade 4 · English</div>
-    <h1>Từ vựng <span>lớp 4</span></h1>
-    <p class="lead">Starter + 20 Unit: từ mới, mẫu câu, trò chơi luyện từ, lộ trình cả năm và lịch ôn nói.</p>
+    <h1>My English <span>Words</span></h1>
+    <p class="lead">Starter + 20 units: new words, sentence patterns, dialogues and word games.<span class="vi-t" lang="vi">Starter + 20 Unit: từ mới, mẫu câu, hội thoại, trò chơi luyện từ; lộ trình cả năm ở mục 🗺️ Lộ trình.</span></p>
   </header>
 </div>
 <nav class="nav" aria-label="Các Unit"><div class="wrap" id="units"><a class="home" href="../index.html">← Trang chủ</a></div></nav>
@@ -142,6 +144,8 @@ window.L4_SPEAK={r1:'Speaking 1',r2:'Speaking 2',r3:'Speaking 3',r4:'Speaking 4'
 var D=window.L4, U=D.units, ORDER=D.order, PLAN=window.L4_PLAN, SPK_N=window.L4_SPEAK;
 var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
 var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+/* tiếng Việt cho phụ huynh: chỉ hiện khi bật 🇻🇳 Song ngữ */
+var viT=function(t,inl){return t?'<span class="vi-t'+(inl?' in':'')+'" lang="vi">'+esc(t)+'</span>':''};
 var SPK='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z"/></svg>';
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
 
@@ -176,7 +180,7 @@ var label=function(id){var u=U[id];return u?u.n+': '+u.en:id};
 
 /* ---------- khung ---------- */
 function nav(){
-  $("#units").insertAdjacentHTML("beforeend",'<a href="#lo-trinh" data-id="lo-trinh">🗺️ Lộ trình</a><a href="#tu-dien" data-id="tu-dien">📒 Tất cả từ</a>'+
+  $("#units").insertAdjacentHTML("beforeend",'<a href="#lo-trinh" data-id="lo-trinh">🗺️ Lộ trình</a><a href="#tu-dien" data-id="tu-dien">📒 All words</a>'+
     ORDER.map(function(id){return '<a class="sm" href="#'+id+'" data-id="'+id+'">'+U[id].ic+' '+(id==="s"?"Starter":"U"+id.slice(1))+'</a>'}).join(""));
 }
 
@@ -229,35 +233,35 @@ function filterDict(q){
 var G={id:null,type:"listen",qs:[],i:0,score:0,tries:0};
 function unitView(id){
   var u=U[id], k=ORDER.indexOf(id), sp=speakOf(id), prev=ORDER[k-1], next=ORDER[k+1];
-  return '<div class="u-head"><span class="u-ic" aria-hidden="true">'+u.ic+'</span><div><div class="u-n">'+esc(u.n)+'</div><h2>'+esc(u.en)+'</h2><div class="u-vi">'+esc(u.vi)+' · '+u.w.length+' từ</div></div></div>'+
-  '<div class="goal">🎯 <b>Học xong Unit này con nói được:</b> '+u.p.map(function(p){return '<i>'+esc(p[0].split(" – ")[0])+'</i>'}).join(" · ")+'</div>'+
-  '<div class="block" id="wordsBlock"><div class="b-head"><h3>📚 Words</h3><div class="tools"><button class="btn" type="button" id="playWords">🔊 Nghe tất cả</button><button class="chip" type="button" id="hideVi" aria-pressed="false">🙈 Ẩn nghĩa</button></div></div>'+
-   '<div class="words">'+u.w.map(function(w){return '<button class="word" type="button" data-t="'+esc(w[1])+'"><span class="ic" aria-hidden="true">'+icon(w[0])+'</span><span class="w">'+esc(w[1])+'</span><span class="v">'+esc(w[2])+'</span></button>'}).join("")+'</div></div>'+
-  '<div class="block"><div class="b-head"><h3>💬 Sentence patterns</h3><button class="btn" type="button" id="playPat">🔊 Nghe tất cả</button></div><div class="pats">'+
-   u.p.map(function(p){return '<button class="pat" type="button" data-t="'+esc(p[0])+'"><span class="say" aria-hidden="true">'+SPK+'</span><span><span class="q">'+esc(p[0])+'</span><small>'+esc(p[1])+'</small></span></button>'}).join("")+'</div></div>'+
+  return '<div class="u-head"><span class="u-ic" aria-hidden="true">'+u.ic+'</span><div><div class="u-n">'+esc(u.n)+'</div><h2>'+esc(u.en)+viT(u.vi)+'</h2><div class="u-vi">'+u.w.length+' words</div></div></div>'+
+  '<div class="goal">🎯 <b>After this unit, I can say:</b>'+viT('Học xong Unit này con nói được:',1)+' '+u.p.map(function(p){return '<i>'+esc(p[0].split(" – ")[0])+'</i>'}).join(" · ")+'</div>'+
+  '<div class="block" id="wordsBlock"><div class="b-head"><h3>📚 Words'+viT('Từ vựng',1)+'</h3><div class="tools"><button class="btn" type="button" id="playWords">🔊 Listen to all</button></div></div>'+
+   '<div class="words">'+u.w.map(function(w){return '<button class="word" type="button" data-t="'+esc(w[1])+'"><span class="ic" aria-hidden="true">'+icon(w[0])+'</span><span class="w">'+esc(w[1])+'</span>'+viT(w[2])+'</button>'}).join("")+'</div></div>'+
+  '<div class="block"><div class="b-head"><h3>💬 Sentence patterns'+viT('Mẫu câu',1)+'</h3><button class="btn" type="button" id="playPat">🔊 Listen to all</button></div><div class="pats">'+
+   u.p.map(function(p){return '<button class="pat" type="button" data-t="'+esc(p[0])+'"><span class="say" aria-hidden="true">'+SPK+'</span><span><span class="q">'+esc(p[0])+'</span>'+viT(p[1])+'</span></button>'}).join("")+'</div></div>'+
   dialogs(id)+
-  (sp?'<div class="sp-link"><span class="e" aria-hidden="true">🎤</span><p><b>Đến buổi ôn nói!</b> Học xong Unit này, con ôn nói với bài <b>'+esc(SPK_N[sp])+'</b>: gom từ của tất cả các Unit đã học.</p><a class="btn primary" href="on-tap-noi.html#'+sp+'">Vào '+esc(SPK_N[sp])+' →</a></div>':'')+
-  '<div class="block game-wrap"><div class="b-head"><h3>🎮 Practice</h3></div><div class="gtabs" role="tablist">'+
-   [["listen","👂 Nghe chọn từ"],["mean","🇻🇳 Nghĩa chọn từ"],["spell","✍️ Viết từ"]].map(function(x){return '<button class="chip" type="button" data-game="'+x[0]+'" aria-pressed="'+(G.type===x[0])+'">'+x[1]+'</button>'}).join("")+
+  (sp?'<div class="sp-link"><span class="e" aria-hidden="true">🎤</span><p><b>Speaking time!</b> After this unit, practise with <b>'+esc(SPK_N[sp])+'</b>: use the words from all the units you have learnt.'+viT('Học xong Unit này, con ôn nói với bài '+SPK_N[sp]+': gom từ của tất cả các Unit đã học.')+'</p><a class="btn primary" href="on-tap-noi.html#'+sp+'">Go to '+esc(SPK_N[sp])+' →</a></div>':'')+
+  '<div class="block game-wrap"><div class="b-head"><h3>🎮 Practice'+viT('Luyện từ',1)+'</h3></div><div class="gtabs" role="tablist">'+
+   [["listen","👂 Listen and choose"],["mean","👀 Look and choose"],["spell","✍️ Write the word"]].map(function(x){return '<button class="chip" type="button" data-game="'+x[0]+'" aria-pressed="'+(G.type===x[0])+'">'+x[1]+'</button>'}).join("")+
    '</div><div class="game" id="game" aria-live="polite"></div></div>'+
   '<div class="u-nav">'+(prev?'<a class="btn" href="#'+prev+'">← '+esc(label(prev))+'</a>':'<a class="btn" href="#lo-trinh">← 🗺️ Lộ trình</a>')+(next?'<a class="btn primary" href="#'+next+'">'+esc(label(next))+' →</a>':'')+'</div>';
 }
 
 /* ---------- hội thoại trong bài (window.L4_DLG, file assets/lop4-dialogues.js) ---------- */
-var DLG=window.L4_DLG||{}, KIND={book:"📖 Trong bài",listen:"🎧 Bài nghe",chant:"🎵 Chant"};
+var DLG=window.L4_DLG||{}, KIND={book:"📖 Book",listen:"🎧 Listening",chant:"🎵 Chant"};
 function speakers(d){var s=[];d.lines.forEach(function(l){if(l[0]&&s.indexOf(l[0])<0)s.push(l[0])});return s}
 function dialogs(id){
   var list=DLG[id]; if(!list||!list.length)return "";
-  return '<div class="block" id="dlgBlock"><div class="b-head"><h3>🗣️ Dialogues</h3><div class="tools"><button class="chip" type="button" id="hideDvi" aria-pressed="false">🙈 Ẩn nghĩa</button></div></div>'+
-   '<p class="muted" style="margin:-6px 0 12px">Bấm từng câu để nghe. <b>🎭 Đóng vai</b>: chọn một bạn, máy đọc vai còn lại, đến câu của con thì máy chờ con nói.</p><div class="dlgs">'+
+  return '<div class="block" id="dlgBlock"><div class="b-head"><h3>🗣️ Dialogues'+viT('Hội thoại',1)+'</h3></div>'+
+   '<p class="muted" style="margin:-6px 0 12px">Tap a line to listen. <b>🎭 Role-play</b>: choose a person. The computer reads the other part and waits for you to say yours.'+viT('Bấm từng câu để nghe. Đóng vai: chọn một bạn, máy đọc vai còn lại, đến câu của con thì máy chờ con nói.')+'</p><div class="dlgs">'+
    list.map(function(d,di){
      var sp=speakers(d);
      return '<div class="dlg" data-di="'+di+'"><div class="dlg-h"><span class="dlg-k '+esc(d.k)+'">'+(KIND[d.k]||esc(d.k))+'</span><b>'+esc(d.t)+'</b></div>'+
-      '<div class="dlg-tools"><button class="chip" type="button" data-dplay="'+di+'">🔊 Nghe cả bài</button>'+
+      '<div class="dlg-tools"><button class="chip" type="button" data-dplay="'+di+'">🔊 Listen to all</button>'+
       (sp.length>=2&&sp.length<=4?sp.map(function(n){return '<button class="chip" type="button" data-drole="'+di+'" data-who="'+esc(n)+'">🎭 '+esc(n)+'</button>'}).join(""):"")+'</div>'+
       d.lines.map(function(l,li){
         var k=sp.indexOf(l[0]), cls=!l[0]?" nar":k%2===1?" alt":"";
-        return '<button class="ln'+cls+'" type="button" data-di="'+di+'" data-li="'+li+'"><span class="av" aria-hidden="true">'+(l[0]?esc(l[0].slice(0,2)):"♪")+'</span><span class="tx">'+(l[0]?'<span class="who">'+esc(l[0])+'</span>':'')+'<span class="en">'+esc(l[1])+'</span><small>'+esc(l[2]||"")+'</small></span></button>';
+        return '<button class="ln'+cls+'" type="button" data-di="'+di+'" data-li="'+li+'"><span class="av" aria-hidden="true">'+(l[0]?esc(l[0].slice(0,2)):"♪")+'</span><span class="tx">'+(l[0]?'<span class="who">'+esc(l[0])+'</span>':'')+'<span class="en">'+esc(l[1])+'</span>'+viT(l[2]||"")+'</span></button>';
       }).join("")+'</div>';
    }).join("")+'</div></div>';
 }
@@ -294,21 +298,21 @@ function showQ(){
   var box=$("#game"); if(!box)return;
   if(G.i>=G.qs.length){
     var n=G.qs.length, st=G.score>=n?3:G.score>=n-2?2:1;
-    box.innerHTML='<div class="done"><div class="stars" aria-hidden="true">'+"⭐".repeat(st)+'</div><h3>'+G.score+' / '+n+' đúng ngay lần đầu</h3><p class="muted">'+(st===3?'Giỏi quá! Thử trò tiếp theo nhé.':'Chơi lại để được 3 sao nhé!')+'</p><button class="btn primary" type="button" data-g="again">↺ Chơi lại</button></div>';
+    box.innerHTML='<div class="done"><div class="stars" aria-hidden="true">'+"⭐".repeat(st)+'</div><h3>'+G.score+' / '+n+' right the first time</h3><p class="muted">'+(st===3?'Great job! Try the next game.':'Play again to get 3 stars!')+'</p><button class="btn primary" type="button" data-g="again">↺ Play again</button></div>';
     if(st===3)speak("Excellent!"); return;
   }
   var q=G.qs[G.i], top='<div class="g-top"><span>'+(G.i+1)+' / '+G.qs.length+'</span><span>⭐ '+G.score+'</span></div>';
   G.tries=0;
   if(G.type==="listen"){
-    box.innerHTML=top+'<div class="g-prompt"><button class="say big-say" type="button" data-g="hear" aria-label="Nghe">'+SPK+'</button><span class="muted">Bấm 🔊 để nghe, rồi chọn từ đúng</span></div>'+
+    box.innerHTML=top+'<div class="g-prompt"><button class="say big-say" type="button" data-g="hear" aria-label="Listen">'+SPK+'</button><span class="muted">Tap 🔊, listen and choose the word.'+viT("Bấm 🔊 để nghe, rồi chọn từ đúng")+'</span></div>'+
       '<div class="g-opts txt">'+opts(q).map(function(w){return '<button class="g-opt" type="button" data-pick="'+esc(w[1])+'">'+esc(w[1])+'</button>'}).join("")+'</div>';
     /* Không tự đọc: chỉ đọc khi bấm nút 🔊. */
   } else if(G.type==="mean"){
-    box.innerHTML=top+'<div class="g-prompt"><span class="pic-q" aria-hidden="true">'+icon(q[0])+'</span><span class="g-vi">'+esc(q[2])+'</span></div>'+
+    box.innerHTML=top+'<div class="g-prompt"><span class="pic-q" aria-hidden="true">'+icon(q[0])+'</span><span class="muted">What is it?'+viT(q[2])+'</span></div>'+
       '<div class="g-opts txt">'+opts(q).map(function(w){return '<button class="g-opt" type="button" data-pick="'+esc(w[1])+'">'+esc(w[1])+'</button>'}).join("")+'</div>';
   } else {
-    box.innerHTML=top+'<div class="g-prompt"><span class="pic-q" aria-hidden="true">'+icon(q[0])+'</span><span class="g-vi">'+esc(q[2])+'</span><button class="say" type="button" data-g="hear" aria-label="Nghe">'+SPK+'</button></div>'+
-      '<form class="g-input" id="spForm"><input id="spIn" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Viết từ tiếng Anh" placeholder="'+esc(hint(q[1],0))+'"><button class="btn primary" type="submit">Kiểm tra</button><button class="btn" type="button" data-g="hint">💡 Gợi ý</button></form><div class="g-msg" id="spMsg"></div>';
+    box.innerHTML=top+'<div class="g-prompt"><span class="pic-q" aria-hidden="true">'+icon(q[0])+'</span>'+viT(q[2])+'<button class="say" type="button" data-g="hear" aria-label="Listen">'+SPK+'</button></div>'+
+      '<form class="g-input" id="spForm"><input id="spIn" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Write the word" placeholder="'+esc(hint(q[1],0))+'"><button class="btn primary" type="submit">Check</button><button class="btn" type="button" data-g="hint">💡 Help</button></form><div class="g-msg" id="spMsg"></div>';
     var inp=$("#spIn"); if(inp)inp.focus();
   }
 }
@@ -330,11 +334,11 @@ function check(){
   var q=G.qs[G.i], inp=$("#spIn"), msg=$("#spMsg"); if(!inp)return;
   if(norm(inp.value)===norm(q[1])){
     if(G.tries===0)G.score++;
-    inp.className="right"; msg.className="g-msg ok"; msg.textContent="✔ Đúng rồi!"; speak(q[1]);
+    inp.className="right"; msg.className="g-msg ok"; msg.textContent="✔ Correct!"; speak(q[1]);
     inp.disabled=true; setTimeout(function(){G.i++;showQ()},1200);
   } else {
     G.tries++; inp.className="wrong"; msg.className="g-msg bad";
-    msg.textContent=G.tries>=3?"Đáp án: "+q[1]+" (gõ lại nhé)":"Chưa đúng, thử lại nhé!";
+    msg.textContent=G.tries>=3?"Answer: "+q[1]+". Type it again!":"Not yet. Try again!";
     if(G.tries===2){inp.placeholder=hint(q[1],3)}
     inp.select();
   }
@@ -378,6 +382,7 @@ window.addEventListener("hashchange",function(){route();var m=$("#unit");if(m&&d
 </script>
 <script src="../assets/pin.js?v=20261127e"></script>
 <script src="../assets/voice.js?v=20261127bi"></script>
-<script src="../assets/kidnav.js?v=20261127bi"></script>
+<script src="../assets/bilingual.js?v=20261127vi16"></script>
+<script src="../assets/kidnav.js?v=20261127hw"></script>
 </body>
 </html>
