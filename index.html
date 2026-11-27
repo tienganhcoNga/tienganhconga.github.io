@@ -213,47 +213,52 @@ button{font:inherit;color:inherit}
    Parent = khối lớp, mỗi khối có các bài (lessons), mỗi bài có các chủ đề (topics).
    Thêm bài mới: thêm một mục vào "lessons" của khối tương ứng.
    - file: đường dẫn tới file bài học
-   - topics: [mã chủ đề trong bài (phần sau dấu #), tên hiển thị]
+   - en: tên tiếng Anh của bài, hiện làm tiêu đề nhóm trong bảng ☰ All của học sinh (assets/kidnav.js)
+   - topics: [mã chủ đề trong bài (phần sau dấu #), tên hiển thị, hình (emoji) hiện trong bảng ☰ All]
+     Lộ trình (lo-trinh) không cần hình: mục này dành cho cô, không hiện trong bảng ☰ All.
    - answers: true nếu bài có phần Đáp án (mục #answers trong bài) */
 const GRADES=[
  {id:'mau-giao',name:'Mầm non',c:'gold',note:'Học mà chơi, chơi mà học',lessons:[
-  {id:'gd1',ic:'🌱',name:'Giai đoạn 1: 3 tháng đầu',file:'mau-giao/giai-doan-1.html',answers:true,topics:[
-   ['lo-trinh','🗺️ Lộ trình 24 buổi'],['u1','Unit 1: Hello! Me & Feelings'],['u2','Unit 2: On the Farm'],['u3','Unit 3: Under the Sea'],['u4','Unit 4: My Body & Actions'],
-   ['u5','Unit 5: Rainbow Colors'],['u6',"Unit 6: Let's Count 1–10"],['u7','Unit 7: Move Like Me!'],['u8','Unit 8: Around My House']]},
-  {id:'gd2',ic:'🌳',name:'Giai đoạn 2: nói nhiều hơn',file:'mau-giao/giai-doan-2.html',answers:true,topics:[
-   ['lo-trinh','🗺️ Lộ trình 24 buổi'],['u1','Unit 1: My Family'],['u2','Unit 2: Yummy Food & Sweets'],['u3','Unit 3: Clothes & Weather'],['u4','Unit 4: School & My Friends'],
-   ['u5','Unit 5: Shapes & Sizes'],['u6','Unit 6: Superheroes!'],['u7','Unit 7: My Day'],['u8',"Unit 8: Let's Play Together"]]},
-  {id:'on-noi',ic:'🎤',name:'Ôn tập nói (Speaking)',file:'mau-giao/on-tap-noi.html',answers:true,topics:[
-   ['lo-trinh','🗺️ Cách ôn và lịch ôn'],['r1','Review 1: Stage 1 · Units 1–3'],['r2','Review 2: Stage 1 · Units 1–5'],['r3','Review 3: Stage 1 · Units 1–7'],['r4','Review 4: + Stage 2 · Unit 1'],
-   ['r5','Review 5: + Stage 2 · Units 1–3'],['r6','Review 6: + Stage 2 · Units 1–5'],['r7','Review 7: + Stage 2 · Units 1–7'],['r8','Big Show: all 16 units']]}]},
+  {id:'gd1',ic:'🌱',name:'Giai đoạn 1: 3 tháng đầu',en:'Stage 1',file:'mau-giao/giai-doan-1.html',answers:true,topics:[
+   ['lo-trinh','🗺️ Lộ trình 24 buổi'],['u1','Unit 1: Hello! Me & Feelings','😊'],['u2','Unit 2: On the Farm','🐄'],['u3','Unit 3: Under the Sea','🐳'],['u4','Unit 4: My Body & Actions','🦸'],
+   ['u5','Unit 5: Rainbow Colors','🌈'],['u6',"Unit 6: Let's Count 1–10",'🔢'],['u7','Unit 7: Move Like Me!','🤸'],['u8','Unit 8: Around My House','🧸']]},
+  {id:'gd2',ic:'🌳',name:'Giai đoạn 2: nói nhiều hơn',en:'Stage 2',file:'mau-giao/giai-doan-2.html',answers:true,topics:[
+   ['lo-trinh','🗺️ Lộ trình 24 buổi'],['u1','Unit 1: My Family','👪'],['u2','Unit 2: Yummy Food & Sweets','🍭'],['u3','Unit 3: Clothes & Weather','☔'],['u4','Unit 4: School & My Friends','🏫'],
+   ['u5','Unit 5: Shapes & Sizes','🔺'],['u6','Unit 6: Superheroes!','🦸'],['u7','Unit 7: My Day','⏰'],['u8',"Unit 8: Let's Play Together",'🤝']]},
+  {id:'on-noi',ic:'🎤',name:'Ôn tập nói (Speaking)',en:'Speaking',file:'mau-giao/on-tap-noi.html',answers:true,topics:[
+   ['lo-trinh','🗺️ Cách ôn và lịch ôn'],['r1','Review 1: Stage 1 · Units 1–3','🐮'],['r2','Review 2: Stage 1 · Units 1–5','🌈'],['r3','Review 3: Stage 1 · Units 1–7','🐳'],['r4','Review 4: + Stage 2 · Unit 1','🧸'],
+   ['r5','Review 5: + Stage 2 · Units 1–3','☀️'],['r6','Review 6: + Stage 2 · Units 1–5','🔺'],['r7','Review 7: + Stage 2 · Units 1–7','🦸'],['r8','Big Show: all 16 units','🏆']]}]},
  {id:'lop-1',name:'Lớp 1',c:'sky',note:'Tiếng Anh · Toán & Khoa học',lessons:[
-  {id:'giao-an',ic:'📚',name:'Giáo án lớp 1',file:'lop-1/giao-an-lop-1.html',answers:true,topics:[
-   ['lo-trinh','🗺️ Lộ trình cả năm'],['known','📒 Words I know'],['u1','Unit 1: In the school playground'],['u2','Unit 2: In the dining room'],['u3','Unit 3: At the street market'],['u4','Unit 4: In the bedroom'],
-   ['u5','Unit 5: At the fish and chip shop'],['u6','Unit 6: In the classroom'],['u7','Unit 7: In the garden'],['u8','Unit 8: In the park'],
-   ['u9','Unit 9: In the shop'],['u10','Unit 10: At the zoo'],['u11','Unit 11: At the bus stop'],['u12','Unit 12: At the lake'],
-   ['u13','Unit 13: In the school canteen'],['u14','Unit 14: In the toy shop'],['u15','Unit 15: At the football match'],['u16','Unit 16: At home'],
-   ['math1','Math 1: Basic shapes'],['math2','Math 2: Positions'],['math3','Math 3: Numbers and comparison'],['math4','Math 4: Addition and subtraction'],['math5','Math 5: Numbers to 100'],
-   ['sci1','Science 1: Plants'],['sci2','Science 2: Animal world'],['sci3','Science 3: Animal homes'],['sci4','Science 4: My body'],['sci5','Science 5: Foods and drinks'],['sci6','Science 6: Sky and weather'],
-   ['days','📅 Days and months'],
-   ['tales','Story Time: Fairy tales'],['speeches','Speeches: Animals']]},
-  {id:'on-noi',ic:'🎤',name:'Ôn tập nói (Speaking)',file:'lop-1/on-tap-noi.html',answers:true,topics:[
-   ['lo-trinh','🗺️ Cách ôn và lịch ôn'],['r1','Speaking 1: Units 1–3'],['r2','Speaking 2: Units 1–5'],['r3','Speaking 3: Units 1–7'],['r4','Speaking 4: Units 1–9'],
-   ['r5','Speaking 5: Units 1–11'],['r6','Speaking 6: Units 1–13'],['r7','Speaking 7: Units 1–15'],['r8','Big Show: all 16 units']]},
-  {id:'bai-tap',ic:'📝',name:'Bài tập về nhà',file:'lop-1/bai-tap-ve-nha.html',answers:true,topics:[
-   ['plan','Lịch làm bài 4 ngày'],['numbers','Numbers within ten'],['animals','Animal world'],['talk','Talk about an animal']]}]},
+  {id:'giao-an',ic:'📚',name:'Giáo án lớp 1',en:'Lessons',file:'lop-1/giao-an-lop-1.html',answers:true,topics:[
+   ['lo-trinh','🗺️ Lộ trình cả năm'],['known','📒 Words I know','📒'],['u1','Unit 1: In the school playground','🎠'],['u2','Unit 2: In the dining room','🍽️'],['u3','Unit 3: At the street market','🛒'],['u4','Unit 4: In the bedroom','🛏️'],
+   ['u5','Unit 5: At the fish and chip shop','🐟'],['u6','Unit 6: In the classroom','🏫'],['u7','Unit 7: In the garden','🌷'],['u8','Unit 8: In the park','🌳'],
+   ['u9','Unit 9: In the shop','🏬'],['u10','Unit 10: At the zoo','🦒'],['u11','Unit 11: At the bus stop','🚏'],['u12','Unit 12: At the lake','🏞️'],
+   ['u13','Unit 13: In the school canteen','🍜'],['u14','Unit 14: In the toy shop','🧸'],['u15','Unit 15: At the football match','⚽'],['u16','Unit 16: At home','🏠'],
+   ['math1','Math 1: Basic shapes','🔷'],['math2','Math 2: Positions','📍'],['math3','Math 3: Numbers and comparison','🔢'],['math4','Math 4: Addition and subtraction','➕'],['math5','Math 5: Numbers to 100','💯'],
+   ['sci1','Science 1: Plants','🌱'],['sci2','Science 2: Animal world','🐾'],['sci3','Science 3: Animal homes','🏞️'],['sci4','Science 4: My body','🧍'],['sci5','Science 5: Foods and drinks','🥗'],['sci6','Science 6: Sky and weather','🌈'],
+   ['days','📅 Days and months','📅'],
+   ['tales','Story Time: Fairy tales','🏰'],['speeches','Speeches: Animals','🎤']]},
+  {id:'on-noi',ic:'🎤',name:'Ôn tập nói (Speaking)',en:'Speaking',file:'lop-1/on-tap-noi.html',answers:true,topics:[
+   ['lo-trinh','🗺️ Cách ôn và lịch ôn'],['r1','Speaking 1: Units 1–3','🛒'],['r2','Speaking 2: Units 1–5','🍟'],['r3','Speaking 3: Units 1–7','🌷'],['r4','Speaking 4: Units 1–9','🎂'],
+   ['r5','Speaking 5: Units 1–11','🦒'],['r6','Speaking 6: Units 1–13','🏞️'],['r7','Speaking 7: Units 1–15','⚽'],['r8','Big Show: all 16 units','🌟']]},
+  {id:'bai-tap',ic:'📝',name:'Bài tập về nhà',en:'Homework',file:'lop-1/bai-tap-ve-nha.html',answers:true,topics:[
+   ['plan','Lịch làm bài 4 ngày','🗓️'],['numbers','Numbers within ten','🔢'],['animals','Animal world','🐾'],['talk','Talk about an animal','💬']]}]},
  {id:'lop-4',name:'Lớp 4',c:'jade',note:'Từ vựng 20 Unit · Ôn nói · Ôn thi IOE',lessons:[
-  {id:'units',ic:'📗',name:'Từ vựng & Lộ trình',file:'lop-4/units-lop-4.html',answers:false,topics:[
-   ['lo-trinh','🗺️ Lộ trình cả năm'],['tu-dien','📒 Tất cả từ vựng'],['s','Starter: Hello again!'],['u1','Unit 1: My friends'],['u2','Unit 2: Time and daily routines'],['u3','Unit 3: My week'],
-   ['u4','Unit 4: My birthday party'],['u5','Unit 5: Things we can do'],['u6','Unit 6: Our school facilities'],['u7','Unit 7: Our timetables'],['u8','Unit 8: My favourite subjects'],
-   ['u9','Unit 9: Our sports day'],['u10','Unit 10: Our summer holidays'],['u11','Unit 11: My home'],['u12','Unit 12: Jobs'],['u13','Unit 13: Appearance'],['u14','Unit 14: Daily activities'],
-   ['u15',"Unit 15: My family's weekends"],['u16','Unit 16: Weather'],['u17','Unit 17: In the city'],['u18','Unit 18: At the shopping centre'],['u19','Unit 19: The animal world'],['u20','Unit 20: At summer camp']]},
-  {id:'on-noi',ic:'🎤',name:'Ôn tập nói',file:'lop-4/on-tap-noi.html',answers:true,topics:[
-   ['lo-trinh','🗺️ Cách ôn và lịch ôn'],['r1','Speaking 1: Unit 1–3'],['r2','Speaking 2: Unit 1–5'],['r3','Speaking 3: Unit 1–7'],['r4','Speaking 4: Unit 1–9'],['r5','Speaking 5: Unit 1–11'],
-   ['r6','Speaking 6: Unit 1–13'],['r7','Speaking 7: Unit 1–15'],['r8','Speaking 8: Unit 1–17'],['r9','Speaking 9: Unit 1–19'],['r10','Big Show: cả 20 Unit']]},
-  {id:'tieng-anh',ic:'🔤',name:'Tiếng Anh IOE',file:'lop-4/tieng-anh-ioe.html',answers:true,topics:[
-   ['vocab','Từ vựng'],['grammar','Ngữ pháp'],['dates','Ngày & tháng'],['talk','Hội thoại'],['practice','Luyện đề'],['exam','Đề thi thử'],['copy','Tập chép'],['games','Game ôn thêm']]},
-  {id:'su-viet',ic:'🥁',name:'Sử Việt IOE',file:'lop-4/su-viet-ioe.html',answers:true,topics:[
-   ['timeline','Dòng thời gian'],['heroes','Đoán nhân vật'],['places','Địa danh'],['days','Ngày lễ'],['tips','Mẹo nhớ & từ vựng'],['quiz','Luyện đề 45 câu']]}]}];
+  {id:'units',ic:'📗',name:'Từ vựng & Lộ trình',en:'Units',file:'lop-4/units-lop-4.html',answers:false,topics:[
+   ['lo-trinh','🗺️ Lộ trình cả năm'],['tu-dien','📒 Tất cả từ vựng','📒'],['s','Starter: Hello again!','👋'],['u1','Unit 1: My friends','🌏'],['u2','Unit 2: Time and daily routines','⏰'],['u3','Unit 3: My week','📅'],
+   ['u4','Unit 4: My birthday party','🎂'],['u5','Unit 5: Things we can do','🎸'],['u6','Unit 6: Our school facilities','🏫'],['u7','Unit 7: Our timetables','🗓️'],['u8','Unit 8: My favourite subjects','⭐'],
+   ['u9','Unit 9: Our sports day','🏅'],['u10','Unit 10: Our summer holidays','🏖️'],['u11','Unit 11: My home','🏠'],['u12','Unit 12: Jobs','👩‍⚕️'],['u13','Unit 13: Appearance','🧑'],['u14','Unit 14: Daily activities','🧽'],
+   ['u15',"Unit 15: My family's weekends",'👨‍👩‍👧'],['u16','Unit 16: Weather','🌦️'],['u17','Unit 17: In the city','🚦'],['u18','Unit 18: At the shopping centre','🛍️'],['u19','Unit 19: The animal world','🦁'],['u20','Unit 20: At summer camp','⛺']]},
+  {id:'on-noi',ic:'🎤',name:'Ôn tập nói',en:'Speaking',file:'lop-4/on-tap-noi.html',answers:true,topics:[
+   ['lo-trinh','🗺️ Cách ôn và lịch ôn'],['r1','Speaking 1: Unit 1–3','🌏'],['r2','Speaking 2: Unit 1–5','🎂'],['r3','Speaking 3: Unit 1–7','🏫'],['r4','Speaking 4: Unit 1–9','🏅'],['r5','Speaking 5: Unit 1–11','🏖️'],
+   ['r6','Speaking 6: Unit 1–13','👩‍⚕️'],['r7','Speaking 7: Unit 1–15','🏡'],['r8','Speaking 8: Unit 1–17','🌦️'],['r9','Speaking 9: Unit 1–19','🦁'],['r10','Big Show: cả 20 Unit','🏆']]},
+  {id:'tieng-anh',ic:'🔤',name:'Tiếng Anh IOE',en:'IOE English',file:'lop-4/tieng-anh-ioe.html',answers:true,topics:[
+   ['vocab','Từ vựng','🔤'],['grammar','Ngữ pháp','🧩'],['dates','Ngày & tháng','📅'],['talk','Hội thoại','💬'],['practice','Luyện đề','✏️'],['exam','Đề thi thử','📝'],['copy','Tập chép','✍️'],['games','Game ôn thêm','🎮']]},
+  {id:'su-viet',ic:'🥁',name:'Sử Việt IOE',en:'IOE History',file:'lop-4/su-viet-ioe.html',answers:true,topics:[
+   ['timeline','Dòng thời gian','🕰️'],['heroes','Đoán nhân vật','🦸'],['places','Địa danh','🏯'],['days','Ngày lễ','🎉'],['tips','Mẹo nhớ & từ vựng','💡'],['quiz','Luyện đề 45 câu','❓']]}]}];
+
+/* Trang bài học (trong khung bên phải) đọc danh sách này để vẽ bảng ☰ All theo cả khối lớp */
+window.LOPHOC_GRADES=GRADES;
 
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
