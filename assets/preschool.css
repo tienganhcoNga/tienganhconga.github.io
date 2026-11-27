@@ -315,3 +315,20 @@ body.in-unit .nav{margin-top:12px}
 .speed button{font:inherit;font-weight:700;font-size:.9rem;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:3px 11px;cursor:pointer}
 .speed button:hover{border-color:var(--ink)}
 .speed button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+/* Lộ trình: bảng đối chiếu với sách học trên lớp */
+.bk-wrap{overflow-x:auto;margin-top:6px}
+.bk-tbl{width:100%;min-width:560px;border-collapse:collapse;font-size:.95rem}
+.bk-tbl th,.bk-tbl td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+.bk-tbl th{font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;opacity:.75}
+.bk-tbl td:first-child{white-space:nowrap;font-weight:700}
+.bk-tbl td:first-child a{color:inherit;text-decoration:none}
+.bk-tbl i{color:var(--accent)}
+/* Lộ trình: bài tập về nhà cho ba mẹ (kỹ thuật giúp bé nói sõi) */
+.hw h4{margin:16px 0 8px}
+.hw .part .ex{display:block;margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
+.hw .part .ex i,.hw-list i{color:var(--accent)}
+.hw-rules{margin:12px 0 0;padding-left:20px}
+.hw-rules li,.hw-list li{margin:4px 0}
+.hw-list{margin:8px 0 0;padding-left:20px}
+.hw-unit{border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-top:8px;background:var(--surface)}
+.hw-unit summary{cursor:pointer;font-weight:700}

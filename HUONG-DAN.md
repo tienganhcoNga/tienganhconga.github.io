@@ -9,7 +9,8 @@ lop-hoc/
 ├── assets/
 │   ├── pin.js              ← Khóa phần Đáp án bằng mã PIN (đổi mã PIN ở đây)
 │   ├── course.js / course.css       ← Phần chạy chung cho trang "Ôn 10 chủ đề" lớp 1
-│   ├── preschool.js / preschool.css ← Phần chạy chung cho lộ trình mẫu giáo (thẻ hình, hội thoại, trò chơi, cẩm nang)
+│   ├── preschool.js / preschool.css ← Phần chạy chung cho lộ trình mẫu giáo (thẻ hình, hội thoại, trò chơi, cẩm nang). Trang nào có `book:{title,note,rows}` thì Lộ trình hiện bảng đối chiếu với sách học trên lớp
+│   ├── pos-art.js          ← Hình vị trí dùng chung cho Mầm non: POS('in' | 'on' | 'under' | 'next to' | 'behind' | 'in front of' | 'table')
 │   └── speaking.js / speaking.css   ← Phần chạy chung cho các trang "Ôn tập nói" và "Giáo án lớp 1"
 ├── lop-1/
 │   ├── giao-an-lop-1.html  ← Giáo án lớp 1: 16 Unit giao tiếp theo chủ đề sách trên lớp (mỗi Unit một chữ cái, 2 bài nói), Math / Science (tiếng Anh cho Toán – Khoa học), Story Time (5 truyện cổ tích), 8 bài nói về con vật (Easy / Challenge). Đã lọc bỏ mẫu câu vượt lớp 1. Menu Lớp 1 chỉ còn: Giáo án, Ôn tập nói, Bài tập về nhà
@@ -25,8 +26,13 @@ lop-hoc/
 └── mau-giao/
     ├── giai-doan-1.html    ← Lộ trình 3 tháng đầu cho bé mới bắt đầu: 8 Unit, 24 buổi (#lo-trinh, #u1…#u8, #answers = cẩm nang)
     ├── giai-doan-2.html    ← Giai đoạn 2 (tháng 4–6): 8 Unit khó hơn, nhiều hội thoại
+    ├── giai-doan-3.html    ← Giai đoạn 3 (tháng 7–10, 10 Unit): vị trí, chỉ đường, to – nhỏ, dài – ngắn, đẹp – xấu, ngon – dở, các vị, nóng – lạnh và thời tiết, bốn mùa; Unit 10 tìm kho báu ôn cả giai đoạn
     ├── on-tap-noi.html     ← Ôn tập nói: GĐ1 + GĐ2 tính liền 16 Unit, ôn sau Unit 3, 5, 7, 9, 11, 13, 15 và Big Show sau Unit 16. Mỗi bài ôn có thêm tab "Speech": bài thuyết trình mẫu có tranh vẽ tay (tranh nằm ở assets/speech-art.js, dùng trong câu bằng DZ.tên_tranh)
     └── english-speeches.html ← Bản bài nói cũ (đã bỏ khỏi menu; bài nói nay nằm trong mục 4 "Bé thuyết trình" của từng Unit)
+
+Cả 3 giai đoạn Mầm non có bảng **Đối chiếu với sách học trên lớp** trong 🗺️ Lộ trình (dòng `book:` trên đầu file trang): mỗi Unit của bé nối với Unit/Lesson tương ứng của sách Level 1 và ghi giới từ lồng vào. Giới từ dạy dần: in, on (GĐ1 Unit 2) → under (Unit 3) → ôn cả ba (Unit 8) → behind, next to, in front of (GĐ2 Unit 1, 4, 5) → đủ 6 giới từ và chỉ đường (GĐ3). Trên trang chỉ ghi "sách học trên lớp", không ghi tên sách.
+
+Bài tập về nhà cho ba mẹ (Mầm non): Lộ trình mỗi giai đoạn có khối **🏠 Bài tập về nhà** gồm 4 kỹ thuật giúp bé nói sõi (mở rộng câu, tạo tình huống cần nói, câu hỏi lựa chọn, đọc sách tranh trước khi ngủ) và 3 kỹ thuật thêm (tường thuật, làm quá với đồ thật, nói theo cụm). Ví dụ riêng cho từng Unit nằm ở dòng `hw:{e,s,c,b,x}` ngay trên `guide:` của Unit: `e` [bé nói, ba mẹ mở rộng], `s` [tình huống, câu bé nói], `c` [câu hỏi lựa chọn, bé trả lời], `b` [hỏi khi đọc tranh, bé trả lời], `x` từ dùng thêm ở nhà. Phần này hiện ở Lộ trình và trong Cẩm nang.
 
 Mỗi Unit mẫu giáo có mục "4. Bé thuyết trình". Nội dung bài nói nằm ở dòng `speech:{...}` ngay dưới `talk:` của Unit đó: `t` là tên bài, `intro` là câu mở đầu, `lines` là các câu (hình, câu tiếng Anh, nghĩa), `end` là câu kết. Từ nào muốn làm từ khóa (còn hiện khi bé tự nói) thì bọc trong `<b>…</b>`.
 

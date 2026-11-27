@@ -77,6 +77,11 @@
     var S = P.sessionParts, total = P.units.length * S.length, perWeek = 2, weeks = total / perWeek;
     var h = '<div class="v-head"><span class="v-ic" aria-hidden="true">🗺️</span><div><span class="v-n">' + esc(P.phase) + "</span><h2>Lộ trình " + esc(P.span) + '</h2><span class="v-vi">' + weeks + " tuần · " + total + " buổi · mỗi tuần 2 buổi · mỗi buổi 30–45 phút</span></div></div>";
     h += '<div class="block"><h3>Mục tiêu sau giai đoạn này</h3><ul class="goals">' + P.goals.map(function (g) { return "<li>" + esc(g) + "</li>"; }).join("") + "</ul></div>";
+    /* Đối chiếu với sách học trên lớp (nếu trang có P.book): mỗi dòng [mã Unit, phần sách tương ứng, giới từ và mẫu câu lồng vào] */
+    if (P.book) h += '<div class="block book"><h3>📘 ' + esc(P.book.title) + "</h3>" + (P.book.note ? '<p class="muted">' + P.book.note + "</p>" : "") +
+      '<div class="bk-wrap"><table class="bk-tbl"><thead><tr><th>Unit của bé</th><th>Sách học trên lớp</th><th>📍 Giới từ và mẫu câu lồng vào</th></tr></thead><tbody>' +
+      P.book.rows.map(function (r) { var u = unitById(r[0]); return '<tr><td><a href="#' + r[0] + '">' + (u ? u.ic + " " + esc(u.n) + ": " + esc(u.en) : esc(r[0])) + "</a></td><td>" + r[1] + "</td><td>" + r[2] + "</td></tr>"; }).join("") +
+      "</tbody></table></div>" + (P.book.after ? '<p class="muted" style="margin-top:8px">' + P.book.after + "</p>" : "") + "</div>";
     h += '<div class="block"><h3>Khung một buổi học</h3><p class="muted">Buổi 30 phút bỏ bớt phần có dấu *. Buổi 45 phút làm đủ.</p><div class="plan">' +
       P.lessonPlan.map(function (s) { return '<div class="step" style="--w:' + s[0] + '"><div class="mins">' + s[0] + "′" + (s[3] ? "*" : "") + '</div><div><b>' + esc(s[1]) + "</b><small>" + esc(s[2]) + "</small></div></div>"; }).join("") + "</div></div>";
     h += '<div class="block"><h3>Mỗi Unit học trong 3 buổi</h3><div class="parts">' + S.map(function (s, i) { return '<div class="part"><span class="pl">Buổi ' + "ABC"[i] + "</span><b>" + esc(s[0]) + "</b><small>" + esc(s[1]) + "</small></div>"; }).join("") + "</div></div>";
@@ -86,6 +91,7 @@
        ["3. Say it alone", "Tự nói", "Chữ được ẩn, chỉ còn hình và từ khóa. Bé nhìn hình để nói. Bấm vào tờ giấy để xem gợi ý."], ["4. On stage!", "Lên sân khấu", "Bé tự bấm Next để nói từng câu. Hết bài cả lớp vỗ tay. Có thể tick “Record my voice” để bé nghe lại giọng mình."]]
         .map(function (x) { return '<div class="part"><span class="pl">' + x[0] + "</span><b>" + x[1] + "</b><small>" + x[2] + "</small></div>"; }).join("") +
       '</div><p class="muted" style="margin-top:8px">Gõ tên bé vào ô “My name” một lần, bài nói sẽ tự điền “My name is …”.</p></div>';
+    if (P.units.some(function (u) { return u.hw; })) h += homework();
     var k = 0, months = Math.ceil(weeks / 4);
     for (var m = 0; m < months; m++) {
       h += '<div class="block month"><h3>Tháng ' + (P.monthStart + m) + "</h3><div class='weeks'>";
@@ -101,6 +107,41 @@
     }
     if (P.next) h += '<div class="block next"><b>' + esc(P.next.text) + '</b> <a class="btn primary" target="_top" href="' + P.next.href + '">' + esc(P.next.label) + "</a></div>";
     return h;
+  }
+
+  /* ---------- bài tập về nhà: kỹ thuật giúp bé nói sõi (ba mẹ làm cùng con) ----------
+     Mỗi Unit ghi hw:{e:[bé nói, ba mẹ mở rộng], s:[tình huống, câu bé nói], c:[câu hỏi lựa chọn, bé trả lời], b:[hỏi khi đọc tranh, bé trả lời], x:"từ dùng thêm ở nhà"} */
+  var HW_TECH = [
+    ["1", "🗣️ Mở rộng câu", "Bé nói một từ, ba mẹ nhắc lại và thêm 1–2 từ thành câu. Không chê bé nói thiếu, không bắt bé nói lại.", "Bé: <i>Dog!</i> → Ba mẹ: <i>Yes! A big dog. The dog is running!</i> Bé nói tiếng Việt “Chó!” cũng được: <i>Yes, a dog! Woof woof!</i>"],
+    ["2", "🎁 Tạo tình huống cần nói", "Đừng phục vụ bé quá nhanh. Cố tình thiếu một thứ rồi chờ 5 giây để bé mở lời. Bé chưa nói được thì ba mẹ nói mẫu, chờ bé nhắc lại rồi mới đưa.", "Đưa bát cơm nhưng không đưa thìa: <i>What do you need?</i> → Bé: <i>Spoon, please!</i>"],
+    ["3", "✌️ Câu hỏi lựa chọn", "Thay vì hỏi mở (<i>What do you want?</i>), đưa ra 2 lựa chọn: từ bé cần nói đã nằm sẵn trong câu hỏi.", "<i>Banana or apple?</i> → <i>Banana, please!</i>"],
+    ["4", "📚 Đọc sách tranh trước khi ngủ", "10 phút, không cần đọc hết chữ. Chỉ vào tranh và hỏi. Trẻ 2–5 tuổi học từ qua tranh nhanh hơn nhiều so với chỉ nghe nói.", "<i>What is it? What is the bear doing? Where is the rabbit? – It's under the tree!</i>"]];
+  var HW_MORE = [
+    ["🎙️", "Tường thuật", "Ba mẹ “bình luận” việc bé đang làm bằng câu ngắn. Bé không cần trả lời, chỉ cần được nghe đi nghe lại.", "<i>You're washing your hands. Wash, wash! Now they're clean!</i>"],
+    ["🍌", "Làm quá và dùng đồ thật", "Nét mặt, động tác thật to; cho bé cầm, ngửi, nếm đồ thật.", "Quả chuối: <i>Peel it! Smell it! Take a big bite! It's soft and sweet. Yummy!</i>"],
+    ["🧩", "Nói theo cụm", "Ghép Danh từ + Động từ + Tính từ thay vì dạy từng từ rời.", "<i>a yellow banana · peel the banana · it's soft</i>"]];
+  function hwItems(u) {
+    var x = u.hw, q = function (t) { return "“<i>" + esc(t) + "</i>”"; };
+    return '<ul class="hw-list">' +
+      "<li><b>🗣️ Mở rộng câu:</b> Bé: " + q(x.e[0]) + " → Ba mẹ: " + q(x.e[1]) + "</li>" +
+      "<li><b>🎁 Tạo tình huống:</b> " + esc(x.s[0]) + " Chờ 5 giây → bé nói: " + q(x.s[1]) + "</li>" +
+      "<li><b>✌️ Câu hỏi lựa chọn:</b> " + q(x.c[0]) + " → " + q(x.c[1]) + "</li>" +
+      "<li><b>📚 Đọc tranh trước khi ngủ:</b> " + q(x.b[0]) + " → " + q(x.b[1]) + "</li>" +
+      (x.x ? "<li><b>🏠 Từ dùng thêm ở nhà (đồ thật):</b> <i>" + esc(x.x) + "</i></li>" : "") + "</ul>";
+  }
+  function homework() {
+    var card = function (pl, t, d, ex) { return '<div class="part"><span class="pl">' + pl + "</span><b>" + t + "</b><small>" + d + '</small><small class="ex">' + ex + "</small></div>"; };
+    return '<div class="block hw" id="hw"><h3>🏠 Bài tập về nhà: ba mẹ giúp con nói sõi</h3>' +
+      "<p>Bé học với cô 2 buổi một tuần. Nói sõi là nhờ ba mẹ nói cùng con <b>10–15 phút mỗi ngày</b>, chia nhỏ vào giờ ăn, giờ tắm và trước khi ngủ. Ba mẹ không cần giỏi tiếng Anh: dùng đúng câu trong bài, bấm loa trên web để nghe mẫu.</p>" +
+      "<h4>4 kỹ thuật vàng</h4><div class=\"parts\">" + HW_TECH.map(function (t) { return card("Kỹ thuật " + t[0], t[1], t[2], t[3]); }).join("") + "</div>" +
+      "<h4>Thêm 3 kỹ thuật từ giờ học của cô</h4><div class=\"parts\">" + HW_MORE.map(function (t) { return card(t[0], t[1], t[2], t[3]); }).join("") + "</div>" +
+      '<ul class="hw-rules"><li>Cứ 3–5 phút cho bé đứng dậy vận động: chạy đi lấy đồ, nhảy, vỗ tay.</li>' +
+      "<li>Khen ngay khi bé mở lời (<i>Good job!</i>). Không sửa lỗi giữa chừng, chỉ nhắc lại câu đúng một lần như kỹ thuật 1.</li>" +
+      "<li>Web chỉ để nghe mẫu và chơi 5–10 phút. Phần còn lại là nói chuyện thật với đồ thật.</li></ul>" +
+      "<h4>Bài tập theo từng Unit</h4><p class=\"muted\">Mỗi Unit có một ví dụ cho từng kỹ thuật, dùng đúng từ bé đang học.</p>" +
+      P.units.filter(function (u) { return u.hw; }).map(function (u) {
+        return '<details class="hw-unit"><summary>' + u.ic + " " + esc(u.n) + ": " + esc(u.en) + "</summary>" + hwItems(u) + "</details>";
+      }).join("") + "</div>";
   }
 
   var VI = /[ăâđêôơưàáảãạằắẳẵặầấẩẫậèéẻẽẹềếểễệìíỉĩịòóỏõọồốổỗộờớởỡợùúủũụừứửữựỳýỷỹỵ]/i;
@@ -598,6 +639,7 @@
           '<div class="gcols"><div><h4>✅ Đáp án nhanh</h4><ul>' + g.answers.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul></div>" +
           '<div><h4>🏠 Kịch bản 2 phút ở nhà</h4><ul>' + g.home.map(function (x) { return "<li>" + x + "</li>"; }).join("") +
             (u.speech ? "<li>🎤 Mỗi tối bé nói bài <i>" + esc(u.speech.t) + "</i> (mục 4 của bài) cho cả nhà nghe. Ba mẹ làm khán giả, vỗ tay thật to sau mỗi lần nói.</li>" : "") + "</ul></div>" +
+          (u.hw ? '<div><h4>🏠 Bài tập về nhà: 4 kỹ thuật</h4>' + hwItems(u) + '<p class="muted"><a href="#lo-trinh">Cách làm từng kỹ thuật: xem Lộ trình</a></p></div>' : "") +
           '<div><h4>🗣️ Mẹo phát âm</h4><ul>' + g.tips.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul></div></div>" +
           meaningBox(u) + "</div>";
       }).join("");

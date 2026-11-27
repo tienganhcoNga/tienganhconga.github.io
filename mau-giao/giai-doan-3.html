@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="vi" data-grade="mau-giao">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tiếng Anh mẫu giáo: giai đoạn 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/course.css?v=20261127d">
+<link rel="stylesheet" href="../assets/preschool.css?v=20261127hw">
+<style>:root{--accent:var(--jade);--accent-soft:var(--jade-soft)}</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Mầm non · Giai đoạn 3 · Ở đâu? To hay nhỏ? Nóng hay lạnh?</div>
+    <h1 id="pTitle"></h1>
+    <p class="lead" id="pLead"></p>
+    <div class="stats" id="pStats"></div>
+  </header>
+</div>
+<nav class="nav" aria-label="Các phần"><div class="wrap" id="units"><a class="home" href="../index.html">← Trang chủ</a></div></nav>
+<main class="wrap" id="view"></main>
+<div class="wrap"><footer><a href="../index.html">← Về trang chủ</a></footer></div>
+
+<script src="../assets/pos-art.js?v=20261127b"></script>
+<script>
+window.PRESCHOOL={
+ title:'Tiếng Anh cho bé <span>giai đoạn 3</span>',
+ lead:'Sau 6 tháng. Bé nói vị trí (in, on, under…), chỉ đường (left, right, go straight), so sánh to – nhỏ, dài – ngắn, đẹp – xấu, kể vị của đồ ăn (ngọt, chua, mặn, đắng, cay), nói nóng – lạnh, thời tiết và bốn mùa.',
+ phase:'Giai đoạn 3', span:'tháng 7 đến tháng 10', monthStart:7,
+ stats:[['10','bài'],['30','buổi'],['4','tháng'],['~90','từ mới']],
+ chars:['🦸','👧','🧒'],
+ goals:[
+  'Hỏi và trả lời đồ vật ở đâu: Where is the ball? – It\'s under the table.',
+  'Làm theo và ra lệnh chỉ đường: Turn left! Go straight! Stop!',
+  'So sánh kích thước: The elephant is big. The mouse is small. The snake is long.',
+  'Nhận xét đẹp – xấu, sạch – bẩn, mới – cũ một cách lịch sự: What a pretty flower!',
+  'Nói ngon – dở, thích – không thích: Yummy! I like it. / Yucky! I don\'t like it.',
+  'Kể vị đồ ăn: Candy is sweet. Lemons are sour. Chili is spicy!',
+  'Nói thời tiết và nóng, lạnh: What\x27s the weather like? It\x27s sunny and hot. It\x27s cold!',
+  'Gọi tên 4 mùa và việc làm theo mùa: In summer, I swim. In winter, I wear my coat.',
+  'Thêm khoảng 90 từ mới, cả ba giai đoạn khoảng 235 từ.'],
+ lessonPlan:[
+  [4,'Chào và chuyện đầu giờ','How are you? Bé kể 1 câu: Where is your bag? – It\'s on my chair!'],
+  [5,'Hát và vận động','Bài hát của bài hoặc trò "Robot says" (Turn left! Hands up!).',true],
+  [4,'Ôn bài cũ','Hỏi nhanh từ và câu của bài trước, bé trả lời cả câu.'],
+  [8,'Từ mới','8–10 từ, dùng đồ thật: quả bóng và cái hộp, quả chanh, viên kẹo… Bé làm động tác cho từng từ.'],
+  [6,'Hội thoại đóng vai','Nghe hội thoại, chia vai nói lại, rồi đổi đồ vật để bé tự nói câu mới.'],
+  [6,'Trò chơi trên web','Trò chơi của bài và trò tình huống "Bé nói gì?".'],
+  [10,'Bé thuyết trình','Mục 4 của bài: nghe mẫu, nói theo, tự nói nhìn hình, rồi từng bé lên sân khấu nói cả bài.',true],
+  [2,'Tạm biệt','See you next time! Bé nhận sao thưởng ⭐.']],
+ sessionParts:[
+  ['Từ mới','8–10 từ, dùng đồ thật và vận động.'],
+  ['Hội thoại và trò chơi','Nghe hội thoại, chia vai nói lại, chơi trò chơi của bài.'],
+  ['Giao tiếp và thuyết trình','Trò tình huống, hỏi đáp theo cặp. Tập bài nói ở mục 4 rồi từng bé lên sân khấu nói cả bài.']],
+ next:null,
+ book:{title:"Đối chiếu với sách học trên lớp (Level 1)",note:"Bảng nối mỗi Unit của bé với phần tương ứng trong sách tiếng Anh bé học trên lớp (Level 1: Welcome và 8 Unit, mỗi Unit 4 Lesson). Giới từ được lồng từ sớm, mỗi lần thêm một chút: <i>in, on</i> (Giai đoạn 1, Unit 2) → <i>under</i> (Unit 3) → ôn cả ba (Unit 8) → <i>behind, next to, in front of</i> (Giai đoạn 2) → đủ 6 giới từ và chỉ đường (Giai đoạn 3). Khi trên lớp học đến Unit 6 <i>(Where is the monkey? It's on the rock.)</i>, bé đã quen giới từ.",rows:[
+  ["u1","Unit 6 The Zoo Lesson 1–2: <i>The monkey is in the tree. Where is the monkey? It's on the rock. Where are the snakes? They're on the rock.</i>","Đủ 6 giới từ: <i>in, on, under, next to, behind, in front of</i>"],
+  ["u2","Sách Level 1 chưa có chỉ đường. Dùng các lệnh trong lớp (<i>listen, point, count, ask, answer</i>) làm trò Robot says.","<i>left, right, up, down, go straight, turn around</i>"],
+  ["u3","Unit 8 The Toy Store Lesson 1: <i>old, new, big, small, long, short</i> · Unit 6: <i>elephant, giraffe, penguin</i>","Ghép tính từ với giới từ: <i>The big elephant is next to the small mouse.</i>"],
+  ["u4","Unit 8 Lesson 1: <i>long, short. That's an old bike. What's that?</i>","<i>The long snake is on the rock.</i>"],
+  ["u5","Unit 8 Lesson 1: <i>old, new. Those are new bikes.</i> · Unit 2 Lesson 3: Be nice","<i>The pretty flower is in the vase.</i>"],
+  ["u6","Unit 4 Lesson 2, 4: <i>I like juice. I don't like juice. What's this? This is pizza. I like pizza.</i>","<i>The pizza is on the table.</i>"],
+  ["u7","Mở rộng Unit 4 (đồ ăn). Sách Level 1 chưa có các vị. Unit 8 Lesson 2 có thêm <i>fast, slow, noisy, quiet</i>: cô dạy thêm khi bé đã vững.","<i>The lemon is in the bowl.</i>"],
+  ["u8","Sách Level 1 chưa có thời tiết. Ôn <i>hot, cold</i> (đồ ăn, Unit 4) và câu hỏi <i>What's this?</i> để dạy <i>What's the weather like?</i>","<i>in</i> + buổi trong ngày và nơi chốn: <i>in the morning, in the afternoon, in Sa Pa</i>"],
+  ["u9","Sách Level 1 chưa có các mùa. Bài mở rộng, chuẩn bị cho lớp trên.","<i>in</i> + mùa: <i>in spring, in summer, in autumn, in winter</i>"],
+  ["u10","Ôn cả sách: Unit 5 (<i>tree, rock, river, hill, lake; I can see a flower</i>), Unit 6 (<i>in, on</i>), Unit 8 (<i>big, small, long, short</i>)","Giới từ và chỉ đường: <i>Go straight to the big tree. It's under the bridge.</i>"]]},
+ units:[
+
+ /* ===================== Unit 1: vị trí ===================== */
+ {id:'u1',n:'Unit 1',en:'Where Is It?',vi:'Ở đâu? Trong, trên, dưới, cạnh, sau, trước',ic:'📦',review:'đồ chơi: Where is my teddy bear?',
+  words:[[POS('in'),'in','ở trong','','Where?'],[POS('on'),'on','ở trên','','Where?'],[POS('under'),'under','ở dưới','','Where?'],[POS('next to'),'next to','bên cạnh','','Where?'],[POS('behind'),'behind','ở phía sau','','Where?'],[POS('in front of'),'in front of','ở phía trước','','Where?'],
+   ['📦','box','cái hộp','','Things'],[POS('table'),'table','cái bàn','','Things'],['❓','where','ở đâu','','Things']],
+  talk:[['Where is the ball?','Quả bóng ở đâu?',0],["It's in the box!",'Nó ở trong hộp!',2],['Where is the teddy bear?','Gấu bông ở đâu?',0],["It's under the table.",'Nó ở dưới gầm bàn.',2],['Where is the cat?','Con mèo ở đâu?',1],["It's behind the box. Hello, cat!",'Nó ở sau cái hộp. Chào mèo!',2]],
+  song:{t:"Where Is the Ball?",verses:[
+   {ic:'📦⚽',cue:['📦 Hands make a box!','Hai tay làm cái hộp'],lines:['Where is the <b>ball</b>? Where is the <b>ball</b>?','It\'s <b>in</b> the box! It\'s <b>in</b> the box!'],vi:'Quả bóng đâu rồi? Nó ở trong hộp!'},
+   {ic:'⬆️⚽',cue:['🙌 Hands up high!','Giơ tay lên cao'],lines:['Where is the <b>ball</b>? Where is the <b>ball</b>?','It\'s <b>on</b> the box! It\'s <b>on</b> the box!'],vi:'Quả bóng đâu rồi? Nó ở trên hộp!'},
+   {ic:'⬇️⚽',cue:['👇 Touch the floor!','Chạm tay xuống sàn'],lines:['Where is the <b>ball</b>? Where is the <b>ball</b>?','It\'s <b>under</b> the table! <b>Under</b> the table!'],vi:'Quả bóng đâu rồi? Nó ở dưới gầm bàn!'},
+   {ic:'🙈⚽',cue:['🙈 Hide behind your hands!','Lấy tay che mặt rồi ló ra'],lines:['Where is the <b>ball</b>? Where is the <b>ball</b>?','It\'s <b>behind</b> the box! Peekaboo!'],vi:'Quả bóng đâu rồi? Nó ở sau cái hộp! Ú òa!'}]},
+  speech:{t:"Where Is My Teddy?",intro:["Today, I will show you where my toys are!","Hôm nay tớ sẽ chỉ cho mọi người đồ chơi của tớ ở đâu!"],lines:[[POS('in'),"My ball is <b>in</b> the box.","Quả bóng của tớ ở trong hộp."],[POS('on'),"My car is <b>on</b> the box.","Ô tô của tớ ở trên hộp."],[POS('under'),"My teddy bear is <b>under</b> the table.","Gấu bông của tớ ở dưới gầm bàn."],[POS('next to'),"My doll is <b>next to</b> the box.","Búp bê của tớ ở bên cạnh cái hộp."],[POS('behind'),"Where is my cat? It's <b>behind</b> the box!","Con mèo của tớ đâu? Nó ở sau cái hộp!"],[POS('in front of'),"And I am <b>in front of</b> you!","Còn tớ thì ở ngay trước mặt mọi người!"]],end:["I can find my toys!","Tớ tìm được đồ chơi của tớ rồi!"]},
+  games:[{type:'pick',name:"🎧 Where is the ball?",prompt:"It's {w} the box.",only:[0,1,3,4,5],options:3,after:"Yes! {w} the box!"},
+   {type:'phrase',name:"💬 Where is it?",items:[
+    {pic:'🧸🛏️',vi:'Gấu bông nằm dưới gầm giường. Cô hỏi gấu ở đâu.',en:"Where is the teddy bear?",o:[['⬇️',"It's under the bed."],['🔝',"It's on the bed."],['📦',"It's in the box."]],a:0},
+    {pic:'🐱📦',vi:'Con mèo chui vào trong hộp.',en:"Where is the cat?",o:[['📦',"It's in the box."],['⬇️',"It's under the table."],['🌳',"It's behind the tree."]],a:0},
+    {pic:'📕🪑',vi:'Quyển sách để trên ghế.',en:"Where is the book?",o:[['🔝',"It's on the chair."],['⬇️',"It's under the chair."],['🎒',"It's in my bag."]],a:0},
+    {pic:'🔎❓',vi:'Bé không tìm thấy giày. Bé hỏi mẹ.',en:"You can't find your shoes. Ask Mom.",o:[['❓','Mom, where are my shoes?'],['😋',"I'm hungry."],['👋','Bye bye!']],a:0}]}],
+  hw:{"e":["Box!","Yes! The ball is in the box!"],"s":["Giả vờ không tìm thấy điều khiển TV (đang ở dưới gối), hỏi bé.","It's under the pillow!"],"c":["In or on?","On!"],"b":["Where is the rabbit?","Behind the tree!"],"x":"pillow, sofa, find, behind, in front of"},
+  guide:{answers:['Quả bóng ở đâu: nghe câu → bấm hình đúng vị trí (in: bóng ló ra khỏi hộp; on: trên nắp hộp; next to: cạnh hộp; behind: sau hộp, bị che một nửa; in front of: trước hộp).','Ở đâu: gấu dưới giường → <i>It\'s under the bed.</i>; mèo trong hộp → <i>It\'s in the box.</i>; sách trên ghế → <i>It\'s on the chair.</i>; không thấy giày → <i>Mom, where are my shoes?</i>'],
+   home:["Chơi trốn đồ: ba mẹ giấu gấu bông, bé hỏi <i>Where is Teddy?</i> rồi tìm và nói <i>It's under the bed!</i>","Lúc dọn đồ: <i>Put the ball in the box. Put the book on the table.</i>","Mỗi sáng hỏi: <i>Where is your bag? – It's on the chair!</i>"],
+   tips:["<i>Under</i>: âm đầu /ʌ/ như \"ă\" ngắn, không đọc \"un-đơ\".","<i>Behind</i>: nhấn âm sau: bi-HAIND.","<i>It's</i>: nhớ âm /s/ ở cuối: \"its\"."]}},
+
+ /* ===================== Unit 2: phương hướng ===================== */
+ {id:'u2',n:'Unit 2',en:'Left and Right!',vi:'Phương hướng: trái, phải, lên, xuống, đi thẳng',ic:'🧭',review:'vị trí: It\'s under the table.',
+  words:[['⬅️','left','bên trái','','Directions'],['➡️','right','bên phải','','Directions'],['⬆️','up','lên','','Directions'],['⬇️','down','xuống','','Directions'],['🚶','go straight','đi thẳng','','Directions'],['🔄','turn around','quay một vòng','','Directions'],
+   ['🟢','go','đi','','Go and stop'],['🛑','stop','dừng lại','','Go and stop'],['👇','here','ở đây','','Go and stop'],['👉','there','ở đằng kia','','Go and stop']],
+  talk:[['Robot, go straight!','Rô-bốt ơi, đi thẳng!',0],['Beep! Go straight!','Bíp! Đi thẳng!',2],['Turn left!','Rẽ trái!',0],['Beep! Turn left!','Bíp! Rẽ trái!',2],['Stop! The cake is here!','Dừng lại! Bánh ở đây này!',1],['Yummy! Thank you!','Ngon quá! Cảm ơn!',2]],
+  song:{t:"Left and Right",verses:[
+   {ic:'✋⬅️',cue:['⬅️ Wave your left hand!','Vẫy tay trái'],lines:['This is my <b>left</b> hand, wave, wave, wave!','This is my <b>left</b> hand, wave, wave, wave!'],vi:'Đây là tay trái, vẫy vẫy vẫy!'},
+   {ic:'✋➡️',cue:['➡️ Wave your right hand!','Vẫy tay phải'],lines:['This is my <b>right</b> hand, wave, wave, wave!','This is my <b>right</b> hand, wave, wave, wave!'],vi:'Đây là tay phải, vẫy vẫy vẫy!'},
+   {ic:'🙌⬆️',cue:['🙌 Hands up! Hands down!','Giơ tay lên rồi hạ xuống'],lines:['Hands <b>up</b>! Hands <b>down</b>!','<b>Turn around</b> and sit down!'],vi:'Giơ tay lên! Hạ tay xuống! Quay một vòng rồi ngồi xuống!'}]},
+  speech:{t:"Robot Game",intro:["Today, I am a robot! Beep beep!","Hôm nay tớ là rô-bốt! Bíp bíp!"],lines:[["🚶","I <b>go straight</b>. One, two, three!","Tớ đi thẳng. Một, hai, ba!"],["⬅️","I turn <b>left</b>.","Tớ rẽ trái."],["➡️","I turn <b>right</b>.","Tớ rẽ phải."],["⬆️","Hands <b>up</b>! Hands <b>down</b>!","Giơ tay lên! Hạ tay xuống!"],["🔄","I <b>turn around</b>.","Tớ quay một vòng."],["🛑","<b>Stop</b>! I'm <b>here</b>!","Dừng lại! Tớ ở đây rồi!"]],end:["Beep beep! I'm a good robot!","Bíp bíp! Tớ là rô-bốt ngoan!"]},
+  games:[{type:'simon',name:'🤖 Robot says!',says:'Robot says',cmds:[['⬅️','Turn left!','Quay sang trái'],['➡️','Turn right!','Quay sang phải'],['🙌','Hands up!','Giơ tay lên'],['👇','Hands down!','Hạ tay xuống'],['🔄','Turn around!','Quay một vòng'],['🚶','Go straight!','Đi thẳng'],['🛑','Stop!','Dừng lại'],['👈','Point left!','Chỉ sang trái'],['👉','Point right!','Chỉ sang phải'],['⬆️','Jump up!','Nhảy lên']]},
+   {type:'pick',name:"🎧 Which way?",prompt:'{w}!',only:[0,1,2,3,4,5,6,7],options:3,after:'{w}!'}],
+  hw:{"e":["Left!","Yes! Turn left. This is your left hand!"],"s":["Đi bộ đến ngã rẽ, mẹ dừng lại hỏi bé đi đường nào.","Turn right!"],"c":["Left or right?","Right!"],"b":["Which way is the dog going?","Left!"],"x":"go straight, stop, here, there"},
+  guide:{answers:['Robot says: không có đáp án. Bé chỉ làm khi máy nói "Robot says…". Cô xem bé quay đúng trái, phải chưa (đứng cùng hướng với bé để bé không bị ngược).','Hướng nào: nghe từ → bấm mũi tên (left ⬅️, right ➡️, up ⬆️, down ⬇️, go straight 🚶, turn around 🔄, go 🟢, stop 🛑).'],
+   home:["Đeo vòng hoặc dán sticker vào tay trái để bé nhớ <i>left</i>.","Đi bộ cùng bé, đến ngã rẽ hỏi: <i>Left or right?</i>","Chơi rô-bốt: bé ra lệnh <i>Go straight! Turn left! Stop!</i> để ba mẹ đi đến chỗ giấu kẹo."],
+   tips:["<i>Left</i>: âm /l/ đầu và cuối là /ft/, không đọc \"lép\".","<i>Right</i>: /r/ cong lưỡi, không rung, cuối có /t/ nhẹ.","<i>Straight</i>: một âm tiết \"strây-t\", ba phụ âm /str/ đọc liền."]}},
+
+ /* ===================== Unit 3: to, nhỏ, cao, thấp ===================== */
+ {id:'u3',n:'Unit 3',en:'Big and Small',vi:'To và nhỏ, cao và thấp',ic:'🐘',review:'phương hướng: Turn left!',
+  words:[['🐘','big','to','','Size'],['🐭','small','nhỏ','','Size'],['🦒','tall','cao','','Size'],['🐧','short','thấp','','Size'],
+   ['🐘','elephant','con voi','','Animals'],['🐁','mouse','con chuột','','Animals'],['🦒','giraffe','hươu cao cổ','','Animals'],['🐧','penguin','chim cánh cụt','','Animals'],['🐜','ant','con kiến','','Animals'],['🦖','dinosaur','khủng long','','Animals']],
+  talk:[['Look! An elephant!','Nhìn kìa! Một con voi!',0],["Wow! It's big!",'Ôi! Nó to quá!',2],['Look! A mouse!','Nhìn kìa! Một con chuột!',1],["It's small. Squeak, squeak!",'Nó nhỏ xíu. Chít chít!',2],['Is the giraffe tall or short?','Hươu cao cổ cao hay thấp?',0],["It's tall! Very, very tall!",'Nó cao! Cao ơi là cao!',2]],
+  speech:{t:"Big and Small Animals",intro:["Today, I will tell you about big and small animals!","Hôm nay tớ sẽ kể về con vật to và con vật nhỏ!"],lines:[["🐘","The <b>elephant</b> is <b>big</b>.","Con voi thì to."],["🐭","The <b>mouse</b> is <b>small</b>.","Con chuột thì nhỏ."],["🦒","The <b>giraffe</b> is <b>tall</b>.","Hươu cao cổ thì cao."],["🐧","The <b>penguin</b> is <b>short</b>.","Chim cánh cụt thì thấp."],["🦖","The <b>dinosaur</b> is very, very <b>big</b>!","Con khủng long to ơi là to!"],["🐜","The <b>ant</b> is very, very <b>small</b>.","Con kiến nhỏ xíu xiu."]],end:["I am small now, but I will be big!","Bây giờ tớ còn nhỏ, nhưng tớ sẽ lớn!"]},
+  games:[{type:'phrase',name:"💬 Big or small?",items:[
+    {pic:'🐘',vi:'Cô chỉ vào con voi.',en:"Look at the elephant.",say:'Is it big or small?',o:[['🐘',"It's big!"],['🐭',"It's small!"],['😴',"I'm sleepy."]],a:0},
+    {pic:'🐜',vi:'Cô chỉ vào con kiến.',en:"Look at the ant.",say:'Is it big or small?',o:[['🐭',"It's small!"],['🐘',"It's big!"],['🍬','I want candy!']],a:0},
+    {pic:'🦒',vi:'Cô chỉ vào hươu cao cổ.',en:"Look at the giraffe.",say:'Is it tall or short?',o:[['🦒',"It's tall!"],['🐧',"It's short!"],['👋','Bye bye!']],a:0},
+    {pic:'🐧',vi:'Cô chỉ vào chim cánh cụt.',en:"Look at the penguin.",say:'Is it tall or short?',o:[['🐧',"It's short!"],['🦒',"It's tall!"],['🙏','Sorry!']],a:0},
+    {pic:'🎂🍰',vi:'Có một cái bánh to và một cái bánh nhỏ. Bé muốn cái to.',en:"A big cake and a small cake. You want the big one.",o:[['🎂','The big one, please!'],['🍰','The small one, please!'],['🛌','Good night!']],a:0}]},
+   {type:'pick',name:"🎧 Listen and tap",prompt:'{w}',only:[4,5,6,7,8,9],options:3,after:"It's {a} {w}!"}],
+  hw:{"e":["Elephant!","Yes! A big elephant. It's very big!"],"s":["Đưa bé cái bánh nhỏ xíu, chờ bé đòi cái to.","The big one, please!"],"c":["Big or small?","Big!"],"b":["Which one is tall?","The giraffe!"],"x":"tall, short, loud, huge, tiny"},
+  guide:{answers:['To hay nhỏ: voi → <i>It\'s big!</i>; kiến → <i>It\'s small!</i>; hươu → <i>It\'s tall!</i>; chim cánh cụt → <i>It\'s short!</i>; chọn bánh to → <i>The big one, please!</i>','Nghe và chọn: elephant 🐘, mouse 🐁, giraffe 🦒, penguin 🐧, ant 🐜, dinosaur 🦖.'],
+   home:["Đứng cạnh ba mẹ đo chiều cao: <i>Daddy is tall. I am short.</i>","Xếp đồ chơi từ to đến nhỏ, mỗi món nói <i>big</i> hoặc <i>small</i>.","Đọc truyện tranh, hỏi bé: <i>Is it big or small?</i>"],
+   tips:["<i>Big</i>: cuối là /g/, bé hay đọc thành \"bích\".","<i>Small</i>: /sm/ đọc liền, không chèn \"sờ-mâu\".","<i>Tall / short</i>: âm /ɔː/ kéo dài, cuối \"short\" có /t/ nhẹ."]}},
+
+ /* ===================== Unit 4: dài, ngắn ===================== */
+ {id:'u4',n:'Unit 4',en:'Long and Short',vi:'Dài và ngắn',ic:'🐍',review:'to, nhỏ: The elephant is big.',
+  words:[['🐍','long','dài','','Long or short?'],['🐛','short','ngắn','','Long or short?'],
+   ['🐍','snake','con rắn','','Things'],['🐛','worm','con sâu','','Things'],['🚂','train','tàu hỏa','','Things'],['✏️','pencil','bút chì','','Things'],['🧣','scarf','khăn quàng','','Things'],['💇‍♀️','hair','tóc','','Things'],['🦒','neck','cái cổ','','Things'],['🐒','tail','cái đuôi','','Things']],
+  talk:[['Look at my pencil.','Nhìn bút chì của tớ này.',1],["It's long!",'Nó dài quá!',2],['Look at my pencil.','Nhìn bút chì của tớ này.',2],["Oh! It's short.",'Ồ! Nó ngắn.',1],['Mia has long hair.','Mia có tóc dài.',0],['And I have short hair!','Còn tớ có tóc ngắn!',2]],
+  speech:{t:"Long and Short",intro:["Today, I will tell you about long and short things!","Hôm nay tớ sẽ kể về những thứ dài và ngắn!"],lines:[["🐍","The <b>snake</b> is <b>long</b>. Sssss!","Con rắn thì dài. Xì xì!"],["🐛","The <b>worm</b> is <b>short</b>.","Con sâu thì ngắn."],["🚂","The <b>train</b> is very <b>long</b>. Choo choo!","Đoàn tàu dài ơi là dài. Tu tu!"],["🦒","A giraffe has a <b>long</b> <b>neck</b>.","Hươu cao cổ có cái cổ dài."],["🐒","A monkey has a <b>long</b> <b>tail</b>.","Con khỉ có cái đuôi dài."],["💇","I have <b>short</b> <b>hair</b>.","Tớ có tóc ngắn."]],end:["Long, long, long! Short, short, short!","Dài, dài, dài! Ngắn, ngắn, ngắn!"]},
+  games:[{type:'phrase',name:"💬 Long or short?",items:[
+    {pic:'🐍',vi:'Cô chỉ vào con rắn.',en:"Look at the snake.",say:'Is it long or short?',o:[['🐍',"It's long!"],['🐛',"It's short!"],['😋',"I'm hungry."]],a:0},
+    {pic:'🐛',vi:'Cô chỉ vào con sâu.',en:"Look at the worm.",say:'Is it long or short?',o:[['🐛',"It's short!"],['🐍',"It's long!"],['👋','Bye bye!']],a:0},
+    {pic:'🚂',vi:'Đoàn tàu có rất nhiều toa.',en:"Look at the train.",say:'Is it long or short?',o:[['🚂',"It's long!"],['🐛',"It's short!"],['🙏','Sorry!']],a:0},
+    {pic:'👧💇‍♀️',vi:'Bạn Mia có tóc dài. Bé khen bạn.',en:"Mia has long hair. Say something nice.",o:[['💇‍♀️',"You have long hair. It's pretty!"],['🐛',"It's a worm."],['😴',"I'm sleepy."]],a:0}]},
+   {type:'pick',name:"🎧 Listen and tap",prompt:'{w}',only:[2,3,4,5,6,8,9],options:3,after:"It's {a} {w}!"}],
+  hw:{"e":["Snake!","Yes! A long snake. Sss!"],"s":["Đưa sợi dây quá ngắn để buộc hộp quà, chờ bé nói.","It's short! A long one, please!"],"c":["Long or short?","Long!"],"b":["Who has a long tail?","The monkey!"],"x":"hair, pencil, string"},
+  guide:{answers:['Dài hay ngắn: rắn → <i>It\'s long!</i>; sâu → <i>It\'s short!</i>; tàu hỏa → <i>It\'s long!</i>; khen tóc bạn → <i>You have long hair. It\'s pretty!</i>','Nghe và chọn: snake 🐍, worm 🐛, train 🚂, pencil ✏️, scarf 🧣, neck 🦒, tail 🐒.'],
+   home:["So hai cây bút chì, hai sợi dây: <i>This one is long. This one is short.</i>","Lúc chải tóc: <i>Mommy has long hair. I have short hair.</i>","Nặn đất nặn: con rắn dài và con sâu ngắn."],
+   tips:["<i>Long</i>: cuối là /ŋ/ (\"ng\"), không thêm \"g\" rõ.","<i>Short</i>: âm /ʃ/ (chu môi \"sh\"), cuối /t/ nhẹ.","Bé dễ nhầm <i>short</i> (thấp) ở Unit 3 và <i>short</i> (ngắn) ở bài này: cùng một từ, cô cho bé thấy cả hai nghĩa."]}},
+
+ /* ===================== Unit 5: đẹp, xấu ===================== */
+ {id:'u5',n:'Unit 5',en:'Pretty or Ugly?',vi:'Đẹp và xấu, sạch và bẩn, mới và cũ',ic:'🌸',review:'dài, ngắn: The snake is long.',
+  words:[['🌸','pretty','đẹp, xinh','','Look!'],['🦚','beautiful','rất đẹp','','Look!'],['👹','ugly','xấu','','Look!'],['🧼','clean','sạch','','Look!'],['💩','dirty','bẩn','','Look!'],['✨','new','mới','','Look!'],['🧸','old','cũ','','Look!'],
+   ['🌸','flower','bông hoa','','Things'],['👗','dress','cái váy','','Things'],['👾','monster','quái vật','','Things']],
+  talk:[['Look at my new dress!','Nhìn váy mới của tớ này!',1],["Wow! It's pretty!",'Ôi! Váy đẹp quá!',2],['Thank you!','Cảm ơn bạn!',1],['Oh no! My hands are dirty.','Ôi không! Tay tớ bẩn rồi.',2],["Let's wash your hands!",'Mình đi rửa tay nào!',0],['Now my hands are clean!','Giờ tay tớ sạch rồi!',2]],
+  speech:{t:"Pretty Things",intro:["Today, I will tell you about pretty things and ugly things!","Hôm nay tớ sẽ kể về những thứ đẹp và những thứ xấu!"],lines:[["🌸","The <b>flower</b> is <b>pretty</b>.","Bông hoa thật đẹp."],["🦚","The peacock is <b>beautiful</b>!","Con công đẹp lộng lẫy!"],["👾","The <b>monster</b> is <b>ugly</b>. Grrr!","Con quái vật thì xấu. Grừ!"],["👗","My <b>dress</b> is <b>new</b>.","Váy của tớ còn mới."],["🧸","My teddy bear is <b>old</b>, but I love it.","Gấu bông của tớ cũ rồi, nhưng tớ vẫn thương nó."],["🧼","I wash my hands. They are <b>clean</b>!","Tớ rửa tay. Tay sạch rồi!"]],end:["What a beautiful day!","Một ngày thật đẹp!"]},
+  games:[{type:'phrase',name:"💬 What do you say?",items:[
+    {pic:'👧👗',vi:'Bạn mặc váy mới. Bé khen bạn.',en:"Your friend has a new dress.",o:[['😍',"Wow! It's pretty!"],['👹',"It's ugly!"],['😴',"I'm sleepy."]],a:0},
+    {pic:'🖐️💩',vi:'Tay bé dính bùn.',en:"Your hands are dirty.",o:[['🧼','I wash my hands.'],['🍬','I eat candy.'],['🛌','I go to bed.']],a:0},
+    {pic:'👾',vi:'Cô cho xem tranh quái vật.',en:"Look at the monster!",say:'Is it pretty or ugly?',o:[['👹',"It's ugly! Grrr!"],['🌸',"It's pretty!"],['👋','Bye bye!']],a:0},
+    {pic:'🌸🌷',vi:'Bé thấy vườn hoa nhiều màu.',en:"You see a garden with many flowers.",o:[['🦚','What beautiful flowers!'],['💩',"It's dirty!"],['🙏','Sorry!']],a:0}]},
+   {type:'pick',name:"🎧 Listen and tap",prompt:'{w}',only:[0,2,3,4,5,6],options:3,after:'{w}!'}],
+  hw:{"e":["Flower!","Yes! A pretty flower. It smells good!"],"s":["Tay bé bẩn, mẹ đưa khăn khô chưa nhúng nước, chờ.","My hands are dirty! Water, please!"],"c":["Clean or dirty?","Dirty!"],"b":["Is the monster pretty or ugly?","Ugly! Grrr!"],"x":"smelly, good smell, wet, dry"},
+  guide:{answers:['Bé nói gì: váy mới của bạn → <i>Wow! It\'s pretty!</i>; tay bẩn → <i>I wash my hands.</i>; quái vật → <i>It\'s ugly! Grrr!</i>; vườn hoa → <i>What beautiful flowers!</i>','Nghe và chọn: pretty 🌸, ugly 👹, clean 🧼, dirty 💩, new ✨, old 🧸.'],
+   home:["Khen mỗi ngày bằng tiếng Anh: <i>What a pretty flower! What a beautiful picture!</i>","Trước khi ăn: <i>Are your hands clean or dirty?</i>","Nhắc bé: không nói <i>ugly</i> về bạn, chỉ dùng cho quái vật và đồ vật."],
+   tips:["<i>Pretty</i>: chữ tt đọc nhẹ gần như /d/: \"PRI-di\".","<i>Beautiful</i>: 3 âm tiết BIU-ti-fồl.","<i>Ugly</i>: âm đầu /ʌ/ ngắn \"ắg-li\"."]}},
+
+ /* ===================== Unit 6: ngon, dở ===================== */
+ {id:'u6',n:'Unit 6',en:'Yummy or Yucky?',vi:'Ngon và dở, thích và không thích',ic:'😋',review:'đẹp, xấu: It\'s pretty!',
+  words:[['😋','yummy','ngon','','Yummy or yucky?'],['🤢','yucky','dở, ghê','','Yummy or yucky?'],['🤤','delicious','rất ngon','','Yummy or yucky?'],['👍','I like it','con thích','','Yummy or yucky?'],['👎',"I don't like it",'con không thích','','Yummy or yucky?'],
+   ['🔥','hot','nóng','','Hot or cold?'],['🧊','cold','lạnh','','Hot or cold?'],['🍕','pizza','bánh pizza','','Food'],['🥦','broccoli','súp lơ xanh','','Food'],['🍜','noodles','mì','','Food']],
+  talk:[['Try this pizza!','Ăn thử pizza này đi!',0],['Mmm! Yummy! I like it!','Ừm! Ngon quá! Tớ thích!',2],['Try this broccoli!','Ăn thử súp lơ này đi!',0],["Yucky! I don't like it.",'Eo ôi! Tớ không thích.',1],['Be careful! The noodles are hot!','Cẩn thận! Mì nóng đấy!',0],['Hot, hot! I wait.','Nóng, nóng! Tớ đợi một chút.',2]],
+  speech:{t:"Yummy or Yucky?",intro:["Today, I will tell you what I like to eat!","Hôm nay tớ sẽ kể tớ thích ăn gì!"],lines:[["🍕","<b>Pizza</b> is <b>yummy</b>! <b>I like it</b>.","Pizza ngon lắm! Tớ thích."],["🍜","<b>Noodles</b> are <b>delicious</b>.","Mì rất ngon."],["🥦","<b>Broccoli</b>? <b>Yucky</b>! <b>I don't like it</b>.","Súp lơ á? Eo ôi! Tớ không thích."],["🔥","The soup is <b>hot</b>. I wait.","Canh còn nóng. Tớ đợi một chút."],["🍦","Ice cream is <b>cold</b>. Brrr!","Kem thì lạnh. Brừ!"],["💪","But Mom says: Broccoli is good for you!","Nhưng mẹ bảo: Súp lơ tốt cho con đấy!"]],end:["Okay, Mom! One more bite!","Vâng ạ! Con ăn thêm một miếng!"]},
+  games:[{type:'basket',name:"🍽️ Yummy plate",prompt:'Put the {w} on my plate!',bin:'🍽️',only:[7,8,9],after:'Yummy!'},
+   {type:'phrase',name:"💬 Yummy or yucky?",items:[
+    {pic:'🍦😋',vi:'Bé ăn kem, rất ngon.',en:"You eat ice cream. It's very good.",o:[['😋','Yummy! I like it!'],['🤢',"Yucky! I don't like it."],['👋','Bye bye!']],a:0},
+    {pic:'🧦🍽️',vi:'Bạn đùa đưa cho bé một chiếc tất để ăn.',en:"Your friend gives you a sock to eat!",o:[['🤢',"Yucky! I don't like it!"],['😋','Yummy!'],['🙏','Sorry!']],a:0},
+    {pic:'🍜🔥',vi:'Bát mì đang bốc khói.',en:"The noodles are smoking.",o:[['🔥',"It's hot! I wait."],['🧊',"It's cold!"],['😴',"I'm sleepy."]],a:0},
+    {pic:'👵🍲',vi:'Bà nấu canh ngon. Bé khen bà.',en:"Grandma cooks good soup. Say something nice.",o:[['🤤',"It's delicious, Grandma! Thank you!"],['🤢',"Yucky!"],['🛌','Good night!']],a:0}]}],
+  hw:{"e":["Yummy!","Yes! It's yummy. Yummy rice!"],"s":["Bưng bát canh nóng, mẹ chưa thổi, chờ bé nói.","It's hot! Blow, please!"],"c":["Rice or bread?","Rice, please!"],"b":["Does the bear like it?","No! Yucky!"],"x":"blow, bite, chew, full, thirsty"},
+  guide:{answers:['Đĩa ngon: nghe → bỏ đúng món vào đĩa (pizza 🍕, broccoli 🥦, noodles 🍜).','Ngon hay dở: kem → <i>Yummy! I like it!</i>; ăn tất → <i>Yucky! I don\'t like it!</i>; mì bốc khói → <i>It\'s hot! I wait.</i>; khen bà → <i>It\'s delicious, Grandma! Thank you!</i>'],
+   home:["Mỗi bữa ăn hỏi bé: <i>Is it yummy or yucky?</i> Bé trả lời cả câu <i>Yummy! I like it.</i>","Dạy bé lịch sự: món không thích thì nói <i>No, thank you.</i> thay vì <i>Yucky!</i> khi ăn ở nhà người khác.","Thổi đồ ăn nóng: <i>It's hot! Blow, blow!</i>"],
+   tips:["<i>Yummy / yucky</i>: âm đầu /j/ như \"d\" nhẹ của \"da\".","<i>Delicious</i>: di-LI-shợs, nhấn âm giữa.","<i>Don't</i>: âm /oʊ/ \"âu\", cuối có /t/ nhẹ."]}},
+
+ /* ===================== Unit 7: vị ===================== */
+ {id:'u7',n:'Unit 7',en:'Sweet, Sour, Spicy!',vi:'Vị: ngọt, chua, mặn, đắng, cay',ic:'🌶️',review:'ngon, dở: Yummy! I like it.',
+  words:[['🍬','sweet','ngọt','','Tastes'],['🍋','sour','chua','','Tastes'],['🧂','salty','mặn','','Tastes'],['☕','bitter','đắng','','Tastes'],['🌶️','spicy','cay','','Tastes'],
+   ['🍋','lemon','quả chanh','','Food'],['🌶️','chili','quả ớt','','Food'],['🍯','honey','mật ong','','Food'],['🥨','salt','muối','','Food'],['💊','medicine','thuốc','','Food']],
+  talk:[['Taste this! Is it sweet?','Nếm thử đi! Có ngọt không?',0],['Yes! Honey is sweet.','Có! Mật ong ngọt lắm.',2],['Taste this lemon!','Nếm thử quả chanh này!',1],['Ooh! It\'s sour!','Ui! Chua quá!',2],['Do you like chili?','Bạn có thích ớt không?',0],["No! It's spicy! Water, please!",'Không! Cay lắm! Cho tớ nước với!',2]],
+  song:{t:"Sweet and Sour",verses:[
+   {ic:'🍯😊',cue:['😊 Big smile!','Cười thật tươi'],lines:['<b>Sweet</b>, <b>sweet</b>, honey is <b>sweet</b>!','Mmm, mmm, yummy to eat!'],vi:'Ngọt ngọt, mật ong ngọt! Ừm ừm, ăn ngon lắm!'},
+   {ic:'🍋😖',cue:['😖 Scrunch your face!','Nhăn mặt như ăn chanh'],lines:['<b>Sour</b>, <b>sour</b>, the lemon is <b>sour</b>!','Ooh! Ooh! Make a sour face!'],vi:'Chua chua, chanh chua lắm! Ui ui! Làm mặt chua nào!'},
+   {ic:'🌶️🔥',cue:['🔥 Fan your mouth!','Lấy tay quạt miệng'],lines:['<b>Spicy</b>, <b>spicy</b>, the chili is <b>spicy</b>!','Hot! Hot! Water, please!'],vi:'Cay cay, ớt cay lắm! Nóng nóng! Cho con nước với!'},
+   {ic:'☕😝',cue:['😝 Stick out your tongue!','Lè lưỡi'],lines:['<b>Bitter</b>, <b>bitter</b>, the coffee is <b>bitter</b>!','Bleh! Bleh! Not for me!'],vi:'Đắng đắng, cà phê đắng lắm! Ẹ ẹ! Không phải cho con!'}]},
+  speech:{t:"Tastes",intro:["Today, I will tell you about tastes!","Hôm nay tớ sẽ kể về các vị!"],lines:[["🍬","Candy is <b>sweet</b>. Yummy!","Kẹo thì ngọt. Ngon quá!"],["🍋","A <b>lemon</b> is <b>sour</b>. Ooh!","Quả chanh thì chua. Ui!"],["🥨","Chips are <b>salty</b>.","Khoai tây chiên thì mặn."],["☕","Coffee is <b>bitter</b>. It's for Dad, not for me!","Cà phê thì đắng. Của bố, không phải của tớ!"],["🌶️","<b>Chili</b> is <b>spicy</b>! Hot, hot!","Ớt thì cay! Nóng, nóng!"],["💊","<b>Medicine</b> is <b>bitter</b>, but it helps me.","Thuốc thì đắng, nhưng thuốc giúp tớ khỏe."]],end:["I like sweet things best!","Tớ thích đồ ngọt nhất!"]},
+  games:[{type:'pick',name:"🎧 Which taste?",prompt:'{w}!',only:[0,1,2,3,4],options:3,after:"It's {w}!"},
+   {type:'phrase',name:"💬 How does it taste?",items:[
+    {pic:'🍋😖',vi:'Bé cắn một miếng chanh.',en:"You bite a lemon.",o:[['🍋',"Ooh! It's sour!"],['🍬',"It's sweet!"],['👋','Bye bye!']],a:0},
+    {pic:'🌶️🔥',vi:'Bé ăn phải ớt.',en:"You eat a chili.",o:[['🌶️',"It's spicy! Water, please!"],['🧊',"It's cold!"],['😴',"I'm sleepy."]],a:0},
+    {pic:'🍯🥄',vi:'Bé nếm mật ong.',en:"You taste honey.",o:[['🍯',"It's sweet! Yummy!"],['☕',"It's bitter!"],['🙏','Sorry!']],a:0},
+    {pic:'💊😝',vi:'Bé uống thuốc.',en:"You take medicine.",o:[['☕',"It's bitter!"],['🍬',"It's sweet!"],['🎉','Good job!']],a:0},
+    {pic:'🥨',vi:'Bé ăn bim bim có nhiều muối.',en:"You eat salty chips.",o:[['🧂',"It's salty!"],['🍋',"It's sour!"],['🛌','Good night!']],a:0}]}],
+  hw:{"e":["Sour!","Yes! The lemon is sour. Ooh!"],"s":["Cho bé nếm một chút muối, chờ bé nói vị rồi xin nước.","It's salty! Water, please!"],"c":["Sweet or sour?","Sweet!"],"b":["What is the boy eating? Is it spicy?","Yes! Hot, hot!"],"x":"crunchy, soft, hard, juicy"},
+  guide:{answers:['Vị gì: sweet 🍬, sour 🍋, salty 🧂, bitter ☕, spicy 🌶️.','Bé nói gì: chanh → <i>Ooh! It\'s sour!</i>; ớt → <i>It\'s spicy! Water, please!</i>; mật ong → <i>It\'s sweet! Yummy!</i>; thuốc → <i>It\'s bitter!</i>; bim bim → <i>It\'s salty!</i>'],
+   home:["Nếm thử thật (một chút xíu): mật ong, chanh, muối, cà phê nguội. Mỗi lần bé làm mặt và nói vị.","Bữa cơm hỏi: <i>Is the soup salty? Is the mango sweet?</i>","Uống thuốc: <i>It's bitter, but you are brave!</i>"],
+   tips:["<i>Sour</i>: \"sao-ơ\", không đọc \"sua\".","<i>Salty</i>: SÔN-ti, âm /ɔː/ dài.","<i>Spicy</i>: SPAI-si, /sp/ đọc liền.","An toàn: ớt và cà phê chỉ cho bé xem hoặc chạm lưỡi rất ít, có ba mẹ bên cạnh."]}},
+
+ /* ===================== Unit 8: nóng, lạnh, thời tiết ===================== */
+ {id:'u8',n:'Unit 8',en:'Hot and Cold',vi:'Nóng, lạnh, ấm, mát và thời tiết',ic:'🌡️',review:'vị: Chili is spicy!',
+  words:[['🥵','hot','nóng','','Hot or cold?'],['🥶','cold','lạnh','','Hot or cold?'],['🌤️','warm','ấm','','Hot or cold?'],['🍃','cool','mát','','Hot or cold?'],
+   ['☀️','sunny','trời nắng','','Weather'],['☁️','cloudy','nhiều mây','','Weather'],['🌧️','rainy','trời mưa','','Weather'],['💨','windy','có gió','','Weather'],['❄️','snowy','có tuyết','','Weather'],['⛈️','stormy','có dông bão','','Weather']],
+  talk:[["What's the weather like today?",'Hôm nay thời tiết thế nào?',0],["It's sunny and hot!",'Trời nắng và nóng!',2],['Put on your hat!','Đội mũ vào nhé!',0],["Oh! It's cloudy. Now it's rainy!",'Ôi! Trời nhiều mây. Giờ mưa rồi!',1],["Take your umbrella!",'Cầm ô theo nhé!',0],["Brrr! It's cold. I want my jacket.",'Brừ! Lạnh quá. Con muốn mặc áo khoác.',2]],
+  song:{t:"What's the Weather?",verses:[
+   {ic:'☀️😎',cue:['☀️ Make a big sun with your arms!','Dang tay làm ông mặt trời'],lines:["What's the <b>weather</b>? What's the <b>weather</b>?","It's <b>sunny</b>! It's <b>sunny</b>! It's <b>hot</b>, <b>hot</b>, <b>hot</b>!"],vi:'Thời tiết thế nào? Trời nắng! Nóng, nóng, nóng!'},
+   {ic:'🌧️☂️',cue:['🌧️ Wiggle your fingers like rain!','Ngọ nguậy ngón tay như mưa rơi'],lines:["What's the <b>weather</b>? What's the <b>weather</b>?","It's <b>rainy</b>! It's <b>rainy</b>! Pitter, patter, pat!"],vi:'Thời tiết thế nào? Trời mưa! Lộp độp, lộp độp!'},
+   {ic:'💨🪁',cue:['💨 Sway like a tree!','Lắc lư như cái cây trong gió'],lines:["What's the <b>weather</b>? What's the <b>weather</b>?","It's <b>windy</b>! It's <b>windy</b>! Whoosh, whoosh, whoosh!"],vi:'Thời tiết thế nào? Trời có gió! Vù, vù, vù!'},
+   {ic:'❄️⛄',cue:['🥶 Hug yourself and shiver!','Tự ôm mình và run run'],lines:["What's the <b>weather</b>? What's the <b>weather</b>?","It's <b>snowy</b>! It's <b>snowy</b>! <b>Cold</b>, <b>cold</b>, <b>cold</b>!"],vi:'Thời tiết thế nào? Trời có tuyết! Lạnh, lạnh, lạnh!'}]},
+  speech:{t:"My Weather Report",intro:["Good morning! Today, I am a weather reporter!","Chào buổi sáng! Hôm nay tớ là phát thanh viên thời tiết!"],lines:[["☀️","In the morning, it's <b>sunny</b> and <b>hot</b>. Wear a hat!","Buổi sáng, trời nắng và nóng. Hãy đội mũ!"],["☁️","At noon, it's <b>cloudy</b>.","Buổi trưa, trời nhiều mây."],["🌧️","In the afternoon, it's <b>rainy</b>. Take your umbrella!","Buổi chiều, trời mưa. Hãy cầm ô!"],["💨","It's <b>windy</b>, too. Let's fly a kite!","Trời còn có gió nữa. Mình đi thả diều nào!"],["🍃","In the evening, it's <b>cool</b>.","Buổi tối, trời mát."],["❄️","In Sa Pa, it's <b>cold</b>. Maybe it's <b>snowy</b>!","Ở Sa Pa trời lạnh. Có khi còn có tuyết!"]],end:["That's the weather today. Bye bye!","Đó là thời tiết hôm nay. Tạm biệt!"]},
+  games:[{type:'pick',name:"🎧 What's the weather?",prompt:"It's {w}!",only:[4,5,6,7,8,9],options:3,after:"It's {w}!"},
+   {type:'phrase',name:"💬 Hot or cold?",items:[
+    {pic:'☀️🏖️',vi:'Trời nắng to ở bãi biển.',en:"It's sunny at the beach.",say:'Is it hot or cold?',o:[['🥵',"It's hot!"],['🥶',"It's cold!"],['🌧️',"It's rainy!"]],a:0},
+    {pic:'⛄❄️',vi:'Có người tuyết và tuyết rơi.',en:"Look! A snowman!",say:'Is it hot or cold?',o:[['🥶',"It's cold! Brrr!"],['🥵',"It's hot!"],['😋',"I'm hungry."]],a:0},
+    {pic:'🌧️🧒',vi:'Trời mưa, bé sắp ra ngoài.',en:"It's rainy. You go out.",o:[['☂️','I take my umbrella.'],['🕶️','I wear my sunglasses.'],['🏊',"Let's swim!"]],a:0},
+    {pic:'🥶🧥',vi:'Trời lạnh, mẹ đưa áo khoác.',en:"It's cold. Mom gives you a jacket.",o:[['🧥','Thank you, Mom! I put on my jacket.'],['🍦','I want ice cream!'],['👋','Bye bye!']],a:0},
+    {pic:'💨🪁',vi:'Trời có gió.',en:"It's windy!",o:[['🪁',"Let's fly a kite!"],['🛌',"Let's go to bed!"],['🙏','Sorry!']],a:0}]}],
+  hw:{"e":["Sunny!","Yes! It's sunny and hot. Wear your hat!"],"s":["Trời lạnh, mẹ cầm áo khoác nhưng chưa đưa, chờ bé xin.","It's cold! My jacket, please!"],"c":["Hot or cold?","Cold! Brrr!"],"b":["What's the weather in the picture?","It's rainy!"],"x":"wet, dry, umbrella, fan"},
+  guide:{answers:["Thời tiết: nghe → bấm hình (sunny ☀️, cloudy ☁️, rainy 🌧️, windy 💨, snowy ❄️, stormy ⛈️).","Nóng hay lạnh: biển nắng → <i>It's hot!</i>; người tuyết → <i>It's cold! Brrr!</i>; trời mưa → <i>I take my umbrella.</i>; được đưa áo → <i>Thank you, Mom! I put on my jacket.</i>; trời gió → <i>Let's fly a kite!</i>"],
+   home:["Mỗi sáng nhìn ra cửa sổ hỏi: <i>What's the weather like today?</i> Bé trả lời <i>It's sunny / cloudy / rainy.</i>","Chạm cốc nước nóng (ấm thôi) và cốc nước đá: <i>Hot! Cold!</i>","Bé làm \"bản tin thời tiết\" 3 câu trước gương, ba mẹ quay video."],
+   tips:["<i>Weather</i>: âm /ð/ lè lưỡi nhẹ: \"WE-đơ\".","<i>Cold</i>: âm /oʊ/ \"âu\", cuối /ld/, không đọc \"cô\".","<i>Warm</i>: \"guom\", không đọc \"oam\".","Hot / cold ở Unit 6 là đồ ăn nóng, lạnh; bài này mở rộng sang trời nóng, trời lạnh."]}},
+
+ /* ===================== Unit 9: bốn mùa ===================== */
+ {id:'u9',n:'Unit 9',en:'Four Seasons',vi:'Bốn mùa: xuân, hè, thu, đông',ic:'🍂',review:"thời tiết: It's sunny and hot!",
+  words:[['🌸','spring','mùa xuân','','Seasons'],['🏖️','summer','mùa hè','','Seasons'],['🍂','autumn','mùa thu','','Seasons'],['⛄','winter','mùa đông','','Seasons'],['🗓️','season','mùa','','Seasons'],
+   ['🌷','flowers','những bông hoa','','In the seasons'],['🏊','swim','bơi','','In the seasons'],['🍁','leaves','lá cây','','In the seasons'],['🧥','coat','áo khoác dày','','In the seasons'],['🧣','scarf','khăn quàng','','In the seasons']],
+  talk:[['What season is it?','Bây giờ là mùa gì?',0],["It's summer! It's hot.",'Mùa hè ạ! Trời nóng.',2],["Let's swim in the sea!",'Mình đi bơi ở biển nào!',1],['Do you like winter?','Con có thích mùa đông không?',0],["Yes! It's cold. I wear my coat and scarf.",'Có ạ! Trời lạnh. Con mặc áo khoác và quàng khăn.',2],["I like spring. I see flowers!",'Tớ thích mùa xuân. Tớ thấy nhiều hoa!',1]],
+  song:{t:"Four Seasons",verses:[
+   {ic:'🌸🌷',cue:['🌸 Open your hands like a flower!','Xòe tay như bông hoa nở'],lines:["<b>Spring</b> is <b>warm</b>, flowers grow!","<b>Spring</b>, <b>spring</b>, here we go!"],vi:'Mùa xuân ấm áp, hoa nở! Xuân ơi, xuân ơi!'},
+   {ic:'🏖️☀️',cue:['🏊 Swim with your arms!','Làm động tác bơi'],lines:["<b>Summer</b> is <b>hot</b>, let's <b>swim</b> in the sea!","<b>Summer</b>, <b>summer</b>, happy me!"],vi:'Mùa hè nóng, mình đi bơi ở biển! Hè ơi, hè ơi, vui quá!'},
+   {ic:'🍂🍁',cue:['🍂 Fall down slowly like a leaf!','Từ từ ngồi xuống như chiếc lá rơi'],lines:["<b>Autumn</b> is <b>cool</b>, the <b>leaves</b> fall down!","<b>Autumn</b>, <b>autumn</b>, red and brown!"],vi:'Mùa thu mát, lá rơi! Thu ơi, thu ơi, đỏ và nâu!'},
+   {ic:'⛄🧣',cue:['🥶 Shiver, brrr!','Run run vì lạnh'],lines:["<b>Winter</b> is <b>cold</b>, put on your <b>coat</b>!","<b>Winter</b>, <b>winter</b>, warm <b>scarf</b> and <b>coat</b>!"],vi:'Mùa đông lạnh, mặc áo khoác vào! Đông ơi, đông ơi, khăn ấm, áo ấm!'}]},
+  speech:{t:"My Favorite Season",intro:["Today, I will tell you about the four seasons!","Hôm nay tớ sẽ kể về bốn mùa!"],lines:[["🌸","<b>In spring</b>, it's <b>warm</b>. I see many <b>flowers</b>.","Mùa xuân, trời ấm. Tớ thấy nhiều hoa."],["🏖️","<b>In summer</b>, it's <b>hot</b>. I <b>swim</b> in the sea.","Mùa hè, trời nóng. Tớ bơi ở biển."],["🍂","<b>In autumn</b>, it's <b>cool</b>. The <b>leaves</b> fall down.","Mùa thu, trời mát. Lá rơi xuống."],["⛄","<b>In winter</b>, it's <b>cold</b>. I wear my <b>coat</b> and <b>scarf</b>.","Mùa đông, trời lạnh. Tớ mặc áo khoác và quàng khăn."],["🗓️","There are four <b>seasons</b> in a year.","Một năm có bốn mùa."],["❤️","My favorite season is <b>summer</b>, because I can swim!","Mùa tớ thích nhất là mùa hè, vì tớ được đi bơi!"]],end:["What's your favorite season?","Còn các bạn thích mùa nào nhất?"]},
+  games:[{type:'pick',name:"🎧 Which season?",prompt:'{w}!',only:[0,1,2,3],options:3,after:"It's {w}!"},
+   {type:'phrase',name:"💬 What do you do?",items:[
+    {pic:'🏖️☀️',vi:'Mùa hè, trời nóng.',en:"It's summer. It's hot.",o:[['🏊',"Let's swim!"],['🧥','Put on your coat!'],['⛄',"Let's make a snowman!"]],a:0},
+    {pic:'⛄🥶',vi:'Mùa đông, trời lạnh.',en:"It's winter. It's cold.",o:[['🧥','Put on your coat and scarf!'],['🏊',"Let's swim!"],['🍦','I want ice cream!']],a:0},
+    {pic:'🌸🌷',vi:'Mùa xuân, hoa nở khắp nơi.',en:"It's spring.",o:[['🌷','What beautiful flowers!'],['🍂','The leaves fall!'],['❄️',"It's snowy!"]],a:0},
+    {pic:'🍂🍁',vi:'Mùa thu, lá vàng rơi.',en:"It's autumn.",o:[['🍂','Look! The leaves fall down!'],['🏊',"Let's swim!"],['🌸','I see flowers!']],a:0},
+    {pic:'❓🗓️',vi:'Cô hỏi bé thích mùa nào nhất.',en:"Your teacher asks you.",say:"What's your favorite season?",o:[['🏖️',"My favorite season is summer!"],['😴',"I'm sleepy."],['👋','Bye bye!']],a:0}]}],
+  hw:{"e":["Summer!","Yes! In summer, it's hot. We swim!"],"s":["Trời lạnh mà mẹ chỉ đưa áo phông, chờ bé phản đối.","No! It's cold! My coat, please!"],"c":["Spring or winter?","Spring!"],"b":["What season is it in the picture?","Autumn! The leaves fall."],"x":"Tet, beach, snowman"},
+  guide:{answers:["Mùa nào: nghe → bấm hình (spring 🌸, summer 🏖️, autumn 🍂, winter ⛄).","Bé làm gì: hè → <i>Let's swim!</i>; đông → <i>Put on your coat and scarf!</i>; xuân → <i>What beautiful flowers!</i>; thu → <i>Look! The leaves fall down!</i>; cô hỏi mùa yêu thích → <i>My favorite season is summer!</i>"],
+   home:["Xem ảnh gia đình các dịp trong năm: Tết là <i>spring</i>, đi biển là <i>summer</i>…, bé nói tên mùa.","Hỏi bé mỗi tuần: <i>What season is it now? Is it hot or cold?</i>","Ở miền Nam chỉ có mùa mưa và mùa khô: dạy thêm <i>rainy season</i> (mùa mưa) và <i>dry season</i> (mùa khô)."],
+   tips:["<i>Autumn</i>: \"O-tầm\", chữ n cuối không đọc. Người Mỹ hay nói <i>fall</i>; cả hai đều đúng.","<i>Spring</i>: ba phụ âm /spr/ đọc liền, không chèn \"sờ-pờ\".","<i>Season</i>: \"SI-zừn\", âm /z/ ở giữa.","Giới từ <i>in</i> + mùa: <i>in summer, in winter</i> (không có \"the\")."]}},
+
+ /* ===================== Unit 10: tìm kho báu (ôn tập) ===================== */
+ {id:'u10',n:'Unit 10',en:'Treasure Hunt!',vi:'Truy tìm kho báu: ôn vị trí, phương hướng, so sánh',ic:'🗺️',review:'ôn cả giai đoạn 3.',
+  words:[['🗺️','map','bản đồ','','Treasure hunt'],['💰','treasure','kho báu','','Treasure hunt'],['🔎','find','tìm thấy','','Treasure hunt'],['🌳','tree','cái cây','','Treasure hunt'],['🪨','rock','hòn đá','','Treasure hunt'],['🌉','bridge','cây cầu','','Treasure hunt'],
+   ['🚶','go straight','đi thẳng','','Directions'],['⬅️','turn left','rẽ trái','','Directions'],['➡️','turn right','rẽ phải','','Directions'],['🎉','hooray','hoan hô','','Directions']],
+  talk:[['Look! A treasure map!','Nhìn kìa! Một tấm bản đồ kho báu!',0],["Let's find the treasure!",'Mình đi tìm kho báu nào!',2],['Go straight to the big tree.','Đi thẳng đến cái cây to.',0],['Turn left at the small rock.','Rẽ trái ở hòn đá nhỏ.',1],['Look! A box under the bridge!','Nhìn kìa! Một cái hộp dưới gầm cầu!',2],["Open it! Hooray! It's candy!",'Mở ra nào! Hoan hô! Là kẹo!',2]],
+  speech:{t:"My Treasure Hunt",intro:["Today, I will tell you about my treasure hunt!","Hôm nay tớ sẽ kể về chuyến đi tìm kho báu của tớ!"],lines:[["🗺️","I have a <b>map</b>.","Tớ có một tấm bản đồ."],["🚶","I <b>go straight</b> to the <b>big</b> <b>tree</b>.","Tớ đi thẳng đến cái cây to."],["⬅️","I <b>turn left</b> at the <b>small</b> <b>rock</b>.","Tớ rẽ trái ở hòn đá nhỏ."],["🌉","I walk on the <b>long</b> <b>bridge</b>.","Tớ đi trên cây cầu dài."],["📦","Look! A box <b>under</b> the bridge!","Nhìn kìa! Một cái hộp dưới gầm cầu!"],["💰","I <b>find</b> the <b>treasure</b>! It's <b>sweet</b> candy!","Tớ tìm thấy kho báu! Là kẹo ngọt!"]],end:["Hooray! I share it with my friends!","Hoan hô! Tớ chia cho các bạn!"]},
+  games:[{type:'scene',name:"🗺️ Find it on the map",prompt:'Find the {w}!',only:[0,1,3,4,5],after:"Here's the {w}!",deco:[['🌿',6,90],['🌿',94,88],['🌼',50,94],['☁️',30,10],['☁️',76,12]]},
+   {type:'phrase',name:"💬 Which way?",items:[
+    {pic:'🌳⬆️',vi:'Cây to ở ngay phía trước.',en:"The big tree is in front of you.",say:'How do I get to the tree?',o:[['🚶','Go straight!'],['🛑','Stop!'],['😴',"I'm sleepy."]],a:0},
+    {pic:'⬅️🪨',vi:'Hòn đá ở bên trái.',en:"The rock is on the left.",say:'Where do I go?',o:[['⬅️','Turn left!'],['➡️','Turn right!'],['⬆️','Jump up!']],a:0},
+    {pic:'📦🌉',vi:'Cái hộp ở dưới gầm cầu.',en:"Where is the box?",o:[['⬇️',"It's under the bridge."],['🔝',"It's on the bridge."],['🌳',"It's in the tree."]],a:0},
+    {pic:'💰🎉',vi:'Bé tìm thấy kho báu.',en:"You find the treasure!",o:[['🎉','Hooray! I find it!'],['🙏','Sorry!'],['🛌','Good night!']],a:0}]}],
+  hw:{"e":["Treasure!","Yes! We find the treasure. Hooray!"],"s":["Giấu kẹo, chỉ đưa bản đồ: bé phải nói chỉ dẫn cho mẹ đi.","Go straight! Turn left!"],"c":["Under the bed or behind the door?","Behind the door!"],"b":["Where is the treasure?","Under the bridge!"],"x":"map, find, here, there"},
+  guide:{answers:['Tìm trên bản đồ: nghe → bấm map 🗺️, treasure 💰, tree 🌳, rock 🪨, bridge 🌉.','Đi lối nào: cây ở trước → <i>Go straight!</i>; đá bên trái → <i>Turn left!</i>; hộp dưới cầu → <i>It\'s under the bridge.</i>; tìm thấy → <i>Hooray! I find it!</i>'],
+   home:["Giấu \"kho báu\" (kẹo, sticker) trong nhà, vẽ bản đồ đơn giản, bé đọc chỉ dẫn <i>Go straight! Turn left! It's under the bed!</i>","Đổi vai: bé giấu, ba mẹ tìm theo lời bé chỉ.","Kể lại chuyến tìm kho báu bằng 4 câu theo mục 4."],
+   tips:["<i>Treasure</i>: TRE-giơ, âm /ʒ/ giống \"gi\" nhẹ.","<i>Bridge</i>: cuối là /dʒ/, đọc \"brít-dʒ\".","<i>Hooray</i>: hu-RÂY, nhấn âm sau."]}}
+ ]};
+</script>
+<script src="../assets/pin.js?v=20261127g"></script>
+<script src="../assets/voice.js?v=20261127b"></script>
+<script src="../assets/preschool.js?v=20261127hw"></script>
+<script src="../assets/kidnav.js?v=20261127d"></script>
+</body>
+</html>
