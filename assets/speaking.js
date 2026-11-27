@@ -406,19 +406,69 @@
       (ni >= 0 ? '<button class="btn primary" type="button" data-sk="nexttask">' + esc(r.tasks[ni].title.replace(/\{name\}/g, nameOf())) + " →</button>" : "") + "</div></div>";
   }
 
+  /* ---------- con đường các bước cho bé tự dùng: 👂 Listen → 🎮 Play → 🗣️ Talk → 🏠 Home ----------
+     Mỗi lần chỉ hiện một bước (data-step), vào bước nào máy đọc lời hướng dẫn, cuối bước có nút ▶ to, xong bước được ⭐ (localStorage). */
+  var STEP = null, STEPS = [], DONE_KEY = "lophoc.sk.steps." + (D.pageName || location.pathname);
+  var STEP_INFO = {
+    words: ["👂", "Listen", "Tap a card and listen!", "Bấm vào thẻ để nghe"],
+    games: ["🎮", "Play", "Let's play a game!", "Cùng chơi nào"],
+    talk: ["🗣️", "Talk", "Let's talk! Listen first, then say it.", "Cùng nói nào: nghe mẫu trước rồi nói theo"],
+    home: ["🏠", "Home", "Homework time! Choose your unit and play.", "Bài tập về nhà: chọn Unit rồi chơi"]
+  };
+  function doneOf(r) { try { return JSON.parse(localStorage.getItem(DONE_KEY) || "{}")[r.id] || {}; } catch (e) { return {}; } }
+  function markStep(key) {
+    if (!cur.r) return;
+    try { var all = JSON.parse(localStorage.getItem(DONE_KEY) || "{}"); all[cur.r.id] = all[cur.r.id] || {}; all[cur.r.id][key] = 1; localStorage.setItem(DONE_KEY, JSON.stringify(all)); } catch (e) {}
+    var b = $('.stp[data-step-go="' + key + '"]'); if (b) b.classList.add("done");
+  }
+  function stepWrap(key, html, r) {
+    if (!html) return "";
+    var I = STEP_INFO[key], k = STEPS.indexOf(key), n = STEPS[k + 1], idx = D.reviews.indexOf(r), nr = D.reviews[idx + 1];
+    var nx = n ? '<button class="go-next" type="button" data-step-go="' + n + '" data-from="' + key + '" aria-label="Next: ' + STEP_INFO[n][1] + '"><span aria-hidden="true">' + STEP_INFO[n][0] + "</span> ▶</button>"
+      : nr ? '<a class="go-next" href="#' + nr.id + '" data-from="' + key + '" aria-label="Next: ' + esc(nr.n) + '"><span aria-hidden="true">🏆 ' + nr.ic + "</span> ▶</a>" : "";
+    return '<section class="kstep" data-step="' + key + '"><p class="kstep-say"><button class="say" type="button" data-say="' + esc(I[2]) + '" aria-label="' + esc(I[2]) + '">🔊</button> ' + esc(I[2]) + vi(I[3], true) + "</p>" +
+      html + (nx ? '<div class="step-next">' + nx + "</div>" : "") + "</section>";
+  }
+  function stepBar(r) {
+    var d = doneOf(r);
+    return '<nav class="steps" aria-label="Steps">' + STEPS.map(function (key, k) {
+      var I = STEP_INFO[key];
+      return '<button class="stp' + (d[key] ? " done" : "") + '" type="button" data-step-go="' + key + '" aria-current="' + (key === STEP) + '"><span class="e" aria-hidden="true">' + I[0] + "</span><b>" + I[1] + '</b><i class="star" aria-hidden="true">⭐</i></button>';
+    }).join('<span class="stp-line" aria-hidden="true"></span>') + "</nav>";
+  }
+  function showStep(key, talk) {
+    if (STEPS.indexOf(key) < 0) key = STEPS[0];
+    if (!key) return;
+    STEP = key; stop(); if (hasSpeech) speechSynthesis.cancel(); AW++;
+    $$("#view [data-step]").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-step") === STEP); });
+    $$(".stp").forEach(function (b) { b.setAttribute("aria-current", String(b.getAttribute("data-step-go") === STEP)); });
+    if (talk) {
+      var bar = $(".steps"); if (bar && bar.getBoundingClientRect().top < 0) bar.scrollIntoView({ block: "start" });
+      speak(STEP_INFO[STEP][2]);
+    }
+  }
   function reviewView(r) {
     var idx = D.reviews.indexOf(r);
+    var parts = {
+      words: D.cards && !r.noCards && hasEx(r) ? cardsBlock(r) : bank(r),
+      games: D.games && !r.noGames ? gamesBlock(r) : "",
+      talk: r.tasks.length ? "x" : "",
+      home: HW ? HW.block(r) : ""
+    };
+    STEPS = ["words", "games", "talk", "home"].filter(function (k) { return parts[k]; });
+    if (STEPS.indexOf(STEP) < 0) STEP = STEPS[0];
     return '<div class="u-head"><span class="u-ic" aria-hidden="true">' + r.ic + '</span><div><div class="u-n">' + esc(r.n) + " · " + esc(r.span) + "</div><h2>" + esc(r.title) + "</h2>" + vi(r.when) + "</div></div>" +
       '<div class="sk-map" aria-label="Units">' + r.units.map(function (id) { var u = D.units[id]; return '<span class="' + (r.fresh.indexOf(id) >= 0 ? "new" : "") + '" title="' + esc(u.n + ": " + u.en) + '">' + u.ic + "</span>"; }).join("") + "</div>" +
-      (D.cards && !r.noCards && hasEx(r) ? cardsBlock(r) : bank(r)) + (D.games && !r.noGames ? gamesBlock(r) : "") +
+      (STEPS.length > 1 ? stepBar(r) : "") +
+      stepWrap("words", parts.words, r) + stepWrap("games", parts.games, r) +
       /* mục chỉ có từ và trò chơi (tasks rỗng) thì không có phần bài nói */
-      (r.tasks.length ? '<div class="sk-tabs" role="tablist">' + r.tasks.map(function (t, k) {
+      stepWrap("talk", r.tasks.length ? '<div class="sk-tabs" role="tablist">' + r.tasks.map(function (t, k) {
         var T = TYPES[t.type];
         if (k > 0 && sameGroup(r, k - 1, k)) return ""; /* nhóm Level: chỉ một tab */
         return '<button class="sk-tab" type="button" role="tab" data-ti="' + k + '" aria-selected="' + sameGroup(r, k, cur.ti) + '"><span class="e" aria-hidden="true">' + T.ic + "</span><b>" + esc(T.en) + "</b>" + vi(T.vi) + "<small>" + (t.badge ? esc(t.badge) + " · " : "") + fill(t.title) + "</small></button>";
       }).join("") + "</div>" +
-      '<div id="taskBox">' + taskView(r, cur.ti) + "</div>" : "") +
-      (HW ? HW.block(r) : "") +
+      '<div id="taskBox">' + taskView(r, cur.ti) + "</div>" : "", r) +
+      stepWrap("home", parts.home, r) +
       '<div class="u-nav">' + (idx > 0 ? '<a class="btn" href="#' + D.reviews[idx - 1].id + '">← ' + esc(D.reviews[idx - 1].n) + "</a>" : '<a class="btn" href="#lo-trinh">← 🗺️</a>') +
       (idx < D.reviews.length - 1 ? '<a class="btn primary" href="#' + D.reviews[idx + 1].id + '">' + esc(D.reviews[idx + 1].n) + " →</a>" : "") + "</div>";
   }
@@ -452,7 +502,7 @@
     if (hw && hw.r) { r = hw.r; id = r.id; }
     if (id.indexOf("n-") === 0) { var el = document.getElementById(id); if (el) { el.scrollIntoView(); return; } id = "answers"; }
     G = null; GP = null;
-    if (r) { if (cur.r !== r) { cur.ti = 0; BK.sec = null; } cur.r = r; main.innerHTML = reviewView(r); }
+    if (r) { if (cur.r !== r) { cur.ti = 0; BK.sec = null; STEP = null; } if (hw && hw.r) STEP = "home"; cur.r = r; main.innerHTML = reviewView(r); showStep(STEP, false); }
     else if (id === "answers") {
       cur.r = null; main.innerHTML = notesView();
       if (window.LopHocPIN) window.LopHocPIN.guard($("#notesBox"), notesBody); else notesBody($("#notesBox"));
@@ -612,7 +662,7 @@
     c.innerHTML = '<span class="sk-big" aria-hidden="true">🏆</span><p class="sk-sline">Wonderful!</p><p class="sk-ssub">Everyone, clap your hands! 👏👏👏</p><div class="sk-stars" aria-hidden="true">⭐⭐⭐</div>';
     $("#skCtl").innerHTML = (ST.rec ? '<button class="sk-sbtn go" type="button" data-sk="st-play" id="skPlay" hidden>▶ Hear my voice</button>' : "") +
       '<button class="sk-sbtn" type="button" data-sk="st-again">↺ Again</button><button class="sk-sbtn" type="button" data-sk="st-close">✕ Close</button>';
-    applause(); confetti(); setTimeout(function () { if (ST && !REC.audio) speak("Wonderful! Great job!"); }, 900);
+    applause(); confetti(); markStep("talk"); setTimeout(function () { if (ST && !REC.audio) speak("Wonderful! Great job!"); }, 900);
   }
   function closeStage() {
     playStop(); recStop(); if (REC.stream) { REC.stream.getTracks().forEach(function (t) { t.stop(); }); REC.stream = null; }
@@ -668,6 +718,7 @@
     others.forEach(function (x) { if (picked.length < n - 1 && !seen[x[key]]) { seen[x[key]] = 1; picked.push(x); } });
     return shuffle(picked.concat([item]));
   }
+  var GI = { listen: "Listen and tap the picture!", look: "Look and choose the word!", fill: "Choose the missing word!", memory: "Find the pairs!", say: "Look and say the word!" };
   function gameStart(type, wb) {
     var r = cur.r; if (!r) return;
     if (wb && !GP) return;
@@ -675,10 +726,12 @@
     if (type === "fill") pool = pool.filter(function (x) { return x.ex; });
     G = { type: type, wb: !!wb, pool: pool, list: (wb ? learnedFirst(pool) : shuffle(pool)).slice(0, Math.min(8, pool.length)), i: 0, score: 0, miss: false };
     $$((wb ? ".wb-gtabs" : ".sk-gtabs:not(.wb-gtabs)") + " .chip").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-gt") === type ? "true" : "false"); });
+    speak(GI[type] || "Let's play!");
     if (type === "memory") return memStart();
     gameShow();
   }
-  function gTop() { return '<div class="sk-gtop"><span>' + (G.i + 1) + " / " + G.list.length + "</span><span>⭐ " + G.score + "</span></div>"; }
+  /* tiến độ bằng chấm tròn (bé chưa đọc số), sao là số câu đúng ngay */
+  function gTop() { return '<div class="sk-gtop"><span class="sk-prog" aria-label="' + (G.i + 1) + " / " + G.list.length + '">' + G.list.map(function (_, i) { return '<i class="' + (i < G.i ? "d" : i === G.i ? "c" : "") + '"></i>'; }).join("") + "</span><span>" + (G.score ? "⭐".repeat(G.score) : "") + "</span></div>"; }
   function gameShow() {
     var box = gbox(); if (!box || !G) return;
     if (G.i >= G.list.length) return gameEnd();
@@ -686,7 +739,7 @@
     if (G.type === "listen") {
       box.innerHTML = gTop() + '<div class="sk-gq"><button class="sk-sbtn go" type="button" data-g="hear">🔊 Listen</button></div><div class="sk-opts pics">' +
         options(it, 4, "ic").map(function (o) { return '<button class="sk-opt" type="button" data-g="ans" data-w="' + esc(o.w) + '" aria-label="picture">' + icon(o.ic) + "</button>"; }).join("") + "</div>";
-      setTimeout(function () { speak(it.w, { rate: 0.8 }); }, 300);
+      setTimeout(function () { speak(it.w, { rate: 0.8, queue: true }); }, 300);
     } else if (G.type === "look") {
       box.innerHTML = gTop() + '<div class="sk-gq"><span class="sk-gpic" aria-hidden="true">' + icon(it.ic) + '</span><span class="muted">What is it?</span></div><div class="sk-opts words">' +
         options(it, 4, "w").map(function (o) { return '<button class="sk-opt" type="button" data-g="ans" data-w="' + esc(o.w) + '">' + esc(o.w) + "</button>"; }).join("") + "</div>";
@@ -752,9 +805,9 @@
     var n = G.type === "memory" ? G.pairs * 2 : G.list.length, ratio = Math.min(1, G.score / Math.max(1, n));
     var stars = ratio >= 0.9 ? "⭐⭐⭐" : ratio >= 0.6 ? "⭐⭐" : "⭐";
     gbox().innerHTML = '<div class="sk-gend"><div class="sk-stars">' + stars + "</div><p class=\"sk-sline\">" + (ratio >= 0.6 ? "Great job!" : "Good try!") + "</p>" +
-      (G.type === "memory" ? '<p class="muted">' + G.moves + " moves</p>" : '<p class="muted">' + G.score + " / " + n + "</p>") +
+      (G.type === "memory" ? '<p class="muted">' + G.moves + " moves</p>" : "") +
       '<button class="btn primary" type="button" data-g="start"' + (G.wb ? ' data-wbp="1"' : "") + ' data-gt="' + G.type + '">↺ Play again</button></div>';
-    speak(ratio >= 0.6 ? "Great job!" : "Good try!"); if (ratio >= 0.9) confetti();
+    speak(ratio >= 0.6 ? "Great job!" : "Good try!"); if (ratio >= 0.9) confetti(); if (!G.wb) markStep("games");
   }
   document.addEventListener("click", function (e) {
     var card = e.target.closest("[data-card]");
@@ -778,6 +831,9 @@
 
   /* ---------- sự kiện ---------- */
   document.addEventListener("click", function (e) {
+    var sg = e.target.closest("[data-step-go]");
+    if (sg) { var from = sg.getAttribute("data-from"); if (from) markStep(from); showStep(sg.getAttribute("data-step-go"), true); return; }
+    var nx = e.target.closest("a.go-next[data-from]"); if (nx) markStep(nx.getAttribute("data-from"));
     var b = e.target.closest("[data-sk]");
     var sayB = e.target.closest("[data-say]");
     if (sayB && !b) { speak(sayB.getAttribute("data-say")); sayB.classList.add("on"); setTimeout(function () { sayB.classList.remove("on"); }, 900); return; }

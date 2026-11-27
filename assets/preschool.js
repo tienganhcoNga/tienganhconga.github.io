@@ -167,7 +167,7 @@
     var b = $('.stp[data-step-go="' + key + '"]'); if (b) b.classList.add("done");
   }
   function stepHead(st, extra) {
-    return '<div class="b-head step-head"><h3><span class="st-ic" aria-hidden="true">' + st[1] + "</span> " + st[2] + vi(st[4], true) + "</h3>" + sayBtn(st[3], st[3]) +
+    return '<div class="b-head step-head"><h3><span class="st-ic" aria-hidden="true">' + st[1] + "</span> " + st[2] + "</h3>" + sayBtn(st[3], st[3]) +
       '<span class="st-say">' + esc(st[3]) + "</span>" + (extra || "") + "</div>";
   }
   function stepNext(u, k) {

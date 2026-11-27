@@ -372,3 +372,4 @@ body.in-unit .nav{margin-top:12px}
 .sp-mode .e{font-size:2.4rem}
 @media (max-width:560px){ .stp{width:62px;padding:6px 2px;border-radius:16px} .stp .e{font-size:1.7rem} .stp b{font-size:.78rem} .stp-line{min-width:6px} .go-next{font-size:1.5rem;padding:10px 30px} }
 @media (prefers-reduced-motion: reduce){ .go-next{animation:none} .stp[aria-current="true"]{transform:none} }
+.stp .vi-t{white-space:nowrap;font-size:.68rem}
